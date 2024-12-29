@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formularz Badania Psychiatrycznego</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.5;
+            margin: 20px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        section {
+            margin-bottom: 20px;
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .subsection {
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+        .element {
+            margin-left: 40px;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 5px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 100%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        .buttons {
+            margin-top: 20px;
+        }
+        .note {
+            margin-top: 10px;
+            display: none;
+        }
+        button.toggle-note {
+            margin-left: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        button.toggle-note:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Formularz Badania Psychiatrycznego</h1>
+
+    <section id="section-habits">
+        <h2>Nawyki Nieprawidłowe</h2>
+
+        <div class="subsection">
+            <h3>Pierwszy Stopień</h3>
+            <div class="element">
+                <label>
+                    <input type="checkbox"> Element 1
+                    <span class="tooltip">&#9733;
+                        <span class="tooltiptext">Podpowiedź dla Elementu 1</span>
+                    </span>
+                </label>
+                <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
+                <textarea class="note" placeholder="Notatki..."></textarea>
+            </div>
+            <div class="element">
+                <label>
+                    <input type="checkbox"> Element 2
+                    <span class="tooltip">&#9733;
+                        <span class="tooltiptext">Podpowiedź dla Elementu 2</span>
+                    </span>
+                </label>
+                <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
+                <textarea class="note" placeholder="Notatki..."></textarea>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3>Drugi Stopień</h3>
+            <div class="element">
+                <label>
+                    <input type="checkbox"> Element 3
+                    <span class="tooltip">&#9733;
+                        <span class="tooltiptext">Podpowiedź dla Elementu 3</span>
+                    </span>
+                </label>
+                <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
+                <textarea class="note" placeholder="Notatki..."></textarea>
+            </div>
+        </div>
+    </section>
+
+    <div class="buttons">
+        <button onclick="saveAsHTML()">Zapisz jako HTML</button>
+        <button onclick="clearForm()">Wyczyść formularz</button>
+    </div>
+
+    <script>
+        function saveAsHTML() {
+            const patientName = prompt("Podaj nazwisko pacjenta:");
+            const currentDate = new Date().toISOString().slice(0, 10);
+            const fileName = `${currentDate}_${patientName}.html`;
+
+            const blob = new Blob([document.documentElement.outerHTML], { type: 'text/html' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = fileName;
+            link.click();
+        }
+
+        function clearForm() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(checkbox => checkbox.checked = false);
+
+            const textareas = document.querySelectorAll('textarea');
+            textareas.forEach(textarea => textarea.value = '');
+
+            const notes = document.querySelectorAll('.note');
+            notes.forEach(note => note.style.display = 'none');
+
+            const buttons = document.querySelectorAll('button.toggle-note');
+            buttons.forEach(button => button.innerHTML = '&#x25BC;');
+        }
+
+        function toggleNote(button) {
+            const textarea = button.nextElementSibling;
+            if (textarea.style.display === 'block') {
+                textarea.style.display = 'none';
+                button.innerHTML = '&#x25BC;';
+            } else {
+                textarea.style.display = 'block';
+                button.innerHTML = '&#x25B2;';
+            }
+        }
+    </script>
+</body>
+</html>
