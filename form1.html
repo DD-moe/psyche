@@ -76,21 +76,40 @@
         button.toggle-note:hover {
             background-color: #0056b3;
         }
+
+        @media print {
+    section {
+        page-break-before: always;
+    }
+
+    .note {
+        display: block;
+        width: 100%;
+    }
+
+    body {
+        margin: 0;
+    }
+
+    .tooltip {
+        display: none;
+    }
+}
     </style>
 </head>
 <body>
     <h1>Formularz Badania Psychiatrycznego</h1>
 
-    <section id="section-habits">
-        <h2>Nawyki Nieprawidłowe</h2>
-
+    <section id="section-orientation">
+        <h2>Orientacja Auto</h2>
+    
         <div class="subsection">
-            <h3>Pierwszy Stopień</h3>
+            <h3>Dane Personalne</h3>
             <div class="element">
                 <label>
-                    <input type="checkbox"> Element 1
+                    <input type="checkbox"> Imię i Nazwisko
                     <span class="tooltip">&#9733;
-                        <span class="tooltiptext">Podpowiedź dla Elementu 1</span>
+                        <span class="tooltiptext">Podaj pełne dane personalne</span>
                     </span>
                 </label>
                 <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
@@ -98,23 +117,67 @@
             </div>
             <div class="element">
                 <label>
-                    <input type="checkbox"> Element 2
+                    <input type="checkbox"> Wiek
                     <span class="tooltip">&#9733;
-                        <span class="tooltiptext">Podpowiedź dla Elementu 2</span>
+                        <span class="tooltiptext">Podaj aktualny wiek pacjenta</span>
+                    </span>
+                </label>
+                <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
+                <textarea class="note" placeholder="Notatki..."></textarea>
+            </div>
+            <div class="element">
+                <label>
+                    <input type="checkbox"> Data Urodzenia
+                    <span class="tooltip">&#9733;
+                        <span class="tooltiptext">Podaj datę urodzenia</span>
                     </span>
                 </label>
                 <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
                 <textarea class="note" placeholder="Notatki..."></textarea>
             </div>
         </div>
-
+    
         <div class="subsection">
-            <h3>Drugi Stopień</h3>
+            <h3>Adres Zamieszkania</h3>
             <div class="element">
                 <label>
-                    <input type="checkbox"> Element 3
+                    <input type="checkbox"> Adres
                     <span class="tooltip">&#9733;
-                        <span class="tooltiptext">Podpowiedź dla Elementu 3</span>
+                        <span class="tooltiptext">Podaj aktualny adres zamieszkania</span>
+                    </span>
+                </label>
+                <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
+                <textarea class="note" placeholder="Notatki..."></textarea>
+            </div>
+            <div class="element">
+                <label>
+                    <input type="checkbox"> Stan Cywilny
+                    <span class="tooltip">&#9733;
+                        <span class="tooltiptext">Podaj stan cywilny pacjenta</span>
+                    </span>
+                </label>
+                <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
+                <textarea class="note" placeholder="Notatki..."></textarea>
+            </div>
+        </div>
+    
+        <div class="subsection">
+            <h3>Allopsychiczna</h3>
+            <div class="element">
+                <label>
+                    <input type="checkbox"> Aktualna Data
+                    <span class="tooltip">&#9733;
+                        <span class="tooltiptext">Podaj bieżącą datę</span>
+                    </span>
+                </label>
+                <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
+                <textarea class="note" placeholder="Notatki..."></textarea>
+            </div>
+            <div class="element">
+                <label>
+                    <input type="checkbox"> Miejsce Przebywania
+                    <span class="tooltip">&#9733;
+                        <span class="tooltiptext">Gdzie aktualnie znajduje się pacjent?</span>
                     </span>
                 </label>
                 <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
@@ -123,7 +186,689 @@
         </div>
     </section>
 
-    <div class="buttons">
+   
+    
+    <section id="section-hospitalization-reason">
+        <h2>Przyczyna Aktualnej Hospitalizacji</h2>
+    
+        <div class="element">
+            <label>
+                <input type="checkbox" name="knows-reason" value="yes"> Zna przyczynę
+                <span class="tooltip">&#9733;
+                    <span class="tooltiptext">Pacjent wie, dlaczego został hospitalizowany</span>
+                </span>
+            </label>
+            <label>
+                <input type="checkbox" name="knows-reason" value="no"> Nie zna przyczyny
+                <span class="tooltip">&#9733;
+                    <span class="tooltiptext">Pacjent nie wie, dlaczego został hospitalizowany</span>
+                </span>
+            </label>
+            <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
+            <textarea class="note" placeholder="Notatki..."></textarea>
+        </div>
+    </section>
+    
+    <section id="section-previous-hospitalizations">
+        <h2>Poprzednie Hospitalizacje</h2>
+    
+        <div class="element">
+            <label>
+                <input type="checkbox" name="is-first-hospitalization" value="yes"> Pierwsza hospitalizacja
+                <span class="tooltip">&#9733;
+                    <span class="tooltiptext">Pacjent przebywa w szpitalu po raz pierwszy</span>
+                </span>
+            </label>
+            <label>
+                <input type="checkbox" name="is-first-hospitalization" value="no"> Nie pierwsza hospitalizacja
+                <span class="tooltip">&#9733;
+                    <span class="tooltiptext">Pacjent był hospitalizowany wcześniej</span>
+                </span>
+            </label>
+            <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
+            <textarea class="note" placeholder="Miejsca poprzednich hospitalizacji..."></textarea>
+        </div>
+    </section>
+    
+<section id="section-ambulatory-treatment">
+    <h2>Leczenie ambulatoryjne:</h2>    
+    <div class="element">
+        <label>
+            <input type="checkbox" name="post-discharge-activity" value="active"> Aktywność po ostatnim wypisie
+            <span class="tooltip">&#9733;
+                <span class="tooltiptext">Pacjent pozostaje aktywny po ostatnim wypisie</span>
+            </span>
+        </label>
+        <label>
+            <input type="checkbox" name="post-discharge-activity" value="inactive"> Brak aktywności po ostatnim wypisie
+            <span class="tooltip">&#9733;
+                <span class="tooltiptext">Pacjent nie był aktywny po ostatnim wypisie</span>
+            </span>
+        </label>
+        <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
+        <textarea class="note" placeholder="Aktywność po ostatnim wyjściu..."></textarea>
+    </div>
+    
+    <div class="element">
+        <label>
+            <input type="checkbox" name="medication-regularity" value="yes"> Regularnie zażywa leki
+            <span class="tooltip">&#9733;
+                <span class="tooltiptext">Pacjent regularnie zażywa przepisane leki</span>
+            </span>
+        </label>
+        <label>
+            <input type="checkbox" name="medication-regularity" value="no"> Nie zażywa regularnie leków
+            <span class="tooltip">&#9733;
+                <span class="tooltiptext">Pacjent nie zażywa leków regularnie</span>
+            </span>
+        </label>
+        <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
+        <textarea class="note" placeholder="Informacje o przyjmowaniu leków..."></textarea>
+    </div>
+    
+    <div class="element">
+        <label>
+            <input type="checkbox" name="control-visits" value="regular"> Regularnie chodzi na kontrole
+            <span class="tooltip">&#9733;
+                <span class="tooltiptext">Pacjent regularnie uczęszcza na wizyty kontrolne</span>
+            </span>
+        </label>
+        <label>
+            <input type="checkbox" name="control-visits" value="irregular"> Nieregularnie chodzi na kontrole
+            <span class="tooltip">&#9733;
+                <span class="tooltiptext">Pacjent nieregularnie uczęszcza na wizyty kontrolne</span>
+            </span>
+        </label>
+        <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
+        <textarea class="note" placeholder="Ostatnia wizyta kontrolna..."></textarea>
+    </div>
+    
+    <div class="element">
+        <label>
+            Lekarz prowadzący:
+            <input type="text" name="leading-doctor" placeholder="Wpisz imię i nazwisko lekarza prowadzącego">
+        </label>
+    </div>
+    
+    <div class="element">
+        <label>
+            Ostatnia wizyta kontrolna:
+            <input type="date" name="last-control-visit">
+        </label>
+    </div>
+    
+    <div class="element">
+        <label>
+            Jak się wtedy czuł:
+        </label>
+        <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
+        <textarea class="note" placeholder="Opis samopoczucia podczas ostatniej wizyty"></textarea>
+    </div>
+</section>
+
+
+<section id="section-life-situation">
+    <h2>Aktualna Sytuacja Życiowa</h2>
+
+    <div class="subsection">
+        <h3>Własne Mieszkanie</h3>
+        <div class="element">
+            <label>
+                <input type="checkbox"> Własne Mieszkanie
+                <span class="tooltip">&#9733;
+                    <span class="tooltiptext">Podaj, czy posiadasz własne mieszkanie</span>
+                </span>
+            </label>
+            <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
+            <textarea class="note" placeholder="Notatki..."></textarea>
+        </div>
+    </div>
+
+    <div class="subsection">
+        <h3>Praca</h3>
+        <div class="element">
+            <label>
+                <input type="checkbox"> Praca
+                <span class="tooltip">&#9733;
+                    <span class="tooltiptext">Podaj, czy jesteś aktywny zawodowo</span>
+                </span>
+            </label>
+            <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
+            <textarea class="note" placeholder="Notatki..."></textarea>
+        </div>
+    </div>
+
+    <div class="subsection">
+        <h3>Związek/Relacja</h3>
+        <div class="element">
+            <label>
+                <input type="checkbox"> W związku/Relacji
+                <span class="tooltip">&#9733;
+                    <span class="tooltiptext">Podaj status związku</span>
+                </span>
+            </label>
+            <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
+            <textarea class="note" placeholder="Notatki..."></textarea>
+        </div>
+    </div>
+
+    <div class="subsection">
+        <h3>Dzieci</h3>
+        <div class="element">
+            <label>
+                <input type="checkbox"> Dzieci
+                <span class="tooltip">&#9733;
+                    <span class="tooltiptext">Podaj liczbę dzieci</span>
+                </span>
+            </label>
+            <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
+            <textarea class="note" placeholder="Notatki..."></textarea>
+        </div>
+    </div>
+</section>
+
+<section id="section-childhood">
+    <h2>Dzieciństwo</h2>
+
+    <div class="subsection">
+        <h3>Rodzice</h3>
+        <div class="element">
+            <label>
+                <input type="checkbox"> Ojciec
+                <span class="tooltip">&#9733;
+                    <span class="tooltiptext">Podaj szczegóły dotyczące ojca</span>
+                </span>
+            </label>
+            <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
+            <textarea class="note" placeholder="Notatki..."></textarea>
+        </div>
+        <div class="element">
+            <label>
+                <input type="checkbox"> Matka
+                <span class="tooltip">&#9733;
+                    <span class="tooltiptext">Podaj szczegóły dotyczące matki</span>
+                </span>
+            </label>
+            <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
+            <textarea class="note" placeholder="Notatki..."></textarea>
+        </div>
+    </div>
+
+    <div class="subsection">
+        <h3>Rodzeństwo</h3>
+        <div class="element">
+            <label>
+                <input type="checkbox"> Rodzeństwo
+                <span class="tooltip">&#9733;
+                    <span class="tooltiptext">Podaj relacje z rodzeństwem</span>
+                </span>
+            </label>
+            <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
+            <textarea class="note" placeholder="Notatki..."></textarea>
+        </div>
+    </div>
+
+    <div class="subsection">
+        <h3>Trudne Doświadczenia</h3>
+        <div class="element">
+            <label>
+                <input type="checkbox"> Alkoholizm
+                <span class="tooltip">&#9733;
+                    <span class="tooltiptext">Czy występował alkoholizm w rodzinie?</span>
+                </span>
+            </label>
+            <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
+            <textarea class="note" placeholder="Notatki..."></textarea>
+        </div>
+        <div class="element">
+            <label>
+                <input type="checkbox"> Przemoc
+                <span class="tooltip">&#9733;
+                    <span class="tooltiptext">Czy występowała przemoc w rodzinie?</span>
+                </span>
+            </label>
+            <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
+            <textarea class="note" placeholder="Notatki..."></textarea>
+        </div>
+        <div class="element">
+            <label>
+                <input type="checkbox"> Inne tragiczne wydarzenia
+                <span class="tooltip">&#9733;
+                    <span class="tooltiptext">Podaj inne trudne wydarzenia w rodzinie</span>
+                </span>
+            </label>
+            <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
+            <textarea class="note" placeholder="Notatki..."></textarea>
+        </div>
+    </div>
+</section>
+
+<section id="section-society-life">
+    <h2>Życie w Społeczeństwie</h2>
+
+    <div class="subsection">
+        <h3>Edukacja</h3>
+        <div class="element">
+            <label>
+                <input type="checkbox"> Obecne Wykształcenie
+                <span class="tooltip">&#9733;
+                    <span class="tooltiptext">Podaj obecny poziom wykształcenia</span>
+                </span>
+            </label>
+            <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
+            <textarea class="note" placeholder="Notatki..."></textarea>
+        </div>
+        <div class="element">
+            <label>
+                <input type="checkbox"> Ukończona Szkoła
+                <span class="tooltip">&#9733;
+                    <span class="tooltiptext">Podaj szkołę, którą ukończono</span>
+                </span>
+            </label>
+            <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
+            <textarea class="note" placeholder="Notatki..."></textarea>
+        </div>
+        <div class="element">
+            <label>
+                <input type="checkbox"> Problemy z Nauką
+                <span class="tooltip">&#9733;
+                    <span class="tooltiptext">Podaj trudności związane z nauką</span>
+                </span>
+            </label>
+            <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
+            <textarea class="note" placeholder="Notatki..."></textarea>
+        </div>
+        <div class="element">
+            <label>
+                <input type="checkbox"> Relacje z Rówieśnikami
+                <span class="tooltip">&#9733;
+                    <span class="tooltiptext">Jak wyglądają relacje z rówieśnikami?</span>
+                </span>
+            </label>
+            <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
+            <textarea class="note" placeholder="Notatki..."></textarea>
+        </div>
+    </div>
+
+    <div class="subsection">
+        <h3>Praca</h3>
+        <div class="element">
+            <label>
+                <input type="checkbox"> Aktualna Praca
+                <span class="tooltip">&#9733;
+                    <span class="tooltiptext">Podaj szczegóły dotyczące obecnej pracy</span>
+                </span>
+            </label>
+            <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
+            <textarea class="note" placeholder="Notatki..."></textarea>
+        </div>
+        <div class="element">
+            <label>
+                <input type="checkbox"> Warunki w Pracy
+                <span class="tooltip">&#9733;
+                    <span class="tooltiptext">Opis warunków pracy</span>
+                </span>
+            </label>
+            <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
+            <textarea class="note" placeholder="Notatki..."></textarea>
+        </div>
+    </div>
+</section>
+
+<section id="section-psychological-risk">
+    <h2>Czynniki Ryzyka Psychicznego</h2>
+
+    <div class="subsection">
+        <h3>Wydarzenia Traumatyczne</h3>
+        <div class="element">
+            <label>
+                <input type="checkbox"> Wydarzenia szczególnie traumatyczne
+                <span class="tooltip">&#9733;
+                    <span class="tooltiptext">Opisuj doświadczenia związane traumatyczne z przeszłości</span>
+                </span>
+            </label>
+            <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
+            <textarea class="note" placeholder="Notatki..."></textarea>
+        </div>
+    </div>
+
+    <div class="subsection">
+        <h3>Psychopatologie</h3>
+        <div class="element">
+            <label>
+                <input type="checkbox"> Omamy
+                <span class="tooltip">&#9733;
+                    <span class="tooltiptext">Opisuj doświadczenia związane z omamami</span>
+                </span>
+            </label>
+            <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
+            <textarea class="note" placeholder="Notatki..."></textarea>
+        </div>
+        <div class="element">
+            <label>
+                <input type="checkbox"> Urojenia
+                <span class="tooltip">&#9733;
+                    <span class="tooltiptext">Opisuj doświadczenia związane z urojeniami</span>
+                </span>
+            </label>
+            <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
+            <textarea class="note" placeholder="Notatki..."></textarea>
+        </div>
+        <div class="element">
+            <label>
+                <input type="checkbox"> Myśli Samobójcze
+                <span class="tooltip">&#9733;
+                    <span class="tooltiptext">Opisuj doświadczenia związane z myślami samobójczymi</span>
+                </span>
+            </label>
+            <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
+            <textarea class="note" placeholder="Notatki..."></textarea>
+        </div>
+        <div class="element">
+            <label>
+                <input type="checkbox"> Próby Samobójcze
+                <span class="tooltip">&#9733;
+                    <span class="tooltiptext">Opisuj doświadczenia związane z próbami samobójczymi</span>
+                </span>
+            </label>
+            <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
+            <textarea class="note" placeholder="Notatki..."></textarea>
+        </div>
+    </div>
+
+    <div class="subsection">
+        <h3>Konflikt z Prawem</h3>
+        <div class="element">
+            <label>
+                <input type="checkbox"> Konflikt z Prawem
+                <span class="tooltip">&#9733;
+                    <span class="tooltiptext">Opisuj doświadczenia związane z konfliktem z prawem</span>
+                </span>
+            </label>
+            <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
+            <textarea class="note" placeholder="Notatki..."></textarea>
+        </div>
+    </div>
+</section>
+
+<section id="section-health-interview">
+    <h2>Wywiad Ogólnochorobowy</h2>
+
+    <div class="subsection">
+        <h3>Układ Krążenia</h3>
+        <div class="element">
+            <label>
+                <input type="checkbox"> Objawy
+                <span class="tooltip">&#9733;
+                    <span class="tooltiptext">Czy występują objawy w układzie krążenia?</span>
+                </span>
+            </label>
+            <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
+            <textarea class="note" placeholder="Notatki..."></textarea>
+        </div>
+    </div>
+
+    <div class="subsection">
+        <h3>Układ Oddechowy</h3>
+        <div class="element">
+            <label>
+                <input type="checkbox"> Objawy
+                <span class="tooltip">&#9733;
+                    <span class="tooltiptext">Czy występują objawy w układzie oddechowym?</span>
+                </span>
+            </label>
+            <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
+            <textarea class="note" placeholder="Notatki..."></textarea>
+        </div>
+    </div>
+
+    <div class="subsection">
+        <h3>Układ Pokarmowy</h3>
+        <div class="element">
+            <label>
+                <input type="checkbox"> Objawy
+                <span class="tooltip">&#9733;
+                    <span class="tooltiptext">Czy występują objawy w układzie pokarmowym?</span>
+                </span>
+            </label>
+            <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
+            <textarea class="note" placeholder="Notatki..."></textarea>
+        </div>
+    </div>
+
+    <div class="subsection">
+        <h3>Układ Moczowo-Płciowy</h3>
+        <div class="element">
+            <label>
+                <input type="checkbox"> Objawy
+                <span class="tooltip">&#9733;
+                    <span class="tooltiptext">Czy występują objawy w układzie moczowo-płciowym?</span>
+                </span>
+            </label>
+            <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
+            <textarea class="note" placeholder="Notatki..."></textarea>
+        </div>
+    </div>
+
+    <div class="subsection">
+        <h3>Układ Motoryczny</h3>
+        <div class="element">
+            <label>
+                <input type="checkbox"> Objawy
+                <span class="tooltip">&#9733;
+                    <span class="tooltiptext">Czy występują objawy w układzie motorycznym?</span>
+                </span>
+            </label>
+            <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
+            <textarea class="note" placeholder="Notatki..."></textarea>
+        </div>
+    </div>
+
+    <div class="subsection">
+        <h3>Układ Nerwowy</h3>
+        <div class="element">
+            <label>
+                <input type="checkbox"> Objawy
+                <span class="tooltip">&#9733;
+                    <span class="tooltiptext">Czy występują objawy w układzie nerwowym?</span>
+                </span>
+            </label>
+            <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
+            <textarea class="note" placeholder="Notatki..."></textarea>
+        </div>
+    </div>
+
+    <div class="subsection">
+        <h3>Układ Wydzielniczy</h3>
+        <div class="element">
+            <label>
+                <input type="checkbox"> Objawy
+                <span class="tooltip">&#9733;
+                    <span class="tooltiptext">Czy występują objawy w układzie wydzielniczym?</span>
+                </span>
+            </label>
+            <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
+            <textarea class="note" placeholder="Notatki..."></textarea>
+        </div>
+    </div>
+
+    <div class="subsection">
+        <h3>Skóra i Przydatki</h3>
+        <div class="element">
+            <label>
+                <input type="checkbox"> Objawy
+                <span class="tooltip">&#9733;
+                    <span class="tooltiptext">Czy występują objawy na skórze i przydatkach?</span>
+                </span>
+            </label>
+            <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
+            <textarea class="note" placeholder="Notatki..."></textarea>
+        </div>
+    </div>
+
+    <div class="subsection">
+        <h3>Choroby Przewlekłe</h3>
+        <div class="element">
+            <label>
+                <input type="checkbox"> Lista
+                <span class="tooltip">&#9733;
+                    <span class="tooltiptext">Wymień przewlekłe choroby</span>
+                </span>
+            </label>
+            <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
+            <textarea class="note" placeholder="Notatki..."></textarea>
+        </div>
+    </div>
+
+    <div class="subsection">
+        <h3>Hospitalizacje i Operacje</h3>
+        <div class="element">
+            <label>
+                <input type="checkbox"> Informacje
+                <span class="tooltip">&#9733;
+                    <span class="tooltiptext">Podaj szczegóły dotyczące hospitalizacji i operacji</span>
+                </span>
+            </label>
+            <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
+            <textarea class="note" placeholder="Notatki..."></textarea>
+        </div>
+    </div>
+
+    <div class="subsection">
+        <h3>Leki na Stałe</h3>
+        <div class="element">
+            <label>
+                <input type="checkbox"> Lista
+                <span class="tooltip">&#9733;
+                    <span class="tooltiptext">Wymień stałe leki</span>
+                </span>
+            </label>
+            <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
+            <textarea class="note" placeholder="Notatki..."></textarea>
+        </div>
+    </div>
+
+    <div class="subsection">
+        <h3>Uczulenia</h3>
+        <div class="element">
+            <label>
+                <input type="checkbox"> Lista
+                <span class="tooltip">&#9733;
+                    <span class="tooltiptext">Wymień uczulenia</span>
+                </span>
+            </label>
+            <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
+            <textarea class="note" placeholder="Notatki..."></textarea>
+        </div>
+    </div>
+
+    <div class="subsection">
+        <h3>Uczulenia na Leki</h3>
+        <div class="element">
+            <label>
+                <input type="checkbox"> Lista
+                <span class="tooltip">&#9733;
+                    <span class="tooltiptext">Wymień uczulenia na leki</span>
+                </span>
+            </label>
+            <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
+            <textarea class="note" placeholder="Notatki..."></textarea>
+        </div>
+    </div>
+
+    <div class="subsection">
+        <h3>Używki</h3>
+        <div class="element">
+            <label>
+                <input type="checkbox"> Alkohol
+                <span class="tooltip">&#9733;
+                    <span class="tooltiptext">Podaj ilość spożywanego alkoholu</span>
+                </span>
+            </label>
+            <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
+            <textarea class="note" placeholder="Notatki..."></textarea>
+        </div>
+        <div class="element">
+            <label>
+                <input type="checkbox"> Papierosy
+                <span class="tooltip">&#9733;
+                    <span class="tooltiptext">Podaj ilość palonych papierosów</span>
+                </span>
+            </label>
+            <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
+            <textarea class="note" placeholder="Notatki..."></textarea>
+        </div>
+        <div class="element">
+            <label>
+                <input type="checkbox"> Narkotyki
+                <span class="tooltip">&#9733;
+                    <span class="tooltiptext">Podaj ilość używanych narkotyków</span>
+                </span>
+            </label>
+            <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
+            <textarea class="note" placeholder="Notatki..."></textarea>
+        </div>
+        <div class="element">
+            <label>
+                <input type="checkbox"> Inne
+                <span class="tooltip">&#9733;
+                    <span class="tooltiptext">Wymień inne używki</span>
+                </span>
+            </label>
+            <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
+            <textarea class="note" placeholder="Notatki..."></textarea>
+        </div>
+    </div>
+</section>
+
+<section id="section-trauma">
+    <h2>Urazowe Czynniki Psychodenne</h2>
+
+    <div class="subsection">
+        <h3>Urazy Głowy</h3>
+        <div class="element">
+            <label>
+                <input type="checkbox"> Czy były z utratą przytomności
+                <span class="tooltip">&#9733;
+                    <span class="tooltiptext">Podaj informacje o urazach głowy z utratą przytomności</span>
+                </span>
+            </label>
+            <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
+            <textarea class="note" placeholder="Notatki..."></textarea>
+        </div>
+    </div>
+
+    <div class="subsection">
+        <h3>Napady Padaczkowe</h3>
+        <div class="element">
+            <label>
+                <input type="checkbox"> Wystąpiły napady padaczkowe
+                <span class="tooltip">&#9733;
+                    <span class="tooltiptext">Podaj szczegóły dotyczące napadów padaczkowych</span>
+                </span>
+            </label>
+            <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
+            <textarea class="note" placeholder="Notatki..."></textarea>
+        </div>
+    </div>
+
+    <div class="subsection">
+        <h3>Choroby Psychiczne w Rodzinie</h3>
+        <div class="element">
+            <label>
+                <input type="checkbox"> Tak, w rodzinie występują choroby psychiczne
+                <span class="tooltip">&#9733;
+                    <span class="tooltiptext">Podaj szczegóły dotyczące chorób psychicznych w rodzinie</span>
+                </span>
+            </label>
+            <button class="toggle-note" onclick="toggleNote(this)">&#x25BC;</button>
+            <textarea class="note" placeholder="Notatki..."></textarea>
+        </div>
+    </div>
+</section>
+
+
+    <div>
         <button onclick="saveAsHTML()">Zapisz jako HTML</button>
         <button onclick="clearForm()">Wyczyść formularz</button>
     </div>
