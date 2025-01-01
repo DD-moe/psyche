@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editable Textarea and Div</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        textarea {
+            width: 90%;
+            height: 45vh;
+            resize: none;
+            margin-bottom: 20px;
+            padding: 10px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .scrollable-div {
+            width: 90%;
+            height: 45vh;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .editable pre{
+            background-color: #d3d9e7;
+        }
+
+        ol, ul {
+            cursor: pointer;
+            white-space: pre-wrap; /* Preserve spaces and newlines */
+        }
+
+        /* Styling for headings */
+        h1, h2, h3 {
+            cursor: pointer;
+            white-space: pre-wrap; /* Preserve spaces and newlines */
+        }
+
+        /* Styling for paragraphs */
+        p {
+            cursor: pointer;
+            white-space: pre-wrap; /* Preserve spaces and newlines */
+        }
+
+        pre{
+            white-space: pre-wrap; /* Enables word wrapping */
+            word-wrap: break-word; /* Breaks long words if necessary */
+            overflow-wrap: break-word; /* Ensures compatibility across browsers */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="scrollable-div" id="container">
+        <h1>Orientacja</h1>
+        <div class="editable">
+            <h2>auto psychiczna</h2>
+            <p>Imię i Nazwisko</p>
+            <p>Wiek</p>
+            <p>Data Urodzenia</p>
+            <hr><pre></pre>
+        </div>
+        <div class="editable">
+            <h2>allo psychiczna</h2>
+            <p>Adres Zamieszkania</p>
+            <p>Stan Cywilny</p>
+            <p>Aktualna Data</p>
+            <p>Miejsce Przebywania</p>
+            <hr><pre></pre>
+        </div>
+        <hr>
+    </div>
+
+    <textarea id="editor"></textarea>
+
+    <button id="saveButton">Zapisz formularz jako html</button>
+    <label for="fileInput">Wczytaj formularz</label>
+    <input type="file" id="fileInput" accept=".html">
+
+    <script>
+        const textarea = document.getElementById('editor');
+        const container = document.getElementById('container');
+        const saveButton = document.getElementById('saveButton');
+        const fileInput = document.getElementById('fileInput');
+
+        let selectedElement = null;
+
+        container.addEventListener('click', (event) => {
+            let target = event.target;
+
+            while (target && target !== container) {
+                if (target.classList.contains('editable') && target.querySelector('pre')) {
+                    selectedElement = target.querySelector('pre');
+                    textarea.value = selectedElement.textContent;
+                    return;
+                }
+                target = target.parentElement;
+            }
+        });
+
+
+
+        textarea.addEventListener('input', () => {
+            if (selectedElement) {
+                selectedElement.textContent = textarea.value;
+            }
+        });
+
+        saveButton.addEventListener('click', () => {
+            const htmlContent = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saved Website</title>
+    <style>${document.querySelector('style').textContent}</style>
+</head>
+<body>
+    <div class="scrollable-div" id="container">${container.innerHTML}</div>
+</body>
+</html>`;
+
+
+            let name = prompt("Give file name to save as:");
+            if (name){
+                if (name !== "") {
+                    name += '.'
+                }
+                const blob = new Blob([htmlContent], { type: 'text/html' });
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = `${name}form.html`;
+                a.click();
+            }
+        });
+
+        fileInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const tempDiv = document.createElement('div');
+                    tempDiv.innerHTML = e.target.result;
+                    const loadedContainer = tempDiv.querySelector('#container');
+
+                    if (loadedContainer) {
+                        container.innerHTML = loadedContainer.innerHTML;
+                    } else {
+                        alert('No valid container found in the loaded file.');
+                    }
+                };
+                reader.readAsText(file);
+            }
+        });
+    </script>
+</body>
+</html>
