@@ -5,86 +5,142 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editable Textarea and Div</title>
     <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        /* General reset and basic styling */
+        #viewport {
             margin: 0;
-            padding: 20px;
-            box-sizing: border-box;
+            padding: 0;
+            display: flex;
+            height: 100vh;
+            width: 100vw;
             font-family: Arial, sans-serif;
         }
 
-        textarea {
-            width: 90%;
-            height: 45vh;
-            resize: none;
-            margin-bottom: 20px;
-            padding: 10px;
-            font-size: 16px;
-            box-sizing: border-box;
+        /* Default styling for horizontal orientation */
+        .scrollable-div, textarea {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: black;
+            font-size: 1.5rem;
+            overflow: auto; /* Enables scrolling */
+            box-sizing: border-box; /* Ensures padding is included in width and height */
         }
 
         .scrollable-div {
-            width: 90%;
-            height: 45vh;
-            overflow-y: auto;
-            border: 1px solid #ccc;
-            padding: 10px;
-            box-sizing: border-box;
+            background-color: #9ae69c;
         }
 
-        .editable pre{
-            background-color: #d3d9e7;
+        textarea {
+            background-color: #9dcef7;
+        }
+
+        /* Vertical orientation styling */
+        @media (orientation: portrait) {
+            #viewport {
+                flex-direction: column;
+            }
+
+            .scrollable-div, textarea {
+                height: 50%;
+                width: 100%;
+            }
+        }
+
+        /* Horizontal orientation styling */
+        @media (orientation: landscape) {
+            #viewport {
+                flex-direction: row;
+            }
+
+            .scrollable-div, textarea {
+                width: 50%;
+                height: 100%;
+            }
+        }
+
+        /* Ensure scrollable content stays inside */
+        .scrollable-div {
+            overflow: auto; /* Adds scrolling to div */
+            display: block; /* Avoid elements getting pushed out */
+        }
+
+        .editable {
+            border: 0.05em solid gray;
+            margin-bottom: 0.2em;
+            margin-left: 0.2em;
+            margin-right: 0.2em;
+        }
+
+        .editable:hover{
+            background-color: #e9b8e6;
         }
 
         ol, ul {
             cursor: pointer;
             white-space: pre-wrap; /* Preserve spaces and newlines */
+            margin: 0; /* Avoid extra spacing */
+            padding: 0; /* Avoid extra spacing */
+            overflow-wrap: break-word; /* Ensures compatibility across browsers */
+            line-height: 1.0;
         }
 
         /* Styling for headings */
         h1, h2, h3 {
             cursor: pointer;
             white-space: pre-wrap; /* Preserve spaces and newlines */
+            line-height: 1.0;
+            margin: 0; /* Avoid extra spacing */
+            padding: 0; /* Avoid extra spacing */
         }
 
         /* Styling for paragraphs */
         p {
             cursor: pointer;
             white-space: pre-wrap; /* Preserve spaces and newlines */
+            line-height: 1.0;
+            margin: 0; /* Avoid extra spacing */
+            padding: 0; /* Avoid extra spacing */
         }
 
-        pre{
+        /* Preformatted text */
+        pre {
             white-space: pre-wrap; /* Enables word wrapping */
             word-wrap: break-word; /* Breaks long words if necessary */
             overflow-wrap: break-word; /* Ensures compatibility across browsers */
+            margin: 0; /* Prevents extra spacing */
+            padding: 0; /* Prevents extra spacing */
+            overflow: auto; /* Allows scrolling within pre tags */
+            line-height: 1.0;
+            background-color: #e9b8e6;
         }
+
     </style>
 </head>
 <body>
+    <div id="viewport">
+        <div class="scrollable-div" id="container">
+            <h1>Orientacja</h1>
+            <div class="editable">
+                <h2>auto psychiczna</h2>
+                <p>Imię i Nazwisko</p>
+                <p>Wiek</p>
+                <p>Data Urodzenia</p>
+                <hr><pre></pre>
+            </div>
+            <div class="editable">
+                <h2>allo psychiczna</h2>
+                <p>Adres Zamieszkania</p>
+                <p>Stan Cywilny</p>
+                <p>Aktualna Data</p>
+                <p>Miejsce Przebywania</p>
+                <hr><pre></pre>
+            </div>
+            <hr>
+        </div>
 
-    <div class="scrollable-div" id="container">
-        <h1>Orientacja</h1>
-        <div class="editable">
-            <h2>auto psychiczna</h2>
-            <p>Imię i Nazwisko</p>
-            <p>Wiek</p>
-            <p>Data Urodzenia</p>
-            <hr><pre></pre>
-        </div>
-        <div class="editable">
-            <h2>allo psychiczna</h2>
-            <p>Adres Zamieszkania</p>
-            <p>Stan Cywilny</p>
-            <p>Aktualna Data</p>
-            <p>Miejsce Przebywania</p>
-            <hr><pre></pre>
-        </div>
-        <hr>
+        <textarea id="editor"></textarea>
     </div>
-
-    <textarea id="editor"></textarea>
 
     <button id="saveButton">Zapisz formularz jako html</button>
     <label for="fileInput">Wczytaj formularz</label>
@@ -97,12 +153,18 @@
         const fileInput = document.getElementById('fileInput');
 
         let selectedElement = null;
+        let selectedGroup = null;
 
         container.addEventListener('click', (event) => {
             let target = event.target;
 
             while (target && target !== container) {
                 if (target.classList.contains('editable') && target.querySelector('pre')) {
+                    if (selectedGroup) {
+                        selectedGroup.style.backgroundColor = "#9ae69c";
+                    }
+                    selectedGroup = target;
+                    selectedGroup.style.backgroundColor = "#f3d8f1";
                     selectedElement = target.querySelector('pre');
                     textarea.value = selectedElement.textContent;
                     return;
@@ -166,6 +228,23 @@
                 reader.readAsText(file);
             }
         });
+
+        let previousScroll = scrollableDiv.scrollTop;
+
+        textarea.addEventListener('focus', () => {
+        // Save the current scroll position before focusing
+        previousScroll = container.scrollTop;
+
+        // Restore the previous scroll position after a delay
+        setTimeout(() => {
+            container.scrollTop = previousScroll;
+        }, 300); // Adjust delay for keyboard appearance
+        });
+
+        textarea.addEventListener('blur', () => {
+        // Update the saved scroll position on blur
+        previousScroll = container.scrollTop;
+        });    
     </script>
 </body>
 </html>
