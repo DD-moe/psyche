@@ -235,18 +235,20 @@
 
         let previousScroll = container.scrollTop;
 
-        textarea.addEventListener('focus', () => {
-            textarea.focus({ preventScroll: true }); // Set focus without scrolling
-            // Save the current scroll position of the container
-            const previousScroll = container.scrollTop;
+        function handleFocusOrClick() {
+            textarea.focus({ preventScroll: true }); // Prevent default scrolling behavior
 
-            // Update the viewport height and restore the scroll position after a delay
+            const previousScroll = container.scrollTop; // Save the current scroll position
+            container.scrollIntoView({ behavior: 'smooth', block: 'start' }); // Ensure the container is visible
             setTimeout(() => {
-                updateViewportHeight(); // Recalculate the viewport height
+                updateViewportHeight(); // Update the viewport height for keyboard adjustments
                 container.scrollTop = previousScroll; // Restore the container's scroll position
-                container.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 300); // Adjust delay based on keyboard animation duration
-        });
+            }, 300); // Adjust delay for keyboard animation
+        }
+
+        // Attach both focus and click events
+        textarea.addEventListener('focus', handleFocusOrClick);
+        textarea.addEventListener('click', handleFocusOrClick);
 
 
         textarea.addEventListener('blur', () => {
