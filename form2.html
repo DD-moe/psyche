@@ -234,21 +234,26 @@
         });
 
         let previousScroll = container.scrollTop;
+        let previousCoursorFocus = true;
 
         function handleFocusOrClick() {
             textarea.focus({ preventScroll: true }); // Prevent default scrolling behavior
-
+            container.focus({ preventScroll: true }); // Prevent default scrolling behavior
+            if (previousCoursorFocus) {
+                container.scrollIntoView({ behavior: 'smooth', block: 'start' }); // Ensure the container is visible
+            } else {
+                textarea.scrollIntoView({ behavior: 'smooth', block: 'start' }); // Ensure the container is visible
+            }
+            previousCoursorFocus = !previousCoursorFocus;
             const previousScroll = container.scrollTop; // Save the current scroll position
-            container.scrollIntoView({ behavior: 'smooth', block: 'start' }); // Ensure the container is visible
             setTimeout(() => {
                 updateViewportHeight(); // Update the viewport height for keyboard adjustments
                 container.scrollTop = previousScroll; // Restore the container's scroll position
             }, 300); // Adjust delay for keyboard animation
         }
 
-        // Attach both focus and click events
-        //textarea.addEventListener('focus', handleFocusOrClick);
-        textarea.addEventListener('click', handleFocusOrClick);
+        // Attach click event
+        container.addEventListener('click', handleFocusOrClick);
 
 
         textarea.addEventListener('blur', () => {
