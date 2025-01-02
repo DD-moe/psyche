@@ -127,17 +127,46 @@
             .scrollable-div {
                 height: 100%;
                 width: 99%;
+                background-color: white;
             }
         }
 
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            margin: 0;
+        }
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 80%;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 5px;
+            white-space: pre-wrap; /* Preserve spaces and newlines */
+            line-height: 1.0;
+            margin: 0; /* Avoid extra spacing */
+            padding: 0; /* Avoid extra spacing */
+            position: fixed;
+            z-index: 1;
+            left: 10%;
+            margin: 0;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }        
     </style>
 </head>
 <body>
     <div id="viewport">
         <div class="scrollable-div" id="container">
-            <h1>Orientacja</h1>
+            <h1>Orientacja:</h1>
             <div class="editable">
-                <h2>auto psychiczna</h2>
+                <h2>auto psychiczna<span class="tooltip">&#9733;<span class="tooltiptext">Podaj najlepiej pełne dane personalne</span></span></h2>
                 <p>Imię i Nazwisko</p>
                 <p>Wiek</p>
                 <p>Data Urodzenia</p>
@@ -147,7 +176,7 @@
                 <h2>allo psychiczna</h2>
                 <p>Adres Zamieszkania</p>
                 <p>Stan Cywilny</p>
-                <p>Aktualna Data</p>
+                <p>Aktualna Data<span class="tooltip">&#9733;<span class="tooltiptext">Lub orientacyjnie, dzień, dzień tygodnia, miesiąc, pora roku</span></span></p>
                 <p>Miejsce Przebywania</p>
                 <hr><pre></pre>
             </div>
