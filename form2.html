@@ -21,14 +21,13 @@
 
         /* Default styling for horizontal orientation */
         .scrollable-div, textarea {
-            flex: 1;
-            display: flex;
+            display: box;
+            box-sizing: border-box; /* Ensures padding is included in width and height */
             justify-content: center;
             align-items: center;
             color: black;
             font-size: 1.5rem;
             overflow: auto; /* Enables scrolling */
-            box-sizing: border-box; /* Ensures padding is included in width and height */
         }
 
         .scrollable-div {
@@ -46,11 +45,11 @@
             }
 
             .scrollable-div {
-                height: 70%;
+                height: 60%;
                 width: 100%;
             }
             textarea {
-                height: 30%;
+                height: 40%;
                 width: 100%;
             }
         }
@@ -237,7 +236,7 @@
             }
         });
 
-        let previousScroll = container.scrollTop;
+
         let previousCoursorFocus = true;
 
         function handleFocusOrClick() {
@@ -249,11 +248,7 @@
                 textarea.scrollIntoView({ behavior: 'smooth', block: 'start' }); // Ensure the container is visible
             }
             previousCoursorFocus = !previousCoursorFocus;
-            const previousScroll = container.scrollTop; // Save the current scroll position
-            setTimeout(() => {
-                updateViewportHeight(); // Update the viewport height for keyboard adjustments
-                container.scrollTop = previousScroll; // Restore the container's scroll position
-            }, 300); // Adjust delay for keyboard animation
+
         }
 
         // Attach click event
@@ -265,17 +260,6 @@
         previousScroll = container.scrollTop;
         });    
 
-        function updateViewportHeight() {
-            const vh = window.innerHeight; // 1% of the viewport height
-            var r = document.querySelector(':root');
-            r.style.setProperty('--viewport-height', `${vh}px`);
-            //var rs = getComputedStyle(r);
-            //console.log("The value of --blue is: " + rs.getPropertyValue('--viewport-height'));
-        }
-
-        // Update on load and resize
-        window.addEventListener('load', updateViewportHeight);
-        window.addEventListener('resize', updateViewportHeight);        
     </script>
 </body>
 </html>
