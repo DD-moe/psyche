@@ -244,7 +244,7 @@
             setTimeout(() => {
                 updateViewportHeight(); // Recalculate the viewport height
                 container.scrollTop = previousScroll; // Restore the container's scroll position
-                window.scrollTo(0, 0); // Ensure the body is scrolled to the top
+                container.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }, 300); // Adjust delay based on keyboard animation duration
         });
 
