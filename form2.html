@@ -159,6 +159,34 @@
             visibility: visible;
             opacity: 1;
         }        
+
+        #steering {
+            display: flex; /* Enables Flexbox */
+            flex-direction: row; /* Default direction: items align horizontally */
+            justify-content: space-between; /* Distribute items with equal space between them */
+            align-items: center; /* Align items vertically to the center */
+            gap: 1rem; /* Adds spacing between items */
+            padding: 1rem; /* Inner spacing */
+            background-color: #f0f0f0; /* Light gray background */
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+            }
+
+            #steering > * {
+            flex: 1; /* Each child takes equal width (adjust as needed) */
+            text-align: center; /* Centers text inside each child */
+            padding: 0.5rem; /* Inner spacing for children */
+            background-color: #ffffff; /* White background for children */
+            border: 1px solid #ddd; /* Light border for separation */
+            border-radius: 4px; /* Rounded corners for children */
+            transition: transform 0.3s ease, background-color 0.3s ease; /* Smooth animations */
+            }
+
+            #steering > *:hover {
+            background-color: #e0e0e0; /* Slightly darker background on hover */
+            transform: scale(1.05); /* Subtle zoom effect */
+        }
+
     </style>
 </head>
 <body>
@@ -185,11 +213,14 @@
 
         <textarea id="editor"></textarea>
     </div>
-
-    <button id="saveButton">Zapisz formularz jako html</button>
-    <label for="fileInput">Wczytaj formularz</label>
-    <input type="file" id="fileInput" accept=".html">
-
+    <div id="steering">
+        <button id="saveButton">Zapisz formularz jako html</button>
+        <div>
+            <label for="fileInput">Wczytaj formularz</label>
+            <input type="file" id="fileInput" accept=".html">
+        </div>
+        <button id="fullscreen">Enter Fullscreen mode</button>
+    </div>
     <script>
         const textarea = document.getElementById('editor');
         const container = document.getElementById('container');
@@ -299,6 +330,66 @@
         // Update the saved scroll position on blur
         previousScroll = container.scrollTop;
         });    
+
+// fullscreen mode: 
+document.addEventListener("DOMContentLoaded", () => {
+    const button = document.getElementById("fullscreen");
+
+    // Check if the user was in fullscreen mode before and try to re-enter
+    if (localStorage.getItem("isFullscreen") === "true") {
+      enterFullscreen();
+    }
+
+    // Event listener for button click
+    button.addEventListener("click", () => {
+      if (document.fullscreenElement) {
+        exitFullscreen();
+      } else {
+        enterFullscreen();
+      }
+    });
+
+    // Enter fullscreen mode
+    function enterFullscreen() {
+      const element = document.documentElement; // Fullscreen the entire page
+      if (element.requestFullscreen) {
+        element.requestFullscreen();
+      } else if (element.webkitRequestFullscreen) { // Safari
+        element.webkitRequestFullscreen();
+      } else if (element.msRequestFullscreen) { // IE11
+        element.msRequestFullscreen();
+      }
+      localStorage.setItem("isFullscreen", "true");
+      button.textContent = "Exit Fullscreen Mode";
+    }
+
+    // Exit fullscreen mode
+    function exitFullscreen() {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.webkitExitFullscreen) { // Safari
+        document.webkitExitFullscreen();
+      } else if (document.msExitFullscreen) { // IE11
+        document.msExitFullscreen();
+      }
+      localStorage.setItem("isFullscreen", "false");
+      button.textContent = "Enter Fullscreen Mode";
+    }
+
+    // Listen for fullscreen change events
+    document.addEventListener("fullscreenchange", updateButtonState);
+    document.addEventListener("webkitfullscreenchange", updateButtonState); // Safari
+    document.addEventListener("msfullscreenchange", updateButtonState); // IE11
+
+    // Update button state based on fullscreen status
+    function updateButtonState() {
+      if (document.fullscreenElement) {
+        button.textContent = "Exit Fullscreen Mode";
+      } else {
+        button.textContent = "Enter Fullscreen Mode";
+      }
+    }
+  });
 
     </script>
 </body>
