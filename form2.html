@@ -340,13 +340,6 @@
 // fullscreen mode: 
 const button_fullscreen = document.getElementById("fullscreen");
 
-document.addEventListener("DOMContentLoaded", () => {
-    // Check if the user was in fullscreen mode before and try to re-enter
-    if (localStorage.getItem("isFullscreen") === "true") {
-      enterFullscreen();
-    }
-  });
-
   // Event listener for button click
   button_fullscreen.addEventListener("click", () => {
       if (document.fullscreenElement) {
@@ -366,8 +359,6 @@ document.addEventListener("DOMContentLoaded", () => {
       } else if (element.msRequestFullscreen) { // IE11
         element.msRequestFullscreen();
       }
-      localStorage.setItem("isFullscreen", "true");
-      button.textContent = "Exit Fullscreen Mode";
     }
 
     // Exit fullscreen mode
@@ -379,8 +370,6 @@ document.addEventListener("DOMContentLoaded", () => {
       } else if (document.msExitFullscreen) { // IE11
         document.msExitFullscreen();
       }
-      localStorage.setItem("isFullscreen", "false");
-      button.textContent = "Enter Fullscreen Mode";
     }
 
     // Listen for fullscreen change events
@@ -391,9 +380,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // Update button state based on fullscreen status
     function updateButtonState() {
       if (document.fullscreenElement) {
-        button.textContent = "Exit Fullscreen Mode";
+        button_fullscreen.textContent = "Exit Fullscreen Mode";
       } else {
-        button.textContent = "Enter Fullscreen Mode";
+        button_fullscreen.textContent = "Enter Fullscreen Mode";
       }
     }
 
