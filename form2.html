@@ -151,6 +151,7 @@
             position: fixed;
             z-index: 1;
             left: 10%;
+            bottom: 0;
             margin: 0;
             opacity: 0;
             transition: opacity 0.3s;
@@ -197,16 +198,16 @@
 <body>
     <div id="viewport">
         <div class="scrollable-div" id="container">
-            <h1>Orientacja:</h1>
+            <h2>Orientacja:</h2>
             <div class="editable">
-                <h2>auto psychiczna<span class="tooltip">&#9733;<span class="tooltiptext">Podaj najlepiej pełne dane personalne</span></span></h2>
+                <h3>auto psychiczna<span class="tooltip">&#9733;<span class="tooltiptext">Podaj najlepiej pełne dane personalne</span></span></h3>
                 <p>Imię i Nazwisko</p>
                 <p>Wiek</p>
                 <p>Data Urodzenia</p>
                 <hr><pre></pre>
             </div>
             <div class="editable">
-                <h2>allo psychiczna</h2>
+                <h3>allo psychiczna</h3>
                 <p>Adres Zamieszkania</p>
                 <p>Stan Cywilny</p>
                 <p>Aktualna Data<span class="tooltip">&#9733;<span class="tooltiptext">Lub orientacyjnie, dzień, dzień tygodnia, miesiąc, pora roku</span></span></p>
@@ -214,8 +215,150 @@
                 <hr><pre></pre>
             </div>
             <hr>
-        </div>
+            <h2>Przyczyna ostatniej hospitalizacji:</h2>
+            <div class="editable">
+                <h3>Według pacjenta<span class="tooltip">&#9733;<span class="tooltiptext">Dlaczego zdaniem pacjenta został przyjęty - można skonfrontować z faktami.</span></span></p></h3>
+                <hr><pre></pre>
+            </div>
+            <hr>
+            <h2>Poprzednie hospitalizacje:</h2>
+            <div class="editable">
+                <h3>Jeśli były<span class="tooltip">&#9733;<span class="tooltiptext">Jeśli przyjęty po raz wtóry - kiedy, dlaczego, na jak długo.</span></span></p></h3>
+                <hr><pre></pre>
+            </div>  
+            <hr>
+            <h2>Leczenie ambulatoryjne:</h2>
+            <div class="editable">
+                <p>Aktywność po ostatnim wypisie<span class="tooltip">&#9733;<span class="tooltiptext">Praca, nauka itp.</span></span></p></p>
+                <hr><pre></pre>
+            </div>      
+            <div class="editable">
+                <p>Czy regularnie zażywa leki<span class="tooltip">&#9733;<span class="tooltiptext">Zapytaj jakie, o jakiej porze - w celu weryfikcaji czy jest kompetentny poznawczo do samodzielności leczenia.</span></span></p></p>
+                <hr><pre></pre>
+            </div>
+            <div class="editable">
+                <p>Czy regularnie chodzi na kontrole<span class="tooltip">&#9733;<span class="tooltiptext">Lekarz prowadzący, częstość kontroli - przebieg ostatniej wizyty + jak się wtedy czuł.</span></span></p></p>
+                <hr><pre></pre>
+            </div>   
 
+            <hr>
+            <h2>Aktualna sytuacja życiowa:</h2>
+            <div class="editable">
+                <p>Mieszkanie<span class="tooltip">&#9733;<span class="tooltiptext">Czy jest właścicielem, czy mieszka sam z kimś, itp.</span></span></p></p>
+                <hr><pre></pre>
+            </div>      
+            <div class="editable">
+                <p>Praca<span class="tooltip">&#9733;<span class="tooltiptext">Czy aktualnie pracuje, gdzie, czy są problemy w pracy, relacje z współpracownikami.</span></span></p></p>
+                <hr><pre></pre>
+            </div>
+            <div class="editable">
+                <p>Związki / Relacje<span class="tooltip">&#9733;<span class="tooltiptext">Czy jest w związku, jakim, jak wyglądają relacje.</span></span></p></p>
+                <hr><pre></pre>
+            </div> 
+            <div class="editable">
+                <p>Dzieci<span class="tooltip">&#9733;<span class="tooltiptext">Czy posiada, ile, jak wyglądają relacje.</span></span></p></p>
+                <hr><pre></pre>
+            </div>
+            
+            <hr>
+            <h2>Dzieciństwo:</h2>
+            <div class="editable">
+                <p>Rodzice<span class="tooltip">&#9733;<span class="tooltiptext">Relacje z rodzicami, jacy byli w stosunku do pacjenta, patologie w rodzinie.</span></span></p></p>
+                <hr><pre></pre>
+            </div>      
+            <div class="editable">
+                <p>Rodzeństwo<span class="tooltip">&#9733;<span class="tooltiptext">Relacje z rodzeństwem - zwróć uwagę na patologie.</span></span></p></p>
+                <hr><pre></pre>
+            </div>
+            <div class="editable">
+                <p>Trudne doświadczenia<span class="tooltip">&#9733;<span class="tooltiptext">Np. akloholizm, przemoc w rodzinie, śmierć osoby bliskiej.</span></span></p></p>
+                <hr><pre></pre>
+            </div>        
+            
+            <hr>
+            <h2>Życie w społeczeństwie:</h2>
+            <div class="editable">
+                <p>Edukacja<span class="tooltip">&#9733;<span class="tooltiptext">Obecne wykształcenie, ukończone szkoły, problemy z nauką, rówieśnikami.</span></span></p></p>
+                <hr><pre></pre>
+            </div>      
+            <div class="editable">
+                <p>Praca<span class="tooltip">&#9733;<span class="tooltiptext">Poprzednie miejsca zatrudnienia, relacje z współpracownikami, zarządem, problemy z pracą, ew. bezrobocie.</span></span></p></p>
+                <hr><pre></pre>
+            </div>
+
+            <hr>
+            <h2>Czynniki ryzyka zaburzeń psychicznych:</h2>
+            <div class="editable">
+                <p>Psychopatologie<span class="tooltip">&#9733;<span class="tooltiptext">Czy były - jeśli tak to jakie: Omamy, Urojenia, Myśli Samobójcze, Próby Samobójcze.</span></span></p></p>
+                <hr><pre></pre>
+            </div>      
+            <div class="editable">
+                <p>Konflikt z prawem<span class="tooltip">&#9733;<span class="tooltiptext">Można zapytać co konktretnie - uwaga, by nie rozdrażnić pacjenta.</span></span></p></p>
+                <hr><pre></pre>
+            </div>
+
+            <hr>
+            <h2>Badanie somatyczne:</h2>
+            <h3>Wywiad Ogólnochorobowy<span class="tooltip">&#9733;<span class="tooltiptext">Jeżeli występują - opisz (możesz załączyć też badanie podmiotowe - jeśli odmowa - odnotuj).</span></span></h3>
+            <div class="editable">
+                <p>Układ Krążenia</p>
+                <hr><pre></pre> 
+            </div>
+            <div class="editable">
+                <p>Układ Oddechowy</p>
+                <hr><pre></pre> 
+            </div>
+            <div class="editable">
+                <p>Układ Pokarmowy</p>
+                <hr><pre></pre> 
+            </div>
+            <div class="editable">
+                <p>Układ Moczowo-Płciowy</p>
+                <hr><pre></pre> 
+            </div>
+            <div class="editable">
+                <p>Układ Motoryczny</p>
+                <hr><pre></pre> 
+            </div>
+            <div class="editable">
+                <p>Układ Nerwowy</p>
+                <hr><pre></pre> 
+            </div>
+            <div class="editable">
+                <p>Układ Wydzielniczy</p>
+                <hr><pre></pre> 
+            </div>
+            <div class="editable">
+                <p>Choroby Przewlekłe</p>
+                <hr><pre></pre> 
+            </div>
+            <div class="editable">
+                <p>Hospitalizacje i Operacje</p>
+                <hr><pre></pre> 
+            </div>
+            <div class="editable">
+                <p>Uczulenia<span class="tooltip">&#9733;<span class="tooltiptext">Także na leki.</span></span></p>
+                <hr><pre></pre> 
+            </div>
+            <div class="editable">
+                <p>Używki<span class="tooltip">&#9733;<span class="tooltiptext">Szczególnie substancje psychoaktywne.</span></span></p>
+                <hr><pre></pre> 
+            </div>
+            <h3>Urazowe Czynniki Psychodenne</h3>
+            <div class="editable">
+                <p>Urazy głowy<span class="tooltip">&#9733;<span class="tooltiptext">Szczególnie z utratą przytomności.</span></span></p>
+                <hr><pre></pre> 
+            </div>
+            <div class="editable">
+                <p>Napady padaczkowe</p>
+                <hr><pre></pre> 
+            </div>
+            <div class="editable">
+                <p>choroby psychiczne w rodzinie</p>
+                <hr><pre></pre>    
+            </div>                            
+        </div>
+<!-- koniec formularza -->
         <textarea id="editor"></textarea>
     </div>
     <div id="steering">
