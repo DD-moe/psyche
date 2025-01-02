@@ -233,19 +233,20 @@
             }
         });
 
-        let previousScroll = scrollableDiv.scrollTop;
+        let previousScroll = container.scrollTop;
 
         textarea.addEventListener('focus', () => {
-        // Save the current scroll position before focusing
-        previousScroll = container.scrollTop;
+            // Save the current scroll position of the container
+            const previousScroll = container.scrollTop;
 
-        // Restore the previous scroll position after a delay
-        setTimeout(() => {
-            updateViewportHeight();
-            container.scrollTop = previousScroll;
-            document.body.scrollTop = 0;
-        }, 300); // Adjust delay for keyboard appearance
+            // Update the viewport height and restore the scroll position after a delay
+            setTimeout(() => {
+                updateViewportHeight(); // Recalculate the viewport height
+                container.scrollTop = previousScroll; // Restore the container's scroll position
+                window.scrollTo(0, 0); // Ensure the body is scrolled to the top
+            }, 300); // Adjust delay based on keyboard animation duration
         });
+
 
         textarea.addEventListener('blur', () => {
         // Update the saved scroll position on blur
