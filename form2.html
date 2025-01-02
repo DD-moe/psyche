@@ -258,7 +258,10 @@
 
         function updateViewportHeight() {
             const vh = window.innerHeight; // 1% of the viewport height
-            document.documentElement.style.setProperty('--viewport-height', `${vh}px`);
+            var r = document.querySelector(':root');
+            r.style.setProperty('--viewport-height', `${vh}px`);
+            //var rs = getComputedStyle(r);
+            //console.log("The value of --blue is: " + rs.getPropertyValue('--viewport-height'));
         }
 
         // Update on load and resize
