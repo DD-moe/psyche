@@ -184,6 +184,9 @@
         });
 
         saveButton.addEventListener('click', () => {
+            if (selectedGroup) {
+                selectedGroup.style.backgroundColor = "#9ae69c";
+            }
             const htmlContent = `<!DOCTYPE html>
 <html lang="en">
 <head>
