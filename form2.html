@@ -236,6 +236,7 @@
         let previousScroll = container.scrollTop;
 
         textarea.addEventListener('focus', () => {
+            textarea.focus({ preventScroll: true }); // Set focus without scrolling
             // Save the current scroll position of the container
             const previousScroll = container.scrollTop;
 
