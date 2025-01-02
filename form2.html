@@ -241,7 +241,9 @@
 
         // Restore the previous scroll position after a delay
         setTimeout(() => {
+            updateViewportHeight();
             container.scrollTop = previousScroll;
+            document.body.scrollTop = 0;
         }, 300); // Adjust delay for keyboard appearance
         });
 
@@ -251,8 +253,8 @@
         });    
 
         function updateViewportHeight() {
-            const vh = window.innerHeight * 0.01; // 1% of the viewport height
-            document.documentElement.style.setProperty('--viewport-height', `${vh * 100}px`);
+            const vh = window.innerHeight; // 1% of the viewport height
+            document.documentElement.style.setProperty('--viewport-height', `${vh}px`);
         }
 
         // Update on load and resize
