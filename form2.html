@@ -193,6 +193,31 @@
             transform: scale(1.05); /* Subtle zoom effect */
         }
 
+        #vieew {
+            position: fixed; /* Fixed position to remain at the same spot on the screen */
+            top: 20%; /* 20% from the top of the screen */
+            left: 0; /* 0% from the right edge */
+            background: linear-gradient(
+                to right,
+                rgba(255, 255, 255, 0.3), /* 30% transparency */
+                rgba(255, 255, 255, 0.8)  /* 80% transparency */
+            );
+            color: #000;
+            border: none;
+            border-radius: 5px;
+            font-size: 2em;
+            cursor: pointer;
+            opacity: 0.9; /* Slight opacity for the button itself */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Optional: shadow for a better look */
+            transition: opacity 0.3s, transform 0.3s;
+            z-index: 2;
+        }
+
+        #vieew:hover {
+            opacity: 1; /* Fully opaque on hover */
+            transform: translateX(8%) scale(1.15); /* Slight scaling effect */
+        }
+
     </style>
 </head>
 <body>
@@ -360,6 +385,7 @@
         </div>
 <!-- koniec formularza -->
         <textarea id="editor"></textarea>
+        <button id="vieew">↓</button>
     </div>
     <div id="steering">
         <button id="saveButton">Zapisz formularz jako html</button>
@@ -374,6 +400,7 @@
         const container = document.getElementById('container');
         const saveButton = document.getElementById('saveButton');
         const fileInput = document.getElementById('fileInput');
+        const vieew = document.getElementById('vieew');
 
         let selectedElement = null;
         let selectedGroup = null;
@@ -463,15 +490,17 @@
             container.focus({ preventScroll: true }); // Prevent default scrolling behavior
             if (previousCoursorFocus) {
                 container.scrollIntoView({ behavior: 'smooth', block: 'start' }); // Ensure the container is visible
+                vieew.textContent = '↓';
             } else {
                 textarea.scrollIntoView({ behavior: 'smooth', block: 'start' }); // Ensure the container is visible
+                vieew.textContent = '↑';
             }
             previousCoursorFocus = !previousCoursorFocus;
 
         }
 
         // Attach click event
-        container.addEventListener('click', handleFocusOrClick);
+        vieew.addEventListener('click', handleFocusOrClick);
 
 
         textarea.addEventListener('blur', () => {
