@@ -488,10 +488,13 @@
 
         let previousCoursorFocus = true;
 
-        function handleFocusOrClick() {
+        function handleFocusOrClick(edtitCoursor) {
+            if (edtitCoursor !== null) {
+                previousCoursorFocus = edtitCoursor;
+            }
             textarea.focus({ preventScroll: true }); // Prevent default scrolling behavior
             container.focus({ preventScroll: true }); // Prevent default scrolling behavior
-            if (previousCoursorFocus) {
+            if (previousCoursorFocus) { // go to top if true
                 container.scrollIntoView({ behavior: 'smooth', block: 'start' }); // Ensure the container is visible
                 vieew.textContent = '↓';
                 vieew.style.top = '25%';
@@ -505,8 +508,9 @@
         }
 
         // Attach click event
-        vieew.addEventListener('click', handleFocusOrClick);
-
+        vieew.addEventListener('click', ()=>{handleFocusOrClick(null)});
+        textarea.addEventListener('click', ()=>{handleFocusOrClick(false)});
+        container.addEventListener('click', ()=>{handleFocusOrClick(true)});
 
         textarea.addEventListener('blur', () => {
         // Update the saved scroll position on blur
