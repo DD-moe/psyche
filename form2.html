@@ -487,13 +487,13 @@
         let previousCoursorFocus = true;
 
         function handleFocusOrClick() {
-            textarea.focus({ preventScroll: true }); // Prevent default scrolling behavior
-            container.focus({ preventScroll: true }); // Prevent default scrolling behavior
+            //textarea.focus({ preventScroll: true }); // Prevent default scrolling behavior
+            //container.focus({ preventScroll: true }); // Prevent default scrolling behavior
             if (previousCoursorFocus) {
-                vieew.scrollIntoView({ behavior: 'smooth', block: 'start' }); // Ensure the container is visible
+                container.scrollIntoView({ behavior: 'smooth', block: 'start' }); // Ensure the container is visible
                 vieew.textContent = '↓';
             } else {
-                textarea.scrollIntoView({ behavior: 'smooth', block: 'start' }); // Ensure the container is visible
+                vieew.scrollIntoView({ behavior: 'smooth', block: 'start' }); // Ensure the container is visible
                 vieew.textContent = '↑';
             }
             previousCoursorFocus = !previousCoursorFocus;
