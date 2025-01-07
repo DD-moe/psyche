@@ -195,7 +195,7 @@
 
         #vieew {
             position: absolute; /* Fixed position to remain at the same spot on the screen */
-            top: 60%; /* 20% from the top of the screen */
+            top: 65%; /* 20% from the top of the screen */
             left: 2%; /* 0% from the right edge */
             background: linear-gradient(
                 to right,
@@ -488,8 +488,8 @@
         let previousCoursorFocus = true;
 
         function handleFocusOrClick() {
-            //textarea.focus({ preventScroll: true }); // Prevent default scrolling behavior
-            //container.focus({ preventScroll: true }); // Prevent default scrolling behavior
+            textarea.focus({ preventScroll: true }); // Prevent default scrolling behavior
+            container.focus({ preventScroll: true }); // Prevent default scrolling behavior
             if (previousCoursorFocus) {
                 container.scrollIntoView({ behavior: 'smooth', block: 'start' }); // Ensure the container is visible
                 vieew.textContent = '↓';
