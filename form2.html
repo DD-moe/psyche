@@ -491,8 +491,7 @@
         function handleFocusOrClick(edtitCoursor) {
             if (edtitCoursor !== null) {
                 previousCoursorFocus = edtitCoursor;
-                textarea.focus({ preventScroll: false }); // Prevent default scrolling behavior
-                container.focus({ preventScroll: false }); // Prevent default scrolling behavior
+
             }
             else{
                 textarea.focus({ preventScroll: true }); // Prevent default scrolling behavior
