@@ -195,7 +195,7 @@
 
         #vieew {
             position: absolute; /* Fixed position to remain at the same spot on the screen */
-            top: 65%; /* 20% from the top of the screen */
+            top: 75%; /* 20% from the top of the screen */
             left: 2%; /* 0% from the right edge */
             background: linear-gradient(
                 to right,
@@ -213,6 +213,7 @@
             z-index: 2;
             margin: 0;
             display: block;
+            transition: top 0.3s ease-in-out; /* Smooth transition for top */
         }
 
         #vieew:hover {
@@ -493,9 +494,11 @@
             if (previousCoursorFocus) {
                 container.scrollIntoView({ behavior: 'smooth', block: 'start' }); // Ensure the container is visible
                 vieew.textContent = '↓';
+                vieew.style.top = '25%';
             } else {
-                vieew.scrollIntoView({ behavior: 'smooth', block: 'start' }); // Ensure the container is visible
+                textarea.scrollIntoView({ behavior: 'smooth', block: 'start' }); // Ensure the container is visible
                 vieew.textContent = '↑';
+                vieew.style.top = '75%';
             }
             previousCoursorFocus = !previousCoursorFocus;
 
