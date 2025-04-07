@@ -3,6 +3,9 @@
 <head>
 <title>Page Title</title>
 <style>
+    *{
+        box-sizing: border-box;
+    }
     .scrolable{
         overflow: auto;
         max-width: 100%;
@@ -13,7 +16,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: start;
-        width: 50%;
+        width: 49%;
         padding: 16px;
         border: solid 2px black;
         border-radius: 12px;
@@ -39,16 +42,30 @@
         width: 100%;
     }
 
+    .container {
+        display: flex;
+        gap: 2px;
+        margin-top: 10px;
+        flex-wrap: wrap; /* <-- to pozwala elementom przechodzić do nowej linii */
+    }
+
 </style>
 </head>
 <body>
 <script type = "module" src="https://utils.1ioe.top/forms.js" blocking = 'render'></script>
 <script type = "module" src="https://utils.1ioe.top/interview.js" blocking = 'render'></script>
 
-<div class="pearson"> 
-    <div class="portrait">👨🏻‍💼</div>
-    <h3 class="name">Jan Kowalski</h3>
-    <speech-listener AI="ai" instruction="speaker"></speech-listener>
+<div class="container">
+    <div class="pearson"> 
+        <div class="portrait">👨🏻‍💼</div>
+        <h3 class="name">Jan Kowalski</h3>
+        <speech-listener AI="ai" instruction="speaker"></speech-listener>
+    </div>
+    <div class="pearson"> 
+        <div class="portrait">🙎🏻‍♀️</div>
+        <h3 class="name">Albina Włóczywąsa</h3>
+        <speech-listener AI="ai" instruction="speaker_asist"></speech-listener>
+    </div>
 </div>
 
 <toggle-content>
