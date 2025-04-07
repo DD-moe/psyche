@@ -15,13 +15,15 @@
 <script type = "module" src="https://utils.1ioe.top/interview.js" blocking = 'render'></script>
 
 <speech-listener AI='ai' instruction = 'speaker'></speech-listener>
-<ai-request id='ai'></ai-request>
-
 <toggle-content>
     <div slot="minimized" title="Kliknij, aby zobaczyć więcej"><h1>🔽Ustawienia</h1></div>
     <div slot="expanded">
         <div class="scrolable">
+            <ai-request id='ai'></ai-request>
+            <h3>konfiguracja pacjenta</h3>
             <textarea id='speaker'></textarea>
+            <h3>konfiguracja asystenta pacjenta</h3>
+            <textarea id='speaker_asist'></textarea>
         </div>
     </div>
 </toggle-content>
