@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+<style>
+    .scrolable{
+        overflow: auto;
+        max-width: 100%;
+        max-height: 100vh;
+    }
+</style>
+</head>
+<body>
+<script type = "module" src="https://utils.1ioe.top/forms.js" blocking = 'render'></script>
+<script type = "module" src="https://utils.1ioe.top/interview.js" blocking = 'render'></script>
+
+<speech-listener AI='ai' instruction = 'speaker'></speech-listener>
+<ai-request id='ai'></ai-request>
+
+<toggle-content>
+    <div slot="minimized" title="Kliknij, aby zobaczyć więcej"><h1>🔽Ustawienia</h1></div>
+    <div slot="expanded">
+        <div class="scrolable">
+            <textarea id='speaker'></textarea>
+        </div>
+    </div>
+</toggle-content>
+
+</body>
+</html>
