@@ -8,13 +8,49 @@
         max-width: 100%;
         max-height: 100vh;
     }
+    .pearson {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: start;
+        width: 50%;
+        padding: 16px;
+        border: solid 2px black;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        font-family: sans-serif;
+        gap: 12px;
+        background-color: #f9f9f9;
+    }
+
+    .portrait {
+        font-size: 64px;
+        line-height: 1;
+    }
+
+    .name {
+        margin: 0;
+        font-size: 1.4em;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    speech-listener {
+        width: 100%;
+    }
+
 </style>
 </head>
 <body>
 <script type = "module" src="https://utils.1ioe.top/forms.js" blocking = 'render'></script>
 <script type = "module" src="https://utils.1ioe.top/interview.js" blocking = 'render'></script>
 
-<speech-listener AI='ai' instruction = 'speaker'></speech-listener>
+<div class="pearson"> 
+    <div class="portrait">👨🏻‍💼</div>
+    <h3 class="name">Jan Kowalski</h3>
+    <speech-listener AI="ai" instruction="speaker"></speech-listener>
+</div>
+
 <toggle-content>
     <div slot="minimized" title="Kliknij, aby zobaczyć więcej"><h1>🔽Ustawienia</h1></div>
     <div slot="expanded">
