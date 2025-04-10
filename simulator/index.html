@@ -1,111 +1,72 @@
 <!DOCTYPE html>
-<html>
+<html lang="pl">
 <head>
-<title>Page Title</title>
-<style>
-    *{
-        box-sizing: border-box;
-    }
-    .scrolable{
-        overflow: auto;
-        max-width: 100%;
-        max-height: 100vh;
-    }
-    .pearson {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: start;
-        width: 49%;
-        padding: 16px;
-        border: solid 2px black;
-        border-radius: 12px;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        font-family: sans-serif;
-        gap: 12px;
-        background-color: #f9f9f9;
-    }
-
-    .portrait {
-        font-size: 64px;
-        line-height: 1;
-    }
-
-    .name {
-        margin: 0;
-        font-size: 1.4em;
-        font-weight: bold;
-        text-align: center;
-    }
-
-    .role {
-        margin: 0;
-        font-size: 1em;
-        font-weight: normal;
-        color: #666;
-        text-align: center;
-        font-style: italic;
-    }
-
-
-    speech-listener {
-        width: 100%;
-    }
-
-    .container {
-        display: flex;
-        gap: 2px;
-        margin-top: 10px;
-        flex-wrap: wrap; /* <-- to pozwala elementom przechodzić do nowej linii */
-        align-items: center;
-    }
-
-</style>
+    <meta charset="UTF-8">
+    <title>Symulacje wywiadu z pacjentem</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header, footer {
+            background-color: #f0f0f0;
+            padding: 20px;
+            text-align: center;
+        }
+        main {
+            flex: 1;
+            text-align: center;
+            padding-top: 50px;
+        }
+        select, button {
+            font-size: 1.2em;
+            padding: 10px;
+            margin: 10px;
+        }
+    </style>
 </head>
 <body>
-<script type = "module" src="https://utils.1ioe.top/forms.js" blocking = 'render'></script>
-<script type = "module" src="https://utils.1ioe.top/interview.js" blocking = 'render'></script>
+    <header>
+        <h1>Symulacje interaktywne wywiadu z pacjentem</h1>
+        <p>Wybierz symulację z listy lub pozwól losowi zadecydować i rozpocznij eksperyment!</p>
+    </header>
 
-<div class="container" id="speakers">
-    <div class="pearson"> 
-        <div class="portrait">👨🏻‍💼</div>
-        <h3 class="name">Jan Kowalski</h3>
-        <h4 class="role">(pacjent)</h4>
-        <speech-listener AI="ai" instruction="speaker" speaker="Jan Kowalski"></speech-listener>
-    </div>
-    <div class="pearson"> 
-        <div class="portrait">🙎🏻‍♀️</div>
-        <h3 class="name">Albina Włóczywąsa</h3> 
-        <h4 class="role">(osoba towarzysząca)</h4>
-        <speech-listener AI="ai" instruction="speaker_asist" speaker="Albina Włóczywąsa"></speech-listener>
-    </div>
-</div>
+    <main>
+        <h2>Wybierz symulację</h2>
 
-<toggle-content>
-    <div slot="minimized" title="Kliknij, aby zobaczyć więcej"><h1>🔽Ustawienia</h1></div>
-    <div slot="expanded">
-        <div class="scrolable">
-            <ai-request id='ai'></ai-request>
-            <h3>konfiguracja pacjenta</h3>
-            <textarea id='speaker'>
-        Jan Kowalski, lat 42. Weteran misji zagranicznych, cierpi na zespół stresu pourazowego (PTSD). Objawy obejmują drażliwość, unikanie kontaktu wzrokowego, nieufność wobec nieznajomych oraz epizody intensywnego lęku. Często powraca myślami do traumatycznych wydarzeń. W rozmowie bywa zdystansowany, odpowiada krótko, niechętnie dzieli się emocjami, ale z czasem okazuje wdzięczność za zainteresowanie. Jan uczestniczy w dialogu bezpośrednio z empatią, spokojem, cierpliwością, unikając bezpośrednich wsponień o traumie, chyba że sam o niej chece wspomnieć.
-        zarys sytuacji: przychodzisz do gabinetu specjalisty psychiatrii z panią albiną, z lekarzem rozmawiacie osobno. To twoja zaufana opiekunka, chcesz by i ona porozmawiała z psychiatrą o twoim stanie, bo gdy próbujesz mówić o tych zdarzeniach, to zciska Ci się gardło. Poza tym, to wygadana kobieta, więc wie jak ustawić byle konowała.
-        Prowadzisz dialog z użytkownikiem. Gdy użytkownik zada pytanie, odpowiedz jako Jan. W dialogu unikaj zbyt wylewnych reakcji i stosuj krótkie, rzeczowe wypowiedzi. UWAGA: podawaj tylko czystą odpowiedź pacjenta, bez "Jan Kowalski: " i bez komentarzy narratora.
-            
-            </textarea>
-        
-            <h3>konfiguracja asystenta pacjenta</h3>
-            <textarea id='speaker_asist'>
-                Albina Włóczywąsa, 63 lata. Emerytowana pielęgniarka, opiekunka społeczna. Od dwóch lat wspiera Jana w codziennym funkcjonowaniu. Jest pogodna, cierpliwa i bardzo uważna. Rozumie mechanizmy PTSD i często tłumaczy zachowania Jana innym. W rozmowie stara się być ciepła i rzeczowa, ale czasem próbując mówić z troską i lekkim humorem - wychodzi jej czarny humor. Czasem odpowiada za Jana, gdy on nie ma siły mówić, ale zawsze z jego perspektywy. Potrafi być stanowcza, gdy trzeba przypomnieć mu o lekach lub terapii. Gdy lekarz poprosi, odpowie na pytania: o misji zagranicznej Jana, wspomni, że na jej oko to PTSD i że Jan trochę za dużo bierze leków nasennych i przeciwbólowych. Gdy jej się schlebia, nie unika odpowiedzi.
-                Jan Kowalski, którym się opiekujesz, ma lat 42. Weteran misji zagranicznych, cierpi na PTSD. Objawy obejmują drażliwość, unikanie kontaktu wzrokowego, nieufność wobec nieznajomych oraz epizody intensywnego lęku. Często powraca myślami do traumatycznych wydarzeń. W rozmowie bywa zdystansowany, odpowiada krótko, niechętnie dzieli się emocjami, ale z czasem okazuje wdzięczność za zainteresowanie, unikając bezpośrednich wspomień o traumie, chyba że sam o niej chce wspomnieć - wtedy wchodzisz ty i o nich mówisz, gdy Jan nie może z siebie słowa wydusić.
-                zarys sytuacji: przychodzisz do gabinetu specjalisty psychiatrii z panem Janem, z lekarzem rozmawiacie osobno. Pan Jan chciał koniecznie, by była z nim jego opiekunka na pierwszej wizycie u psychiatry.
-                Prowadzisz dialog z użytkownikiem. Gdy użytkownik zada pytanie, odpowiedz jako Albina. Jeśli użytkownik zapyta o coś co nie wypada, upomnij go z lekkim nietaktem, jak to ma w zwyczaju zmęczona starsza pielęgniarka. UWAGA: podawaj tylko czystą odpowiedź pacjenta, bez "Albina Włóczywąsa: " i bez komentarzy narratora.
-                
-            </textarea>
-        </div>
-        
-    </div>
-</toggle-content>
+        <select id="simulation-select">
+            <option value="symulacja1">Symulacja 1</option>
+            <option value="symulacja2">Symulacja 2</option>
+            <option value="symulacja3">Symulacja 3</option>
+        </select>
 
+        <br>
+
+        <button onclick="randomize()">🎲 Losuj</button>
+        <button onclick="runSimulation()">🚀 Start</button>
+    </main>
+
+    <footer>
+        <h4>Damian Bezara 2025. Wszelkie prawa zastrzerzone.</h4>
+    </footer>
+
+    <script>
+        function randomize() {
+            const select = document.getElementById("simulation-select");
+            const options = select.options;
+            const randomIndex = Math.floor(Math.random() * options.length);
+            select.selectedIndex = randomIndex;
+        }
+
+        function runSimulation() {
+            const select = document.getElementById("simulation-select");
+            const selectedValue = select.value;
+            const newUrl = `${window.location.origin}/${selectedValue}/`;
+            window.open(newUrl, "_blank");
+        }
+    </script>
 </body>
 </html>
