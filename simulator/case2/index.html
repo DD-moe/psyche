@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Case 2</title>
+<style>
+    *{
+        box-sizing: border-box;
+    }
+    .scrolable{
+        overflow: auto;
+        max-width: 100%;
+        max-height: 100vh;
+    }
+    .pearson {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: start;
+        width: 49%;
+        padding: 16px;
+        border: solid 2px black;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        font-family: sans-serif;
+        gap: 12px;
+        background-color: #f9f9f9;
+    }
+
+    .portrait {
+        font-size: 64px;
+        line-height: 1;
+    }
+
+    .name {
+        margin: 0;
+        font-size: 1.4em;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .role {
+        margin: 0;
+        font-size: 1em;
+        font-weight: normal;
+        color: #666;
+        text-align: center;
+        font-style: italic;
+    }
+
+
+    speech-listener {
+        width: 100%;
+    }
+
+    .container {
+        display: flex;
+        gap: 2px;
+        margin-top: 10px;
+        flex-wrap: wrap; /* <-- to pozwala elementom przechodzić do nowej linii */
+        align-items: center;
+    }
+
+</style>
+<script type = "module" src="https://utils.1ioe.top/forms.js" blocking = 'render'></script>
+<script type = "module" src="https://utils.1ioe.top/interview.js" blocking = 'render'></script>
+</head>
+<body>
+    <header>
+        <h2>Epizod maniakalny</h2>
+        <h3>Poziom trudności: <b>🟠 średni</b></h3>
+        <p>Do twojego gabinetu trafia pacjentka w stanie silnego pobudzenia. Mówi bardzo szybko, przeskakuje z tematu na temat, wykazuje podwyższony nastrój, wielkie plany i ogromną pewność siebie.  
+        Zadaniem jest utrzymać rozmowę w ryzach, zyskać zaufanie i zebrać jak najwięcej informacji, nie wzmacniając jej pobudzenia.</p>        
+    </header>
+    <div class="container" id="speakers">
+        <div class="pearson"> 
+            <div class="portrait">🧑🏻‍🦱</div>
+            <h3 class="name">Anna Nowak</h3>
+            <h4 class="role">(pacjentka)</h4>
+            <speech-listener AI="ai" instruction="speaker" speaker="Anna Nowak"></speech-listener>
+        </div>        
+    </div>
+
+    <toggle-content>
+        <div slot="minimized" title="Kliknij, aby zobaczyć więcej"><h1>🔽Ustawienia</h1></div>
+        <div slot="expanded">
+            <div class="scrolable">
+                <ai-request id='ai'></ai-request>
+                <h3>konfiguracja pacjenta</h3>
+                <textarea id='speaker'>
+                    Anna Nowak, lat 35. Nauczycielka języka polskiego. Pacjentka znajduje się w trakcie epizodu maniakalnego. Objawy obejmują wzmożoną aktywność, przyspieszony tok myślenia, nadmierną gadatliwość, poczucie wyjątkowości i trudności z utrzymaniem wątku rozmowy. Często przerywa, zmienia tematy, mówi podniesionym głosem. Mało śpi, ale twierdzi, że nie czuje się zmęczona. Nie przejawia krytycyzmu wobec swojego stanu.
+                    
+                    Zarys sytuacji: Pacjentka przyszła na wizytę po sugestii bliskich, którzy zauważyli zmiany w jej zachowaniu. Nie postrzega potrzeby leczenia i przyszła bardziej „z ciekawości”. Niechętnie odnosi się do pojęcia choroby psychicznej, ale chętnie dzieli się swoimi pomysłami, projektami i „planami na wielką przyszłość”.
+                    
+                    Prowadzisz dialog z użytkownikiem. Gdy użytkownik zada pytanie, odpowiedz jako Anna. Odpowiedzi powinny być żywiołowe, miejscami chaotyczne, przepełnione entuzjazmem, mogą odbiegać od pytania, by oddać charakter manii. UWAGA: podawaj tylko czystą odpowiedź pacjentki, bez "Anna Nowak: " i bez komentarzy narratora.
+                    </textarea>                    
+            </div>
+        </div>
+    </toggle-content>
+    <footer>
+        <p>Autor symulatora: Damian Bezara</p>
+        <p>Autor symulacji: Damian Bezara</p>
+    </footer>
+</body>
+</html>

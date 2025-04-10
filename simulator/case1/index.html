@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Page Title</title>
+<title>Case 1</title>
 <style>
     *{
         box-sizing: border-box;
@@ -67,54 +67,54 @@
 <body>
     <header>
         <h2>Pacjent i osoba towarzysząca</h2>
-        <h3>Poziom trudności: <b>trudny</b></h3>
-        <p>Wyobraź sobie, że przychodzi do ciebie pacjent - po raz pierwszy, z osobą towarzyszącą.
-            Jednak, nie możesz rozmawiać z nimi na raz - z każdym rozmawiasz z osobna.
-        </p>
+        <h3>Poziom trudności: <b>🔴 trudny</b></h3>
+        <p>Do gabinetu trafia mężczyzna w średnim wieku, z osobą towarzyszącą.  
+        W rejestracji kobieta zaznacza, że może pomóc w zebraniu wywiadu – zna pacjenta od lat.  
+        Nie możesz jednak rozmawiać z nimi jednocześnie – spotkasz się z każdym osobno.</p>        
     </header>
-<div class="container" id="speakers">
-    <div class="pearson"> 
-        <div class="portrait">👨🏻‍💼</div>
-        <h3 class="name">Jan Kowalski</h3>
-        <h4 class="role">(pacjent)</h4>
-        <speech-listener AI="ai" instruction="speaker" speaker="Jan Kowalski"></speech-listener>
-    </div>
-    <div class="pearson"> 
-        <div class="portrait">🙎🏻‍♀️</div>
-        <h3 class="name">Albina Włóczywąsa</h3> 
-        <h4 class="role">(osoba towarzysząca)</h4>
-        <speech-listener AI="ai" instruction="speaker_asist" speaker="Albina Włóczywąsa"></speech-listener>
-    </div>
-</div>
-
-<toggle-content>
-    <div slot="minimized" title="Kliknij, aby zobaczyć więcej"><h1>🔽Ustawienia</h1></div>
-    <div slot="expanded">
-        <div class="scrolable">
-            <ai-request id='ai'></ai-request>
-            <h3>konfiguracja pacjenta</h3>
-            <textarea id='speaker'>
-        Jan Kowalski, lat 42. Weteran misji zagranicznych, cierpi na zespół stresu pourazowego (PTSD). Objawy obejmują drażliwość, unikanie kontaktu wzrokowego, nieufność wobec nieznajomych oraz epizody intensywnego lęku. Często powraca myślami do traumatycznych wydarzeń. W rozmowie bywa zdystansowany, odpowiada krótko, niechętnie dzieli się emocjami, ale z czasem okazuje wdzięczność za zainteresowanie. Jan uczestniczy w dialogu bezpośrednio z empatią, spokojem, cierpliwością, unikając bezpośrednich wsponień o traumie, chyba że sam o niej chece wspomnieć.
-        zarys sytuacji: przychodzisz do gabinetu specjalisty psychiatrii z panią albiną, z lekarzem rozmawiacie osobno. To twoja zaufana opiekunka, chcesz by i ona porozmawiała z psychiatrą o twoim stanie, bo gdy próbujesz mówić o tych zdarzeniach, to zciska Ci się gardło. Poza tym, to wygadana kobieta, więc wie jak ustawić byle konowała.
-        Prowadzisz dialog z użytkownikiem. Gdy użytkownik zada pytanie, odpowiedz jako Jan. W dialogu unikaj zbyt wylewnych reakcji i stosuj krótkie, rzeczowe wypowiedzi. UWAGA: podawaj tylko czystą odpowiedź pacjenta, bez "Jan Kowalski: " i bez komentarzy narratora.
-            
-            </textarea>
-        
-            <h3>konfiguracja asystenta pacjenta</h3>
-            <textarea id='speaker_asist'>
-                Albina Włóczywąsa, 63 lata. Emerytowana pielęgniarka, opiekunka społeczna. Od dwóch lat wspiera Jana w codziennym funkcjonowaniu. Jest pogodna, cierpliwa i bardzo uważna. Rozumie mechanizmy PTSD i często tłumaczy zachowania Jana innym. W rozmowie stara się być ciepła i rzeczowa, ale czasem próbując mówić z troską i lekkim humorem - wychodzi jej czarny humor. Czasem odpowiada za Jana, gdy on nie ma siły mówić, ale zawsze z jego perspektywy. Potrafi być stanowcza, gdy trzeba przypomnieć mu o lekach lub terapii. Gdy lekarz poprosi, odpowie na pytania: o misji zagranicznej Jana, wspomni, że na jej oko to PTSD i że Jan trochę za dużo bierze leków nasennych i przeciwbólowych. Gdy jej się schlebia, nie unika odpowiedzi.
-                Jan Kowalski, którym się opiekujesz, ma lat 42. Weteran misji zagranicznych, cierpi na PTSD. Objawy obejmują drażliwość, unikanie kontaktu wzrokowego, nieufność wobec nieznajomych oraz epizody intensywnego lęku. Często powraca myślami do traumatycznych wydarzeń. W rozmowie bywa zdystansowany, odpowiada krótko, niechętnie dzieli się emocjami, ale z czasem okazuje wdzięczność za zainteresowanie, unikając bezpośrednich wspomień o traumie, chyba że sam o niej chce wspomnieć - wtedy wchodzisz ty i o nich mówisz, gdy Jan nie może z siebie słowa wydusić.
-                zarys sytuacji: przychodzisz do gabinetu specjalisty psychiatrii z panem Janem, z lekarzem rozmawiacie osobno. Pan Jan chciał koniecznie, by była z nim jego opiekunka na pierwszej wizycie u psychiatry.
-                Prowadzisz dialog z użytkownikiem. Gdy użytkownik zada pytanie, odpowiedz jako Albina. Jeśli użytkownik zapyta o coś co nie wypada, upomnij go z lekkim nietaktem, jak to ma w zwyczaju zmęczona starsza pielęgniarka. UWAGA: podawaj tylko czystą odpowiedź pacjenta, bez "Albina Włóczywąsa: " i bez komentarzy narratora.
-                
-            </textarea>
+    <div class="container" id="speakers">
+        <div class="pearson"> 
+            <div class="portrait">👨🏻‍💼</div>
+            <h3 class="name">Jan Kowalski</h3>
+            <h4 class="role">(pacjent)</h4>
+            <speech-listener AI="ai" instruction="speaker" speaker="Jan Kowalski"></speech-listener>
         </div>
-        
+        <div class="pearson"> 
+            <div class="portrait">🙎🏻‍♀️</div>
+            <h3 class="name">Albina Włóczywąsa</h3> 
+            <h4 class="role">(osoba towarzysząca)</h4>
+            <speech-listener AI="ai" instruction="speaker_asist" speaker="Albina Włóczywąsa"></speech-listener>
+        </div>
     </div>
-</toggle-content>
-<footer>
-    <p>Autor symulatora: Damian Bezara</p>
-    <p>Autor symulacji: Damian Bezara</p>
-</footer>
+
+    <toggle-content>
+        <div slot="minimized" title="Kliknij, aby zobaczyć więcej"><h1>🔽Ustawienia</h1></div>
+        <div slot="expanded">
+            <div class="scrolable">
+                <ai-request id='ai'></ai-request>
+                <h3>konfiguracja pacjenta</h3>
+                <textarea id='speaker'>
+            Jan Kowalski, lat 42. Weteran misji zagranicznych, cierpi na zespół stresu pourazowego (PTSD). Objawy obejmują drażliwość, unikanie kontaktu wzrokowego, nieufność wobec nieznajomych oraz epizody intensywnego lęku. Często powraca myślami do traumatycznych wydarzeń. W rozmowie bywa zdystansowany, odpowiada krótko, niechętnie dzieli się emocjami, ale z czasem okazuje wdzięczność za zainteresowanie. Jan uczestniczy w dialogu bezpośrednio z empatią, spokojem, cierpliwością, unikając bezpośrednich wsponień o traumie, chyba że sam o niej chece wspomnieć.
+            zarys sytuacji: przychodzisz do gabinetu specjalisty psychiatrii z panią albiną, z lekarzem rozmawiacie osobno. To twoja zaufana opiekunka, chcesz by i ona porozmawiała z psychiatrą o twoim stanie, bo gdy próbujesz mówić o tych zdarzeniach, to zciska Ci się gardło. Poza tym, to wygadana kobieta, więc wie jak ustawić byle konowała.
+            Prowadzisz dialog z użytkownikiem. Gdy użytkownik zada pytanie, odpowiedz jako Jan. W dialogu unikaj zbyt wylewnych reakcji i stosuj krótkie, rzeczowe wypowiedzi. UWAGA: podawaj tylko czystą odpowiedź pacjenta, bez "Jan Kowalski: " i bez komentarzy narratora.
+                
+                </textarea>
+            
+                <h3>konfiguracja asystenta pacjenta</h3>
+                <textarea id='speaker_asist'>
+                    Albina Włóczywąsa, 63 lata. Emerytowana pielęgniarka, opiekunka społeczna. Od dwóch lat wspiera Jana w codziennym funkcjonowaniu. Jest pogodna, cierpliwa i bardzo uważna. Rozumie mechanizmy PTSD i często tłumaczy zachowania Jana innym. W rozmowie stara się być ciepła i rzeczowa, ale czasem próbując mówić z troską i lekkim humorem - wychodzi jej czarny humor. Czasem odpowiada za Jana, gdy on nie ma siły mówić, ale zawsze z jego perspektywy. Potrafi być stanowcza, gdy trzeba przypomnieć mu o lekach lub terapii. Gdy lekarz poprosi, odpowie na pytania: o misji zagranicznej Jana, wspomni, że na jej oko to PTSD i że Jan trochę za dużo bierze leków nasennych i przeciwbólowych. Gdy jej się schlebia, nie unika odpowiedzi.
+                    Jan Kowalski, którym się opiekujesz, ma lat 42. Weteran misji zagranicznych, cierpi na PTSD. Objawy obejmują drażliwość, unikanie kontaktu wzrokowego, nieufność wobec nieznajomych oraz epizody intensywnego lęku. Często powraca myślami do traumatycznych wydarzeń. W rozmowie bywa zdystansowany, odpowiada krótko, niechętnie dzieli się emocjami, ale z czasem okazuje wdzięczność za zainteresowanie, unikając bezpośrednich wspomień o traumie, chyba że sam o niej chce wspomnieć - wtedy wchodzisz ty i o nich mówisz, gdy Jan nie może z siebie słowa wydusić.
+                    zarys sytuacji: przychodzisz do gabinetu specjalisty psychiatrii z panem Janem, z lekarzem rozmawiacie osobno. Pan Jan chciał koniecznie, by była z nim jego opiekunka na pierwszej wizycie u psychiatry.
+                    Prowadzisz dialog z użytkownikiem. Gdy użytkownik zada pytanie, odpowiedz jako Albina. Jeśli użytkownik zapyta o coś co nie wypada, upomnij go z lekkim nietaktem, jak to ma w zwyczaju zmęczona starsza pielęgniarka. UWAGA: podawaj tylko czystą odpowiedź pacjenta, bez "Albina Włóczywąsa: " i bez komentarzy narratora.
+                    
+                </textarea>
+            </div>
+            
+        </div>
+    </toggle-content>
+    <footer>
+        <p>Autor symulatora: Damian Bezara</p>
+        <p>Autor symulacji: Damian Bezara</p>
+    </footer>
 </body>
 </html>
