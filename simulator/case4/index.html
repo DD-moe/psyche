@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Case 3</title>
+<link rel="stylesheet" href="https://git.1ioe.top/psyche/simulator/styles.css">
+<script type = "module" src="https://utils.1ioe.top/forms.js" blocking = 'render'></script>
+<script type = "module" src="https://utils.1ioe.top/interview.js" blocking = 'render'></script>
+<script src="https://git.1ioe.top/psyche/simulator/case.js"></script>
+</head>
+<body>
+    <header>       
+    </header>
+    <div class="container" id="speakers">     
+    </div>
+
+    <toggle-content>
+        <div slot="minimized" title="Kliknij, aby zobaczyć więcej"><h1>🔽Ustawienia</h1></div>
+        <div slot="expanded">
+            <div class="scrolable">
+                <ai-request id='ai'></ai-request>
+                <h3>konfiguracja pacjenta</h3>
+                <textarea id='speaker'></textarea>
+                <button onclick="new_case('ai', 'generator', 'speaker')">Generuj wariant symulacji</button>
+                <h3>Generator konfiguracji pacjenta</h3>
+                <textarea id='generator'></textarea>
+            </div>
+        </div>
+    </toggle-content>
+    <footer>
+        <p>Autor symulatora: Damian Bezara</p>
+        <p>Autor symulacji: Damian Bezara</p>
+    </footer>
+</body>
+</html>
