@@ -1,7 +1,8 @@
 async function generate_case(AI, text, instruction_box) {
     const gemini_model = document.getElementById(AI);
     const textarea = document.getElementById(text);
-    const instr = `Na podstawie podanych informacji wygeneruj instrukcję, bazując na podanym przykładzie:
+    const instr = `
+    Na podstawie podanych informacji wygeneruj instrukcję, bazując na podanym przykładzie:
     "
   Kacper Walicki, lat 27. Młody mężczyzna, bez stałego miejsca zamieszkania, bezrobotny od kilku miesięcy. Według własnych słów, jest "kapitanem gwiezdnej floty" i znajduje się na tajnej misji ocalenia ludzkości przed inwazją kosmitów. Twierdzi, że od lat prowadzi wojnę z "Sułtanem kosmitów", istotą zdolną manipulować umysłami ludzi. W jego narracji pojawiają się postaci jego pomocników – Janusza i Sebastiana – do których czasem się zwraca, ignorując rozmówcę.
   
@@ -10,7 +11,8 @@ async function generate_case(AI, text, instruction_box) {
   Zarys sytuacji: Pacjent trafia do gabinetu w ramach interwencji kryzysowej po tym, jak sąsiedzi zgłosili niepokojące hałasy i dziwne okrzyki dochodzące z jego mieszkania. Sam twierdzi, że to przez atak kosmitów i konieczność „obrony placówki”.
   
   Prowadzisz dialog z użytkownikiem. Gdy użytkownik zada pytanie, odpowiedz jako Kacper. Odpowiedzi mogą być nie na temat, pełne patosu, czasem z wulgaryzmami i dygresjami oraz rozmowami z wyimaginowanymi postaciami. UWAGA: podawaj tylko czystą odpowiedź pacjenta, bez "Kacper Walicki: " i bez komentarzy narratora."
-  \n`;
+  
+  `;
   
     const instruction = await gemini_model.generate(textarea.value, instr);
     document.getElementById(instruction_box).value = instruction;
@@ -19,14 +21,18 @@ async function generate_case(AI, text, instruction_box) {
   
   async function generate_description(AI, instructionText) {
     const gemini_model = document.getElementById(AI);
-    const instr = `\nNa podstawie tej instrukcji wygeneruj opis symulacji, bazując na poniższym przykładzie:
+    const instr = `
+    Na podstawie tej instrukcji wygeneruj opis symulacji, bazując na poniższym przykładzie:
   <h2>Kapitan gwiezdnej floty</h2>
   <h3>Poziom trudności: <b>🔴 trudny</b></h3>
   <p>Młody mężczyzna wchodzi do gabinetu bez pukania, rozgląda się nerwowo i siada przodem do drzwi.  
   Wzrok ma czujny, mówi szybko i z pasją coś o walce z kosmitami.  
   Czasem zwraca się do kogoś niewidzialnego, czasem do ciebie – nie zawsze uprzejmie.
   
-  <b>⚠️ Uwaga:</b> Symulacja zawiera wulgarny język.</p>\n`;
+  <b>⚠️ Uwaga:</b> Symulacja zawiera wulgarny język.</p>
+
+  Zwróć tylko i wyłącznie gotowy kod HTML, bez '''.
+  `;
   
     let description = await gemini_model.generate(instructionText, prompt);
 
@@ -56,7 +62,7 @@ async function generate_case(AI, text, instruction_box) {
     <speech-listener AI="ai" instruction="speaker" speaker="Kacper Walicki"></speech-listener>
   </div>
   
-  Zwróć tylko i wyłącznie gotowy kod HTML, bez """. Ustaw właściwe imię i nazwisko pacjenta oraz emoji zgodnie z profilem, jaki wyczytasz z instrukcji.
+  Zwróć tylko i wyłącznie gotowy kod HTML, bez '''. Ustaw właściwe imię i nazwisko pacjenta oraz emoji zgodnie z profilem, jaki wyczytasz z instrukcji.
   
   INSTRUKCJA:
   `;
