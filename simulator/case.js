@@ -37,7 +37,11 @@ async function generate_case(AI, text, instruction_box) {
     let description = await gemini_model.generate(instructionText, prompt);
 
     // Usuń potrójne cudzysłowy lub apostrofy otaczające cały wynik
-    description = description.trim().replace(/^['"`]{3}|['"`]{3}$/g, '');
+    description = description
+    .trim()
+    .replace(/^```(?:html)?\s*/i, '')  // usuń np. ```html (na początku)
+    .replace(/```$/i, '')              // usuń ``` na końcu
+    .replace(/^['"`]{3}|['"`]{3}$/g, ''); // usuń ''' lub """ z początku/końca
     const header = document.querySelector("header");
     header.innerHTML = description;
     return description;
@@ -70,7 +74,12 @@ async function generate_case(AI, text, instruction_box) {
     let patientCardHTML = await gemini_model.generate(instructionText, prompt);
 
     // Usuń potrójne cudzysłowy lub apostrofy otaczające cały wynik
-    patientCardHTML = patientCardHTML.trim().replace(/^['"`]{3}|['"`]{3}$/g, '');
+    patientCardHTML = patientCardHTML
+    .trim()
+    .replace(/^```(?:html)?\s*/i, '')  // usuń np. ```html (na początku)
+    .replace(/```$/i, '')              // usuń ``` na końcu
+    .replace(/^['"`]{3}|['"`]{3}$/g, ''); // usuń ''' lub """ z początku/końca
+
     const container = document.getElementById("speakers");
     container.innerHTML = patientCardHTML;
   }
