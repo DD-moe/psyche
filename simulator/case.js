@@ -22,14 +22,14 @@ async function generate_case(AI, text, instruction_box) {
   async function generate_description(AI, instructionText) {
     const gemini_model = document.getElementById(AI);
     const instr = `
-    Na podstawie tej instrukcji wygeneruj opis symulacji, bazując na poniższym przykładzie:
-  <h2>Kapitan gwiezdnej floty</h2>
+    Na podstawie tej instrukcji wygeneruj html zawierający opis symulacji, bazując na poniższym przykładzie:
+  "<h2>Pacjent w kostiumie gwiezdnej floty</h2>
   <h3>Poziom trudności: <b>🔴 trudny</b></h3>
   <p>Młody mężczyzna wchodzi do gabinetu bez pukania, rozgląda się nerwowo i siada przodem do drzwi.  
   Wzrok ma czujny, mówi szybko i z pasją coś o walce z kosmitami.  
   Czasem zwraca się do kogoś niewidzialnego, czasem do ciebie – nie zawsze uprzejmie.
   
-  <b>⚠️ Uwaga:</b> Symulacja zawiera wulgarny język.</p>
+  <b>⚠️ Uwaga:</b> Symulacja zawiera wulgarny język.</p>"
 
   Zwróć tylko i wyłącznie gotowy kod HTML, bez '''.
   `;
