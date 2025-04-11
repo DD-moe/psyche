@@ -31,7 +31,7 @@ async function generate_case(AI, text, instruction_box) {
     let description = await gemini_model.generate(instructionText, prompt);
 
     // Usuń potrójne cudzysłowy lub apostrofy otaczające cały wynik
-    description = patientCardHTML.trim().replace(/^['"`]{3}|['"`]{3}$/g, '');
+    description = description.trim().replace(/^['"`]{3}|['"`]{3}$/g, '');
     const header = document.querySelector("header");
     header.innerHTML = description;
     return description;
