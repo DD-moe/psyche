@@ -1,14 +1,15 @@
 async function generate_case(AI, text, instruction_box) {
     const gemini_model = document.getElementById(AI);
     const textarea = document.getElementById(text);
-    const instr = `\nNa podstawie podanych informacji wygeneruj instrukcję, bazując na podanym przykładzie:
+    const instr = `Na podstawie podanych informacji wygeneruj instrukcję, bazując na podanym przykładzie:
+    "
   Kacper Walicki, lat 27. Młody mężczyzna, bez stałego miejsca zamieszkania, bezrobotny od kilku miesięcy. Według własnych słów, jest "kapitanem gwiezdnej floty" i znajduje się na tajnej misji ocalenia ludzkości przed inwazją kosmitów. Twierdzi, że od lat prowadzi wojnę z "Sułtanem kosmitów", istotą zdolną manipulować umysłami ludzi. W jego narracji pojawiają się postaci jego pomocników – Janusza i Sebastiana – do których czasem się zwraca, ignorując rozmówcę.
   
   Pacjent bywa wulgarny, używa charakterystycznych powiedzonek takich jak: „ciasne jak po praniu”, „napierdalać kosmitów”. Gdy poczuje się niezrozumiany, bywa agresywny werbalnie i potrafi nazwać rozmówcę "tępym konowałem". Często przerywa, odpływa w wątek fantastyczny, a jego wypowiedzi są przepełnione patosem i misją „ratowania wszechświata”.
   
   Zarys sytuacji: Pacjent trafia do gabinetu w ramach interwencji kryzysowej po tym, jak sąsiedzi zgłosili niepokojące hałasy i dziwne okrzyki dochodzące z jego mieszkania. Sam twierdzi, że to przez atak kosmitów i konieczność „obrony placówki”.
   
-  Prowadzisz dialog z użytkownikiem. Gdy użytkownik zada pytanie, odpowiedz jako Kacper. Odpowiedzi mogą być nie na temat, pełne patosu, czasem z wulgaryzmami i dygresjami oraz rozmowami z wyimaginowanymi postaciami. UWAGA: podawaj tylko czystą odpowiedź pacjenta, bez "Kacper Walicki: " i bez komentarzy narratora.
+  Prowadzisz dialog z użytkownikiem. Gdy użytkownik zada pytanie, odpowiedz jako Kacper. Odpowiedzi mogą być nie na temat, pełne patosu, czasem z wulgaryzmami i dygresjami oraz rozmowami z wyimaginowanymi postaciami. UWAGA: podawaj tylko czystą odpowiedź pacjenta, bez "Kacper Walicki: " i bez komentarzy narratora."
   \n`;
   
     const instruction = await gemini_model.generate(textarea.value, instr);
@@ -27,7 +28,10 @@ async function generate_case(AI, text, instruction_box) {
   
   <b>⚠️ Uwaga:</b> Symulacja zawiera wulgarny język.</p>\n`;
   
-    const description = await gemini_model.generate(instructionText, instr);
+    let description = await gemini_model.generate(instructionText, prompt);
+
+    // Usuń potrójne cudzysłowy lub apostrofy otaczające cały wynik
+    description = patientCardHTML.trim().replace(/^['"`]{3}|['"`]{3}$/g, '');
     const header = document.querySelector("header");
     header.innerHTML = description;
     return description;
@@ -57,7 +61,10 @@ async function generate_case(AI, text, instruction_box) {
   INSTRUKCJA:
   `;
   
-    const patientCardHTML = await gemini_model.generate(instructionText, prompt);
+    let patientCardHTML = await gemini_model.generate(instructionText, prompt);
+
+    // Usuń potrójne cudzysłowy lub apostrofy otaczające cały wynik
+    patientCardHTML = patientCardHTML.trim().replace(/^['"`]{3}|['"`]{3}$/g, '');
     const container = document.getElementById("speakers");
     container.innerHTML = patientCardHTML;
   }
