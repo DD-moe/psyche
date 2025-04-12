@@ -22,26 +22,24 @@ async function generate_case(AI, text, instruction_box) {
   async function generate_description(AI, instructionText) {
     const gemini_model = document.getElementById(AI);
     const instr = `
-    Na podstawie tej instrukcji wygeneruj html zawierający opis symulacji, bazując na poniższym przykładzie:
-  "<h2>Pacjent w kostiumie gwiezdnej floty</h2>
-  <h3>Poziom trudności: <b>🔴 trudny</b></h3>
-  <p>Młody mężczyzna wchodzi do gabinetu bez pukania, rozgląda się nerwowo i siada przodem do drzwi.  
-  Wzrok ma czujny, mówi szybko i z pasją coś o walce z kosmitami.  
-  Czasem zwraca się do kogoś niewidzialnego, czasem do ciebie – nie zawsze uprzejmie.
-  
-  <b>⚠️ Uwaga:</b> Symulacja zawiera wulgarny język.</p>"
+tu masz instrukcję, jak symulować wywiad z pacjentem, bazując na jej treści napisz: html, poniżej masz przykład: 
+        "<h2>Kapitan gwiezdnej floty</h2>
+        <h3>Poziom trudności: <b>🔴 trudny</b></h3>
+        <p>Młody mężczyzna wchodzi do gabinetu bez pukania, rozgląda się nerwowo i siada przodem do drzwi.  
+        Wzrok ma czujny, mówi szybko i z pasją coś o walce z kosmitami.  
+        Czasem zwraca się do kogoś niewidzialnego, czasem do ciebie – nie zawsze uprzejmie.
+        
+        <b>⚠️ Uwaga:</b> Symulacja zawiera wulgarny język.</p>   "
 
-  Zwróć tylko i wyłącznie gotowy kod HTML, bez '''.
+html ma zawierać:
+w h2 - tytuł podsumowujący scenę symulacji, w h3 poziom trudności - z odpowiednim emoji - określisz go na podstawie instrukcji.
+ natomiast w elemencie <p> opiszesz jak pacjent przychodzi do ciebie, oraz jak wygląda i jak się zachowywuje - taka strassen diagnose.
+  Casem potrzeba dodatkowych uwag - je muieścisz w <b>
   `;
   
     let description = await gemini_model.generate(instructionText, prompt);
+    description = extractBetweenHtmlTags(description);
 
-    // Usuń potrójne cudzysłowy lub apostrofy otaczające cały wynik
-    description = description
-    .trim()
-    .replace(/^```(?:html)?\s*/i, '')  // usuń np. ```html (na początku)
-    .replace(/```$/i, '')              // usuń ``` na końcu
-    .replace(/^['"`]{3}|['"`]{3}$/g, ''); // usuń ''' lub """ z początku/końca
     const header = document.querySelector("header");
     header.innerHTML = description;
     return description;
@@ -66,21 +64,28 @@ async function generate_case(AI, text, instruction_box) {
     <speech-listener AI="ai" instruction="speaker" speaker="Kacper Walicki"></speech-listener>
   </div>
   
-  Zwróć tylko i wyłącznie gotowy kod HTML, bez '''. Ustaw właściwe imię i nazwisko pacjenta oraz emoji zgodnie z profilem, jaki wyczytasz z instrukcji.
-  
-  INSTRUKCJA:
+  Zwróć tylko i wyłącznie gotowy kod HTML, bez '''. 
+  Ustaw właściwe imię i nazwisko pacjenta oraz emoji zgodnie z profilem, jaki wyczytasz z instrukcji.
   `;
   
     let patientCardHTML = await gemini_model.generate(instructionText, prompt);
 
     // Usuń potrójne cudzysłowy lub apostrofy otaczające cały wynik
-    patientCardHTML = patientCardHTML
-    .trim()
-    .replace(/^```(?:html)?\s*/i, '')  // usuń np. ```html (na początku)
-    .replace(/```$/i, '')              // usuń ``` na końcu
-    .replace(/^['"`]{3}|['"`]{3}$/g, ''); // usuń ''' lub """ z początku/końca
+    patientCardHTML = extractBetweenHtmlTags(patientCardHTML);
 
     const container = document.getElementById("speakers");
     container.innerHTML = patientCardHTML;
   }
   
+
+  function extractBetweenHtmlTags(text) {
+    const regex = /```html([\s\S]*?)```/g;
+    const results = [];
+    let match;
+
+    while ((match = regex.exec(text)) !== null) {
+        results.push(match[1].trim());
+    }
+
+    return results;
+}
