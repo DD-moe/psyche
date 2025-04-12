@@ -37,7 +37,7 @@ w h2 - tytuł podsumowujący scenę symulacji, w h3 poziom trudności - z odpowi
   Casem potrzeba dodatkowych uwag - je muieścisz w <b>
   `;
   
-    let description = await gemini_model.generate(instructionText, prompt);
+    let description = await gemini_model.generate(instructionText, instr);
     description = extractBetweenHtmlTags(description);
 
     const header = document.querySelector("header");
