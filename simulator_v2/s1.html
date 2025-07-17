@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <title>Przepytam Cię ze Skali Glasgow</title>
+  <style>
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f4f7fa;
+    color: #333;
+    padding: 20px;
+    max-width: 900px;
+    margin: auto;
+  }
+
+  h1 {
+    text-align: center;
+    color: #005691;
+  }
+
+  label {
+    font-weight: bold;
+    display: block;
+    margin-top: 20px;
+  }
+
+  input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+  }
+
+  textarea {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    resize: vertical;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 14px;
+  }
+
+  button {
+    background-color: #005691;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  button:hover {
+    background-color: #004270;
+  }
+
+  pre {
+    background-color: #eef2f7;
+    border: 1px solid #ccc;
+    padding: 12px;
+    border-radius: 6px;
+    white-space: pre-wrap;
+    font-family: Consolas, monospace;
+    margin-top: 5px;
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 30px 0;
+  }
+
+  p strong {
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 5px;
+  }
+</style>
+
+</head>
+<body>
+  <h1>Przepytam Cię ze Skali ASA</h1>
+  <label for="token">Token (API Key):</label>
+  <input type="password" id="token" placeholder="Wprowadź swój token...">
+  <hr>
+
+  <button id="generateBtn">Generuj przypadek</button>
+  <p><strong>Wygenerowany przypadek:</strong></p>
+  <pre id="caseOutput">[Brak przypadku]</pre>
+
+  <hr>
+
+  <label for="userInput">Napisz odpowiedź:</label><br>
+  <textarea id="userInput" rows="10" cols="80"></textarea><br>
+
+  <button id="evaluateBtn">Oceń</button>
+  <p><strong>Ocena AI:</strong></p>
+  <pre id="evaluationOutput">[Brak oceny]</pre>
+</body>
+
+<script>
+// definicja skali do odpytania
+const definicja = `I – pacjent do 60. r.ż., nieobciążony chorobami, poddany małemu lub średniemu zabiegowi operacyjnemu,
+II – pacjent powyżej 65. r.ż., bez chorób współistnieją­cych lub młodszy ze schorzeniem, które nie wpływa na jego stan ogólny, z niezbyt nasiloną chorobą układową, taką jak: stabilne i dobrze kontrolowane nadciśnienie tętnicze, wyrównana cukrzyca, przewlekłe zapalenie oskrzeli w stadium wydolności układu oddechowego, niewielkiego stopnia choroba niedokrwienna mięśnia sercowego, niedokrwistość, znacznego stopnia otyłość (powyżej 20% należnej masy ciała),
+III – pacjent ze współistniejącą poważną choroba układową, której zaawansowanie ogranicza jego wydolność lub aktywność, ale nie stwarza zagrożenia dla życia, np. przebyty zawał serca do 3 miesięcy przed datą wykonania zabiegu operacyjnego, niestabilna dusznica bolesna, ciężkie schorzenie układu oddechowego, nieuregulowana cukrzyca,
+IV – pacjent z bardzo ciężką chorobą układową, która zagraża jego życiu, np. niewydolność nerek, zastoinowa niewydolność krążenia, organiczna wada serca z cechami ostrej niewydolności krążenia, świeży zawał mięśnia sercowego, niewydolność wątroby, gruczołów dokrewnych,
+V – pacjent w stanie krytycznym, którego przewidywany czas przeżycia nie przekracza 24 godzin, pacjent z niewydolnością wielonarządową, w stanie skrajnie ciężkim, u którego z dużym prawdopodobieństwem zgon nastąpi w ciągu 24 godzin, bez względu na to, czy zostanie poddany zabiegowi operacyjnemu, czy też nie (np. pacjent z pękniętym tętniakiem aorty i głębokim wstrząsem, pacjent z masywnym zatorem tętnicy płucnej).
+VI - pacjent nie żyje - podtrzymywane funkcje życiowe jako potencjalny dawca narządów
+`;
+
+// wygenerowany przypadek
+let lastCase = '';
+</script>
+
+<script type="module">
+
+  // importuje bibliotekę z google
+  import { GoogleGenAI } from "https://esm.run/@google/genai";
+
+  // funkcja do odpytywania AI
+  async function main(prompt, instruction, token) {
+    const ai = new GoogleGenAI({ apiKey: token });
+
+    const response = await ai.models.generateContent({
+      model: "gemini-2.5-flash",
+      contents: prompt,
+      config: {
+        systemInstruction: instruction,
+      },
+    });
+
+    return response.text || "[Brak odpowiedzi]";
+  }
+
+  // funkcja do losowania liczb csłkowitych w zakresie
+  function ll(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  // przycisk do generowania przypadku
+    document.getElementById('generateBtn').addEventListener('click', async () => {
+    const token = document.getElementById('token').value.trim();
+    if (!token) {
+      alert("Podaj token API!");
+      return;
+    }
+
+    const instruction = `Wygeneruj na podstawie definicji ASA krótki opis pacjenta. maksymalnie 2 zdania. wygeneruj opis tak, by pacjent kwalifikował się do kategorii ASA: ${ll(1,6)}`;
+    const prompt = definicja;
+
+    try {
+      lastCase = await main(prompt, instruction, token);
+      document.getElementById('caseOutput').textContent = formatResponse(lastCase);
+    } catch (err) {
+      document.getElementById('caseOutput').textContent = "Błąd: " + err.message;
+    }
+  });
+
+  // prcycisk do oceny przez AI
+    document.getElementById('evaluateBtn').addEventListener('click', async () => {
+    const token = document.getElementById('token').value.trim();
+    if (!token) {
+      alert("Podaj token API!");
+      return;
+    }
+
+    const userText = document.getElementById('userInput').value;
+    const evaluationInstruction = "Oceń, czy użytkownik poprawnie podał stan pacjenta w skali ASA - podaje numer. W razie niepoprawności podaj poprawną odpowiedź i wyjaśnienie.";
+    const schema = definicja;
+    const prompt = `Opis pacjenta: ${userText}\n\nDefinicja Skali ASA: ${schema}\n\nPrzypadek: ${lastCase}`;
+
+    try {
+      const result = await main(prompt, evaluationInstruction, token);
+      document.getElementById('evaluationOutput').textContent = formatResponse(result);
+    } catch (err) {
+      document.getElementById('evaluationOutput').textContent = "Błąd: " + err.message;
+    }
+  });
+
+  // funkcja do formatowania odpowiedzi
+    function formatResponse(input) {
+    // Zamień podwójne gwiazdki na duże litery lub styl ASCII
+    let output = input
+        .replace(/\*\*(.*?)\*\*/g, (match, p1) => p1.toUpperCase()) // **tekst** → TEKST
+        .replace(/\*   /g, "- ") // Zamień wypunktowanie Markdown na myślniki
+        .replace(/^\s*\n/gm, "") // Usuń puste linie
+
+    // Dodaj wcięcia i uporządkuj
+    return output.split('\n').map(line => '  ' + line.trim()).join('\n');
+    }
+</script>
+</html>
