@@ -2,7 +2,7 @@
 <html lang="pl">
 <head>
   <meta charset="UTF-8" />
-  <title>Przepytam Cię ze Skali Glasgow</title>
+  <title>Przepytam Cię z norm labolatoryjnych</title>
   <style>
   body {
     font-family: 'Segoe UI', sans-serif;
@@ -85,40 +85,49 @@
 </style>
 
 </head>
-<body>
-  <h1>Przepytam Cię ze Skali ASA</h1>
-  <label for="token">Token (API Key):</label>
-  <input type="password" id="token" placeholder="Wprowadź swój token...">
-  <hr>
+    <body>
+    <h1>Przepytam Cię ze norm labolaoryjnych</h1>
+    <label for="token">Token (API Key):</label>
+    <input type="password" id="token" placeholder="Wprowadź swój token...">
+    <hr>
 
-  <button id="generateBtn">Generuj przypadek</button>
-  <p><strong>Wygenerowany przypadek:</strong></p>
-  <pre id="caseOutput">[Brak przypadku]</pre>
+    <button id="generateBtn">Generuj przypadek</button>
+    <p><strong>Wygenerowany przypadek:</strong></p>
+    <pre id="caseOutput">[Brak przypadku]</pre>
 
-  <hr>
-      <p>Podaj ile punktów w skali ASA ma dany pacjent</p>
-  <hr>
+    <hr>
+        <p>Podaj czy dana wartość jest powyżej czy poniżej normy</p>
+    <hr>
 
-  <label for="userInput">Napisz odpowiedź:</label><br>
-  <textarea id="userInput" rows="10" cols="80"></textarea><br>
+    <label for="userInput">Napisz odpowiedź:</label><br>
+    <textarea id="userInput" rows="10" cols="80"></textarea><br>
 
-  <button id="evaluateBtn">Oceń</button>
-  <p><strong>Ocena AI:</strong></p>
-  <pre id="evaluationOutput">[Brak oceny]</pre>
-</body>
+    <button id="evaluateBtn">Oceń</button>
+    <p><strong>Ocena AI:</strong></p>
+    <pre id="evaluationOutput">[Brak oceny]</pre>
+    </body>
 
 <script>
-// definicja skali do odpytania
-const definicja = `I – pacjent do 60. r.ż., nieobciążony chorobami, poddany małemu lub średniemu zabiegowi operacyjnemu,
-II – pacjent powyżej 65. r.ż., bez chorób współistnieją­cych lub młodszy ze schorzeniem, które nie wpływa na jego stan ogólny, z niezbyt nasiloną chorobą układową, taką jak: stabilne i dobrze kontrolowane nadciśnienie tętnicze, wyrównana cukrzyca, przewlekłe zapalenie oskrzeli w stadium wydolności układu oddechowego, niewielkiego stopnia choroba niedokrwienna mięśnia sercowego, niedokrwistość, znacznego stopnia otyłość (powyżej 20% należnej masy ciała),
-III – pacjent ze współistniejącą poważną choroba układową, której zaawansowanie ogranicza jego wydolność lub aktywność, ale nie stwarza zagrożenia dla życia, np. przebyty zawał serca do 3 miesięcy przed datą wykonania zabiegu operacyjnego, niestabilna dusznica bolesna, ciężkie schorzenie układu oddechowego, nieuregulowana cukrzyca,
-IV – pacjent z bardzo ciężką chorobą układową, która zagraża jego życiu, np. niewydolność nerek, zastoinowa niewydolność krążenia, organiczna wada serca z cechami ostrej niewydolności krążenia, świeży zawał mięśnia sercowego, niewydolność wątroby, gruczołów dokrewnych,
-V – pacjent w stanie krytycznym, którego przewidywany czas przeżycia nie przekracza 24 godzin, pacjent z niewydolnością wielonarządową, w stanie skrajnie ciężkim, u którego z dużym prawdopodobieństwem zgon nastąpi w ciągu 24 godzin, bez względu na to, czy zostanie poddany zabiegowi operacyjnemu, czy też nie (np. pacjent z pękniętym tętniakiem aorty i głębokim wstrząsem, pacjent z masywnym zatorem tętnicy płucnej).
-VI - pacjent nie żyje - podtrzymywane funkcje życiowe jako potencjalny dawca narządów
-`;
+// definicja {dynamiczna} skali do odpytania
+let definicja = ``;
 
 // wygenerowany przypadek
 let lastCase = '';
+
+// zestaw parametrów do tworzenia dynamicznej definicji
+const defSet = [
+  "Hemoglobina: 12.0 - 16.0 g/dL (Norma dla kobiet; u mężczyzn 13.5 - 17.5 g/dL)",
+  "Leukocyty (WBC): 4.0 - 10.0 tys/μL (Norma ogólna dla dorosłych)",
+  "Glukoza na czczo: 70 - 99 mg/dL (Wyższe wartości mogą wskazywać na stan przedcukrzycowy)",
+  "Cholesterol całkowity: < 190 mg/dL (Pożądany poziom dla dorosłych)",
+  "TSH: 0.4 - 4.0 µIU/mL (Norma dla dorosłych; zależna od wieku i ciąży)",
+  "Kreatynina: 0.5 - 1.1 mg/dL (Norma dla kobiet; u mężczyzn do 1.3 mg/dL)",
+  "CRP: < 5 mg/L (Wskaźnik stanu zapalnego w organizmie)",
+  "Żelazo: 60 - 160 µg/dL (Wartości niższe częstsze u kobiet)",
+  "ALT (GPT): 7 - 35 U/L (Norma dla kobiet; u mężczyzn do 45 U/L)",
+  "Płytki krwi (PLT): 150 - 400 tys/μL (Norma dla dorosłych obu płci)"
+];
+
 </script>
 
 <script type="module">
@@ -141,10 +150,11 @@ let lastCase = '';
     return response.text || "[Brak odpowiedzi]";
   }
 
-  // funkcja do losowania liczb csłkowitych w zakresie
-  function ll(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
+  // funkcja do losowania definicji z zestawu
+    function losujParametr(set) {
+        const i = Math.floor(Math.random() * set.length);
+        return set[i];
+    }
 
   // przycisk do generowania przypadku
     document.getElementById('generateBtn').addEventListener('click', async () => {
@@ -153,9 +163,10 @@ let lastCase = '';
       alert("Podaj token API!");
       return;
     }
-    const nr = ll(1,6);
-    const instruction = `Wygeneruj na podstawie definicji ASA krótki opis pacjenta. maksymalnie 2 zdania. wygeneruj opis tak, by pacjent kwalifikował się do kategorii ASA: ${nr}`;
-    console.log(nr);
+    // tworzy definicję dynamiczną
+    definicja = losujParametr(defSet);
+    const instruction = `Wygeneruj na podstawie definicji parametru labolatoryjnego wartość, wybierz losowo czy ma być powyżej, poniżej czy w normie. Format odpowiedzi to: nazwa parametru (ewentualnie dopercyzowanie u kogo/ w jakich okolicznościach)  -  wartość`;
+    console.log(definicja);
     const prompt = definicja;
 
     try {
@@ -175,7 +186,7 @@ let lastCase = '';
     }
 
     const userText = document.getElementById('userInput').value;
-    const evaluationInstruction = "Oceń, czy użytkownik poprawnie podał stan pacjenta w skali ASA - podaje numer. W razie niepoprawności podaj poprawną odpowiedź i wyjaśnienie.";
+    const evaluationInstruction = "Oceń, czy użytkownik poprawnie ocenił czy dany parametr labolatoryjny jest w normie, czy też powyżej lub poniżej. W razie niepoprawności podaj poprawną odpowiedź i wyjaśnienie.";
     const schema = definicja;
     const prompt = `Opis pacjenta: ${userText}\n\nDefinicja Skali ASA: ${schema}\n\nPrzypadek: ${lastCase}`;
 
