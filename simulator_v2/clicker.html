@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Interaktywny Obraz z Punktami</title>
+  <style>
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin-top: 10px;
+      border: 2px solid #555;
+      cursor: crosshair;
+    }
+    textarea, input[type="text"], input[type="number"] {
+      width: 100%;
+      margin-top: 10px;
+    }
+    textarea {
+      height: 100px;
+    }
+    #status {
+      margin-top: 10px;
+      font-family: sans-serif;
+      font-weight: bold;
+      white-space: pre-wrap;
+    }
+    .controls {
+      margin-top: 10px;
+      border: 1px solid #aaa;
+      padding: 10px;
+      background: #f9f9f9;
+    }
+  </style>
+</head>
+<body>
+  <h2>Dodaj punkty do obrazu lub sprawdz istniejące</h2>
+
+  <button id="toggleControlsBtn">Pokaż/Ukryj opcje</button>
+
+  <div class="controls" id="controlsDiv">
+    <label>
+      <input type="checkbox" id="addPointMode"> Dodaj punkt
+    </label>
+    &nbsp;&nbsp;
+    Nazwa punktu: <input type="text" id="pointNameInput" placeholder="np. Punkt A">
+
+    <label>
+      Zasięg wyszukiwania (px):
+      <input type="number" id="searchRadiusInput" value="20" min="1">
+    </label>
+
+    <textarea id="pointParamsInput" placeholder="Tutaj wpisz parametry punktu (np. height: 13)"></textarea>
+    
+    <textarea id="jsonInput" placeholder="Wklej tutaj JSON..."></textarea><br>
+    <button id="loadJsonBtn">Załaduj JSON (nadpisz)</button>
+    <button id="appendJsonBtn">Dodaj JSON do istniejących</button>
+    <button id="exportJsonBtn">Punkty do JSON</button>
+
+    <div id="status"></div>
+  </div>
+
+  <h3>Obraz:</h3>
+  <img id="image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Example.jpg/800px-Example.jpg" alt="Kliknij na obraz" />
+
+  <script>
+    const image = document.getElementById('image');
+    const jsonInput = document.getElementById('jsonInput');
+    const loadJsonBtn = document.getElementById('loadJsonBtn');
+    const appendJsonBtn = document.getElementById('appendJsonBtn');
+    const exportJsonBtn = document.getElementById('exportJsonBtn');
+    const statusDiv = document.getElementById('status');
+    const addPointModeCheckbox = document.getElementById('addPointMode');
+    const pointNameInput = document.getElementById('pointNameInput');
+    const pointParamsInput = document.getElementById('pointParamsInput');
+    const toggleControlsBtn = document.getElementById('toggleControlsBtn');
+    const controlsDiv = document.getElementById('controlsDiv');
+    const searchRadiusInput = document.getElementById('searchRadiusInput');
+
+    let pointsArray = [];
+
+    // Toggle widoczności panelu
+    toggleControlsBtn.addEventListener('click', () => {
+      controlsDiv.style.display = (controlsDiv.style.display === "none" ? "block" : "none");
+    });
+
+    // Załaduj JSON (nadpisuje)
+    loadJsonBtn.addEventListener('click', () => {
+      try {
+        const json = jsonInput.value;
+        const parsed = JSON.parse(json);
+        if (!Array.isArray(parsed)) throw new Error("JSON musi być tablicą.");
+        pointsArray = parsed;
+        statusDiv.textContent = "Załadowano punkty (nadpisano): " + pointsArray.length;
+        statusDiv.style.color = "green";
+      } catch (e) {
+        statusDiv.textContent = "Błąd: " + e.message;
+        statusDiv.style.color = "red";
+      }
+    });
+
+    // Dodaj JSON do istniejących
+    appendJsonBtn.addEventListener('click', () => {
+      try {
+        const json = jsonInput.value;
+        const parsed = JSON.parse(json);
+        if (!Array.isArray(parsed)) throw new Error("JSON musi być tablicą.");
+        pointsArray = pointsArray.concat(parsed);
+        statusDiv.textContent = "Dodano punkty. Razem teraz: " + pointsArray.length;
+        statusDiv.style.color = "darkorange";
+      } catch (e) {
+        statusDiv.textContent = "Błąd: " + e.message;
+        statusDiv.style.color = "red";
+      }
+    });
+
+    // Eksportuj JSON
+    exportJsonBtn.addEventListener('click', () => {
+      jsonInput.value = JSON.stringify(pointsArray, null, 2);
+      statusDiv.textContent = "Wyeksportowano punkty do JSON";
+      statusDiv.style.color = "blue";
+    });
+
+    // Kliknięcie na obraz
+    image.addEventListener('click', (e) => {
+      const rect = image.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      const clickY = e.clientY - rect.top;
+      const scaleX = image.naturalWidth / rect.width;
+      const scaleY = image.naturalHeight / rect.height;
+      const imageX = clickX * scaleX;
+      const imageY = clickY * scaleY;
+
+      if (addPointModeCheckbox.checked) {
+        const pointName = pointNameInput.value.trim() || `Punkt`;
+
+        // Parsowanie parametrów
+        let params = {};
+        const lines = pointParamsInput.value.trim().split("\n").filter(l => l.trim() !== "");
+        for (const line of lines) {
+          const [key, value] = line.split(":").map(s => s.trim());
+          if (key) {
+            try {
+              params[key] = JSON.parse(value);
+            } catch {
+              params[key] = value;
+            }
+          }
+        }
+
+        const newPoint = {
+          name: pointName,
+          x: Math.round(imageX),
+          y: Math.round(imageY),
+          params: params
+        };
+        pointsArray.push(newPoint);
+        statusDiv.textContent = `Dodano punkt: ${newPoint.name} (${newPoint.x}, ${newPoint.y})`;
+        statusDiv.style.color = "darkorange";
+      } else {
+        const radius = parseFloat(searchRadiusInput.value) || 20;
+        const foundPoints = [];
+        for (const point of pointsArray) {
+          const dx = point.x - imageX;
+          const dy = point.y - imageY;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist <= radius) {
+            foundPoints.push(point);
+          }
+        }
+
+        // Emitujemy event z listą punktów
+        const event = new CustomEvent("clickedPoints", { detail: foundPoints });
+        document.dispatchEvent(event);
+      }
+    });
+
+    // Odbiornik eventu clickedPoints
+    document.addEventListener("clickedPoints", (e) => {
+      const points = e.detail;
+      if (points.length === 0) {
+        statusDiv.textContent = "Nie znaleziono żadnych punktów w zasięgu.";
+        statusDiv.style.color = "red";
+      } else {
+        let out = "Znalezione punkty:\n";
+        for (const p of points) {
+          out += `- ${p.name} (${p.x}, ${p.y})\n   ${JSON.stringify(p.params)}\n`;
+        }
+        statusDiv.textContent = out;
+        statusDiv.style.color = "green";
+      }
+    });
+  </script>
+</body>
+</html>

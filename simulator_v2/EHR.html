@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nawigator po Drzewie Obiektów</title>
+<style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            background-color: #eef2f6;
+            margin: 0;
+            padding: 40px 20px;
+            box-sizing: border-box;
+        }
+
+        #app-container {
+            width: 100%;
+            max-width: 800px;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            padding: 30px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        h1, h3, h4 {
+            color: #2c3e50;
+            font-weight: 500;
+            margin-top: 0;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        .controls {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e0e6ed;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .button {
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        #parent-btn {
+            background-color: #3498db;
+            color: white;
+            padding: 12px 24px;
+            width: 100%;
+        }
+
+        #parent-btn:hover:enabled {
+            background-color: #2980b9;
+            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+        }
+
+        #parent-btn:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+            color: #ecf0f1;
+        }
+
+        .current-node-content {
+            padding: 20px;
+            border: 2px solid #3498db;
+            border-radius: 10px;
+            background-color: #ecf9ff;
+            margin-bottom: 30px;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        
+        .current-node-content h2 {
+            margin-top: 0;
+            color: #34495e;
+        }
+
+        .child-node {
+            padding: 18px;
+            border: 1px solid #dcdfe4;
+            border-radius: 8px;
+            margin-top: 15px;
+            cursor: pointer;
+            background-color: #f8f9fa;
+            transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
+        }
+
+        .child-node:hover {
+            background-color: #e9ecef;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .editor-section {
+            margin-top: 30px;
+            padding-top: 25px;
+            border-top: 1px dashed #dcdfe4;
+        }
+
+        .editor-section h3 {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #34495e;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 120px;
+            margin-top: 5px;
+            margin-bottom: 20px;
+            padding: 12px;
+            border: 1px solid #dcdfe4;
+            border-radius: 8px;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.9rem;
+            background-color: #fcfdfe;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+            resize: vertical;
+            transition: border-color 0.2s;
+        }
+        
+        textarea:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+
+        #edit-btn {
+            background-color: #27ae60;
+            color: white;
+            padding: 12px 24px;
+            width: 100%;
+        }
+
+        #edit-btn:hover:enabled {
+            background-color: #229954;
+            box-shadow: 0 4px 10px rgba(39, 174, 96, 0.3);
+        }
+
+        #copy-btn {
+            background-color: #f39c12; /* Pomarańczowy kolor dla akcji kopiowania */
+            color: white;
+            padding: 12px 24px;
+            width: 100%;
+        }
+
+        #copy-btn:hover:enabled {
+            background-color: #e67e22;
+            box-shadow: 0 4px 10px rgba(243, 156, 18, 0.3);
+        }
+
+        #paste-btn {
+            background-color: #9b59b6; /* Fioletowy kolor dla akcji wklejania */
+            color: white;
+            padding: 12px 24px;
+            width: 100%;
+        }
+
+        #paste-btn:hover:enabled {
+            background-color: #8e44ad;
+            box-shadow: 0 4px 10px rgba(155, 89, 182, 0.3);
+        }
+        /* Styl dla przycisku "Włącz edycję" */
+        #toggle-editor-btn {
+            background-color: #34495e; /* Ciemny, elegancki kolor */
+            color: white;
+            padding: 12px 24px;
+            width: 100%;
+        }
+
+        #toggle-editor-btn:hover:enabled {
+            background-color: #2c3e50;
+            box-shadow: 0 4px 10px rgba(44, 62, 80, 0.3);
+        }
+
+        /* Ukrycie sekcji edytora domyślnie */
+        .editor-section.hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="app-container">
+        <h1>Nawigator po strukturze drzewa</h1>
+        <div id="controls" class="controls">
+            <button id="parent-btn">Znajdź rodzica</button>
+            <button id="toggle-editor-btn" class="button">Włącz edycję danych</button>
+        </div>
+        <div id="display">
+        </div>
+
+        <div class="editor-section hidden" id="editing">
+            <h3>Edytor Węzła</h3>
+            <label for="node-properties">Właściwości węzła (JSON):</label>
+            <br>
+            <textarea id="node-properties"></textarea>
+            <br>
+
+            <label for="child-titles">Tytuły elementów podrzędnych (jeden na linię):</label>
+            <br>
+            <textarea id="child-titles"></textarea>
+            <br>
+
+            <div class="controls">
+                <button id="edit-btn">Zatwierdź zmiany</button>
+                <button id="copy-btn" class="button">Kopiuj JSON</button>
+                <button id="paste-btn" class="button">Wklej JSON</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const rootNode = {
+            properties: {
+                title: "Strona Główna",
+                html: `<h2>Witaj na Stronie Głównej</h2><p>To jest korzeń naszego drzewa danych. Kliknij na jeden z poniższych elementów, aby zagłębić się w strukturę.</p>`
+            },
+            parent: null,
+            children: [
+                {
+                    properties: {
+                        title: "Dział 1",
+                        html: `<h3>Jesteś w Dziale 1</h3><p>Ten dział zawiera informacje o produktach.</p>`
+                    },
+                    parent: null,
+                    children: [
+                        {
+                            properties: {
+                                title: "Produkt A",
+                                html: `<h4>Produkt A</h4><p>Szczegółowy opis produktu A.</p>`
+                            },
+                            parent: null,
+                            children: []
+                        },
+                        {
+                            properties: {
+                                title: "Produkt B",
+                                html: `<h4>Produkt B</h4><p>Szczegółowy opis produktu B.</p>`
+                            },
+                            parent: null,
+                            children: []
+                        }
+                    ]
+                },
+                {
+                    properties: {
+                        title: "Dział 2",
+                        html: `<h3>Jesteś w Dziale 2</h3><p>Ten dział to nasze portfolio.</p>`
+                    },
+                    parent: null,
+                    children: []
+                }
+            ]
+        };
+
+        let currentNode = rootNode;
+        linkParents(rootNode);
+
+        const parentBtn = document.getElementById('parent-btn');
+        const editBtn = document.getElementById('edit-btn');
+        const copyBtn = document.getElementById('copy-btn');
+        const pasteBtn = document.getElementById('paste-btn');
+        const toggleEditorBtn = document.getElementById('toggle-editor-btn');
+        const nodePropertiesTextarea = document.getElementById('node-properties');
+        const childTitlesTextarea = document.getElementById('child-titles');
+        const editorSection = document.querySelector('.editor-section');
+
+        function linkParents(node, parent = null) {
+            node.parent = parent;
+            if (node.children && node.children.length > 0) {
+                node.children.forEach(child => {
+                    linkParents(child, node);
+                });
+            }
+        }
+
+        function unlinkParents(node) {
+            node.parent = null;
+            if (node.children && node.children.length > 0) {
+                node.children.forEach(child => unlinkParents(child));
+            }
+        }
+
+        function render(node) {
+            const displayDiv = document.getElementById('display');
+            displayDiv.innerHTML = '';
+
+            const currentNodeDiv = document.createElement('div');
+            currentNodeDiv.className = 'current-node-content';
+            currentNodeDiv.innerHTML = node.properties.html;
+            displayDiv.appendChild(currentNodeDiv);
+            
+            if (node.children && node.children.length > 0) {
+                const childrenTitle = document.createElement('h4');
+                childrenTitle.textContent = 'Elementy podrzędne:';
+                displayDiv.appendChild(childrenTitle);
+
+                node.children.forEach(childNode => {
+                    const childDiv = document.createElement('div');
+                    childDiv.className = 'child-node';
+                    childDiv.innerHTML = childNode.properties.html;
+
+                    childDiv.addEventListener('click', () => {
+                        currentNode = childNode;
+                        render(currentNode);
+                        updateEditor();
+                    });
+
+                    displayDiv.appendChild(childDiv);
+                });
+            }
+
+            parentBtn.disabled = !node.parent;
+            editBtn.disabled = false;
+        }
+        
+        function updateEditor() {
+            // Wypełnij textarea dla właściwości bieżącego węzła
+            nodePropertiesTextarea.value = JSON.stringify(currentNode.properties, null, 2);
+
+            // Wypełnij textarea dla tytułów dzieci
+            if (currentNode.children && currentNode.children.length > 0) {
+                childTitlesTextarea.value = currentNode.children.map(child => child.properties.title).join('\n');
+            } else {
+                childTitlesTextarea.value = '';
+            }
+        }
+        
+        function applyChanges() {
+            // 1. Zmiana właściwości bieżącego węzła
+            try {
+                const newProperties = JSON.parse(nodePropertiesTextarea.value);
+                // Upewnij się, że nie nadpisujemy 'parent' przez przypadek
+                currentNode.properties = newProperties;
+            } catch (e) {
+                alert('Błąd: Właściwości węzła muszą być poprawnym JSON-em.');
+                return;
+            }
+
+            // 2. Zmiana listy dzieci
+            const newChildTitles = childTitlesTextarea.value.split('\n').map(title => title.trim()).filter(title => title !== '');
+            const oldChildTitles = currentNode.children.map(child => child.properties.title);
+            
+            // Elementy do usunięcia
+            const childrenToRemove = oldChildTitles.filter(title => !newChildTitles.includes(title));
+            if (childrenToRemove.length > 0) {
+                const confirmRemove = confirm(`Czy na pewno chcesz usunąć następujące elementy podrzędne: ${childrenToRemove.join(', ')}?`);
+                if (!confirmRemove) {
+                    return;
+                }
+            }
+            
+            // Elementy do dodania
+            const childrenToAdd = newChildTitles.filter(title => !oldChildTitles.includes(title));
+            
+            // Zbuduj nową listę dzieci
+            const newChildren = [];
+            
+            // Zachowaj istniejące węzły, których tytuły się zgadzają
+            newChildTitles.forEach(title => {
+                const existingChild = currentNode.children.find(child => child.properties.title === title);
+                if (existingChild) {
+                    newChildren.push(existingChild);
+                } else {
+                    // Dodaj nowy węzeł
+                    const newChild = {
+                        properties: {
+                            title: title,
+                            html: `<h4>${title}</h4><p>To jest nowo utworzony element.</p>`
+                        },
+                        parent: currentNode,
+                        children: []
+                    };
+                    newChildren.push(newChild);
+                }
+            });
+            
+            currentNode.children = newChildren;
+            
+            // Uruchom renderowanie i edytor ponownie, aby odświeżyć widok
+            render(currentNode);
+            updateEditor();
+            alert('Zmiany zostały zapisane.');
+        }
+
+        parentBtn.addEventListener('click', () => {
+            if (currentNode.parent) {
+                currentNode = currentNode.parent;
+                render(currentNode);
+                updateEditor();
+            }
+        });
+
+        editBtn.addEventListener('click', applyChanges);
+        
+        copyBtn.addEventListener('click', () => {
+            // 1. Użyj funkcji do usuwania cyklicznych referencji 'parent'
+            unlinkParents(rootNode);
+
+            const jsonString = JSON.stringify(rootNode, null, 2);
+            navigator.clipboard.writeText(jsonString)
+                .then(() => {
+                    linkParents(rootNode);
+                    alert('Obiekt drzewa został skopiowany do schowka!')
+                })
+                .catch(err => console.error('Błąd podczas kopiowania: ', err));
+        });
+
+        pasteBtn.addEventListener('click', () => {
+            navigator.clipboard.readText()
+                .then(text => {
+                    try {
+                        const pastedNode = JSON.parse(text);
+                        if (pastedNode.children) {
+                            // Pomyślnie sparsowano i wygląda na drzewo, więc aktualizujemy rootNode
+                            rootNode.properties = pastedNode.properties;
+                            rootNode.children = pastedNode.children;
+
+                            // 2. Odtwórz cykliczne referencje 'parent'
+                            linkParents(rootNode);
+                            
+                            // Ustawiamy bieżący węzeł na korzeń i renderujemy
+                            currentNode = rootNode;
+                            render(currentNode);
+                            
+                            alert('Zawartość drzewa została zaktualizowana ze schowka!');
+                        } else {
+                            alert('Zawartość schowka nie jest poprawnym formatem drzewa danych.');
+                        }
+                    } catch (e) {
+                        alert('Błąd: Zawartość schowka nie jest poprawnym JSON-em.');
+                        console.error(e);
+                    }
+                })
+                .catch(err => console.error('Błąd podczas wklejania: ', err));
+        });
+
+        toggleEditorBtn.addEventListener('click', () => {
+            // Przełączanie klasy 'hidden'
+            editorSection.classList.toggle('hidden');
+            // Zmiana tekstu na przycisku
+            if (editorSection.classList.contains('hidden')) {
+                toggleEditorBtn.textContent = 'Włącz edycję';
+            } else {
+                toggleEditorBtn.textContent = 'Wyłącz edycję';
+            }
+        });
+
+        // Inicjalizacja
+        render(currentNode);
+        updateEditor();
+
+    </script>
+
+</body>
+</html>
