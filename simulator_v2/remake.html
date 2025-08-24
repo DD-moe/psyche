@@ -4,59 +4,129 @@
   <meta charset="UTF-8">
   <title>Parafrazuj lekcje z Gemini</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-      line-height: 1.5;
-    }
+body {
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  margin: 40px auto;
+  max-width: 800px;
+  line-height: 1.6;
+  background: #f5f7fa;
+  color: #333;
+}
 
-    label {
-      display: block;
-      margin-top: 10px;
-      font-weight: bold;
-    }
+h2, h3 {
+  color: #2c3e50;
+}
 
-    input, select, textarea, button {
-      margin-top: 5px;
-      padding: 8px;
-      font-size: 14px;
-    }
+label {
+  display: block;
+  margin-top: 15px;
+  font-weight: 600;
+  color: #34495e;
+}
 
-    textarea {
-      width: 100%;
-      resize: vertical;
-    }
+input, select, textarea, button {
+  margin-top: 8px;
+  padding: 10px 12px;
+  font-size: 15px;
+  border: 1px solid #d0d7de;
+  border-radius: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
 
-    #RODO {
-      display: none;
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0, 0, 0, 0.6);
-      z-index: 1000;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+input:focus, select:focus, textarea:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.25);
+  outline: none;
+}
 
-    #RODO .popup {
-      background: #fff;
-      padding: 20px 30px;
-      border-radius: 12px;
-      max-width: 500px;
-      text-align: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    }
+button {
+  background: #4a90e2;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  transition: background 0.3s, transform 0.1s;
+  width: auto;
+}
 
-    #rodoAcceptBtn {
-      margin-top: 15px;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 8px;
-      background: #4CAF50;
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
-    }
+button:hover {
+  background: #357ABD;
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #e1e4e8;
+  margin: 20px 0;
+}
+
+#responseBox {
+  background: #fff;
+  border: 1px solid #d0d7de;
+  padding: 12px;
+  border-radius: 8px;
+  font-family: Consolas, monospace;
+  min-height: 200px;
+}
+
+#RODO {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#RODO .popup {
+  background: #fff;
+  padding: 30px 40px;
+  border-radius: 16px;
+  max-width: 520px;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  animation: popupFade 0.3s ease;
+}
+
+#rodoAcceptBtn {
+  margin-top: 20px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 10px;
+  background: #27ae60;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.1s;
+}
+
+#rodoAcceptBtn:hover {
+  background: #219150;
+}
+
+#rodoAcceptBtn:active {
+  transform: scale(0.96);
+}
+
+@keyframes popupFade {
+  from { opacity: 0; transform: translateY(-15px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
   </style>
 </head>
 <body>
@@ -88,6 +158,30 @@
   </select>
   <hr>
 
+  <!-- Wybór szablonowej instrukcji -->
+  <label for="prompt">Użyj szablonowej instrukcji:</label>
+  <select id="prompt">
+    <optgroup label="podstawowe">
+      <option data-prompt="Stwórz krótkie streszczenie tego materiału.">Streszczenie lekcji</option>
+      <option data-prompt="Wygeneruj 5 pytań testowych z tego materiału.">Pytania testowe</option>
+      <option data-prompt="Przepisz ten tekst własnymi słowami.">Parafrazuj</option>
+    </optgroup>
+  </select>
+  <div style="margin-top:10px;">
+    <button id="pastePromptsBtn">📋 Wklej szablony ze schowka</button>
+    <button id="copyPromptsBtn">💾 Kopiuj szablony do schowka</button>
+    <button id="addPromptBtn">➕ Dodaj do biblioteki</button>
+    <button id="saveLibraryBtn">💾 Zapisz bibliotekę do pliku</button>
+    <input type="file" id="loadLibraryFile" accept="application/json" style="display:none;">
+    <button id="loadLibraryBtn">📂 Wczytaj bibliotekę z pliku</button>
+  </div>
+  <hr>
+
+  <label for="newGroup">Nazwa grupy propmtów:</label>
+  <input type="text" id="newGroup" placeholder="Np. podstawowe instrukcje">
+
+  <label for="newOption">Nazwa promptu:</label>
+  <input type="text" id="newOption" placeholder="Np. ułóż pytania testowe">
   <!-- Instruction -->
   <label for="instruction">Instrukcja dla AI:</label>
   <textarea id="instruction" rows="5"></textarea>
@@ -123,6 +217,17 @@
     const modelSelect = document.getElementById("model");
     const instructionBox = document.getElementById("instruction");
     const responseBox = document.getElementById("responseBox");
+    const promptSelect = document.getElementById("prompt");
+    const pasteBtn = document.getElementById("pastePromptsBtn");
+    const copyBtn = document.getElementById("copyPromptsBtn");    
+    const newGroupInput = document.getElementById("newGroup");
+    const newOptionInput = document.getElementById("newOption");
+    const newTextInput = instructionBox;
+    const addPromptBtn = document.getElementById("addPromptBtn");
+
+    const saveLibraryBtn = document.getElementById("saveLibraryBtn");
+    const loadLibraryBtn = document.getElementById("loadLibraryBtn");
+    const loadLibraryFile = document.getElementById("loadLibraryFile");
 
     // Akceptacja RODO
     rodoBtn.addEventListener("click", () => {
@@ -185,6 +290,159 @@
         responseBox.value = result.response.text();
       } catch (err) {
         responseBox.value = "Błąd: " + err.message;
+      }
+    });
+
+    // Ustawianie instrukcji z wybranego promptu
+    promptSelect.addEventListener("change", () => {
+      const selectedOption = promptSelect.options[promptSelect.selectedIndex];
+      if (selectedOption && selectedOption.dataset.prompt) {
+        instructionBox.value = selectedOption.dataset.prompt;
+      }
+    });
+
+    // Funkcja do wklejania szablonów ze schowka
+    async function pastePromptsFromClipboard() {
+      try {
+        const text = await navigator.clipboard.readText();
+        const prompts = JSON.parse(text); // oczekujemy tablicy obiektów
+        buildPromptSelect(prompts);
+        alert("✅ Szablony wklejone ze schowka!");
+      } catch (err) {
+        alert("❌ Błąd przy wklejaniu szablonów: " + err.message);
+      }
+    }
+
+    // Funkcja do kopiowania szablonów do schowka
+    async function copyPromptsToClipboard() {
+      try {
+        const prompts = extractPromptsFromSelect();
+        await navigator.clipboard.writeText(JSON.stringify(prompts, null, 2));
+        alert("✅ Szablony skopiowane do schowka!");
+      } catch (err) {
+        alert("❌ Błąd przy kopiowaniu szablonów: " + err.message);
+      }
+    }
+
+    // Tworzenie select z obiektów
+    function buildPromptSelect(prompts) {
+      promptSelect.innerHTML = ""; // czyścimy stare
+      const groups = {};
+
+      // grupowanie po optiongroup
+      prompts.forEach(p => {
+        if (!groups[p.optiongroup]) {
+          const optGroup = document.createElement("optgroup");
+          optGroup.label = p.optiongroup || "Inne";
+          promptSelect.appendChild(optGroup);
+          groups[p.optiongroup] = optGroup;
+        }
+        const opt = document.createElement("option");
+        opt.textContent = p.option;
+        opt.dataset.prompt = p.text;
+        groups[p.optiongroup].appendChild(opt);
+      });
+    }
+
+    // Eksportowanie selecta do JSON
+    function extractPromptsFromSelect() {
+      const prompts = [];
+      promptSelect.querySelectorAll("optgroup").forEach(group => {
+        group.querySelectorAll("option").forEach(opt => {
+          prompts.push({
+            optiongroup: group.label,
+            option: opt.textContent,
+            text: opt.dataset.prompt
+          });
+        });
+      });
+      return prompts;
+    }
+
+    // Podpinamy przyciski
+    pasteBtn.addEventListener("click", pastePromptsFromClipboard);
+    copyBtn.addEventListener("click", copyPromptsToClipboard);    
+
+
+    // obsługa biblioteki promptów
+
+    // ➕ Dodawanie nowego promptu
+    addPromptBtn.addEventListener("click", () => {
+      const group = newGroupInput.value.trim() || "Inne";
+      const option = newOptionInput.value.trim() || "Nowy prompt";
+      const text = newTextInput.value.trim();
+
+      if (!text) {
+        alert("❌ Wpisz treść instrukcji (text).");
+        return;
+      }
+
+      // znajdź grupę lub stwórz nową
+      let optGroup = [...promptSelect.querySelectorAll("optgroup")]
+                      .find(g => g.label === group);
+      if (!optGroup) {
+        optGroup = document.createElement("optgroup");
+        optGroup.label = group;
+        promptSelect.appendChild(optGroup);
+      }
+
+      // dodaj opcję
+      const opt = document.createElement("option");
+      opt.textContent = option;
+      opt.dataset.prompt = text;
+      optGroup.appendChild(opt);
+
+      // wyczyść pola
+      newOptionInput.value = "";
+      newTextInput.value = "";
+
+      alert(`✅ Dodano nowy prompt do grupy "${group}".`);
+    });
+
+    // 💾 Zapis biblioteki do pliku JSON
+    saveLibraryBtn.addEventListener("click", async () => {
+      try {
+        const prompts = extractPromptsFromSelect();
+        const jsonStr = JSON.stringify(prompts, null, 2);
+
+        // otwórz dialog wyboru pliku
+        const handle = await window.showSaveFilePicker({
+          suggestedName: "biblioteka_promptow.json",
+          types: [{
+            description: "JSON",
+            accept: { "application/json": [".json"] }
+          }]
+        });
+
+        // utwórz WritableStream i zapisz dane
+        const writable = await handle.createWritable();
+        await writable.write(jsonStr);
+        await writable.close();
+
+        alert("✅ Biblioteka zapisana w wybranym folderze!");
+      } catch (err) {
+        console.error(err);
+        alert("❌ Błąd przy zapisie: " + err.message);
+      }
+    });
+
+
+    // 📂 Wczytywanie biblioteki z pliku JSON
+    loadLibraryBtn.addEventListener("click", () => {
+      loadLibraryFile.click();
+    });
+
+    loadLibraryFile.addEventListener("change", async (event) => {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      try {
+        const text = await file.text();
+        const prompts = JSON.parse(text);
+        buildPromptSelect(prompts);
+        alert("✅ Biblioteka wczytana z pliku.");
+      } catch (err) {
+        alert("❌ Błąd przy wczytywaniu: " + err.message);
       }
     });
   </script>
