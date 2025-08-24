@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Parafrazuj lekcje z Gemini</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      line-height: 1.5;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    input, select, textarea, button {
+      margin-top: 5px;
+      padding: 8px;
+      font-size: 14px;
+    }
+
+    textarea {
+      width: 100%;
+      resize: vertical;
+    }
+
+    #RODO {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 1000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #RODO .popup {
+      background: #fff;
+      padding: 20px 30px;
+      border-radius: 12px;
+      max-width: 500px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    #rodoAcceptBtn {
+      margin-top: 15px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      background: #4CAF50;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h2>Wyślij PDF do Gemini i wyekstrachuj dane</h2>
+
+  <!-- Token API -->
+  <label for="token">Token (API Key):</label>
+  <input type="password" id="token" placeholder="Wprowadź swój token...">
+  <hr>
+
+  <!-- PDF upload -->
+  <label for="pdfInput">Wybierz PDF do sparafrazowania:</label>
+  <input type="file" id="pdfInput" accept="application/pdf">
+  <button id="sendBtn">Wyślij do Gemini</button>
+  <hr>
+
+  <!-- Model selection -->
+  <label for="model">Wybierz model AI:</label>
+  <select id="model">
+    <optgroup label="Gemini 2.5">
+      <option value="gemini-2.5-pro">Gemini 2.5 Pro {TYLKO NAJCIĘŻSZE ZADANIA}</option>
+      <option value="gemini-2.5-flash">Gemini 2.5 Flash {PODSTAWOWE ZADANIA}</option>
+      <option value="gemini-2.5-flash-lite">Gemini 2.5 Flash-Lite {CZĘSTO POWTARZANE ZADANIA}</option>
+    </optgroup>
+    <optgroup label="Gemini 2.0">
+      <option value="gemini-2.0-flash">Gemini 2.0 Flash {PODSTAWOWE ZADANIA}</option>
+      <option value="gemini-2.0-flash-lite" selected>Gemini 2.0 Flash-Lite {CZĘSTO POWTARZANE ZADANIA}</option>
+    </optgroup>
+  </select>
+  <hr>
+
+  <!-- Instruction -->
+  <label for="instruction">Instrukcja dla AI:</label>
+  <textarea id="instruction" rows="5"></textarea>
+  <hr>
+
+  <!-- RODO popup -->
+  <div id="RODO">
+    <div class="popup">
+      <h2>⚠️ Ważna informacja</h2>
+      <p>
+        To narzędzie działa w Twojej <b>przeglądarce</b> i wymaga podania 
+        <b>Twojego tokena API Gemini</b>.<br><br>
+        <b>Uwaga:</b> Token jest przetwarzany lokalnie w przeglądarce.  
+        Upewnij się, że korzystasz z tego narzędzia <b>tylko na zaufanym komputerze</b> 
+        i w <b>bezpiecznej przeglądarce</b>, aby nie ryzykować utraty swojego klucza.
+      </p>
+      <button id="rodoAcceptBtn">✅ Akceptuję</button>
+    </div>
+  </div>
+
+  <!-- Response -->
+  <h3>Odpowiedź:</h3>
+  <textarea id="responseBox" rows="10"></textarea>
+
+  <script type="module">
+    import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
+
+    let apiToken = "";
+    let RODO = false;
+
+    const rodoBtn = document.getElementById("rodoAcceptBtn");
+    const rodoDiv = document.getElementById("RODO");
+    const modelSelect = document.getElementById("model");
+    const instructionBox = document.getElementById("instruction");
+    const responseBox = document.getElementById("responseBox");
+
+    // Akceptacja RODO
+    rodoBtn.addEventListener("click", () => {
+      RODO = true;
+      rodoDiv.style.display = "none";
+      console.log("RODO zaakceptowane:", RODO);
+    });
+
+    // Obsługa tokenu
+    document.getElementById("token").addEventListener("change", (e) => {
+      if (apiToken && !RODO) {
+        rodoDiv.style.display = "block";
+      }
+      apiToken = e.target.value.trim();
+      console.log("Token ustawiony:", apiToken ? "✅" : "❌ brak");
+    });
+
+    // Konwersja PDF → base64
+    async function fileToBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result.split(',')[1]);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
+    // Wysyłanie PDF do Gemini
+    document.getElementById("sendBtn").addEventListener("click", async () => {
+      if (!apiToken) {
+        alert("Podaj najpierw token API!");
+        return;
+      }
+
+      const fileInput = document.getElementById("pdfInput");
+      if (!fileInput.files.length) {
+        alert("Wybierz plik PDF!");
+        return;
+      }
+
+      const file = fileInput.files[0];
+      const base64Data = await fileToBase64(file);
+
+      try {
+        const genAI = new GoogleGenerativeAI(apiToken);
+        const model = genAI.getGenerativeModel({ 
+          model: modelSelect.value 
+        });
+
+        const result = await model.generateContent([
+          { text: instructionBox.value },
+          {
+            inlineData: {
+              mimeType: file.type,
+              data: base64Data
+            }
+          }
+        ]);
+
+        responseBox.value = result.response.text();
+      } catch (err) {
+        responseBox.value = "Błąd: " + err.message;
+      }
+    });
+  </script>
+</body>
+</html>
