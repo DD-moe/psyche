@@ -121,6 +121,9 @@
         case "loaded image": 
           prevImage.src = msg.content;
           break;
+        case "set search range":
+          console.log("zmieniono zasięg na:", msg.content);
+          break;
         default:
           console.warn("Nieznany task od iframe:", msg.task);
       }

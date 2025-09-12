@@ -207,8 +207,8 @@ button:active {
 
         // Wysyłanie przez BroadcastChannel
         bc.postMessage({
-          target: iframeName,
-          from: managerName,
+          target: managerName,
+          from: iframeName,
           task: "loaded image",
           content: dataUrl // base64 obraz
         });
