@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Manager - Interaktywny Obraz</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f0f2f5;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+      color: #333;
+    }
+    button {
+      background: #1976d2;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 10px 20px;
+      margin: 10px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.2s ease;
+    }
+    button:hover {
+      background: #115293;
+      transform: translateY(-2px);
+    }
+    textarea {
+      width: 90%;
+      height: 120px;
+      margin: 10px auto;
+      display: block;
+      font-size: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <h2>Manager - Interaktywny Obraz</h2>
+
+  <label>Nazwa iframe: <input type="text" id="iframeNameInput" value="iframe1"></label><br>
+  <label>Nazwa managera: <input type="text" id="managerNameInput" value="Manager"></label><br>
+  <button id="openIframeBtn">Otwórz iframe w nowym oknie</button>
+
+  <hr>
+
+  <textarea id="pointsInput" placeholder="Wklej JSON punktów"></textarea>
+  <input type="text" id="imageUrlInput" placeholder="URL obrazu">
+  <button id="sendDataBtn">Wyślij obraz i punkty do iframe</button>
+
+  <script>
+    const bc = new BroadcastChannel("Main_channel");
+
+    let iframeWindow = null;
+    let iframeName = "";
+    let managerName = "";
+
+    // Otwórz nową zakładkę / okno z iframe
+    document.getElementById("openIframeBtn").addEventListener("click", () => {
+      iframeName = document.getElementById("iframeNameInput").value.trim() || "iframe1";
+      managerName = document.getElementById("managerNameInput").value.trim() || "Manager";
+
+      const url = `iframe_app.html#iframeName=${encodeURIComponent(iframeName)}&managerName=${encodeURIComponent(managerName)}`;
+      iframeWindow = window.open(url, "_blank", "width=1000,height=800");
+    });
+
+    // Wyślij obraz i punkty
+    document.getElementById("sendDataBtn").addEventListener("click", () => {
+      const pointsJson = document.getElementById("pointsInput").value;
+      const imageUrl = document.getElementById("imageUrlInput").value.trim();
+
+      if (!iframeName || !managerName) {
+        alert("Najpierw otwórz iframe.");
+        return;
+      }
+
+      try {
+        const points = JSON.parse(pointsJson);
+        // Wyślij punkty
+        bc.postMessage({
+          target: iframeName,
+          from: managerName,
+          task: "set points",
+          content: points
+        });
+      } catch(e) {
+        alert("Nieprawidłowy JSON punktów");
+      }
+
+      if (imageUrl) {
+        // Wyślij obraz
+        bc.postMessage({
+          target: iframeName,
+          from: managerName,
+          task: "set image",
+          content: imageUrl
+        });
+      }
+    });
+
+    // Odbiór wiadomości z iframe (np. kliknięte punkty lub eksport)
+    bc.onmessage = (event) => {
+      const msg = event.data;
+      if (!msg || typeof msg !== "object") return;
+      if (msg.target !== managerName) return;
+
+      switch(msg.task) {
+        case "clicked points":
+          console.log("Iframe kliknięte punkty:", msg.content);
+          break;
+        case "export points":
+          console.log("Iframe wyeksportowane punkty:", msg.content);
+          break;
+        default:
+          console.warn("Nieznany task od iframe:", msg.task);
+      }
+    };
+  </script>
+</body>
+</html>

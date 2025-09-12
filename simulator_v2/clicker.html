@@ -4,51 +4,151 @@
   <meta charset="UTF-8">
   <title>Interaktywny Obraz z Punktami</title>
   <style>
-    img {
-      max-width: 100%;
-      height: auto;
-      display: block;
-      margin-top: 10px;
-      border: 2px solid #555;
-      cursor: crosshair;
-    }
-    textarea, input[type="text"], input[type="number"] {
-      width: 100%;
-      margin-top: 10px;
-    }
-    textarea {
-      height: 100px;
-    }
-    #status {
-      margin-top: 10px;
-      font-family: sans-serif;
-      font-weight: bold;
-      white-space: pre-wrap;
-    }
-    .controls {
-      margin-top: 10px;
-      border: 1px solid #aaa;
-      padding: 10px;
-      background: #f9f9f9;
-    }
+    /* Body */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f0f2f5;
+  margin: 0;
+  padding: 20px;
+  text-align: center;
+  color: #333;
+}
+
+/* Nagłówki */
+h2, h3 {
+  color: #222;
+  margin-bottom: 15px;
+}
+
+/* Obraz */
+img {
+  max-width: 90%;
+  height: auto;
+  display: block;
+  margin: 20px auto;
+  border-radius: 12px;
+  border: 2px solid #ccc;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  cursor: crosshair;
+  transition: transform 0.2s ease;
+}
+
+img:hover {
+  transform: scale(1.02);
+}
+
+/* Formularze i textarea */
+textarea, input[type="text"], input[type="number"] {
+  width: 90%;
+  margin: 10px auto;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  display: block;
+  font-size: 1rem;
+  box-sizing: border-box;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+textarea:focus, input:focus {
+  border-color: #4CAF50;
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+  outline: none;
+}
+
+/* Status */
+#status {
+  margin: 15px auto 0 auto;
+  font-weight: bold;
+  white-space: pre-wrap;
+  background: #fff;
+  padding: 10px 15px;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+  max-width: 90%;
+}
+
+/* Panel sterowania */
+.controls {
+  margin: 20px auto;
+  padding: 15px 20px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+  display: none;
+  text-align: left;
+  max-width: 600px;
+}
+
+/* Checkboxy i labelki */
+.controls label {
+  display: inline-block;
+  margin: 10px 0;
+  font-size: 0.95rem;
+}
+
+/* Przycisk toggle */
+#toggleControlsBtn {
+  font-size: 1.6rem;          
+  background: #4CAF50;        
+  border: none;               
+  border-radius: 12px;        
+  padding: 10px 20px;         
+  cursor: pointer;            
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2); 
+  transition: all 0.2s ease;  
+  margin-bottom: 15px;
+}
+
+#toggleControlsBtn:hover {
+  background: #45a049;       
+  transform: scale(1.1);     
+}
+
+#toggleControlsBtn:active {
+  transform: scale(0.95);    
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2); 
+}
+
+/* Pozostałe przyciski */
+button {
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 8px 15px;
+  margin: 5px 2px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  background: #115293;
+  transform: translateY(-2px);
+}
+
+button:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+
   </style>
 </head>
 <body>
-  <h2>Dodaj punkty do obrazu lub sprawdz istniejące</h2>
 
   <button id="toggleControlsBtn">Pokaż/Ukryj opcje</button>
 
   <div class="controls" id="controlsDiv">
-    <label>
-      <input type="checkbox" id="addPointMode"> Dodaj punkt
-    </label>
-    &nbsp;&nbsp;
-    Nazwa punktu: <input type="text" id="pointNameInput" placeholder="np. Punkt A">
+    <label for="addPointMode"> Dodaj punkt: </label>
+    <input type="checkbox" id="addPointMode">
+    <br>
+    <label for="pointNameInput">Nazwa punktu: </label>
+    <input type="text" id="pointNameInput" placeholder="np. Punkt A">
 
-    <label>
-      Zasięg wyszukiwania (px):
-      <input type="number" id="searchRadiusInput" value="20" min="1">
-    </label>
+    <label for="searchRadiusInput">Zasięg wyszukiwania (px): </label>
+    <input type="number" id="searchRadiusInput" value="20" min="1">
 
     <textarea id="pointParamsInput" placeholder="Tutaj wpisz parametry punktu (np. height: 13)"></textarea>
     
@@ -60,7 +160,6 @@
     <div id="status"></div>
   </div>
 
-  <h3>Obraz:</h3>
   <img id="image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Example.jpg/800px-Example.jpg" alt="Kliknij na obraz" />
 
   <script>
@@ -78,16 +177,30 @@
     const searchRadiusInput = document.getElementById('searchRadiusInput');
 
     let pointsArray = [];
+    const bc = new BroadcastChannel("Main_channel");
+    const hash = window.location.hash.substring(1); // usuwa #
+    const params = new URLSearchParams(hash);
+    const iframeName = params.get('iframeName');
+    const managerName = params.get('managerName');
+
 
     // Toggle widoczności panelu
     toggleControlsBtn.addEventListener('click', () => {
-      controlsDiv.style.display = (controlsDiv.style.display === "none" ? "block" : "none");
+      toggleSettings();
     });
 
+    // API do zmiany widoczności
+    function toggleSettings(){
+      controlsDiv.style.display = (controlsDiv.style.display === "none" ? "block" : "none");
+    }
     // Załaduj JSON (nadpisuje)
     loadJsonBtn.addEventListener('click', () => {
+        loadPoints(jsonInput.value);
+    });
+
+    // API do ładowania JSON
+    function loadPoints(json){
       try {
-        const json = jsonInput.value;
         const parsed = JSON.parse(json);
         if (!Array.isArray(parsed)) throw new Error("JSON musi być tablicą.");
         pointsArray = parsed;
@@ -97,12 +210,16 @@
         statusDiv.textContent = "Błąd: " + e.message;
         statusDiv.style.color = "red";
       }
-    });
+    }
 
     // Dodaj JSON do istniejących
     appendJsonBtn.addEventListener('click', () => {
-      try {
-        const json = jsonInput.value;
+      addPoints(jsonInput.value);
+    });
+
+    // API do dokładania punktów
+    function addPoints(json){
+        try {
         const parsed = JSON.parse(json);
         if (!Array.isArray(parsed)) throw new Error("JSON musi być tablicą.");
         pointsArray = pointsArray.concat(parsed);
@@ -112,14 +229,21 @@
         statusDiv.textContent = "Błąd: " + e.message;
         statusDiv.style.color = "red";
       }
-    });
+    }
 
     // Eksportuj JSON
     exportJsonBtn.addEventListener('click', () => {
-      jsonInput.value = JSON.stringify(pointsArray, null, 2);
+      ExportPoints();
+    });
+
+    // Api do eksportowania do JSON
+    function ExportPoints(){
+      const json = JSON.stringify(pointsArray, null, 2);
+      jsonInput.value = json;
       statusDiv.textContent = "Wyeksportowano punkty do JSON";
       statusDiv.style.color = "blue";
-    });
+      return json;
+    }
 
     // Kliknięcie na obraz
     image.addEventListener('click', (e) => {
@@ -188,8 +312,34 @@
         }
         statusDiv.textContent = out;
         statusDiv.style.color = "green";
+        bc.postMessage({target: managerName, from: iframeName, task: 'clicked points', content: points});
       }
     });
+
+    bc.onmessage = (event) => {
+      const msg = event.data;
+      if (!msg || typeof msg !== "object") return;
+      if (msg.target !== iframeName || !("from" in msg) || !("task" in msg) || !("content" in msg)) return;
+
+      switch (msg.task) {
+        case "set points":
+          loadPoints(msg.content);
+          break;
+
+        case "set image":
+          image.src = msg.content;
+          break;
+
+        case "export points":
+          bc.postMessage({target: managerName, from: iframeName, task: 'export points', content: ExportPoints()});
+          break;
+
+        default:
+          console.warn("Nieznane zadanie:", msg.task);
+      }
+    };
+
+
   </script>
 </body>
 </html>
