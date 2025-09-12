@@ -47,6 +47,7 @@
 
   <textarea id="pointsInput" placeholder="Wklej JSON punktów"></textarea>
   <input type="text" id="imageUrlInput" placeholder="URL obrazu">
+  <br>
   <button id="sendDataBtn">Wyślij obraz i punkty do iframe</button>
 
   <script>
@@ -61,7 +62,7 @@
       iframeName = document.getElementById("iframeNameInput").value.trim() || "iframe1";
       managerName = document.getElementById("managerNameInput").value.trim() || "Manager";
 
-      const url = `iframe_app.html#iframeName=${encodeURIComponent(iframeName)}&managerName=${encodeURIComponent(managerName)}`;
+      const url = `https://git.1ioe.top/psyche/simulator_v2/clicker.html#iframeName=${encodeURIComponent(iframeName)}&managerName=${encodeURIComponent(managerName)}`;
       iframeWindow = window.open(url, "_blank", "width=1000,height=800");
     });
 
