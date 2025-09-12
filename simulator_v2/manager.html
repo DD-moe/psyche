@@ -50,8 +50,12 @@
   <br>
   <button id="sendDataBtn">Wyślij obraz i punkty do iframe</button>
 
+  <h4>Podgląd obrazu</h4>
+  <img src="" id="prevImage">
+
   <script>
     const bc = new BroadcastChannel("Main_channel");
+    const prevImage = document.getElementById("prevImage");
 
     let iframeWindow = null;
     let iframeName = "";
@@ -97,6 +101,7 @@
           task: "set image",
           content: imageUrl
         });
+        prevImage.src = imageUrl;
       }
     });
 
@@ -112,6 +117,9 @@
           break;
         case "export points":
           console.log("Iframe wyeksportowane punkty:", msg.content);
+          break;
+        case "loaded image": 
+          prevImage.src = msg.content;
           break;
         default:
           console.warn("Nieznany task od iframe:", msg.task);

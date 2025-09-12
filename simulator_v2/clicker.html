@@ -156,6 +156,8 @@ button:active {
     <button id="loadJsonBtn">Załaduj JSON (nadpisz)</button>
     <button id="appendJsonBtn">Dodaj JSON do istniejących</button>
     <button id="exportJsonBtn">Punkty do JSON</button>
+    <button id="chooseImageBtn">Wybierz obraz</button>
+    <input type="file" id="fileInput" accept="image/*" style="display:none">
 
     <div id="status"></div>
   </div>
@@ -175,14 +177,46 @@ button:active {
     const toggleControlsBtn = document.getElementById('toggleControlsBtn');
     const controlsDiv = document.getElementById('controlsDiv');
     const searchRadiusInput = document.getElementById('searchRadiusInput');
+    const chooseImageBtn = document.getElementById('chooseImageBtn');
+    const fileInput = document.getElementById('fileInput');
 
-    let pointsArray = [];
+    let pointsArray = []; // stores all points searched when clicked
     const bc = new BroadcastChannel("Main_channel");
     const hash = window.location.hash.substring(1); // usuwa #
     const params = new URLSearchParams(hash);
     const iframeName = params.get('iframeName');
     const managerName = params.get('managerName');
 
+
+    // ładowanie własnego obrazu
+    chooseImageBtn.addEventListener('click', () => {
+      fileInput.click();
+    });
+
+    fileInput.addEventListener('change', () => {
+      const file = fileInput.files[0];
+      if (!file) return;
+
+      // Odczyt pliku jako dataURL
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const dataUrl = e.target.result;
+
+        // Podgląd w managerze
+        image.src = dataUrl;
+
+        // Wysyłanie przez BroadcastChannel
+        bc.postMessage({
+          target: iframeName,
+          from: managerName,
+          task: "loaded image",
+          content: dataUrl // base64 obraz
+        });
+
+        console.log("Wysłano obraz do iframe:", iframeName);
+      };
+      reader.readAsDataURL(file);
+    });
 
     // Toggle widoczności panelu
     toggleControlsBtn.addEventListener('click', () => {
@@ -193,6 +227,17 @@ button:active {
     function toggleSettings(){
       controlsDiv.style.display = (controlsDiv.style.display === "none" ? "block" : "none");
     }
+
+    // zmiana zasięgu szukania
+    searchRadiusInput.addEventListener('change', () =>{
+      bc.postMessage({target: managerName, from: iframeName, task: 'set search range', content: parseFloat(searchRadiusInput.value)});
+    });
+
+    // set range API
+    function setRange(range){
+      searchRadiusInput.value = range;
+    }
+
     // Załaduj JSON (nadpisuje)
     loadJsonBtn.addEventListener('click', () => {
         loadPoints(jsonInput.value);
@@ -233,7 +278,8 @@ button:active {
 
     // Eksportuj JSON
     exportJsonBtn.addEventListener('click', () => {
-      ExportPoints();
+      const points = ExportPoints();
+      bc.postMessage({target: managerName, from: iframeName, task: 'export points', content: points});
     });
 
     // Api do eksportowania do JSON
@@ -332,6 +378,10 @@ button:active {
 
         case "export points":
           bc.postMessage({target: managerName, from: iframeName, task: 'export points', content: ExportPoints()});
+          break;
+
+        case "set range":
+          setRange(msg.content);
           break;
 
         default:
