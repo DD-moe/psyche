@@ -40,26 +40,26 @@
   <h2>Manager scenariuszy</h2>
   <hr>
   <!-- clicker test -->
-  <h3>Clicker test</h3> 
-  <label>Nazwa zakładki: <input type="text" id="iframeNameInput" value="iframe1"></label><br>
-  <label>Nazwa managera scenariuszy: <input type="text" id="managerNameInput" value="Manager"></label><br>
-  <button id="openIframeBtn">rozpocznij scenariusz</button>
 
-  <hr>
-  <!-- clicker test -->
-  <h3>Clicker test cd</h3> 
-  <textarea id="pointsInput" placeholder="Wklej JSON punktów"></textarea>
-  <input type="text" id="imageUrlInput" placeholder="URL obrazu">
-  <br>
-  <label>Zasięg kliknięcia w px: <input type="number" id="rangeInput" value="20"></label>
-  <br>
-  <button id="sendDataBtn">zastosuj zmiany</button>
+  <h3 id="clickerTestHeader">Clicker test - rozwiń</h3>
+  <div id="clickerTestTab" style="display: none;">
+    <label>Nazwa zakładki: <input type="text" id="iframeNameInput" value="iframe1"></label><br>
+    <label>Nazwa managera scenariuszy: <input type="text" id="managerNameInput" value="Manager"></label><br>
+    <button id="openIframeBtn">rozpocznij scenariusz</button>
+    <hr>
+    <textarea id="pointsInput" placeholder="Wklej JSON punktów"></textarea>
+    <input type="text" id="imageUrlInput" placeholder="URL obrazu">
+    <br>
+    <label>Zasięg kliknięcia w px: <input type="number" id="rangeInput" value="20"></label>
+    <br>
+    <button id="sendDataBtn">zastosuj zmiany</button>
 
-  <h4>Podgląd obrazu</h4>
-  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Example.jpg/800px-Example.jpg" id="prevImage">
+    <h4>Podgląd obrazu</h4>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Example.jpg/800px-Example.jpg" id="prevImage">
+  </div>
   <!-- clicker test -->
   <hr>
-  <!-- clicker test -->
+  <!-- scenario -->
     <h3>Scenariusz</h3>
     <button id="startScenarioBtn">Rozpocznij scenariusz</button>
     <button id="loadScenarioBtn">Załaduj scenariusz</button>
@@ -83,9 +83,21 @@
     const appsTextarea   = document.getElementById("appsTextarea");
     const scenarioSaver = document.getElementById("scenarioSaver");
 
+    const header = document.getElementById("clickerTestHeader");
+    const content = document.getElementById("clickerTestTab");
+
     let iframeName = ""; // iframe name for testing purpose
     let managerName = ""; // manager name - do not change
     let scenario; // keeps current scenario
+
+    // rozwijanie/zwijanie zakładki do testów
+    header.addEventListener("click", () => {
+    if (content.style.display === "none") {
+        content.style.display = "block";
+    } else {
+        content.style.display = "none";
+    }
+    });
 
     // Otwórz nową zakładkę / okno z iframe
     document.getElementById("openIframeBtn").addEventListener("click", () => {
