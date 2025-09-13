@@ -38,13 +38,16 @@
 </head>
 <body>
   <h2>Manager scenariuszy</h2>
-
+  <hr>
+  <!-- clicker test -->
+  <h3>Clicker test</h3> 
   <label>Nazwa zakładki: <input type="text" id="iframeNameInput" value="iframe1"></label><br>
   <label>Nazwa managera scenariuszy: <input type="text" id="managerNameInput" value="Manager"></label><br>
   <button id="openIframeBtn">rozpocznij scenariusz</button>
 
   <hr>
-
+  <!-- clicker test -->
+  <h3>Clicker test cd</h3> 
   <textarea id="pointsInput" placeholder="Wklej JSON punktów"></textarea>
   <input type="text" id="imageUrlInput" placeholder="URL obrazu">
   <br>
@@ -54,33 +57,59 @@
 
   <h4>Podgląd obrazu</h4>
   <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Example.jpg/800px-Example.jpg" id="prevImage">
+  <!-- clicker test -->
+  <hr>
+  <!-- clicker test -->
+    <h3>Scenariusz</h3>
+    <button id="startScenarioBtn">Rozpocznij scenariusz</button>
+    <button id="loadScenarioBtn">Załaduj scenariusz</button>
+    <button id="saveScenarioBtn">Zapisz scenariusz jako</button>
+    <button id="newScenarioBtn">Nowy pusty scenariusz</button>
+    <br><br>
+    <label>Lista apps (po przecinku):</label>
+    <textarea id="appsTextarea" placeholder="np. app1, app2, app3"></textarea>
+    <input type="file" accept=".scen" id="scenarioSaver" style="display: none;">
+    <hr>
+
 
   <script>
-    const bc = new BroadcastChannel("Main_channel");
-    const prevImage = document.getElementById("prevImage");
+    const bc = new BroadcastChannel("Main_channel"); // broadcast channel for entire app
 
-    let iframeName = "";
-    let managerName = "";
+    const prevImage = document.getElementById("prevImage");
+    const startScenarioBtn = document.getElementById("startScenarioBtn");
+    const loadScenarioBtn = document.getElementById("loadScenarioBtn");
+    const saveScenarioBtn = document.getElementById("saveScenarioBtn");
+    const newScenarioBtn = document.getElementById("newScenarioBtn");
+    const appsTextarea   = document.getElementById("appsTextarea");
+    const scenarioSaver = document.getElementById("scenarioSaver");
+
+    let iframeName = ""; // iframe name for testing purpose
+    let managerName = ""; // manager name - do not change
+    let scenario; // keeps current scenario
 
     // Otwórz nową zakładkę / okno z iframe
     document.getElementById("openIframeBtn").addEventListener("click", () => {
       iframeName = document.getElementById("iframeNameInput").value.trim() || "iframe1";
       managerName = document.getElementById("managerNameInput").value.trim() || "Manager";
+      openTab(iframeName, managerName);
+    });
 
+    // open tab API
+    function openTab(iframeName, managerName){
       const url = `https://git.1ioe.top/psyche/simulator_v2/clicker.html#iframeName=${encodeURIComponent(iframeName)}&managerName=${encodeURIComponent(managerName)}`;
       iframeWindow = window.open(url, "_blank");
-    });
+    }
 
     // Wyślij obraz i punkty
     document.getElementById("sendDataBtn").addEventListener("click", () => {
       const pointsJson = document.getElementById("pointsInput").value;
       const imageUrl = document.getElementById("imageUrlInput").value.trim();
       const range = parseInt(document.getElementById("rangeInput").value);
-      setUpClicker(pointsJson, imageUrl, range);
+      setUpClicker(iframeName, pointsJson, imageUrl, range);
     });
 
     // setup clicker
-    function setUpClicker(points, imageUrl, range){
+    function setUpClicker(iframeName, points, imageUrl, range){
         if (!iframeName || !managerName) {
             alert("Najpierw otwórz iframe.");
             return;
@@ -121,7 +150,113 @@
     // setup in scenario
     function setUpScenario(app){
         const setup = scenario[app];
+        setUpClicker(app, setup.points, setup.imageUrl, setup.range);
     }
+
+    // prepare scenario
+    function prepareScenario(scenario){
+        scenario.forEach(element => {
+            openTab(element.key, managerName);
+        });
+    }
+
+    // save points to scenario to given app
+    function scenarioEditPoints(from, points){
+        scenario[from].points = points;
+    }
+
+    // save image to scenario to given app
+    function scenarioEditImage(from, imageUrl){
+        scenario[from].imageUrl = imageUrl;
+    }
+
+    // save range to scenario to given app
+    function scenarioEditRange(from, range){
+        scenario[from].range = range;
+    }
+
+    // Funkcja do otwierania pliku (tylko .scen)
+    loadScenarioBtn.addEventListener("click", async () => {
+        scenarioSaver.click();
+        scenarioSaver.onchange = async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const text = await file.text();
+            try {
+            scenario = JSON.parse(text); // zapisujemy do globalnej zmiennej
+            alert("Załadowano scenariusz");
+            console.log("Scenario:", scenario);
+            } catch (err) {
+            alert("Błąd parsowania pliku scenariusza: " + err.message);
+            }
+        };
+    });
+
+    // Funkcja do zapisywania scenariusza
+    saveScenarioBtn.addEventListener("click", async () => {
+    try {
+        const json = JSON.stringify(scenario, null, 2);
+
+        // 1. Pokazujemy dialog „Zapisz jako…”
+        const fileHandle = await window.showSaveFilePicker({
+        suggestedName: "scenario.scen",       // domyślna nazwa
+        types: [
+            {
+            description: "Pliki scenariuszy",
+            accept: { "application/json": [".scen"] }
+            }
+        ]
+        });
+
+        // 2. Otwieramy plik do zapisu
+        const writable = await fileHandle.createWritable();
+
+        // 3. Zapisujemy zawartość
+        await writable.write(json);
+
+        // 4. Kończymy zapis
+        await writable.close();
+
+        alert("Scenariusz zapisany pomyślnie!");
+    } catch (err) {
+        if (err.name !== 'AbortError') {
+        console.error("Błąd zapisu pliku scenariusza:", err);
+        }
+    }
+    });
+
+    // Funkcja startu scenariusza
+    startScenarioBtn.addEventListener("click", () => {
+    if (!scenario || Object.keys(scenario).length === 0) {
+        alert("Brak scenariusza!");
+        return;
+    }
+    // tu odpalasz swoją funkcję
+    prepareScenario(scenario);
+    });   
+
+    // Nowy pusty scenariusz na podstawie textarea
+    newScenarioBtn.addEventListener("click", () => {
+    const apps = appsTextarea.value
+        .split(",")
+        .map(s => s.trim())
+        .filter(Boolean);
+
+    scenario = {}; // resetujemy
+
+    apps.forEach(appName => {
+        scenario[appName] = {
+        points: [],
+        imageUrl:
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Example.jpg/800px-Example.jpg",
+        range: 20
+        };
+    });
+
+    alert("Utworzono nowy scenariusz z " + apps.length + " app(s).");
+    console.log("Scenario:", scenario);
+    });    
 
     // Odbiór wiadomości z iframe (np. kliknięte punkty lub eksport)
     bc.onmessage = (event) => {
@@ -134,17 +269,17 @@
           console.log("Iframe kliknięte punkty:", msg.content);
           break;
         case "export points":
-          console.log("Iframe wyeksportowane punkty:", msg.content);
+          scenarioEditPoints(msg.from, msg.content); // when exporting points finishes setup is done to specific scenario app
           break;
         case "loaded image": 
+          scenarioEditImage(msg.from, msg.content); // when loading image is done it saves image url to specific scenario app
           prevImage.src = msg.content;
           break;
         case "set search range":
-          console.log("zmieniono zasięg na:", msg.content);
+          scenarioEditRange(msg.from, msg.content); // when setting range is done it saves range to specific scenario app
           break;
         case "setup me":
-          //setUpScenario(msg.from);
-          console.log(msg.from);
+          setUpScenario(msg.from); // when app is ready requests for sending setup to it
         default:
           console.warn("Nieznany task od iframe:", msg.task);
       }
