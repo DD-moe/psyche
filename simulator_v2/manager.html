@@ -168,48 +168,12 @@
         setUpClicker(app, JSON.stringify(setup.points), setup.imageUrl, setup.range);
     }
 
-    // prepare scenario
-    function prepareScenario(scenarioObj) {
-        const managerName = document.getElementById("managerNameInput").value.trim() || "Manager";
-
-        // kontener w którym będą iframe
-        const appsContainer = document.getElementById("apps");
-        if (!appsContainer) {
-            console.error("Brak elementu o id='apps'");
-            return;
-        }
-
-        // czyścimy poprzednią zawartość
-        appsContainer.innerHTML = "";
-
-        // styl dla kontenera, jeśli jeszcze go nie ma
-        appsContainer.style.display = "flex";
-        appsContainer.style.flexWrap = "wrap";
-        appsContainer.style.margin = "0";
-        appsContainer.style.padding = "0";
-
-        // generujemy iframe dla każdej aplikacji
-        Object.keys(scenarioObj).forEach(appName => {
-            const url = `https://git.1ioe.top/psyche/simulator_v2/clicker.html#iframeName=${encodeURIComponent(
-            appName
-            )}&managerName=${encodeURIComponent(managerName)}`;
-
-            const iframe = document.createElement("iframe");
-            iframe.src = url;
-            iframe.title = appName;
-
-            // styl dla iframe
-            iframe.style.border = "1px solid #ccc";
-            iframe.style.margin = "2px";
-            iframe.style.flex = "1 1 45%";
-            iframe.style.height = "50%";
-            iframe.style.resize = "both"; // umożliwia zmianę rozmiaru
-            iframe.style.overflow = "auto";
-            iframe.style.minWidth = "150px";
-            iframe.style.minHeight = "150px";
-
-            appsContainer.appendChild(iframe);
-        });
+    // prepare scenario 
+    function prepareScenario(scenarioObj)
+    { managerName = document.getElementById("managerNameInput").value.trim() || "Manager";
+    Object.keys(scenarioObj).forEach(appName => 
+    { openTab(appName, managerName);
+    }); 
     }
 
 
