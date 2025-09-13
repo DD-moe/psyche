@@ -180,27 +180,14 @@
             return;
         }
 
-        // Budujemy HTML
+        // Budujemy zawartość HTML z iframe
         let htmlContent = `
             <html>
             <head>
                 <title>Simulator Tabs</title>
                 <style>
-                    body { 
-                        margin: 0; 
-                        display: grid; 
-                        grid-template-columns: repeat(${columns}, 1fr); 
-                        grid-template-rows: repeat(${rows}, 1fr); 
-                        gap: 5px;
-                        height: 100vh; 
-                        overflow: hidden;
-                        background: #f0f0f0;
-                    }
-                    iframe { 
-                        width: 100%; 
-                        height: 100%; 
-                        border: 1px solid #ccc; 
-                    }
+                    body { margin: 0; display: flex; flex-wrap: wrap; }
+                    iframe { border: 1px solid #ccc; margin: 2px; flex: 1 1 45%; height: 400px; }
                 </style>
             </head>
             <body>
