@@ -173,7 +173,7 @@
         const managerName = document.getElementById("managerNameInput").value.trim() || "Manager";
 
         // Tworzymy jedno okno
-        const newWindow = window.open("", "_blank", "width=1200,height=800");
+        const newWindow = window.open("", "_blank");
 
         if (!newWindow) {
             alert("Popup został zablokowany! Odblokuj je, aby kontynuować.");
@@ -218,7 +218,6 @@
 
         // Wstawiamy HTML do nowego okna
         newWindow.document.write(htmlContent);
-        newWindow.document.close();
     }
 
 
