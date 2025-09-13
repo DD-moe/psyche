@@ -186,8 +186,21 @@
             <head>
                 <title>Simulator Tabs</title>
                 <style>
-                    body { margin: 0; display: flex; flex-wrap: wrap; }
-                    iframe { border: 1px solid #ccc; margin: 2px; flex: 1 1 45%; height: 50%; }
+                    body { 
+                        margin: 0; 
+                        display: flex; 
+                        flex-wrap: wrap; 
+                    }
+                    iframe { 
+                        border: 1px solid #ccc; 
+                        margin: 2px; 
+                        flex: 1 1 45%; 
+                        height: 50%; 
+                        resize: both;           /* <- pozwala zmieniać rozmiar w pionie i poziomie */
+                        overflow: auto;         /* <- wymagane, by resize działał */
+                        min-width: 150px;       /* <- opcjonalne minimum, żeby się nie zwinęło */
+                        min-height: 150px;      /* <- opcjonalne minimum */
+                    }
                 </style>
             </head>
             <body>
