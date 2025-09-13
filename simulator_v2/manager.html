@@ -173,35 +173,24 @@
 
     // prepare scenario
     function prepareScenario(scenarioObj) {
-        // pobierz nazwę managera
         const managerName = document.getElementById("managerNameInput").value.trim() || "Manager";
-
-        // wyczyść poprzednie linki (opcjonalnie)
         const apps = document.getElementById("apps");
         apps.innerHTML = "";
 
-        let appNames = "";
+        // połącz nazwy aplikacji przecinkami
+        const appNames = Object.keys(scenarioObj).join(',');
 
-        // iteracja po wszystkich aplikacjach
-        Object.keys(scenarioObj).forEach(appName => {
-            appNames += "," + appName;
-        });
-
-        // przygotuj link do iframe_map.html z parametrami
+        // przygotuj link do iframe_map.html
         const url = `iframe_map.html#iframeNames=${encodeURIComponent(appNames)}&managerName=${encodeURIComponent(managerName)}`;
 
-        // utwórz element <a>
         const a = document.createElement("a");
         a.href = url;
-        a.textContent = `Otwórz ${appName}`;
+        a.textContent = `Otwórz wszystkie aplikacje`;
         a.target = "_blank"; // otwiera w nowej karcie
-        a.style.display = "block"; // linki jeden pod drugim
+        a.style.display = "block";
 
-        // dodaj link do kontenera
         apps.appendChild(a);        
     }
-
-
 
 
     // save points to scenario to given app
