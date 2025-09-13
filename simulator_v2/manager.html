@@ -70,7 +70,8 @@
     <textarea id="appsTextarea" placeholder="np. app1, app2, app3"></textarea>
     <input type="file" accept=".scen" id="scenarioSaver" style="display: none;">
     <hr>
-
+    <h3>aplikacja</h3>
+    <div id="apps"></div>
 
   <script>
     const bc = new BroadcastChannel("Main_channel"); // broadcast channel for entire app
@@ -171,51 +172,46 @@
     function prepareScenario(scenarioObj) {
         const managerName = document.getElementById("managerNameInput").value.trim() || "Manager";
 
-        // Budujemy zawartość HTML z iframe
-        let htmlContent = `
-            <!DOCTYPE html>
-            <html>
-            <head>
-            <meta charset="UTF-8">
-            <title>Simulator Tabs</title>
-            <style>
-                body { 
-                margin: 0; 
-                display: flex; 
-                flex-wrap: wrap; 
-                }
-                iframe { 
-                border: 1px solid #ccc; 
-                margin: 2px; 
-                flex: 1 1 45%; 
-                height: 50%; 
-                resize: both;           
-                overflow: auto;         
-                min-width: 150px;       
-                min-height: 150px;      
-                }
-            </style>
-            </head>
-            <body>
-        `;
+        // kontener w którym będą iframe
+        const appsContainer = document.getElementById("apps");
+        if (!appsContainer) {
+            console.error("Brak elementu o id='apps'");
+            return;
+        }
 
+        // czyścimy poprzednią zawartość
+        appsContainer.innerHTML = "";
+
+        // styl dla kontenera, jeśli jeszcze go nie ma
+        appsContainer.style.display = "flex";
+        appsContainer.style.flexWrap = "wrap";
+        appsContainer.style.margin = "0";
+        appsContainer.style.padding = "0";
+
+        // generujemy iframe dla każdej aplikacji
         Object.keys(scenarioObj).forEach(appName => {
-            const url = `https://git.1ioe.top/psyche/simulator_v2/clicker.html#iframeName=${encodeURIComponent(appName)}&managerName=${encodeURIComponent(managerName)}`;
-            htmlContent += `<iframe src="${url}" title="${appName}"></iframe>`;
+            const url = `https://git.1ioe.top/psyche/simulator_v2/clicker.html#iframeName=${encodeURIComponent(
+            appName
+            )}&managerName=${encodeURIComponent(managerName)}`;
+
+            const iframe = document.createElement("iframe");
+            iframe.src = url;
+            iframe.title = appName;
+
+            // styl dla iframe
+            iframe.style.border = "1px solid #ccc";
+            iframe.style.margin = "2px";
+            iframe.style.flex = "1 1 45%";
+            iframe.style.height = "50%";
+            iframe.style.resize = "both"; // umożliwia zmianę rozmiaru
+            iframe.style.overflow = "auto";
+            iframe.style.minWidth = "150px";
+            iframe.style.minHeight = "150px";
+
+            appsContainer.appendChild(iframe);
         });
-
-        htmlContent += `
-            </body>
-            </html>
-        `;
-
-        // Zamieniamy HTML na base64, żeby przeglądarka potraktowała to jako stronę
-        const encodedHtml = encodeURIComponent(htmlContent);
-        const dataUrl = "data:text/html;charset=utf-8," + encodedHtml;
-
-        // Otwieramy nowe okno z tym HTML-em
-        window.open(dataUrl, "_blank");
     }
+
 
     // save points to scenario to given app
     function scenarioEditPoints(from, points){
