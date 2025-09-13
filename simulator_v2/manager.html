@@ -169,6 +169,7 @@
 
     // prepare scenario
     function prepareScenario(scenarioObj){
+        managerName = document.getElementById("managerNameInput").value.trim() || "Manager";
         Object.keys(scenarioObj).forEach(appName => {
             openTab(appName, managerName);
         });
