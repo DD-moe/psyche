@@ -185,7 +185,8 @@
             // utwórz element <a>
             const a = document.createElement("a");
             a.href = url;
-            a.textContent = `Otwórz ${appName}; a.target = "_blank"`;
+            a.textContent = `Otwórz ${appName}`; 
+            a.target = "_blank";
             // otwiera w nowej karcie, usuń jeśli chcesz w tej samej 
             a.style.display = "block";
             // żeby linki były jeden pod drugim  dodaj link do kontenera 
