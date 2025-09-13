@@ -118,6 +118,8 @@
 
     // Wyślij obraz i punkty
     document.getElementById("sendDataBtn").addEventListener("click", () => {
+      iframeName = document.getElementById("iframeNameInput").value.trim() || "iframe1";
+      managerName = document.getElementById("managerNameInput").value.trim() || "Manager";
       const pointsJson = document.getElementById("pointsInput").value;
       const imageUrl = document.getElementById("imageUrlInput").value.trim();
       const range = parseInt(document.getElementById("rangeInput").value);
