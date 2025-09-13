@@ -48,6 +48,7 @@
   <textarea id="pointsInput" placeholder="Wklej JSON punktów"></textarea>
   <input type="text" id="imageUrlInput" placeholder="URL obrazu">
   <br>
+  <input type="number" id="rangeInput" value="20">
   <button id="sendDataBtn">Wyślij obraz i punkty do iframe</button>
 
   <h4>Podgląd obrazu</h4>
@@ -65,6 +66,7 @@
     document.getElementById("openIframeBtn").addEventListener("click", () => {
       iframeName = document.getElementById("iframeNameInput").value.trim() || "iframe1";
       managerName = document.getElementById("managerNameInput").value.trim() || "Manager";
+      const range = parseInt(document.getElementById("rangeInput").value);
 
       const url = `https://git.1ioe.top/psyche/simulator_v2/clicker.html#iframeName=${encodeURIComponent(iframeName)}&managerName=${encodeURIComponent(managerName)}`;
       iframeWindow = window.open(url, "_blank", "width=1000,height=800");
@@ -81,13 +83,12 @@
       }
 
       try {
-        const points = JSON.stringify(pointsJson);
         // Wyślij punkty
         bc.postMessage({
           target: iframeName,
           from: managerName,
           task: "set points",
-          content: points
+          content: pointsJson
         });
       } catch(e) {
         alert("Nieprawidłowy JSON punktów");
@@ -103,6 +104,13 @@
         });
         prevImage.src = imageUrl;
       }
+
+        bc.postMessage({
+          target: iframeName,
+          from: managerName,
+          task: "set range",
+          content: range
+        });
     });
 
     // Odbiór wiadomości z iframe (np. kliknięte punkty lub eksport)
