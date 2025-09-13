@@ -307,16 +307,20 @@
           console.log("Iframe kliknięte punkty:", msg.content);
           break;
         case "export points":
+          console.log(msg.from, msg.content);
           scenarioEditPoints(msg.from, msg.content); // when exporting points finishes setup is done to specific scenario app
           break;
         case "loaded image": 
+          console.log(msg.from, msg.content);        
           scenarioEditImage(msg.from, msg.content); // when loading image is done it saves image url to specific scenario app
           prevImage.src = msg.content;
           break;
         case "set search range":
+          console.log(msg.from, msg.content);            
           scenarioEditRange(msg.from, msg.content); // when setting range is done it saves range to specific scenario app
           break;
         case "setup me":
+          console.log(msg.from, msg.content);            
           setUpScenario(msg.from); // when app is ready requests for sending setup to it
           break;
         default:

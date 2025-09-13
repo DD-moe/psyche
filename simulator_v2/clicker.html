@@ -284,11 +284,11 @@ button:active {
 
     // Api do eksportowania do JSON
     function ExportPoints(){
-      const json = pointsArray;
+      const json = JSON.stringify(pointsArray, null, 2);
       jsonInput.value = json;
       statusDiv.textContent = "Wyeksportowano punkty do JSON";
       statusDiv.style.color = "blue";
-      return json;
+      return pointsArray;
     }
 
     // Kliknięcie na obraz
