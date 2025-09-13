@@ -168,40 +168,33 @@
     }
 
     // prepare scenario
-    // prepare scenario - nowe podejście z jednym oknem i wieloma iframe
     function prepareScenario(scenarioObj) {
         const managerName = document.getElementById("managerNameInput").value.trim() || "Manager";
 
-        // Tworzymy jedno okno
-        const newWindow = window.open("", "_blank");
-
-        if (!newWindow) {
-            alert("Popup został zablokowany! Odblokuj je, aby kontynuować.");
-            return;
-        }
-
         // Budujemy zawartość HTML z iframe
         let htmlContent = `
+            <!DOCTYPE html>
             <html>
             <head>
-                <title>Simulator Tabs</title>
-                <style>
-                    body { 
-                        margin: 0; 
-                        display: flex; 
-                        flex-wrap: wrap; 
-                    }
-                    iframe { 
-                        border: 1px solid #ccc; 
-                        margin: 2px; 
-                        flex: 1 1 45%; 
-                        height: 50%; 
-                        resize: both;           /* <- pozwala zmieniać rozmiar w pionie i poziomie */
-                        overflow: auto;         /* <- wymagane, by resize działał */
-                        min-width: 150px;       /* <- opcjonalne minimum, żeby się nie zwinęło */
-                        min-height: 150px;      /* <- opcjonalne minimum */
-                    }
-                </style>
+            <meta charset="UTF-8">
+            <title>Simulator Tabs</title>
+            <style>
+                body { 
+                margin: 0; 
+                display: flex; 
+                flex-wrap: wrap; 
+                }
+                iframe { 
+                border: 1px solid #ccc; 
+                margin: 2px; 
+                flex: 1 1 45%; 
+                height: 50%; 
+                resize: both;           
+                overflow: auto;         
+                min-width: 150px;       
+                min-height: 150px;      
+                }
+            </style>
             </head>
             <body>
         `;
@@ -216,11 +209,13 @@
             </html>
         `;
 
-        // Wstawiamy HTML do nowego okna
-        newWindow.document.write(htmlContent);
+        // Zamieniamy HTML na base64, żeby przeglądarka potraktowała to jako stronę
+        const encodedHtml = encodeURIComponent(htmlContent);
+        const dataUrl = "data:text/html;charset=utf-8," + encodedHtml;
+
+        // Otwieramy nowe okno z tym HTML-em
+        window.open(dataUrl, "_blank");
     }
-
-
 
     // save points to scenario to given app
     function scenarioEditPoints(from, points){
