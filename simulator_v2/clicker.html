@@ -389,6 +389,11 @@ button:active {
       }
     };
 
+    // fires when ready to be setup
+    window.addEventListener("load", () => {
+      bc.postMessage({target: managerName, from: iframeName, task: 'setup me', content: true});
+    });
+
 
   </script>
 </body>
