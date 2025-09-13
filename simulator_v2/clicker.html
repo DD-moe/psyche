@@ -247,7 +247,6 @@ button:active {
     function loadPoints(json){
       try {
         const parsed = JSON.parse(json);
-        statusDiv.textContent = "json";
         if (!Array.isArray(parsed)) throw new Error("JSON musi być tablicą.");
         pointsArray = parsed;
         statusDiv.textContent = "Załadowano punkty (nadpisano): " + pointsArray.length;
@@ -370,6 +369,7 @@ button:active {
 
       switch (msg.task) {
         case "set points":
+          alert(msg.content);
           loadPoints(msg.content);
           break;
 
