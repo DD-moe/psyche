@@ -247,6 +247,7 @@ button:active {
     function loadPoints(json){
       try {
         const parsed = JSON.parse(json);
+        alert(parsed);
         if (!Array.isArray(parsed)) throw new Error("JSON musi być tablicą.");
         pointsArray = parsed;
         statusDiv.textContent = "Załadowano punkty (nadpisano): " + pointsArray.length;
