@@ -172,24 +172,25 @@
     }
 
     // prepare scenario
-    function prepareScenario(scenarioObj) {
-        const managerName = document.getElementById("managerNameInput").value.trim() || "Manager";
-        const apps = document.getElementById("apps");
+    function prepareScenario(scenarioObj) 
+    { 
+        // pobierz nazwę managera 
+        managerName = document.getElementById("managerNameInput").value.trim() || "Manager";
+        // wyczyść poprzednie linki (opcjonalnie) 
         apps.innerHTML = "";
-
-        // połącz nazwy aplikacji przecinkami
-        const appNames = Object.keys(scenarioObj).join(',');
-
-        // przygotuj link do iframe_map.html
-        const url = `iframe_map.html#iframeNames=${encodeURIComponent(appNames)}&managerName=${encodeURIComponent(managerName)}`;
-
-        const a = document.createElement("a");
-        a.href = url;
-        a.textContent = `Otwórz wszystkie aplikacje`;
-        a.target = "_blank"; // otwiera w nowej karcie
-        a.style.display = "block";
-
-        apps.appendChild(a);        
+        // iteracja po wszystkich aplikacjach
+        Object.keys(scenarioObj).forEach(appName => {
+            // przygotuj link do clicker.html z parametrami
+            const url = `clicker.html#iframeName=${encodeURIComponent(appName)}&managerName=${encodeURIComponent(managerName)}`;
+            // utwórz element <a>
+            const a = document.createElement("a");
+            a.href = url;
+            a.textContent = `Otwórz ${appName}; a.target = "_blank"`;
+            // otwiera w nowej karcie, usuń jeśli chcesz w tej samej 
+            a.style.display = "block";
+            // żeby linki były jeden pod drugim  dodaj link do kontenera 
+            apps.appendChild(a); 
+        }); 
     }
 
 
