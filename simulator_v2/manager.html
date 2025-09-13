@@ -83,6 +83,7 @@
     const newScenarioBtn = document.getElementById("newScenarioBtn");
     const appsTextarea   = document.getElementById("appsTextarea");
     const scenarioSaver = document.getElementById("scenarioSaver");
+    const apps = document.getElementById("apps");
 
     const header = document.getElementById("clickerTestHeader");
     const content = document.getElementById("clickerTestTab");
@@ -168,13 +169,31 @@
         setUpClicker(app, JSON.stringify(setup.points), setup.imageUrl, setup.range);
     }
 
-    // prepare scenario 
-    function prepareScenario(scenarioObj)
-    { managerName = document.getElementById("managerNameInput").value.trim() || "Manager";
-    Object.keys(scenarioObj).forEach(appName => 
-    { openTab(appName, managerName);
-    }); 
+    // prepare scenario
+    function prepareScenario(scenarioObj) {
+        // pobierz nazwę managera
+        managerName = document.getElementById("managerNameInput").value.trim() || "Manager";
+
+        // wyczyść poprzednie linki (opcjonalnie)
+        apps.innerHTML = "";
+
+        // iteracja po wszystkich aplikacjach
+        Object.keys(scenarioObj).forEach(appName => {
+            // przygotuj link do clicker.html z parametrami
+            const url = `clicker.html#iframeName=${encodeURIComponent(appName)}&managerName=${encodeURIComponent(managerName)}`;
+
+            // utwórz element <a>
+            const a = document.createElement("a");
+            a.href = url;
+            a.textContent = `Otwórz ${appName}`;
+            a.target = "_blank"; // otwiera w nowej karcie, usuń jeśli chcesz w tej samej
+            a.style.display = "block"; // żeby linki były jeden pod drugim
+
+            // dodaj link do kontenera
+            apps.appendChild(a);
+        });
     }
+
 
 
     // save points to scenario to given app
