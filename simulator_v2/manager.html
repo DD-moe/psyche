@@ -97,7 +97,7 @@
     // open tab API
     function openTab(iframeName, managerName){
       const url = `https://git.1ioe.top/psyche/simulator_v2/clicker.html#iframeName=${encodeURIComponent(iframeName)}&managerName=${encodeURIComponent(managerName)}`;
-      iframeWindow = window.open(url, "_blank");
+      window.open(url, "_blank");
     }
 
     // Wyślij obraz i punkty
@@ -150,15 +150,16 @@
     // setup in scenario
     function setUpScenario(app){
         const setup = scenario[app];
-        setUpClicker(app, setup.points, setup.imageUrl, setup.range);
+        setUpClicker(app, JSON.stringify(setup.points), setup.imageUrl, setup.range);
     }
 
     // prepare scenario
-    function prepareScenario(scenario){
-        scenario.forEach(element => {
-            openTab(element.key, managerName);
+    function prepareScenario(scenarioObj){
+        Object.keys(scenarioObj).forEach(appName => {
+            openTab(appName, managerName);
         });
     }
+
 
     // save points to scenario to given app
     function scenarioEditPoints(from, points){
@@ -178,20 +179,22 @@
     // Funkcja do otwierania pliku (tylko .scen)
     loadScenarioBtn.addEventListener("click", async () => {
         scenarioSaver.click();
-        scenarioSaver.onchange = async (e) => {
-            const file = e.target.files[0];
-            if (!file) return;
-
-            const text = await file.text();
-            try {
-            scenario = JSON.parse(text); // zapisujemy do globalnej zmiennej
-            alert("Załadowano scenariusz");
-            console.log("Scenario:", scenario);
-            } catch (err) {
-            alert("Błąd parsowania pliku scenariusza: " + err.message);
-            }
-        };
     });
+
+    // zapisuje scenariusze gdzie trzeba - do zmiennej globalnej
+    scenarioSaver.onchange = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const text = await file.text();
+        try {
+        scenario = JSON.parse(text); // zapisujemy do globalnej zmiennej
+        alert("Załadowano scenariusz");
+        console.log("Scenario:", scenario);
+        } catch (err) {
+        alert("Błąd parsowania pliku scenariusza: " + err.message);
+        }
+    };
 
     // Funkcja do zapisywania scenariusza
     saveScenarioBtn.addEventListener("click", async () => {
@@ -280,6 +283,7 @@
           break;
         case "setup me":
           setUpScenario(msg.from); // when app is ready requests for sending setup to it
+          break;
         default:
           console.warn("Nieznany task od iframe:", msg.task);
       }
