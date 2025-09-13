@@ -94,8 +94,10 @@
     header.addEventListener("click", () => {
     if (content.style.display === "none") {
         content.style.display = "block";
+        header.textContent = "▼ Clicker test - zwiń"; // zmiana tekstu + emoji
     } else {
         content.style.display = "none";
+        header.textContent = "▶ Clicker test - rozwiń"; // zmiana tekstu + emoji
     }
     });
 
