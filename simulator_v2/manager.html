@@ -66,7 +66,6 @@
     document.getElementById("openIframeBtn").addEventListener("click", () => {
       iframeName = document.getElementById("iframeNameInput").value.trim() || "iframe1";
       managerName = document.getElementById("managerNameInput").value.trim() || "Manager";
-      const range = parseInt(document.getElementById("rangeInput").value);
 
       const url = `https://git.1ioe.top/psyche/simulator_v2/clicker.html#iframeName=${encodeURIComponent(iframeName)}&managerName=${encodeURIComponent(managerName)}`;
       iframeWindow = window.open(url, "_blank", "width=1000,height=800");
@@ -76,6 +75,7 @@
     document.getElementById("sendDataBtn").addEventListener("click", () => {
       const pointsJson = document.getElementById("pointsInput").value;
       const imageUrl = document.getElementById("imageUrlInput").value.trim();
+      const range = parseInt(document.getElementById("rangeInput").value);
 
       if (!iframeName || !managerName) {
         alert("Najpierw otwórz iframe.");

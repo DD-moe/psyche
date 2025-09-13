@@ -358,8 +358,8 @@ button:active {
         }
         statusDiv.textContent = out;
         statusDiv.style.color = "green";
-        bc.postMessage({target: managerName, from: iframeName, task: 'clicked points', content: points});
       }
+      bc.postMessage({target: managerName, from: iframeName, task: 'clicked points', content: points});
     });
 
     bc.onmessage = (event) => {
