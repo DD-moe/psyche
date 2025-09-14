@@ -381,62 +381,26 @@
 
     // zamienia <> na losowy key z exampleObj
     function generateQuestion(exampleObj, schema) {
-    const randFromArray = arr => arr[Math.floor(Math.random() * arr.length)];
+        const randFromArray = arr => arr[Math.floor(Math.random() * arr.length)];
 
-    // Bezpiecznie konwertuje na string (jeśli trzeba)
-    function ensureString(v) {
-        if (typeof v === 'string') return v;
-        if (v === undefined || v === null) return '';
-        try { return JSON.stringify(v); } catch (e) { return String(v); }
-    }
+        let txt = schema;
+        let regex = /<([^<>]+)>/; // znajdzie pierwszy tekst między < i >
 
-    // Zamienia wszystkie wystąpienia <GroupName> w str na losowe elementy exampleObj[groupName].
-    // Zwraca { newStr, replaced } - replaced = true jeśli którakolwiek zamiana zmieniła <...>.
-    function replaceAngles(str) {
-        str = ensureString(str);
-        const angleRegex = /<([^>]+)>/g;
-        let replacedAny = false;
-
-        const newStr = str.replace(angleRegex, (match, groupName) => {
-        const key = groupName.trim();
-        if (
-            exampleObj &&
-            Object.prototype.hasOwnProperty.call(exampleObj, key) &&
-            Array.isArray(exampleObj[key]) &&
-            exampleObj[key].length > 0
-        ) {
-            let chosen = randFromArray(exampleObj[key]);
-            // upewniamy się, że wstawiamy string
-            chosen = ensureString(chosen);
-            if (chosen !== match) replacedAny = true; // match to "<GroupName>"
-            return chosen;
-        } else {
-            // Nie znamy grupy -> zostawiamy tag bez zmiany
-            return match;
+        let match;
+        while ((match = txt.match(regex)) !== null) {
+            const key = match[1]; // nazwa wewnątrz <>
+            if (exampleObj[key] && exampleObj[key].length > 0) {
+                const value = randFromArray(exampleObj[key]);
+                txt = txt.replace(match[0], value);
+            } else {
+                // jeśli brak takiego klucza w exampleObj, zostawiamy tak jak jest
+                txt = txt.replace(match[0], '');
+            }
         }
-        });
 
-        return { newStr, replaced: replacedAny };
+        return txt;
     }
 
-    // Główna pętla: powtarzamy zamiany dopóki coś się rzeczywiście zmienia
-    let current = ensureString(schema);
-    const MAX_ITER = 50; // limit bezpieczeństwa na zagnieżdżenia
-    let iter = 0;
-
-    while (true) {
-        const { newStr, replaced } = replaceAngles(current);
-        if (!replaced) break; // nic realnie nie zamieniliśmy -> koniec
-        current = newStr;
-        iter++;
-        if (iter >= MAX_ITER) {
-        console.warn('generateQuestion: osiągnięto maksymalną liczbę iteracji, przerwanie');
-        break;
-        }
-    }
-
-    return current;
-    }
 
     // generuje szablon pytania na podstawie przykładów, bazy danych i schematu pytania
     function pytanie(){
