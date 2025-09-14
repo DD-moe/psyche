@@ -238,7 +238,9 @@
             window.open("https://git.1ioe.top/psyche/simulator_v2/iframe_map.html", "_blank");
         }
         step = 0;
-        odpytanie("start");
+        if (document.getElementById("token").value !== "") {
+            odpytanie("start");
+        }
     }
 
 
