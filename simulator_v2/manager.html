@@ -259,14 +259,14 @@
         // szukamy scenario by znaleźć clickerSetup i ustawić zmienna setup na ten key
         let apps = "";
         for (const key in scenario) {
-            apps += `${key} - ${scenario[key].type},`;
+            apps += `${key} - ${scenario[key].type}, `;
             if (
                 Object.prototype.hasOwnProperty.call(scenario, key) &&
                 scenario[key].type === "clickerSetup"
             ) {
                 setup = key;
                 document.getElementById('ClickerSetupDataset').value = scenario[setup].dataset;
-                document.getElementById('ClickerSetupExample').value = JSON.stringify(scenario[setup].examples);
+                document.getElementById('ClickerSetupExample').value = JSON.stringify(scenario[setup].examples, null, 2);
                 document.getElementById('ClickerSetupSchema').value = scenario[setup].schema;
                 break; // zatrzymujemy się na pierwszym znalezionym
             }
@@ -363,7 +363,7 @@
     scenario[setup].examples = JSON.parse(document.getElementById('ClickerSetupExample').value);
     scenario[setup].schema   = document.getElementById('ClickerSetupSchema').value;
 
-    console.log('Zaktualizowano scenario.setup:', scenario.setup);
+    console.log('Zaktualizowano scenario.setup:', scenario[setup]);
     }
 
     // Dodajemy event listenery na "input" (działa przy każdej zmianie)
