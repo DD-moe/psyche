@@ -186,6 +186,9 @@ button:active {
     const params = new URLSearchParams(hash);
     const iframeName = params.get('iframeName');
     const managerName = params.get('managerName');
+    
+    // Ustawienie tytułu strony
+    document.title = iframeName;
 
 
     // ładowanie własnego obrazu
@@ -335,9 +338,12 @@ button:active {
           const dy = point.y - imageY;
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist <= radius) {
-            foundPoints.push(point);
+            foundPoints.push({ ...point, distance: dist });
           }
         }
+
+        // sortowanie po distance
+        foundPoints.sort((a, b) => a.distance - b.distance);
 
         // Emitujemy event z listą punktów
         const event = new CustomEvent("clickedPoints", { detail: foundPoints });
