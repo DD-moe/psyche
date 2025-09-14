@@ -174,6 +174,9 @@
     // prepare scenario
     function prepareScenario(scenarioObj) 
     { 
+        // parametry wyboru scenariusza
+        let clickers = 0;
+
         // pobierz nazwę managera 
         managerName = document.getElementById("managerNameInput").value.trim() || "Manager";
         // wyczyść poprzednie linki (opcjonalnie) 
@@ -193,7 +196,8 @@
                     // otwiera w nowej karcie, usuń jeśli chcesz w tej samej 
                     a.style.display = "block";
                     // żeby linki były jeden pod drugim  dodaj link do kontenera 
-                    apps.appendChild(a);                     
+                    apps.appendChild(a);       
+                    clickers ++;              
                     break;
             
                 default: // gdy nieznany typ
@@ -201,6 +205,10 @@
                     break;
             }
         }); 
+        // sprawdza który scenariusz pasuje do typów aplikacji - jeśli pasuje - otwiera go
+        if (clickers === 1) {
+            window.open("https://git.1ioe.top/psyche/simulator_v2/iframe_map.html", "_blank");
+        }
     }
 
 

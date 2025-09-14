@@ -138,8 +138,6 @@ button:active {
 </head>
 <body>
 
-  <button id="toggleControlsBtn">Pokaż/Ukryj opcje</button>
-
   <div class="controls" id="controlsDiv">
     <label for="addPointMode"> Dodaj punkt: </label>
     <input type="checkbox" id="addPointMode">
@@ -163,7 +161,8 @@ button:active {
   </div>
 
   <img id="image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Example.jpg/800px-Example.jpg" alt="Kliknij na obraz" />
-
+  <button id="toggleControlsBtn">Pokaż/Ukryj opcje</button>
+  
   <script>
     const image = document.getElementById('image');
     const jsonInput = document.getElementById('jsonInput');
@@ -186,7 +185,7 @@ button:active {
     const params = new URLSearchParams(hash);
     const iframeName = params.get('iframeName');
     const managerName = params.get('managerName');
-    
+
     // Ustawienie tytułu strony
     document.title = iframeName;
 

@@ -1,45 +1,99 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-<meta charset="UTF-8">
-<title>Dynamiczne iframy z #</title>
-<style>
-iframe {
-  width: 600px;
-  height: 400px;
-  border: 1px solid #aaa;
-  margin: 10px;
-  display: block;
-}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Duży iframe</title>
+  <style>
+    :root{
+      --bg: #0b1220;
+      --panel: #071029;
+      --text: #eef7fb;
+      --muted: #9fb6c2;
+      --gap: 12px;
+      --header-h: 56px;
+    }
+    html,body{
+      height:100%;
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+      background: linear-gradient(180deg,var(--panel), #031023 120%);
+      color:var(--text);
+    }
+
+    /* prosty nagłówek */
+    header{
+      height: var(--header-h);
+      display:flex;
+      align-items:center;
+      gap:var(--gap);
+      padding: 0 16px;
+      box-sizing:border-box;
+      background: rgba(255,255,255,0.02);
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+    }
+    header .title {
+      font-size:16px;
+      font-weight:600;
+    }
+    header .src {
+      font-size:13px;
+      color:var(--muted);
+      margin-left:8px;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+      max-width:60ch;
+    }
+
+    /* kontener iframe - zajmuje resztę wysokości */
+    .frame-container{
+      height: calc(100% - var(--header-h));
+      padding:8px;
+      box-sizing:border-box;
+    }
+
+    .frame-box{
+      width:100%;
+      height:100%;
+      border-radius:10px;
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,0.03);
+      box-shadow: 0 8px 30px rgba(2,6,23,0.6);
+      background:#02111a;
+    }
+
+    iframe{
+      width:100%;
+      height:100%;
+      border:0;
+      display:block;
+    }
+
+    @media (max-width:640px){
+      header{ padding: 8px; }
+      .title{ font-size:14px; }
+      header .src{ max-width:40ch; }
+      .frame-box{ border-radius:6px; }
+    }
+  </style>
 </head>
 <body>
-<h1>Dynamiczne iframy z #</h1>
 
-<div id="iframe-container"></div>
+  <header>
+    <div class="title">Podgląd aplikacji</div>
+    <div class="src">https://git.1ioe.top/psyche/simulator_v2/clicker.html#iframeName=a1&amp;managerName=Manager</div>
+  </header>
 
-<script>
-// Pobiera fragment URL po #
-function getHashParams() {
-    const hash = window.location.hash.substring(1); // usuwa #
-    const params = new URLSearchParams(hash);
-    return params;
-}
-
-const params = getHashParams();
-const managerName = params.get('managerName') || 'Manager';
-const iframeNamesParam = params.get('iframeNames') || 'a1';
-const iframeNames = iframeNamesParam.split(',');
-
-const container = document.getElementById('iframe-container');
-
-// Tworzy iframe dla każdej nazwy
-iframeNames.forEach(name => {
-    const iframe = document.createElement('iframe');
-    iframe.src = `https://git.1ioe.top/psyche/simulator_v2/clicker.html#iframeName=${name}&managerName=${managerName}`;
-    container.appendChild(iframe);
-});
-</script>
+  <div class="frame-container">
+    <div class="frame-box">
+      <iframe
+        src="https://git.1ioe.top/psyche/simulator_v2/clicker.html#iframeName=a1&managerName=Manager"
+        loading="eager"
+        allow="clipboard-write; geolocation; camera; microphone; fullscreen">
+      </iframe>
+    </div>
+  </div>
 
 </body>
 </html>
