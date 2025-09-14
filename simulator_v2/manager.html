@@ -405,7 +405,7 @@
     // generuje szablon pytania na podstawie przykładów, bazy danych i schematu pytania
     function pytanie(){
         // formowanie wzoru pytania
-        const pattern = generateQuestion(scenario[setup].dataset, scenario[setup].examples); // wzór pytania
+        const pattern = generateQuestion(scenario[setup].examples, scenario[setup].schema); // wzór pytania
 
         // formowanie pytania
         const question = `Poniżej znajduje się zestaw danych, z którego odpytujsz użytkownika:
