@@ -81,24 +81,10 @@
     <input type="password" id="token" placeholder="Wprowadź swój token...">
     <hr>
 
-    <script type="module">
-        // importuje bibliotekę z google
-        import { GoogleGenAI } from "https://esm.run/@google/genai";
+  <script type="module">
+    // importuje bibliotekę z google
+    import { GoogleGenAI } from "https://esm.run/@google/genai";
 
-        // funkcja do odpytywania AI
-        async function main(prompt) {
-            const ai = new GoogleGenAI({ apiKey: document.getElementById("token").value });
-
-            const response = await ai.models.generateContent({
-            model: "gemini-2.5-flash",
-            contents: prompt,
-            });
-
-            return response.text || "[Brak odpowiedzi]";
-        }
-    </script>
-
-  <script>
     const bc = new BroadcastChannel("Main_channel"); // broadcast channel for entire app
 
     const prevImage = document.getElementById("prevImage");
@@ -130,6 +116,18 @@
         header.textContent = "▶ Clicker test - rozwiń"; // zmiana tekstu + emoji
     }
     });
+
+    // funkcja do odpytywania AI
+    async function main(prompt) {
+        const ai = new GoogleGenAI({ apiKey: document.getElementById("token").value });
+
+        const response = await ai.models.generateContent({
+        model: "gemini-2.5-flash",
+        contents: prompt,
+        });
+
+        return response.text || "[Brak odpowiedzi]";
+    }
 
     // Otwórz nową zakładkę / okno z iframe
     document.getElementById("openIframeBtn").addEventListener("click", () => {
