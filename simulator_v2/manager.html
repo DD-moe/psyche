@@ -255,6 +255,17 @@
         alert("Błąd parsowania pliku scenariusza: " + err.message);
         }
         step = 0; // po wczytaniu nowego scenariusza wszystko zaczyna się od poczatku
+        
+        // szukamy scenario by znaleźć clickerSetup i ustawić zmienna setup na ten key
+        for (const key in scenario) {
+            if (
+                Object.prototype.hasOwnProperty.call(scenario, key) &&
+                scenario[key].type === "clickerSetup"
+            ) {
+                setup = key;
+                break; // zatrzymujemy się na pierwszym znalezionym
+            }
+        }
     };
 
     // Funkcja do zapisywania scenariusza
@@ -342,9 +353,9 @@
 
     // Funkcja aktualizująca scenario[clickerSetup]
     function updateSetup() {
-    scenario.setup.dataset  = document.getElementById('ClickerSetupDataset').value;
-    scenario.setup.examples = document.getElementById('ClickerSetupExample').value;
-    scenario.setup.schema   = document.getElementById('ClickerSetupSchema').value;
+    scenario[setup].dataset  = document.getElementById('ClickerSetupDataset').value;
+    scenario[setup].examples = document.getElementById('ClickerSetupExample').value;
+    scenario[setup].schema   = document.getElementById('ClickerSetupSchema').value;
 
     console.log('Zaktualizowano scenario.setup:', scenario.setup);
     }
