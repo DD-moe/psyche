@@ -400,7 +400,7 @@
         if (step === 0) { // zaczynamy od pytania
             question = pytanie(); // prompt do ai na ułożenie pytania 
             question = response = await window.main(question);
-            alert(response)
+            speakTextAsync(response);
             step = 1;
         }
         if (step === 1) { // zaznaczenie przez użytkownika
@@ -422,15 +422,42 @@
             ${namesString}
             `;
             response = await window.main(prompt);
-            alert(response);
+            speakTextAsync(response);
 
             // ponowne pytanie
             step = 0;
             question = pytanie(); // prompt do ai na ułożenie pytania 
             response = await window.main(question);
-            alert(response)
+            speakTextAsync(response);
             step = 1;
         }
+    }
+
+    // powiedz na głos automatycznie
+    function speakTextAsync(text) {
+        return new Promise((resolve, reject) => {
+            if (!window.speechSynthesis) {
+                reject("Web Speech API nie jest wspierane w tej przeglądarce");
+                return;
+            }
+
+            const utterance = new SpeechSynthesisUtterance(text);
+
+            // ustawiamy język i lektora
+            utterance.lang = navigator.language || "pl-PL";
+            const voices = window.speechSynthesis.getVoices();
+            const voice = voices.find(v => v.lang === utterance.lang) || voices[0];
+            if (voice) utterance.voice = voice;
+
+            // po zakończeniu mowy rozwiązujemy Promise
+            utterance.onend = () => resolve();
+
+            // w razie błędu odrzucamy Promise
+            utterance.onerror = (e) => reject(e);
+
+            // start mowy
+            window.speechSynthesis.speak(utterance);
+        });
     }
 
     // zamienia <> na losowy key z exampleObj
