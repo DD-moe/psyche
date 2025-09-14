@@ -373,48 +373,42 @@
         }
     }
 
+    // zamienia <> na losowy key z exampleObj
     function generateQuestion(exampleObj, schema) {
+        console.log(exampleObj, schema);
         const randFromArray = arr => arr[Math.floor(Math.random() * arr.length)];
 
-        // obsługa |elem1; elem2| → losowanie jednego elementu i przetwarzanie go
-        function processBars(text) {
-            // dopóki znajdziemy | ... ; ... |
-            const barRegex = /\|([^|]+?)\|/; // znajdzie pierwsze wystąpienie
-            let match;
-            while ((match = barRegex.exec(text)) !== null) {
-            const inside = match[1]; // np. elem1; elem2
-            const options = inside.split(';').map(s => s.trim()).filter(Boolean);
-            const chosen = randFromArray(options);
-            const processed = processSchema(chosen); // rekurencyjnie obrabiamy wybrany element
-            text = text.replace(match[0], processed);
-            }
-            return text;
-        }
-
-        // zamiana <GroupName> na losowy element
-        function processAngles(str) {
+        // Funkcja zamieniająca <GroupName> na losowy element exampleObj[groupName]
+        function replaceAngles(str) {
             const angleRegex = /<([^>]+)>/g;
-            return str.replace(angleRegex, (_, groupName) => {
-            groupName = groupName.trim();
-            if (exampleObj[groupName]) {
-                return randFromArray(exampleObj[groupName]);
-            } else {
-                return `<${groupName}>`; // jeśli brak grupy
-            }
+            let hasMatch = false;
+
+            const newStr = str.replace(angleRegex, (_, groupName) => {
+                hasMatch = true;
+                groupName = groupName.trim();
+                if (exampleObj[groupName] && Array.isArray(exampleObj[groupName])) {
+                    return randFromArray(exampleObj[groupName]);
+                } else {
+                    return `<${groupName}>`; // jeśli brak grupy, zostawiamy w oryginale
+                }
             });
+
+            return { newStr, hasMatch };
         }
 
-        // główna funkcja rekurencyjna
-        function processSchema(str) {
-            // najpierw obsługa | ... ; ... |
-            str = processBars(str);
-            // następnie zamiana <GroupName>
-            str = processAngles(str);
-            return str;
-        }
+        // Przetwarzamy schemat w pętli aż nie zostanie żaden <…>
+        let current = schema;
+        let result;
+        do {
+            const { newStr, hasMatch } = replaceAngles(current);
+            result = newStr;
+            current = newStr;
+            // pętla działa dopóki znajdziemy jakieś <>
+        } while (/<[^>]+>/.test(current));
 
-        return processSchema(schema);
+        return result;
     }
+
 
     // generuje szablon pytania na podstawie przykładów, bazy danych i schematu pytania
     function pytanie(){
