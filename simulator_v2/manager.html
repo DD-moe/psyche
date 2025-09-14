@@ -72,6 +72,11 @@
     <hr>
     <h3>aplikacja</h3>
     <div id="apps"></div>
+    <hr>
+    <h3>Setup AI</h3>
+    <textarea id="ClickerSetupDataset" placeholder="tu wpisz pełne dane z odnośnikami do punktów"></textarea>
+    <textarea id="ClickerSetupExample" placeholder="tu wpisz w formacie {grupa przykładów:[przykład1, przykład2...],}"></textarea>
+    <textarea id="ClickerSetupSchema" placeholder="tu wpisz schemat tworzenia pytania"></textarea>
 
   <script>
     const bc = new BroadcastChannel("Main_channel"); // broadcast channel for entire app
@@ -91,6 +96,8 @@
     let iframeName = ""; // iframe name for testing purpose
     let managerName = ""; // manager name - do not change
     let scenario; // keeps current scenario
+    let setup; // keeps schema as key in scenario
+    let step = 0; // krok w pętli odpytywania
 
     // rozwijanie/zwijanie zakładki do testów
     header.addEventListener("click", () => {
@@ -209,6 +216,8 @@
         if (clickers === 1) {
             window.open("https://git.1ioe.top/psyche/simulator_v2/iframe_map.html", "_blank");
         }
+        step = 0;
+        odpytanie("start");
     }
 
 
@@ -245,6 +254,7 @@
         } catch (err) {
         alert("Błąd parsowania pliku scenariusza: " + err.message);
         }
+        step = 0; // po wczytaniu nowego scenariusza wszystko zaczyna się od poczatku
     };
 
     // Funkcja do zapisywania scenariusza
@@ -303,19 +313,116 @@
             // rozdziel nazwę i typ po znaku '-'
             const parts = entry.split("-").map(p => p.trim());
             const appName = parts[0];
-            const appType = parts[1] || 'clicker'; // domyślnie clicker, jeśli brak
+            const appType = parts[1];
 
-            scenario[appName] = {
-                points: [],
-                imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Example.jpg/800px-Example.jpg",
-                range: 20,
-                type: appType
-            };
+            switch (appType) {
+                case "clicker":  // tworzy clicker
+                    scenario[appName] = {
+                        points: [],
+                        imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Example.jpg/800px-Example.jpg",
+                        range: 20,
+                        type: appType
+                    };                    
+                    break;
+                case "clickerSetup":
+                    scenario[appName] = {
+                        type: appType,
+                        dataset: document.getElementById('ClickerSetupDataset').value, // pełem zestaw danych - ocena i układanie pytania
+                        examples: document.getElementById('ClickerSetupExample').value, // obiekt key - grupa przykładów = array
+                        schema: document.getElementById('ClickerSetupSchema').value
+                    }; 
+                    setup = appName;
+                default:
+                    break;
+            }
         });
 
         console.log(scenario); // podgląd w konsoli
     });
 
+    // Funkcja aktualizująca scenario[clickerSetup]
+    function updateSetup() {
+    scenario.setup.dataset  = document.getElementById('ClickerSetupDataset').value;
+    scenario.setup.examples = document.getElementById('ClickerSetupExample').value;
+    scenario.setup.schema   = document.getElementById('ClickerSetupSchema').value;
+
+    console.log('Zaktualizowano scenario.setup:', scenario.setup);
+    }
+
+    // Dodajemy event listenery na "input" (działa przy każdej zmianie)
+    document.getElementById('ClickerSetupDataset').addEventListener('input', updateSetup);
+    document.getElementById('ClickerSetupExample').addEventListener('input', updateSetup);
+    document.getElementById('ClickerSetupSchema').addEventListener('input', updateSetup);
+
+    // odpytanie
+    async function odpytanie(clickedPoints){
+        if (step === 0) { // zaczynamy od pytania
+            const question = pytanie(); // prompt do ai na ułożenie pytania 
+            alert(question);
+        }
+    }
+
+    function generateQuestion(exampleObj, schema) {
+        const randFromArray = arr => arr[Math.floor(Math.random() * arr.length)];
+
+        // obsługa |elem1; elem2| → losowanie jednego elementu i przetwarzanie go
+        function processBars(text) {
+            // dopóki znajdziemy | ... ; ... |
+            const barRegex = /\|([^|]+?)\|/; // znajdzie pierwsze wystąpienie
+            let match;
+            while ((match = barRegex.exec(text)) !== null) {
+            const inside = match[1]; // np. elem1; elem2
+            const options = inside.split(';').map(s => s.trim()).filter(Boolean);
+            const chosen = randFromArray(options);
+            const processed = processSchema(chosen); // rekurencyjnie obrabiamy wybrany element
+            text = text.replace(match[0], processed);
+            }
+            return text;
+        }
+
+        // zamiana <GroupName> na losowy element
+        function processAngles(str) {
+            const angleRegex = /<([^>]+)>/g;
+            return str.replace(angleRegex, (_, groupName) => {
+            groupName = groupName.trim();
+            if (exampleObj[groupName]) {
+                return randFromArray(exampleObj[groupName]);
+            } else {
+                return `<${groupName}>`; // jeśli brak grupy
+            }
+            });
+        }
+
+        // główna funkcja rekurencyjna
+        function processSchema(str) {
+            // najpierw obsługa | ... ; ... |
+            str = processBars(str);
+            // następnie zamiana <GroupName>
+            str = processAngles(str);
+            return str;
+        }
+
+        return processSchema(schema);
+    }
+
+    // generuje szablon pytania na podstawie przykładów, bazy danych i schematu pytania
+    function pytanie(){
+        // formowanie wzoru pytania
+        const pattern = generateQuestion(scenario[setup].ClickerSetupExample, scenario[setup].ClickerSetupSchema); // wzór pytania
+
+        // formowanie pytania
+        const question = `Poniżej znajduje się zestaw danych, z którego odpytujsz użytkownika:
+        \n
+        ${scenario[setup].ClickerSetupDataset}
+        \n
+        Zadaj użytnikowi pyytanie, parafrazując pytanie przygotowane przez algorytm:
+        \n
+        ${pattern}
+        \n
+        napisz tylko sparafrazowane pytanie - nic więcej.`;
+
+        return question;
+    }
 
     // Odbiór wiadomości z iframe (np. kliknięte punkty lub eksport)
     bc.onmessage = (event) => {
@@ -326,6 +433,7 @@
       switch(msg.task) {
         case "clicked points":
           console.log("Iframe kliknięte punkty:", msg.content);
+          odpytanie(msg.content);
           break;
         case "export points":
           console.log(msg.from, msg.content);
