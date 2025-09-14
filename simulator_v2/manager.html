@@ -339,7 +339,7 @@
                     scenario[appName] = {
                         type: appType,
                         dataset: document.getElementById('ClickerSetupDataset').value, // pełem zestaw danych - ocena i układanie pytania
-                        examples: document.getElementById('ClickerSetupExample').value, // obiekt key - grupa przykładów = array
+                        examples: JSON.parse(document.getElementById('ClickerSetupExample').value), // obiekt key - grupa przykładów = array
                         schema: document.getElementById('ClickerSetupSchema').value
                     }; 
                     setup = appName;
@@ -354,7 +354,7 @@
     // Funkcja aktualizująca scenario[clickerSetup]
     function updateSetup() {
     scenario[setup].dataset  = document.getElementById('ClickerSetupDataset').value;
-    scenario[setup].examples = document.getElementById('ClickerSetupExample').value;
+    scenario[setup].examples = JSON.parse(document.getElementById('ClickerSetupExample').value);
     scenario[setup].schema   = document.getElementById('ClickerSetupSchema').value;
 
     console.log('Zaktualizowano scenario.setup:', scenario.setup);
