@@ -394,13 +394,17 @@
 
     // odpytanie
     async function odpytanie(clickedPoints){
+        let response = "";
         if (step === 0) { // zaczynamy od pytania
             question = pytanie(); // prompt do ai na ułożenie pytania 
-            const response = await window.main(question);
+            question = response = await window.main(question);
             alert(response)
             step = 1;
         }
         if (step === 1) { // zaznaczenie przez użytkownika
+            const namesArray = clickedPoints.map(point => point.name);
+            const namesString = namesArray.join(", ");
+
             const prompt = `${scenario[setup].dataset}
             \n
             powyżej masz zestaw danych do przepytywania użytkownika
@@ -410,11 +414,20 @@
             ${question}
             \n
             Oceń czy odpowiedział poprawnie, jeśli tak, napisz: "odpowiedź poprawna", jeśli źle napisz: "Zła odpowiedź" i podaj krótko prawidłową odpowiedź.
+            Zadaniem użytkownika było zaznaczyć na obrazku element, który jest odpowiedzią. Poniżej lista punktów przynależąca do obiektów znajdujących się w niewielkim promieniu od klikniętego punktu.
+            Są one posortowane w kolejności od najbliższego do najdalszego.
+            \n
+            ${namesString}
             `;
-            const response = await window.main(prompt);
+            response = await window.main(prompt);
             alert(response);
+
+            // ponowne pytanie
             step = 0;
-            odpytanie(clickedPoints);
+            question = pytanie(); // prompt do ai na ułożenie pytania 
+            response = await window.main(question);
+            alert(response)
+            step = 1;
         }
     }
 
