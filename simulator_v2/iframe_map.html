@@ -81,8 +81,11 @@
 <body>
 
   <header>
-    <div class="title">Podgląd aplikacji</div>
-    <div class="src">https://git.1ioe.top/psyche/simulator_v2/clicker.html#iframeName=a1&amp;managerName=Manager</div>
+    <div class="title">Symulator Medyczny - dane scenariusza</div>
+    <div id="srcDiv" class="src">a1 - clicker, a2 - clickerSetup</div>
+    <button id="copyBtn" title="skopiuj konfigurację scenariusza do schowka" style=" font-size: 1.5rem; background: none; border: none; cursor: pointer; margin-top:8px;">📋</button>
+    <span id="copyStatus" style="margin-left:8px; color:#06b6d4;"></span>
+    <button id="fullscreenBtn"  title="Pełny ekran" style="font-size:1.8rem; background:none; border:none; cursor:pointer;">⛶</button>
   </header>
 
   <div class="frame-container">
@@ -96,4 +99,42 @@
   </div>
 
 </body>
+
+<script>
+
+  // obsługa trybu pełnoekranowego
+  const btn = document.getElementById('fullscreenBtn');
+
+  btn.addEventListener('click', () => {
+    if (!document.fullscreenElement) {
+      // Wejście w pełny ekran dla całego dokumentu
+      document.documentElement.requestFullscreen();
+    } else {
+      // Wyjście z pełnego ekranu
+      document.exitFullscreen();
+    }
+  });
+
+  // obsługa kopiowania schematu scenariusza
+
+  const copyBtn = document.getElementById('copyBtn');
+  const srcDiv = document.getElementById('srcDiv');
+  const copyStatus = document.getElementById('copyStatus');
+
+  copyBtn.addEventListener('click', async () => {
+    try {
+      const text = srcDiv.textContent;
+      await navigator.clipboard.writeText(text);
+      copyStatus.textContent = "Skopiowano!";
+      setTimeout(() => copyStatus.textContent = "", 2000);
+    } catch (err) {
+      copyStatus.textContent = "Błąd kopiowania!";
+      console.error(err);
+    }
+});
+
+</script>
+
+
+
 </html>
