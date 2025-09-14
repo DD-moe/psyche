@@ -77,6 +77,26 @@
     <textarea id="ClickerSetupDataset" placeholder="tu wpisz pełne dane z odnośnikami do punktów"></textarea>
     <textarea id="ClickerSetupExample" placeholder="tu wpisz w formacie {grupa przykładów:[przykład1, przykład2...],}"></textarea>
     <textarea id="ClickerSetupSchema" placeholder="tu wpisz schemat tworzenia pytania"></textarea>
+    <label for="token">Token (API Key):</label>
+    <input type="password" id="token" placeholder="Wprowadź swój token...">
+    <hr>
+
+    <script type="module">
+        // importuje bibliotekę z google
+        import { GoogleGenAI } from "https://esm.run/@google/genai";
+
+        // funkcja do odpytywania AI
+        async function main(prompt) {
+            const ai = new GoogleGenAI({ apiKey: document.getElementById("token").value });
+
+            const response = await ai.models.generateContent({
+            model: "gemini-2.5-flash",
+            contents: prompt,
+            });
+
+            return response.text || "[Brak odpowiedzi]";
+        }
+    </script>
 
   <script>
     const bc = new BroadcastChannel("Main_channel"); // broadcast channel for entire app
@@ -98,6 +118,7 @@
     let scenario; // keeps current scenario
     let setup; // keeps schema as key in scenario
     let step = 0; // krok w pętli odpytywania
+    let question = "";
 
     // rozwijanie/zwijanie zakładki do testów
     header.addEventListener("click", () => {
@@ -374,8 +395,26 @@
     // odpytanie
     async function odpytanie(clickedPoints){
         if (step === 0) { // zaczynamy od pytania
-            const question = pytanie(); // prompt do ai na ułożenie pytania 
-            alert(question);
+            question = pytanie(); // prompt do ai na ułożenie pytania 
+            const response = await main(question);
+            alert(response)
+            step = 1;
+        }
+        if (step === 1) { // zaznaczenie przez użytkownika
+            const prompt = `${scenario[setup].dataset}
+            \n
+            powyżej masz zestaw danych do przepytywania użytkownika
+            \n
+            Uzytkownik otrzymał pytanie:
+            \n
+            ${question}
+            \n
+            Oceń czy odpowiedział poprawnie, jeśli tak, napisz: "odpowiedź poprawna", jeśli źle napisz: "Zła odpowiedź" i podaj krótko prawidłową odpowiedź.
+            `;
+            const response = await main(prompt);
+            alert(response);
+            step = 0;
+            odpytanie(clickedPoints);
         }
     }
 
