@@ -419,12 +419,12 @@
     // generuje szablon pytania na podstawie przykładów, bazy danych i schematu pytania
     function pytanie(){
         // formowanie wzoru pytania
-        const pattern = generateQuestion(scenario[setup].ClickerSetupExample, scenario[setup].ClickerSetupSchema); // wzór pytania
+        const pattern = generateQuestion(scenario[setup].dataset, scenario[setup].examples); // wzór pytania
 
         // formowanie pytania
         const question = `Poniżej znajduje się zestaw danych, z którego odpytujsz użytkownika:
         \n
-        ${scenario[setup].ClickerSetupDataset}
+        ${scenario[setup].dataset}
         \n
         Zadaj użytnikowi pyytanie, parafrazując pytanie przygotowane przez algorytm:
         \n
