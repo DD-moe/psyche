@@ -67,7 +67,7 @@
     <button id="newScenarioBtn">Nowy pusty scenariusz</button>
     <br><br>
     <label>Lista apps (po przecinku):</label>
-    <textarea id="appsTextarea" placeholder="np. app1, app2, app3"></textarea>
+    <textarea id="appsTextarea" placeholder="app1 - clicker, app2 - clicker, app3 - clickerSetup"></textarea>
     <input type="file" accept=".scen" id="scenarioSaver" style="display: none;">
     <hr>
     <h3>aplikacja</h3>
@@ -180,17 +180,26 @@
         apps.innerHTML = "";
         // iteracja po wszystkich aplikacjach
         Object.keys(scenarioObj).forEach(appName => {
-            // przygotuj link do clicker.html z parametrami
-            const url = `clicker.html#iframeName=${encodeURIComponent(appName)}&managerName=${encodeURIComponent(managerName)}`;
-            // utwórz element <a>
-            const a = document.createElement("a");
-            a.href = url;
-            a.textContent = `Otwórz ${appName}`; 
-            a.target = "_blank";
-            // otwiera w nowej karcie, usuń jeśli chcesz w tej samej 
-            a.style.display = "block";
-            // żeby linki były jeden pod drugim  dodaj link do kontenera 
-            apps.appendChild(a); 
+            appType = scenarioObj[appName].type;  // type of each app "actor" in scenario
+            switch (appType) {
+                case "clicker": // tylko dla clickera
+                    // przygotuj link do clicker.html z parametrami
+                    const url = `clicker.html#iframeName=${encodeURIComponent(appName)}&managerName=${encodeURIComponent(managerName)}`;
+                    // utwórz element <a>
+                    const a = document.createElement("a");
+                    a.href = url;
+                    a.textContent = `Otwórz ${appName}`; 
+                    a.target = "_blank";
+                    // otwiera w nowej karcie, usuń jeśli chcesz w tej samej 
+                    a.style.display = "block";
+                    // żeby linki były jeden pod drugim  dodaj link do kontenera 
+                    apps.appendChild(a);                     
+                    break;
+            
+                default: // gdy nieznany typ
+                    console.log("Nieznany typ app");
+                    break;
+            }
         }); 
     }
 
@@ -275,25 +284,30 @@
 
     // Nowy pusty scenariusz na podstawie textarea
     newScenarioBtn.addEventListener("click", () => {
-    const apps = appsTextarea.value
-        .split(",")
-        .map(s => s.trim())
-        .filter(Boolean);
+        const apps = appsTextarea.value
+            .split(",")
+            .map(s => s.trim())
+            .filter(Boolean);
 
-    scenario = {}; // resetujemy
+        scenario = {}; // resetujemy
 
-    apps.forEach(appName => {
-        scenario[appName] = {
-        points: [],
-        imageUrl:
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Example.jpg/800px-Example.jpg",
-        range: 20
-        };
+        apps.forEach(entry => {
+            // rozdziel nazwę i typ po znaku '-'
+            const parts = entry.split("-").map(p => p.trim());
+            const appName = parts[0];
+            const appType = parts[1] || 'clicker'; // domyślnie clicker, jeśli brak
+
+            scenario[appName] = {
+                points: [],
+                imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Example.jpg/800px-Example.jpg",
+                range: 20,
+                type: appType
+            };
+        });
+
+        console.log(scenario); // podgląd w konsoli
     });
 
-    alert("Utworzono nowy scenariusz z " + apps.length + " app(s).");
-    console.log("Scenario:", scenario);
-    });    
 
     // Odbiór wiadomości z iframe (np. kliknięte punkty lub eksport)
     bc.onmessage = (event) => {
