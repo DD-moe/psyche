@@ -385,7 +385,7 @@
 
         let txt = schema;
         let regex = /<([^<>]+)>/; // znajdzie pierwszy tekst między < i >
-
+        console.log(txt, typeof txt)
         let match;
         while ((match = txt.match(regex)) !== null) {
             const key = match[1]; // nazwa wewnątrz <>
