@@ -86,7 +86,7 @@
         import { GoogleGenAI } from "https://esm.run/@google/genai";
 
         // funkcja do odpytywania AI
-        export async function main(prompt) {
+        window.main = async function (prompt) {
             const ai = new GoogleGenAI({ apiKey: document.getElementById("token").value });
 
             const response = await ai.models.generateContent({
@@ -396,7 +396,7 @@
     async function odpytanie(clickedPoints){
         if (step === 0) { // zaczynamy od pytania
             question = pytanie(); // prompt do ai na ułożenie pytania 
-            const response = await main(question);
+            const response = await window.main(question);
             alert(response)
             step = 1;
         }
@@ -411,7 +411,7 @@
             \n
             Oceń czy odpowiedział poprawnie, jeśli tak, napisz: "odpowiedź poprawna", jeśli źle napisz: "Zła odpowiedź" i podaj krótko prawidłową odpowiedź.
             `;
-            const response = await main(prompt);
+            const response = await window.main(prompt);
             alert(response);
             step = 0;
             odpytanie(clickedPoints);
