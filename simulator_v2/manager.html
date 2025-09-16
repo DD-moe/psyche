@@ -80,6 +80,7 @@
     <label for="token">Token (API Key):</label>
     <input type="password" id="token" placeholder="Wprowadź swój token...">
     <hr>
+    <div id="responseBox"></div>
 
     <script type="module">
         // importuje bibliotekę z google
@@ -112,6 +113,7 @@
 
     const header = document.getElementById("clickerTestHeader");
     const content = document.getElementById("clickerTestTab");
+    const responseBox = document.getElementById("responseBox");
 
     let iframeName = ""; // iframe name for testing purpose
     let managerName = ""; // manager name - do not change
@@ -400,7 +402,7 @@
             const prev_question = pytanie(); // prompt do ai na ułożenie pytania 
             question = await window.main(prev_question);
             speakTextAsync(question);
-            console.log(question);
+            responseBox.textContent = question;
             step = 1;
         }
         if (step === 1) { // zaznaczenie przez użytkownika
@@ -423,7 +425,7 @@
             `;
             const response = await window.main(prompt);
             speakTextAsync(response);
-            console.log(response);
+            responseBox.textContent = response;
 
             // ponowne pytanie
             step = 0;
@@ -431,6 +433,7 @@
             question = "";
             question = await window.main(next_question);
             speakTextAsync(question);
+            responseBox.textContent = question;
             step = 1;
         }
     }
