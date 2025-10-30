@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Frame differencing — co X klatek</title>
+<style>
+  body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial; padding: 16px; background:#111; color:#eee; }
+  #controls { display:flex; gap:12px; align-items:center; margin-bottom:12px; flex-wrap:wrap; }
+  label { font-size:14px; }
+  canvas { background:#000; border-radius:8px; box-shadow: 0 6px 18px rgba(0,0,0,0.6); }
+  #out { image-rendering: pixelated; }
+  small { color:#aaa; display:block; margin-top:6px; }
+  .muted { color:#aaa; font-size:13px; }
+</style>
+</head>
+<body>
+<h2>Różnicowanie klatek — co X klatek</h2>
+
+<div id="controls">
+  <button id="startBtn">Start kamery</button>
+
+  <label>Skala wyjścia:
+    <select id="scale">
+      <option value="2">2×</option>
+      <option value="3" selected>3×</option>
+      <option value="4">4×</option>
+      <option value="5">5×</option>
+    </select>
+  </label>
+
+  <label>Próg: <span id="thVal">20</span>
+    <input id="threshold" type="range" min="0" max="255" value="20" />
+  </label>
+
+  <label><input id="blur" type="checkbox" /> prosty 3×3 blur</label>
+  <label><input id="showRgb" type="checkbox" /> pokaż różnicę kolorem (RGB)</label>
+
+  <label>Porównuj co:
+    <select id="frameGap">
+      <option value="1" selected>1 klatkę</option>
+      <option value="2">2 klatki</option>
+      <option value="3">3 klatki</option>
+      <option value="5">5 klatek</option>
+      <option value="10">10 klatek</option>
+      <option value="15">15 klatek</option>
+      <option value="30">30 klatek</option>
+      <option value="60">60 klatek</option>
+      <option value="120">120 klatek</option>      
+    </select>
+  </label>
+</div>
+
+<canvas id="out" width="128" height="128" style="width:384px;height:384px"></canvas>
+<small class="muted">Porównuj różnice pomiędzy klatkami oddzielonymi wybraną liczbą ramek (np. 1 → 10). Większy odstęp oznacza mniejszy FPS i wyraźniejsze zmiany.</small>
+
+<canvas id="small" width="128" height="128" style="display:none"></canvas>
+<video id="video" autoplay playsinline style="display:none"></video>
+
+<script>
+(() => {
+  const W = 128, H = 128;
+  const video = document.getElementById('video');
+  const small = document.getElementById('small');
+  const out = document.getElementById('out');
+  const startBtn = document.getElementById('startBtn');
+  const thresholdEl = document.getElementById('threshold');
+  const thVal = document.getElementById('thVal');
+  const blurChk = document.getElementById('blur');
+  const scaleSel = document.getElementById('scale');
+  const showRgb = document.getElementById('showRgb');
+  const frameGapSel = document.getElementById('frameGap');
+
+  const sctx = small.getContext('2d', {willReadFrequently: true});
+  const octx = out.getContext('2d');
+
+  let frameCounter = 0;
+  let grayHistory = []; // przechowuje poprzednie ramki (np. do 30)
+  let running = false;
+
+  function updateOutputSize() {
+    const scale = Number(scaleSel.value);
+    out.style.width = (W * scale) + 'px';
+    out.style.height = (H * scale) + 'px';
+  }
+  scaleSel.addEventListener('change', updateOutputSize);
+  updateOutputSize();
+
+  thresholdEl.addEventListener('input', () => thVal.textContent = thresholdEl.value);
+
+  async function startCamera() {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" }, audio: false });
+      video.srcObject = stream;
+      await video.play();
+      running = true;
+      startBtn.textContent = 'Stop';
+      requestAnimationFrame(loop);
+    } catch (e) {
+      alert('Błąd uruchomienia kamery: ' + e.message);
+      console.error(e);
+    }
+  }
+
+  function stopCamera() {
+    if (video.srcObject) {
+      video.srcObject.getTracks().forEach(t => t.stop());
+      video.srcObject = null;
+    }
+    running = false;
+    startBtn.textContent = 'Start kamery';
+    grayHistory = [];
+    octx.clearRect(0,0,out.width,out.height);
+    sctx.clearRect(0,0,small.width,small.height);
+  }
+
+  startBtn.addEventListener('click', () => {
+    if (!running) startCamera();
+    else stopCamera();
+  });
+
+  function rgbToGray(r,g,b) {
+    return (0.299*r + 0.587*g + 0.114*b) | 0;
+  }
+
+  function boxBlur3x3(src, dst, w, h) {
+    const get = (x,y) => {
+      if (x<0) x=0; if (x>=w) x=w-1;
+      if (y<0) y=0; if (y>=h) y=h-1;
+      return src[y*w + x];
+    };
+    for (let y=0;y<h;y++){
+      for (let x=0;x<w;x++){
+        let s = 0;
+        for (let dy=-1;dy<=1;dy++)
+          for (let dx=-1;dx<=1;dx++)
+            s += get(x+dx,y+dy);
+        dst[y*w+x] = (s / 9) | 0;
+      }
+    }
+  }
+
+  const tempBlur = new Uint8ClampedArray(W * H);
+
+  function loop() {
+    if (!running) return;
+
+    sctx.drawImage(video, 0, 0, W, H);
+    const img = sctx.getImageData(0,0,W,H);
+    const data = img.data;
+    const gray = new Uint8ClampedArray(W * H);
+    for (let i=0, j=0; i<data.length; i+=4, j++)
+      gray[j] = rgbToGray(data[i], data[i+1], data[i+2]);
+
+    if (blurChk.checked) {
+      boxBlur3x3(gray, tempBlur, W, H);
+      gray.set(tempBlur);
+    }
+
+    const gap = Number(frameGapSel.value);
+
+    // dodaj bieżącą ramkę do historii
+    grayHistory.push(gray);
+    if (grayHistory.length > gap + 1) grayHistory.shift(); // utrzymuj bufor o odpowiedniej długości
+
+    // tylko jeśli mamy starą klatkę z przed gap klatek
+    if (grayHistory.length > gap) {
+      const prevGray = grayHistory[0];
+      const outImg = octx.createImageData(W, H);
+      const outBuf = outImg.data;
+      const threshold = Number(thresholdEl.value);
+      const colorMode = showRgb.checked;
+
+      for (let i=0, p=0; i<gray.length; i++, p+=4) {
+        const d = Math.abs(gray[i] - prevGray[i]);
+        const val = d > threshold ? d : 0;
+        if (colorMode) {
+          outBuf[p]   = val;
+          outBuf[p+1] = 0;
+          outBuf[p+2] = 0;
+          outBuf[p+3] = 255;
+        } else {
+          outBuf[p] = outBuf[p+1] = outBuf[p+2] = val;
+          outBuf[p+3] = 255;
+        }
+      }
+      octx.putImageData(outImg, 0, 0);
+    }
+
+    requestAnimationFrame(loop);
+  }
+
+  window.addEventListener('unload', stopCamera);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Symulacja wielu kamer — Frame Differencing</title>
+<style>
+  body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial; padding: 16px; background:#111; color:#eee; margin:0; }
+  #controls { display:flex; flex-wrap:wrap; gap:12px; align-items:center; margin-bottom:12px; background:#222; padding:12px; border-radius:8px; box-shadow:0 0 10px #0008; }
+  label { font-size:14px; }
+  canvas { background:#000; border-radius:8px; box-shadow:0 0 8px rgba(0,0,0,0.6); margin:8px; image-rendering:pixelated; transform-origin: top left; }
+  #canvasContainer { display:flex; flex-wrap:wrap; gap:8px; overflow:auto; max-height:80vh; }
+  #canvasContainer.fullscreen { height:100vh; overflow-y:scroll; background:#000; padding:10px; }
+  small { color:#aaa; display:block; margin-top:6px; }
+  .muted { color:#aaa; font-size:13px; }
+  .camBlock { display:flex; flex-direction:column; align-items:center; }
+  .fpsLabel { color:#0f0; font-size:13px; margin-top:4px; }
+  #memory { color:#0ff; font-weight:bold; font-family:monospace; }
+</style>
+</head>
+<body>
+<h2>Symulacja wielu kamer (różnicowanie klatek)</h2>
+
+<div id="controls">
+  <button id="startBtn">Start kamery</button>
+
+  <label>Liczba kamer:
+    <input id="camCount" type="number" min="1" max="12" value="4" style="width:60px">
+  </label>
+
+  <label>Rozdzielczość:
+    <select id="resolution">
+      <option>64x64</option>
+      <option>96x96</option>
+      <option selected>128x128</option>
+      <option>160x160</option>
+      <option>192x192</option>
+      <option>224x224</option>
+      <option>256x256</option>
+    </select>
+  </label>
+
+  <label>Porównuj co:
+    <select id="skip">
+      <option value="1" selected>1 klatkę</option>
+      <option value="2">2 klatki</option>
+      <option value="3">3 klatki</option>
+      <option value="4">4 klatki</option>
+      <option value="5">5 klatek</option>
+    </select>
+  </label>
+
+  <label>Próg: <span id="thVal">20</span>
+    <input id="threshold" type="range" min="0" max="255" value="20" />
+  </label>
+
+  <label><input id="blur" type="checkbox" /> prosty blur</label>
+  <label><input id="showRgb" type="checkbox" /> różnica RGB</label>
+
+  <label>Skala wyświetlania:
+    <select id="scale">
+      <option value="1">1x</option>
+      <option value="2" selected>2x</option>
+      <option value="3">3x</option>
+      <option value="4">4x</option>
+      <option value="5">5x</option>
+    </select>
+  </label>
+
+  <button id="fullscreenBtn">Pełny ekran</button>
+  <span>RAM: <span id="memory">—</span></span>
+</div>
+
+<div id="canvasContainer"></div>
+<small class="muted">Wpisz liczbę kamer i kliknij Start. Wszystkie analizują ten sam strumień wideo. Tryb pełnoekranowy umożliwia przewijanie.</small>
+
+<video id="video" autoplay playsinline style="display:none"></video>
+
+<script>
+(() => {
+  const video = document.getElementById('video');
+  const startBtn = document.getElementById('startBtn');
+  const camCountEl = document.getElementById('camCount');
+  const resolutionEl = document.getElementById('resolution');
+  const skipEl = document.getElementById('skip');
+  const thresholdEl = document.getElementById('threshold');
+  const thVal = document.getElementById('thVal');
+  const blurEl = document.getElementById('blur');
+  const rgbEl = document.getElementById('showRgb');
+  const container = document.getElementById('canvasContainer');
+  const fullscreenBtn = document.getElementById('fullscreenBtn');
+  const scaleEl = document.getElementById('scale');
+  const memEl = document.getElementById('memory');
+
+  let running = false;
+  let analyzers = [];
+  let memTimer;
+
+  thresholdEl.addEventListener('input', ()=>thVal.textContent=thresholdEl.value);
+  fullscreenBtn.addEventListener('click', ()=>toggleFullscreen(container));
+
+  function toggleFullscreen(el){
+    if (!document.fullscreenElement) el.requestFullscreen?.();
+    else document.exitFullscreen?.();
+  }
+
+  async function startCamera(){
+    const count = Math.max(1, parseInt(camCountEl.value)||1);
+    const [w,h] = resolutionEl.value.split('x').map(Number);
+    stopAll();
+
+    try{
+      const stream = await navigator.mediaDevices.getUserMedia({video:true, audio:false});
+      video.srcObject = stream;
+      await video.play();
+    }catch(e){
+      alert('Błąd kamery: '+e.message);
+      return;
+    }
+
+    // Utwórz N analiz
+    for(let i=0;i<count;i++){
+      analyzers.push(new Analyzer(video, w, h, container, Number(scaleEl.value)));
+    }
+
+    running = true;
+    startBtn.textContent = 'Stop';
+    requestAnimationFrame(loop);
+
+    startMemoryMonitor();
+  }
+
+  function stopAll(){
+    running = false;
+    if (video.srcObject){
+      video.srcObject.getTracks().forEach(t=>t.stop());
+      video.srcObject = null;
+    }
+    startBtn.textContent = 'Start kamery';
+    container.innerHTML = '';
+    analyzers = [];
+    stopMemoryMonitor();
+  }
+
+  startBtn.addEventListener('click', ()=>{
+    if(!running) startCamera();
+    else stopAll();
+  });
+
+  scaleEl.addEventListener('change', ()=>{
+    const scale = Number(scaleEl.value);
+    for(const a of analyzers){
+      a.canvas.style.transform = `scale(${scale})`;
+    }
+  });
+
+  // Klasa pojedynczej "kamery"
+  class Analyzer {
+    constructor(video, w, h, container, scale=2){
+      this.video = video;
+      this.W = w; this.H = h;
+      this.skip = Number(skipEl.value);
+      this.thr = Number(thresholdEl.value);
+      this.blur = blurEl.checked;
+      this.rgb = rgbEl.checked;
+
+      this.canvas = document.createElement('canvas');
+      this.canvas.width = w;
+      this.canvas.height = h;
+      this.canvas.style.transform = `scale(${scale})`;
+      this.ctx = this.canvas.getContext('2d', {willReadFrequently:true});
+
+      this.small = document.createElement('canvas');
+      this.small.width=w; this.small.height=h;
+      this.sctx = this.small.getContext('2d',{willReadFrequently:true});
+
+      const wrap=document.createElement('div');
+      wrap.className='camBlock';
+      wrap.appendChild(this.canvas);
+      this.fpsLabel=document.createElement('div');
+      this.fpsLabel.className='fpsLabel';
+      wrap.appendChild(this.fpsLabel);
+      container.appendChild(wrap);
+
+      this.frameBuffer=[];
+      this.MAX_FRAMES=10;
+      this.frameTimes=[];
+      this.tempBlur=new Uint8ClampedArray(w*h);
+    }
+
+    grayFrame(){
+      this.sctx.drawImage(this.video,0,0,this.W,this.H);
+      const img=this.sctx.getImageData(0,0,this.W,this.H);
+      const d=img.data, g=new Uint8ClampedArray(this.W*this.H);
+      for(let i=0,j=0;i<d.length;i+=4,j++)
+        g[j]=(0.299*d[i]+0.587*d[i+1]+0.114*d[i+2])|0;
+      return g;
+    }
+
+    boxBlur3x3(src,dst,w,h){
+      const get=(x,y)=>src[Math.min(h-1,Math.max(0,y))*w+Math.min(w-1,Math.max(0,x))];
+      for(let y=0;y<h;y++)
+        for(let x=0;x<w;x++){
+          let s=0;
+          for(let j=-1;j<=1;j++)
+            for(let i=-1;i<=1;i++)
+              s+=get(x+i,y+j);
+          dst[y*w+x]=(s/9)|0;
+        }
+    }
+
+    step(){
+      const now=performance.now();
+      this.frameTimes.push(now);
+      while(this.frameTimes.length && now-this.frameTimes[0]>1000) this.frameTimes.shift();
+      this.fpsLabel.textContent=`${this.frameTimes.length} FPS`;
+
+      let gray=this.grayFrame();
+      if(this.blur){
+        this.boxBlur3x3(gray,this.tempBlur,this.W,this.H);
+        gray.set(this.tempBlur);
+      }
+
+      this.frameBuffer.push(gray);
+      if(this.frameBuffer.length>this.MAX_FRAMES) this.frameBuffer.shift();
+
+      const skip=this.skip;
+      if(this.frameBuffer.length<=skip) return;
+
+      const ref=this.frameBuffer[this.frameBuffer.length-1-skip];
+      const outImg=this.ctx.createImageData(this.W,this.H);
+      const outD=outImg.data;
+      const thr=this.thr, colorMode=this.rgb;
+
+      for(let i=0,p=0;i<gray.length;i++,p+=4){
+        const d=Math.abs(gray[i]-ref[i]);
+        const val=d>thr?d:0;
+        if(colorMode){
+          outD[p]=val; outD[p+1]=0; outD[p+2]=0; outD[p+3]=255;
+        }else{
+          outD[p]=outD[p+1]=outD[p+2]=val; outD[p+3]=255;
+        }
+      }
+      this.ctx.putImageData(outImg,0,0);
+    }
+  }
+
+  function loop(){
+    if(!running) return;
+    const thr=Number(thresholdEl.value);
+    const skip=Number(skipEl.value);
+    const blur=blurEl.checked;
+    const rgb=rgbEl.checked;
+    for(const a of analyzers){
+      a.thr=thr;
+      a.skip=skip;
+      a.blur=blur;
+      a.rgb=rgb;
+      a.step();
+    }
+    requestAnimationFrame(loop);
+  }
+
+  // --- Pamięć RAM ---
+  function startMemoryMonitor(){
+    if(!('memory' in performance)){
+      memEl.textContent='brak API';
+      return;
+    }
+    memTimer=setInterval(()=>{
+      const usedMB=(performance.memory.usedJSHeapSize/1048576).toFixed(1);
+      const totalMB=(performance.memory.totalJSHeapSize/1048576).toFixed(1);
+      memEl.textContent=`${usedMB}/${totalMB} MB`;
+    },500);
+  }
+
+  function stopMemoryMonitor(){
+    clearInterval(memTimer);
+    memEl.textContent='—';
+  }
+
+})();
+</script>
+</body>
+</html>

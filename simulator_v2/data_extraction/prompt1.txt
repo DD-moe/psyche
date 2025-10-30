@@ -1,0 +1,934 @@
+https://vetkompleksowo.pl/wp-content/uploads/sites/3/2020/08/VET_PERSONEL_3_16_OPIEKA_ANESTEZJOLOGICZNA_NAD_PACJENTEM_KARDIOLOGICZNYM_CZ_I_TAB_1-1024x597.jpg
+
+
+{
+  "klasy": [
+    {
+      "nazwa": "ASA I",
+      "zagrozenie": "brak zagrożenia znieczuleniem",
+      "stan_fizyczny_pacjenta": "stopień ten nie dotyczy pacjentów kardiologicznych"
+    },
+    {
+      "nazwa": "ASA II",
+      "zagrozenie": "niewielkie zagrożenie znieczuleniem",
+      "stan_fizyczny_pacjenta": "łagodne, kontrolowane schorzenie układowe, z kompensowaną chorobą serca niepoddaną leczeniu"
+    },
+    {
+      "nazwa": "ASA III",
+      "zagrozenie": "średnie zagrożenie znieczuleniem",
+      "stan_fizyczny_pacjenta": "zaawansowane schorzenie układu krążenia i przewlekła choroba serca"
+    },
+    {
+      "nazwa": "ASA IV",
+      "zagrozenie": "duże zagrożenie znieczuleniem",
+      "stan_fizyczny_pacjenta": "ciężka choroba układowa, niekompensowana choroba serca"
+    },
+    {
+      "nazwa": "ASA V",
+      "zagrozenie": "ogromne zagrożenie znieczuleniem",
+      "stan_fizyczny_pacjenta": "pacjent konający, bez szans na przeżycie, zaawansowana niewydolność wielonarządowa"
+    },
+    {
+      "nazwa": "E (emergency)",
+      "zagrozenie": null,
+      "stan_fizyczny_pacjenta": "operacje ze wskazań nagłych"
+    }
+  ]
+}
+
+
+https://polpharmadlaciebie.pl/__data/assets/image/0035/39995/3.PNG
+
+
+{
+  "title": "KWESTIONARIUSZ ZDROWIA PACJENTA-9 (PHQ-9)",
+  "sections": [
+    {
+      "type": "questionnaire",
+      "description": "Jak często w ciągu ostatnich 2 tygodni dokuczały Panu/Pani następujące problemy? (Proszę zaznaczyć odpowiedź znakiem \"√\")",
+      "questions": [
+        {
+          "id": 1,
+          "text": "Niewielkie zainteresowanie lub odczuwanie przyjemności z wykonywania czynności",
+          "answers": {
+            "0": "Wcale nie dokuczały",
+            "1": "Kilka dni",
+            "2": "Więcej niż połowę dni",
+            "3": "Niemal codziennie"
+          }
+        },
+        {
+          "id": 2,
+          "text": "Uczucie smutku, przygnębienia lub beznadziejności",
+          "answers": {
+            "0": "Wcale nie dokuczały",
+            "1": "Kilka dni",
+            "2": "Więcej niż połowę dni",
+            "3": "Niemal codziennie"
+          }
+        },
+        {
+          "id": 3,
+          "text": "Kłopoty z zaśnięciem lub przerywany sen, albo zbyt długi sen",
+          "answers": {
+            "0": "Wcale nie dokuczały",
+            "1": "Kilka dni",
+            "2": "Więcej niż połowę dni",
+            "3": "Niemal codziennie"
+          }
+        },
+        {
+          "id": 4,
+          "text": "Uczucie zmęczenia lub brak energii",
+          "answers": {
+            "0": "Wcale nie dokuczały",
+            "1": "Kilka dni",
+            "2": "Więcej niż połowę dni",
+            "3": "Niemal codziennie"
+          }
+        },
+        {
+          "id": 5,
+          "text": "Brak apetytu lub przejadanie się",
+          "answers": {
+            "0": "Wcale nie dokuczały",
+            "1": "Kilka dni",
+            "2": "Więcej niż połowę dni",
+            "3": "Niemal codziennie"
+          }
+        },
+        {
+          "id": 6,
+          "text": "Poczucie niezadowolenia z siebie — lub uczucie, że jest się do niczego, albo że zawiódł/zawiodła Pan/Pani siebie lub rodzinę",
+          "answers": {
+            "0": "Wcale nie dokuczały",
+            "1": "Kilka dni",
+            "2": "Więcej niż połowę dni",
+            "3": "Niemal codziennie"
+          }
+        },
+        {
+          "id": 7,
+          "text": "Problemy ze skupieniem się na przykład przy czytaniu gazety lub oglądaniu telewizji",
+          "answers": {
+            "0": "Wcale nie dokuczały",
+            "1": "Kilka dni",
+            "2": "Więcej niż połowę dni",
+            "3": "Niemal codziennie"
+          }
+        },
+        {
+          "id": 8,
+          "text": "Poruszanie się lub mówienie tak wolno, że inni mogliby to zauważyć? Albo wręcz przeciwnie – niemożność usiedzenia w miejscu lub podenerwowanie powodujące ruchliwość znacznie większą niż zwykle",
+          "answers": {
+            "0": "Wcale nie dokuczały",
+            "1": "Kilka dni",
+            "2": "Więcej niż połowę dni",
+            "3": "Niemal codziennie"
+          }
+        },
+        {
+          "id": 9,
+          "text": "Myśli, że lepiej byłoby umrzeć, albo chęć zrobienia sobie jakiejś krzywdy",
+          "answers": {
+            "0": "Wcale nie dokuczały",
+            "1": "Kilka dni",
+            "2": "Więcej niż połowę dni",
+            "3": "Niemal codziennie"
+          }
+        }
+      ],
+      "scoring": {
+        "instruction": "FOR OFFICE CODING",
+        "fields": ["_", "_", "_", "_"],
+        "total_score": "Total Score:"
+      }
+    },
+    {
+      "type": "follow_up_question",
+      "description": "Jeżeli zaznaczył/-a Pan/Pani którekolwiek z problemów, jak bardzo utrudniły one Panu/Pani wykonywanie pracy, zajmowanie się domem lub relacje z innymi ludźmi?",
+      "options": [
+        {
+          "text": "W ogóle nie utrudniły",
+          "checkbox": true
+        },
+        {
+          "text": "Trochę utrudniły",
+          "checkbox": true
+        },
+        {
+          "text": "Bardzo utrudniły",
+          "checkbox": true
+        },
+        {
+          "text": "Niezmiernie utrudniły",
+          "checkbox": true
+        }
+      ]
+    }
+  ]
+}
+
+
+https://polpharmadlaciebie.pl/__data/assets/image/0006/40002/3.1.PNG
+
+
+{
+  "type": "kwestionariusz",
+  "nazwa": "GDS-7",
+  "jezyk": "polski",
+  "pytania": [
+    {
+      "numer": 1,
+      "tresc": "Czuł(a) się Pan(i) podenerwowany(a), niespokojny(a), mocno spięty(a)",
+      "odpowiedzi": {
+        "0": "Wcale nie dokuczały",
+        "1": "Kilka dni",
+        "2": "Więcej niż połowę dni",
+        "3": "Niemal codziennie"
+      }
+    },
+    {
+      "numer": 2,
+      "tresc": "Nie mógł(a) Pan(i) przestać się martwić albo zapanować nad tym",
+      "odpowiedzi": {
+        "0": "Wcale nie dokuczały",
+        "1": "Kilka dni",
+        "2": "Więcej niż połowę dni",
+        "3": "Niemal codziennie"
+      }
+    },
+    {
+      "numer": 3,
+      "tresc": "Za bardzo się Pan(i) martwił(a) różnymi rzeczami",
+      "odpowiedzi": {
+        "0": "Wcale nie dokuczały",
+        "1": "Kilka dni",
+        "2": "Więcej niż połowę dni",
+        "3": "Niemal codziennie"
+      }
+    },
+    {
+      "numer": 4,
+      "tresc": "Miał(a) Pan(i) trudności z relaksowaniem się",
+      "odpowiedzi": {
+        "0": "Wcale nie dokuczały",
+        "1": "Kilka dni",
+        "2": "Więcej niż połowę dni",
+        "3": "Niemal codziennie"
+      }
+    },
+    {
+      "numer": 5,
+      "tresc": "Był(a) Pan(i) tak niespokojny(a), że nie mógł(a) usiedzieć na miejscu",
+      "odpowiedzi": {
+        "0": "Wcale nie dokuczały",
+        "1": "Kilka dni",
+        "2": "Więcej niż połowę dni",
+        "3": "Niemal codziennie"
+      }
+    },
+    {
+      "numer": 6,
+      "tresc": "Łatwo stawał(a) się Pan(i) rozdrażniony(a) lub poirytowany(a)",
+      "odpowiedzi": {
+        "0": "Wcale nie dokuczały",
+        "1": "Kilka dni",
+        "2": "Więcej niż połowę dni",
+        "3": "Niemal codziennie"
+      }
+    },
+    {
+      "numer": 7,
+      "tresc": "Obawiał(a) się Pan(i), tak jakby miało się stać coś strasznego",
+      "odpowiedzi": {
+        "0": "Wcale nie dokuczały",
+        "1": "Kilka dni",
+        "2": "Więcej niż połowę dni",
+        "3": "Niemal codziennie"
+      }
+    }
+  ],
+  "instrukcja": "Proszę zaznaczyć odpowiedź znakiem",
+  "dodatkowe_informacje": "(For office coding: Total Score T = _ + _ + _ + _)"
+}
+
+
+https://website-assets.studocu.com/img/document_thumbnails/ab242b9b280bb13eafe16c228e912d7a/thumb_1200_1694.png
+
+
+{
+  "test_name": "SKALA DEPRESJI M. HAMILTONA",
+  "patient_details": {
+    "name": "Imię i nazwisko:",
+    "date_of_birth": "Data urodzenia:",
+    "diagnosis": "Rozpoznanie:",
+    "onset_date": "Początek choroby:",
+    "test_date": "DATA BADANIA:",
+    "test_day": "DZIEŃ BADANIA:"
+  },
+  "assessment_sections": [
+    {
+      "section_number": 1,
+      "section_title": "Nastrój depresyjny",
+      "options": [
+        {"score": 0, "description": "Nie stwierdza się"},
+        {"score": 1, "description": "Ujawniony przez pacjenta dopiero po zapytaniu"},
+        {"score": 2, "description": "Ujawnia depresję spontanicznie"},
+        {"score": 3, "description": "Stwierdza się niewerbalne przejawy depresji (wyraz twarzy, głos, płacz)"},
+        {"score": 4, "description": "Depresja stanowi jedyny typ nastroju ujawniany drogą werbalną i niewerbalną"}
+      ]
+    },
+    {
+      "section_number": 2,
+      "section_title": "Poczucie winy",
+      "options": [
+        {"score": 0, "description": "Nie stwierdza się"},
+        {"score": 1, "description": "Poczucie sprawienia zawodu innym, wymówki wobec siebie"},
+        {"score": 2, "description": "Rozważania o winie, błędach popełnionych w przeszłości"},
+        {"score": 3, "description": "Przekonanie, że obecna choroba jest karą, urojenie winy"},
+        {"score": 4, "description": "Omamy słuchowe o treści oskarżającej pacjenta, denuncjującej"}
+      ]
+    },
+    {
+      "section_number": 3,
+      "section_title": "Zniechęcenie do życia, myśli, tendencje samobójcze",
+      "options": [
+        {"score": 0, "description": "Nie stwierdza się"},
+        {"score": 1, "description": "Poczucie, że nie warto żyć"},
+        {"score": 2, "description": "Pragnienie (życzenie) śmierci, np. drogą naturalną"},
+        {"score": 3, "description": "Myśli samobójcze, zamiary"},
+        {"score": 4, "description": "Próby samobójcze (brać pod uwagę jedynie poważne)"}
+      ]
+    },
+    {
+      "section_number": 4,
+      "section_title": "Zaburzenia zasypiania",
+      "options": [
+        {"score": 0, "description": "Nie stwierdza się"},
+        {"score": 1, "description": "Sporadyczne trudności z zasypianiem (oczekiwanie na sen ponad 0,5 godziny)"},
+        {"score": 2, "description": "Częste, znaczne trudności z zasypianiem"}
+      ]
+    },
+    {
+      "section_number": 5,
+      "section_title": "Sen płytki, przerywany",
+      "options": [
+        {"score": 0, "description": "Nie stwierdza się"},
+        {"score": 1, "description": "Płytki, niespokojny sen"},
+        {"score": 2, "description": "Budzenie się w nocy, opuszczanie łóżka (nie oceniać budzenia się w związku z potrzebami fizjologicznymi)"}
+      ]
+    },
+    {
+      "section_number": 6,
+      "section_title": "Wczesne budzenie się",
+      "options": [
+        {"score": 0, "description": "Nie stwierdza się"},
+        {"score": 1, "description": "Budzenie się nad ranem i ponowne zasypianie"},
+        {"score": 2, "description": "Budzenie się zbyt wczesne z niemożliwością ponownego uśnięcia"}
+      ]
+    },
+    {
+      "section_number": 7,
+      "section_title": "Aktywność złożona, praca",
+      "options": [
+        {"score": 0, "description": "Nie stwierdza się zaburzeń aktywności"},
+        {"score": 1, "description": "Poczucie obniżonej wydolności, niechęć do podejmowania aktywności złożonej"},
+        {"score": 2, "description": "Utrata zainteresowań i chęci do działania, wykonywania pracy, hobby"},
+        {"score": 3, "description": "Zmniejszenie liczby godzin przeznaczonych na aktywność złożoną (praca, rozrywki, hobby); w szpitalu: gdy pacjent zajmuje się aktywnością złożoną poniżej 3 godzin dziennie"},
+        {"score": 4, "description": "Niezdolność do pracy, przerwa w pracy, w oddziale brak przejawów spontanicznej aktywności"}
+      ]
+    },
+    {
+      "section_number": 8,
+      "section_title": "Spowolnienie, zahamowanie",
+      "options": [
+        {"score": 0, "description": "Nie stwierdza się"},
+        {"score": 1, "description": "Nieznaczne"},
+        {"score": 2, "description": "Wyraźne spowolnienie"},
+        {"score": 3, "description": "Na skutek zahamowania - trudności w przeprowadzeniu badania"},
+        {"score": 4, "description": "Ostupienie"}
+      ],
+      "note": "(myślenia, mowy, upośledzenie koncentracji uwagi, obniżenie aktywności ruchowej w czasie badania)"
+    },
+    {
+      "section_number": 9,
+      "section_title": "Niepokój, podniecenie ruchowe",
+      "options": [
+        {"score": 0, "description": "Nie stwierdza się"},
+        {"score": 1, "description": "Zaznaczony niepokój manipulacyjny"},
+        {"score": 2, "description": "Wyraźny niepokój manipulacyjny, przebieranie palcami, bawienie się włosami"},
+        {"score": 3, "description": "Niepokój ruchowy, niemożność przebywania w jednym miejscu"},
+        {"score": 4, "description": "Podniecenie ruchowe, wykręcanie rąk, obgryzanie paznokci, wyrywanie włosów, przygryzanie warg"}
+      ]
+    },
+    {
+      "section_number": 10,
+      "section_title": "Lęk - objawy depresyjne",
+      "options": [
+        {"score": 0, "description": "Nie stwierdza się"},
+        {"score": 1, "description": "Subiektywne: napięcie, rozdrażnienie"},
+        {"score": 2, "description": "Martwienie się drobiazgami"},
+        {"score": 3, "description": "Cechy lęku w wyrazie twarzy i w wypowiedziach"},
+        {"score": 4, "description": "Lęk i obawy ujawniane spontanicznie przez pacjenta"}
+      ]
+    }
+  ]
+}
+
+
+https://zobaczzrozum.wordpress.com/wp-content/uploads/2017/06/mini-mental-state-examination.gif
+
+
+{
+  "type": "medical_assessment",
+  "title": "Krótka skala oceny stanu psychicznego - Mini-Mental State Examination (MMSE)",
+  "instructions": {
+    "general": "Arkusz odpowiedzi",
+    "scoring": "Ogólna liczba punktów"
+  },
+  "sections": [
+    {
+      "title": "1. Orientacja w czasie i miejscu",
+      "subsections": [
+        {
+          "title": "Orientacja w czasie",
+          "questions": [
+            "Jaki jest teraz rok?",
+            "Jaka jest teraz pora roku?",
+            "Jaki jest teraz miesiąc?",
+            "Jaka jest dzisiejsza data (którego dzisiaj mamy?)",
+            "Jaki jest dzisiaj dzień tygodnia?"
+          ],
+          "score": 0
+        },
+        {
+          "title": "Orientacja w miejscu",
+          "questions": [
+            "W jakim kraju się znajdujemy?",
+            "W jakim województwie się znajdujemy?",
+            "W jakim mieście się teraz znajdujemy?",
+            "Jak nazywa się miejsce, w którym się teraz znajdujemy?",
+            "Na którym piętrze się obecnie znajdujemy?"
+          ],
+          "score": 0
+        }
+      ],
+      "total_score": 0
+    },
+    {
+      "title": "2. Zapamiętywanie",
+      "instructions": "Wymienię teraz trzy słowa. Kiedy skończę, proszę, aby je Pan/Pani powtórzył(a). Poniższe słowa wypowiadamy wolno i wyraźnie (jedno słowo na sekundę).",
+      "words": ["byk", "mur", "las"],
+      "memorization_instruction": "Proszę je zapamiętać, bo zapytam o nie powtórnie za kilka minut.",
+      "score": 0
+    },
+    {
+      "title": "3. Uwaga i liczenie",
+      "instruction": "Proszę odejmować kolejno od 100 po 7, aż powiem stop.",
+      "scoring_fields": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "score": 0
+    },
+    {
+      "title": "4. Przypominanie",
+      "instruction": "Proszę wymienić trzy słowa, które Pan/Pani miał(a) wcześniej zapamiętać.",
+      "words_to_recall": [
+        "byk",
+        "mur",
+        "las"
+      ],
+      "score": 0
+    },
+    {
+      "title": "5. Funkcje językowe",
+      "subsections": [
+        {
+          "title": "Nazywanie",
+          "instruction": "Prosimy o nazwanie dwóch przedmiotów, które kolejno pokazujemy badanemu (ołówek, zegarek).",
+          "questions": [
+            "Jak nazywa się ten przedmiot?",
+            "Jak nazywa się ten przedmiot?"
+          ],
+          "score": 0
+        },
+        {
+          "title": "Powtarzanie",
+          "instruction": "Proszę dosłownie powtórzyć następujące zdanie:",
+          "sentence_to_repeat": "Ani tak, ani nie, ani ale.",
+          "score": 0
+        },
+        {
+          "title": "Wykonywanie poleceń",
+          "instructions": "a) Proszę uważnie posłuchać treści całego polecenia, a następnie wykonać to polecenie:",
+          "commands": [
+            "proszę wziąć kartkę do lewej/prawej ręki.",
+            "złożyć ją oburącz na połowę...",
+            "i położyć ją na kolana."
+          ],
+          "instructions_b": "b) Pokazujemy badanemu tekst polecenia zamieszczony na okładce: Proszę zamknąć oczy. Proszę przeczytać to polecenie i je wykonać.",
+          "score": 0
+        },
+        {
+          "title": "Pisanie",
+          "instruction": "Dajemy osobie badanej czystą kartkę papieru i prosimy o napisanie dowolnego zdania.",
+          "question": "Proszę napisać na tej kartce jakieś dowolne zdanie.",
+          "score": 0
+        }
+      ],
+      "total_score": 0
+    },
+    {
+      "title": "6. Praksja konstrukcyjna",
+      "instruction": "Proszę przerysować ten rysunek tak dokładnie, jak tylko jest to możliwe.",
+      "drawing_instruction": "Rysunek zamieszczony jest na odwrocie Arkusza odpowiedzi.",
+      "score": 0
+    }
+  ],
+  "drawing_reference": "Do pkt. 6. MMSE"
+}
+
+
+https://zobaczzrozum.wordpress.com/wp-content/uploads/2017/06/skala-udarowa-narodowego-instytutu-zdrowia-nihss.png
+
+
+{
+  "Skala Udarowa Narodowego Instytutu Zdrowia (NIHSS)": {
+    "Parametr": [
+      {
+        "1a": {
+          "PRZYTOMNOŚĆ": {
+            "wartosc": [
+              {"0": "Czuwa. Żywa reakcja na bodźce."},
+              {"1": "Reakcja na słabe bodźce. Spełnianie poleceń."},
+              {"2": "Reakcja na silny bodziec bólowy."},
+              {"3": "Brak reakcji lub Rekacja odruchowa."}
+            ],
+            "dodatkowe_info": "Rurka intubacyjna, Bariera językowa, Uraz twarzy i/lub szyi, Opatrunek - ocena subiektywna."
+          }
+        }
+      },
+      {
+        "1b": {
+          "ORIENTACJA": {
+            "wartosc": [
+              {"0": "Prawidłowa odpowiedź na oba pytania."},
+              {"1": "Prawidłowa odpowiedź na jedno pytanie."},
+              {"2": "Brak prawidłowej odpowiedzi na oba pytania."}
+            ],
+            "dodatkowe_info": "Aktualny miesiąc i wiek. Afazja - 2 pkt. Intubacja, Dyzartria, Uraz, Bariera językowa - 1 pkt."
+          }
+        }
+      },
+      {
+        "1c": {
+          "POLECENIA": {
+            "wartosc": [
+              {"0": "Prawidłowe wykonanie obu poleceń."},
+              {"1": "Prawidłowe wykonanie jednego polecenia."},
+              {"2": "Chory nie spełnił żadnego polecenia."}
+            ],
+            "dodatkowe_info": "Otwarcie i zamknięcie oczu. Zaciśnięcie i rozluźnienie władnej ręki."
+          }
+        }
+      },
+      {
+        "2": {
+          "GAŁKI OCZNE": {
+            "wartosc": [
+              {"0": "Ruchy prawidłowe."},
+              {"1": "Częściowe porażenie (Zbaczanie)."},
+              {"2": "Porażenie pełne lub przymusowe spojrzenie."}
+            ],
+            "dodatkowe_info": "Poziome ruchy galek ocznych. Dowolne i odruchowe ruchy."
+          }
+        }
+      },
+      {
+        "3": {
+          "POLE WIDZENIA": {
+            "wartosc": [
+              {"0": "Bez ubytków w polu widzenia."},
+              {"1": "Niedowidzenie +/- kwadrantowe oka."},
+              {"2": "Niedowidzenie połowicze oka."},
+              {"3": "Ślepota organiczna lub korowa."}
+            ],
+            "dodatkowe_info": "Ocena za pomocą liczenia palców lub bodźca zagrażającego."
+          }
+        }
+      },
+      {
+        "4": {
+          "NERW VII": {
+            "wartosc": [
+              {"0": "Twarz prawidłowa, symetryczna"},
+              {"1": "Spłycenie fałdu. Asymetria przy uśmiechu."},
+              {"2": "Całkowity (lub prawie) paraliż dolnego piętra twarzy."},
+              {"3": "Całkowity paraliż dolnej i górnej części twarzy."}
+            ],
+            "dodatkowe_info": "Zmarszczenie brwi. Zaciśnięcie oczu. Wyszczerzenie zębów."
+          }
+        }
+      },
+      {
+        "5a": {
+          "LKG": {
+            "wartosc": [
+              {"0": "LKG nie opada w ciągu 10 s."},
+              {"1": "LKG opada przed 10 s., ale nie całym impetem."},
+              {"2": "LKG opada przed 10 s., ale oporuje grawitacji."},
+              {"3": "LKG opada, nie oporuje grawitacji. Minimalne ruchy czynne."},
+              {"4": "LKG - porażenie (całkowity bark ruchów czynnych)."}
+            ],
+            "dodatkowe_info": "Każdą kończynę testujemy osobno. Zaczynamy od kończyny władnej. Pozycja siedząca - 90 stopni w stosunku do tułowia. Pozycja leżąca - 45 stopni w stosunku do tułowia.",
+            "UN": null
+          }
+        }
+      },
+      {
+        "5b": {
+          "PKG": {
+            "wartosc": [
+              {"0": "PKG nie opada w ciągu 10 s."},
+              {"1": "PKG opada przed 10 s., ale nie całym impetem."},
+              {"2": "PKG opada przed 10 s., ale oporuje grawitacji."},
+              {"3": "PKG opada, nie oporuje grawitacji. Minimalne ruchy czynne."},
+              {"4": "PKG-porażenie (całkowity bark ruchów czynnych)."},
+            ],
+            "dodatkowe_info": "Każdą kończynę testujemy osobno. Zaczynamy od kończyny władnej. Pozycja siedząca - 90 stopni w stosunku do tułowia. Pozycja leżąca - 45 stopni w stosunku do tułowia.",
+            "UN": null
+          }
+        }
+      },
+      {
+        "6a": {
+          "LKD": {
+            "wartosc": [
+              {"0": "LKD nie opada w ciągu 5 s."},
+              {"1": "LKD opada przed 5 s., ale nie całym impetem."},
+              {"2": "LKD opada przed 5 s., ale oporuje grawitacji."},
+              {"3": "LKD opada, nie oporuje grawitacji. Min. ruchy czynne."},
+              {"4": "LKD - całkowite porażenie."}
+            ],
+            "dodatkowe_info": "Każdą kończynę testujemy osobno. Zaczynamy od kończyny władnej. Pozycja wyjściowa - kończyna dolna uniesiona do 30 stopni w stosunku do podłoża.",
+            "UN": null
+          }
+        }
+      },
+      {
+        "6b": {
+          "PKD": {
+            "wartosc": [
+              {"0": "PKD nie opada w ciągu 5 s."},
+              {"1": "PKD opada przed 5 s., ale nie całym impetem."},
+              {"2": "PKD opada przed 5 s., ale oporuje grawitacji."},
+              {"3": "PKD opada, nie oporuje grawitacji. Min. ruchy czynne."},
+              {"4": "PKD - całkowite porażenie."}
+            ],
+            "dodatkowe_info": "Każdą kończynę testujemy osobno. Zaczynamy od kończyny władnej. Pozycja wyjściowa - kończyna dolna uniesiona do 30 stopni w stosunku do podłoża.",
+            "UN": null
+          }
+        }
+      },
+      {
+        "7": {
+          "ATAKSJA": {
+            "wartosc": [
+              {"0": "Ataksja nieobecna."},
+              {"1": "Ataksja obecna w minimum jednej kończynie L lub P."},
+              {"2": "Ataksja obecna w obu kk. górnych lub dolnych (ew. skos)."}
+            ],
+            "dodatkowe_info": "Test z otwartymi oczyma. Gdy afazja, brak zrozumienia polecenia, śpiączka, paraliż - 0 pkt. !!!",
+            "UN": null
+          }
+        }
+      },
+      {
+        "8": {
+          "CZUCIE": {
+            "wartosc": [
+              {"0": "Czucie prawidłowe."},
+              {"1": "Łagodna do umiarkowanej utrata czucia."},
+              {"2": "Poważna, całkowita lub obustronna utrata czucia."}
+            ],
+            "dodatkowe_info": "Twarz, KG, Tułów, KD. Afazja - 0 lub 1 pkt. Śpiączka, Tetraplegia - 2 pkt."
+          }
+        }
+      },
+      {
+        "9": {
+          "AFAZJA": {
+            "wartosc": [
+              {"0": "Brak afazji."},
+              {"1": "Łagodna do umiarkowanej afazja."},
+              {"2": "Poważna afazja."},
+              {"3": "Mutyzm. Afazja globalna."}
+            ],
+            "dodatkowe_info": "Załącznik 1 (Opis sytuacji); Załącznik 2 (Nazywanie); Załącznik 3 (Czytanie zdań); Mutyzm, Śpiączka - 3 pkt.;"
+          }
+        }
+      },
+      {
+        "10": {
+          "DYZARTRIA": {
+            "wartosc": [
+              {"0": "Mowa prawidłowa."},
+              {"1": "Niewyraźne wymawianie przynajmniej niektórych słów."},
+              {"2": "Mowa bardzo niewyraźna. Brak mowy."}
+            ],
+            "dodatkowe_info": "Załącznik 4 (Czytanie lub Powtarzanie); Afazja - ocena spontanicznej wypowiedzi. Intubacja, brak wydawania głosu - UN."
+          }
+        }
+      },
+      {
+        "11": {
+          "ZANIEDBYWANIE": {
+            "wartosc": [
+              {"0": "Bez nieprawidłowości."},
+              {"1": "Zaniedbywanie lub\nEkstynkcja bodźców w jednej modalności."},
+              {"2": "Połowicza nieuwaga lub\nEkstynkcja bodźców w kilku modalnościach."}
+            ],
+            "dodatkowe_info": "Afazja: Ocena zainteresowania ciałem. Śpiączka - 0 pkt."
+          }
+        }
+      }
+    ],
+    "SUMA": {
+      "wartosc": [
+        {"SUMA": null},
+        {"SUMA": null},
+        {"SUMA": null}
+      ]
+    },
+    "DATA": {
+      "wartosc": [
+        {"DATA 1": null},
+        {"DATA 2": null},
+        {"DATA 3": null}
+      ]
+    }
+  }
+}
+
+
+na podstawie danych z obrazu, stwórz JSON, który: jak najbardziej klasyfikuje (szufladkuje) zawarte tam dane.
+
+
+{
+  "skala": "Glasgow Coma Scale (GCS)",
+  "przeznaczenie": "Ocena stanu świadomości",
+  "skala_oceny": {
+    "maksymalny_wynik": 15,
+    "minimalny_wynik": 3,
+    "składowe": [
+      {
+        "kategoria": "Otwieranie oczu",
+        "maks_pkt": 4,
+        "odpowiedzi": [
+          {"odpowiedz": "Samoistnie (spontaniczne)", "pkt": 4},
+          {"odpowiedz": "Na polecenie słowne", "pkt": 3},
+          {"odpowiedz": "Na bodźce bólowe", "pkt": 2},
+          {"odpowiedz": "Brak", "pkt": 1}
+        ]
+      },
+      {
+        "kategoria": "Najlepsza odpowiedź słowna",
+        "maks_pkt": 5,
+        "odpowiedzi": [
+          {"odpowiedz": "Pacjent zorientowany i rozmawia", "pkt": 5},
+          {"odpowiedz": "Pacjent zdezorientowany lecz rozmawia", "pkt": 4},
+          {"odpowiedz": "Nieodpowiednie słowa", "pkt": 3},
+          {"odpowiedz": "Niezrozumiałe dźwięki", "pkt": 2},
+          {"odpowiedz": "Brak reakcji", "pkt": 1}
+        ]
+      },
+      {
+        "kategoria": "Najlepsza odpowiedź ruchowa",
+        "maks_pkt": 6,
+        "odpowiedzi": [
+          {"odpowiedz": "Wykonuje polecenia", "pkt": 6},
+          {"odpowiedz": "Umiejscawia bodziec bólowy", "pkt": 5},
+          {"odpowiedz": "Wycofuje w odpowiedzi na bodziec bólowy", "pkt": 4},
+          {"odpowiedz": "Sztywność z odkorowania (reakcja zgięciowa)", "pkt": 3},
+          {"odpowiedz": "Ułożenie odmóżdżeniowe (reakcja wyprostna)", "pkt": 2},
+          {"odpowiedz": "Brak reakcji", "pkt": 1}
+        ]
+      }
+    ]
+  },
+  "interpretacja": {
+    "zakresy_wyników": [
+      {"wynik": "13-15", "stan": "łagodne"},
+      {"wynik": "9-12", "stan": "umiarkowane"},
+      {"wynik": "6-8", "stan": "brak przytomności"},
+      {"wynik": "5", "stan": "odkorowanie"},
+      {"wynik": "4", "stan": "odmóżdżenie"},
+      {"wynik": "3", "stan": "śmierć mózgu"}
+    ]
+  }
+}
+
+
+https://zobaczzrozum.wordpress.com/wp-content/uploads/2017/07/skala-apgar.png
+
+
+{
+  "kryteria_badania": [
+    {
+      "nazwa": "ODDECH",
+      "punkty": [
+        {"wartosc": "BRAK", "punkty": 0},
+        {"wartosc": "PŁYTKI", "punkty": 1},
+        {"wartosc": "DONOŚNY GŁOS", "punkty": 2}
+      ]
+    },
+    {
+      "nazwa": "AKCJA SERCA",
+      "punkty": [
+        {"wartosc": "BRAK", "punkty": 0},
+        {"wartosc": "PONIŻEJ 100\nUDERZEŃ NA\nMINUTĘ", "punkty": 1},
+        {"wartosc": "POWYŻEJ 100\nUDERZEŃ NA\nMINUTĘ", "punkty": 2}
+      ]
+    },
+    {
+      "nazwa": "WYGLĄD SKÓRY",
+      "punkty": [
+        {"wartosc": "BLADA, SINA", "punkty": 0},
+        {"wartosc": "KOŃCZYNY SINE", "punkty": 1},
+        {"wartosc": "RÓŻOWA NA CAŁYM\nCIELE", "punkty": 2}
+      ]
+    },
+    {
+      "nazwa": "ODRUCH NA\nWPROWADZENIE\nCEWNIKA DO\nNOSKA",
+      "punkty": [
+        {"wartosc": "BRAK", "punkty": 0},
+        {"wartosc": "LEKKI GRYMAS", "punkty": 1},
+        {"wartosc": "KICHANIE, KASZEL", "punkty": 2}
+      ]
+    },
+    {
+      "nazwa": "NAPIĘCIE\nMIĘŚNIOWE\nKOŃCZYN",
+      "punkty": [
+        {"wartosc": "WIOTKIE", "punkty": 0},
+        {"wartosc": "SŁABE RUCHY", "punkty": 1},
+        {"wartosc": "RUCHY SILNE,\nENERGICZNE", "punkty": 2}
+      ]
+    }
+  ]
+}
+
+
+https://zobaczzrozum.wordpress.com/wp-content/uploads/2017/05/skala-barthel.png
+
+
+{
+  "title": "Ocena pacjenta wg skali Barthel",
+  "sections": [
+    {
+      "lp": 1,
+      "activity": "Spożywanie posiłków",
+      "options": [
+        {"score": 0, "description": "nie jest w stanie /samodzielnie jeść/"},
+        {"score": 5, "description": "potrzebuje pomoc w krojeniu. smarowaniu masłem, itp. lub wymaga zmodyfikowanej diety"},
+        {"score": 10, "description": "samodzielna, niezależna"}
+      ]
+    },
+    {
+      "lp": 2,
+      "activity": "Przemieszczanie się z łóżka na krzesło i z powrotem, siadanie",
+      "options": [
+        {"score": 0, "description": "nie jest w stanie. Nie zachowuje równowagi przy siedzeniu"},
+        {"score": 5, "description": "większa pomoc /fizyczna, jedna lub dwie osoby/"},
+        {"score": 10, "description": "mniejsza pomoc /słowna lub fizyczna/"},
+        {"score": 15, "description": "samodzielny"}
+      ]
+    },
+    {
+      "lp": 3,
+      "activity": "Utrzymywanie higieny osobistej",
+      "options": [
+        {"score": 0, "description": "potrzebuje pomocy przy czynnościach osobistych"},
+        {"score": 5, "description": "niezależny przy myciu twarzy. Czesaniu się, myciu zębów/ z zapewnionymi pomocami/"}
+      ]
+    },
+    {
+      "lp": 4,
+      "activity": "Korzystanie z toalety /WC/",
+      "options": [
+        {"score": 0, "description": "zależny"},
+        {"score": 5, "description": "potrzebuje trochę pomocy, ale może coś zrobić sam"},
+        {"score": 10, "description": "niezależny, zdejmowanie, zakładanie, ubieranie się, podcieranie się"}
+      ]
+    },
+    {
+      "lp": 5,
+      "activity": "Mycie, kąpiel całego ciała",
+      "options": [
+        {"score": 0, "description": "zależny"},
+        {"score": 5, "description": "niezależny /lub pod prysznicem/"}
+      ]
+    },
+    {
+      "lp": 6,
+      "activity": "Poruszanie się /po powierzchni płaskich/",
+      "options": [
+        {"score": 0, "description": "nie porusza się lub < 50 m"},
+        {"score": 5, "description": "niezależny na wózku. Wliczając zakręty > 50 m"},
+        {"score": 10, "description": "spacery z pomocą /słowną lub fizyczną / jednej osoby>50 m"},
+        {"score": 15, "description": "niezależny/ale może potrzebować pewnej pomocy np. laski/>50m"}
+      ]
+    },
+    {
+      "lp": 7,
+      "activity": "Wchodzenie i schodzenie po schodach",
+      "options": [
+        {"score": 0, "description": "nie jest w stanie"},
+        {"score": 5, "description": "potrzebuje pomocy /słownej, fizycznej. przenoszenie/"},
+        {"score": 10, "description": "samodzielny"}
+      ]
+    },
+    {
+      "lp": 8,
+      "activity": "Ubieranie się i rozbieranie",
+      "options": [
+        {"score": 0, "description": "zależny"},
+        {"score": 5, "description": "potrzebuje pomocy ale może wykonywać połowę bez pomocy"},
+        {"score": 10, "description": "niezleżny/zapinaniu guzików, zamka, sznurowadeł itp./"}
+      ]
+    },
+    {
+      "lp": 9,
+      "activity": "Kontrolowanie stolce /zwieracza odbytu",
+      "options": [
+        {"score": 0, "description": "nie panuje nad oddawaniem stolca /lub potrzebuje lewatyw/"},
+        {"score": 5, "description": "czasami popuszcza /zdarzenia przypadkowe/"},
+        {"score": 10, "description": "panuje /utrzymuje stolec"}
+      ]
+    },
+    {
+      "lp": 10,
+      "activity": "Kontrolowanie moczu /zwieracza pęcherza moczowego",
+      "options": [
+        {"score": 0, "description": "nie panuje nad oddawaniem moczu lub cewnikowany i przez to niesamodzielny"},
+        {"score": 5, "description": "czasami popuszcza /zdarzenia przypadkowe/"},
+        {"score": 10, "description": "panuje /utrzymuje mocz"}
+      ]
+    }
+  ],
+  "scoring": {
+    "scale": [
+      {"range": "86-100 pkt.", "description": "stan pacjenta 'lekki'"},
+      {"range": "21-85 pkt.", "description": "stan pacjenta 'średnio ciężki'"},
+      {"range": "0-20 pkt.", "description": "stan pacjenta 'bardzo ciężki'"}
+    ],
+    "notes": [
+      "* w punktach od 1-10 należy wybrać jedna z możliwości najlepiej opisującą stan pacjenta i podkreślić",
+      "** wpisać wartość punktową przypisaną wybranej możliwości",
+      "*** w ramce wpisać uzyskaną sumę punktów"
+    ]
+  }
+}

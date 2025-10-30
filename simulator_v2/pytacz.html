@@ -1,0 +1,80 @@
+// kod pytacza pojawi się później - na razie testujemy prompty do ekstrakcji danych do autonomicznego tworzenia danych do pytań.
+
+DANE TESTOWE: OPIS
+
+Skale Anestezjologiczne
+ASA
+- ocena anestezjologiczna stanu pacjenta
+
+🧠 Skale psychiatryczne / psychologiczne
+
+PHQ-9 (Patient Health Questionnaire-9)
+– ocena nasilenia depresji; 9 pytań z punktacją 0–3.
+– łatwa do OCR i ekstrakcji: numer pytania, treść, zaznaczony wybór.
+
+GAD-7 (Generalized Anxiety Disorder-7)
+– ocena lęku uogólnionego; podobna struktura jak PHQ-9.
+– dobra do testu rozpoznawania checkboxów / liczbowych odpowiedzi.
+
+HAM-D (Hamilton Depression Rating Scale)
+– stosowana przez klinicystę; wiele opisowych kategorii z oceną 0–4 lub 0–2.
+– ciekawa do testowania tekstowej interpretacji punktów opisowych.
+
+MMSE (Mini-Mental State Examination)
+– ocena funkcji poznawczych; zawiera pytania tekstowe i zadania (np. powtórz wyrazy, zapisz zdanie).
+– dobra do sprawdzenia, czy model rozpoznaje teksty instrukcji i pytania osobno.
+
+🫀 Skale somatyczne / internistyczne
+
+NIHSS (National Institutes of Health Stroke Scale)
+– skala udaru mózgu; złożona, zawiera liczby, skróty, komentarze.
+– dobra do testowania złożonej ekstrakcji pól numerycznych i opisowych jednocześnie.
+
+Glasgow Coma Scale (GCS)
+– ocena świadomości; trzy sekcje (otwieranie oczu, reakcja słowna, ruchowa).
+– test prostych form tabelarycznych i punktacji.
+
+APGAR (dla noworodków)
+– 5 kryteriów ocenianych 0–2, z kolumnami.
+– bardzo dobry test dla OCR tabeli z nagłówkami i kolumnami liczbowymi.
+
+
+🩹 Skale geriatryczne / funkcjonalne
+
+Barthel Index
+– ocena samodzielności w czynnościach życia codziennego; 10 kategorii po 0–15 pkt.
+– test większej tabeli z kolumnami i sumowaniem punktów.
+
+//#####################
+
+LINKI DO OBRAZÓW TESTOWYCH (w kolejniości wg listy powyżej):
+
+https://vetkompleksowo.pl/wp-content/uploads/sites/3/2020/08/VET_PERSONEL_3_16_OPIEKA_ANESTEZJOLOGICZNA_NAD_PACJENTEM_KARDIOLOGICZNYM_CZ_I_TAB_1-1024x597.jpg
+
+https://polpharmadlaciebie.pl/__data/assets/image/0035/39995/3.PNG
+
+https://polpharmadlaciebie.pl/__data/assets/image/0006/40002/3.1.PNG
+
+https://website-assets.studocu.com/img/document_thumbnails/ab242b9b280bb13eafe16c228e912d7a/thumb_1200_1694.png
+
+https://zobaczzrozum.wordpress.com/wp-content/uploads/2017/06/mini-mental-state-examination.gif
+
+https://zobaczzrozum.wordpress.com/wp-content/uploads/2017/06/skala-udarowa-narodowego-instytutu-zdrowia-nihss.png
+
+https://zobaczzrozum.wordpress.com/wp-content/uploads/2017/03/cac582a20skala20gcs.png
+
+https://zobaczzrozum.wordpress.com/wp-content/uploads/2017/07/skala-apgar.png
+
+https://zobaczzrozum.wordpress.com/wp-content/uploads/2017/05/skala-barthel.png
+
+MODEL - gemini 2.0 flash lite
+
+ATTEMPT 1:
+    PROMPT 1:
+
+    na podstawie danych z obrazu, stwórz JSON, który: jak najbardziej klasyfikuje (szufladkuje) zawarte tam dane. 
+
+
+    PPROMPT 2:
+
+    na podstawie poniższego kodu JSON napisz funkcję w JavaScript, która: dla poszczególnych punktów w skali losuje wariant, tak, aby utworzyć na podstawie zwróconego tekstu i pełnych danych JSON, model AI mógł utworzyć zróżnicowane pytanie do użytkownika dotyczące podanej skali.

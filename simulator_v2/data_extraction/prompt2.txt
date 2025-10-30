@@ -1,0 +1,158 @@
+// Zakładamy, że masz dane JSON (zmienna jsonData) z powyższej odpowiedzi.
+const jsonData = {
+  "title": "Ocena pacjenta wg skali Barthel",
+  "sections": [
+    {
+      "lp": 1,
+      "activity": "Spożywanie posiłków",
+      "options": [
+        {"score": 0, "description": "nie jest w stanie /samodzielnie jeść/"},
+        {"score": 5, "description": "potrzebuje pomoc w krojeniu. smarowaniu masłem, itp. lub wymaga zmodyfikowanej diety"},
+        {"score": 10, "description": "samodzielna, niezależna"}
+      ]
+    },
+    {
+      "lp": 2,
+      "activity": "Przemieszczanie się z łóżka na krzesło i z powrotem, siadanie",
+      "options": [
+        {"score": 0, "description": "nie jest w stanie. Nie zachowuje równowagi przy siedzeniu"},
+        {"score": 5, "description": "większa pomoc /fizyczna, jedna lub dwie osoby/"},
+        {"score": 10, "description": "mniejsza pomoc /słowna lub fizyczna/"},
+        {"score": 15, "description": "samodzielny"}
+      ]
+    },
+    {
+      "lp": 3,
+      "activity": "Utrzymywanie higieny osobistej",
+      "options": [
+        {"score": 0, "description": "potrzebuje pomocy przy czynnościach osobistych"},
+        {"score": 5, "description": "niezależny przy myciu twarzy. Czesaniu się, myciu zębów/ z zapewnionymi pomocami/"}
+      ]
+    },
+    {
+      "lp": 4,
+      "activity": "Korzystanie z toalety /WC/",
+      "options": [
+        {"score": 0, "description": "zależny"},
+        {"score": 5, "description": "potrzebuje trochę pomocy, ale może coś zrobić sam"},
+        {"score": 10, "description": "niezależny, zdejmowanie, zakładanie, ubieranie się, podcieranie się"}
+      ]
+    },
+    {
+      "lp": 5,
+      "activity": "Mycie, kąpiel całego ciała",
+      "options": [
+        {"score": 0, "description": "zależny"},
+        {"score": 5, "description": "niezależny /lub pod prysznicem/"}
+      ]
+    },
+    {
+      "lp": 6,
+      "activity": "Poruszanie się /po powierzchni płaskich/",
+      "options": [
+        {"score": 0, "description": "nie porusza się lub < 50 m"},
+        {"score": 5, "description": "niezależny na wózku. Wliczając zakręty > 50 m"},
+        {"score": 10, "description": "spacery z pomocą /słowną lub fizyczną / jednej osoby>50 m"},
+        {"score": 15, "description": "niezależny/ale może potrzebować pewnej pomocy np. laski/>50m"}
+      ]
+    },
+    {
+      "lp": 7,
+      "activity": "Wchodzenie i schodzenie po schodach",
+      "options": [
+        {"score": 0, "description": "nie jest w stanie"},
+        {"score": 5, "description": "potrzebuje pomocy /słownej, fizycznej. przenoszenie/"},
+        {"score": 10, "description": "samodzielny"}
+      ]
+    },
+    {
+      "lp": 8,
+      "activity": "Ubieranie się i rozbieranie",
+      "options": [
+        {"score": 0, "description": "zależny"},
+        {"score": 5, "description": "potrzebuje pomocy ale może wykonywać połowę bez pomocy"},
+        {"score": 10, "description": "niezleżny/zapinaniu guzików, zamka, sznurowadeł itp./"}
+      ]
+    },
+    {
+      "lp": 9,
+      "activity": "Kontrolowanie stolce /zwieracza odbytu",
+      "options": [
+        {"score": 0, "description": "nie panuje nad oddawaniem stolca /lub potrzebuje lewatyw/"},
+        {"score": 5, "description": "czasami popuszcza /zdarzenia przypadkowe/"},
+        {"score": 10, "description": "panuje /utrzymuje stolec"}
+      ]
+    },
+    {
+      "lp": 10,
+      "activity": "Kontrolowanie moczu /zwieracza pęcherza moczowego",
+      "options": [
+        {"score": 0, "description": "nie panuje nad oddawaniem moczu lub cewnikowany i przez to niesamodzielny"},
+        {"score": 5, "description": "czasami popuszcza /zdarzenia przypadkowe/"},
+        {"score": 10, "description": "panuje /utrzymuje mocz"}
+      ]
+    }
+  ],
+  "scoring": {
+    "scale": [
+      {"range": "86-100 pkt.", "description": "stan pacjenta 'lekki'"},
+      {"range": "21-85 pkt.", "description": "stan pacjenta 'średnio ciężki'"},
+      {"range": "0-20 pkt.", "description": "stan pacjenta 'bardzo ciężki'"}
+    ],
+    "notes": [
+      "* w punktach od 1-10 należy wybrać jedna z możliwości najlepiej opisującą stan pacjenta i podkreślić",
+      "** wpisać wartość punktową przypisaną wybranej możliwości",
+      "*** w ramce wpisać uzyskaną sumę punktów"
+    ]
+  }
+};
+const wyniki = losujWarianty(jsonData);
+
+// Wyświetlanie wyników (przykładowe użycie)
+console.log(wyniki);
+/*
+Przykładowy wynik (będzie się różnił za każdym uruchomieniem):
+{
+  "1": { "activity": "Spożywanie posiłków", "score": 5, "description": "potrzebuje pomoc w krojeniu. smarowaniu masłem, itp. lub wymaga zmodyfikowanej diety" },
+  "2": { "activity": "Przemieszczanie się z łóżka na krzesło i z powrotem, siadanie", "score": 15, "description": "samodzielny" },
+  "3": { "activity": "Utrzymywanie higieny osobistej", "score": 0, "description": "potrzebuje pomocy przy czynnościach osobistych" },
+  "4": { "activity": "Korzystanie z toalety /WC/", "score": 10, "description": "niezależny, zdejmowanie, zakładanie, ubieranie się, podcieranie się" },
+  "5": { "activity": "Mycie, kąpiel całego ciała", "score": 5, "description": "niezależny /lub pod prysznicem/" },
+  "6": { "activity": "Poruszanie się /po powierzchni płaskich/", "score": 10, "description": "spacery z pomocą /słowną lub fizyczną / jednej osoby>50 m" },
+  "7": { "activity": "Wchodzenie i schodzenie po schodach", "score": 5, "description": "potrzebuje pomocy /słownej, fizycznej. przenoszenie/" },
+  "8": { "activity": "Ubieranie się i rozbieranie", "score": 10, "description": "niezleżny/zapinaniu guzików, zamka, sznurowadeł itp./" },
+  "9": { "activity": "Kontrolowanie stolce /zwieracza odbytu", "score": 10, "description": "panuje /utrzymuje stolec" },
+  "10": { "activity": "Kontrolowanie moczu /zwieracza pęcherza moczowego", "score": 0, "description": "nie panuje nad oddawaniem moczu lub cewnikowany i przez to niesamodzielny" }
+}
+*/
+
+
+//  Przykład jak wykorzystać wylosowane dane do generowania pytań (do użycia z modelem AI)
+function generujPytania(wynikiLosowan) {
+  let pytania = [];
+  for (const lp in wynikiLosowan) {
+    if (wynikiLosowan.hasOwnProperty(lp)) {
+      const wynik = wynikiLosowan[lp];
+      const pytanie = `Jak oceniłbyś/oceniłabyś zdolność pacjenta do ${wynik.activity.toLowerCase()}? Pacjent ${wynik.description.toLowerCase()}? (Wynik: ${wynik.score})`;
+      pytania.push(pytanie);
+    }
+  }
+  return pytania;
+}
+const pytania = generujPytania(wyniki);
+console.log(pytania); // Wyświetla tablicę pytań
+/*
+Przykładowy output:
+[
+  'Jak oceniłbyś/oceniłabyś zdolność pacjenta do spożywanie posiłków? Pacjent potrzebuje pomoc w krojeniu. smarowaniu masłem, itp. lub wymaga zmodyfikowanej diety? (Wynik: 5)',
+  'Jak oceniłbyś/oceniłabyś zdolność pacjenta do przemieszczanie się z łóżka na krzesło i z powrotem, siadanie? Pacjent samodzielny? (Wynik: 15)',
+  'Jak oceniłbyś/oceniłabyś zdolność pacjenta do utrzymywanie higieny osobistej? Pacjent potrzebuje pomocy przy czynnościach osobistych? (Wynik: 0)',
+  'Jak oceniłbyś/oceniłabyś zdolność pacjenta do korzystanie z toalety /wc/? Pacjent niezależny, zdejmowanie, zakładanie, ubieranie się, podcieranie się? (Wynik: 10)',
+  'Jak oceniłbyś/oceniłabyś zdolność pacjenta do mycie, kąpiel całego ciała? Pacjent niezależny /lub pod prysznicem/? (Wynik: 5)',
+  'Jak oceniłbyś/oceniłabyś zdolność pacjenta do poruszanie się /po powierzchni płaskich/? Pacjent spacery z pomocą /słowną lub fizyczną / jednej osoby>50 m? (Wynik: 10)',
+  'Jak oceniłbyś/oceniłabyś zdolność pacjenta do wchodzenie i schodzenie po schodach? Pacjent potrzebuje pomocy /słownej, fizycznej. przenoszenie/? (Wynik: 5)',
+  'Jak oceniłbyś/oceniłabyś zdolność pacjenta do ubieranie się i rozbieranie? Pacjent niezleżny/zapinaniu guzików, zamka, sznurowadeł itp./? (Wynik: 10)',
+  'Jak oceniłbyś/oceniłabyś zdolność pacjenta do kontrolowanie stolce /zwieracza odbytu? Pacjent panuje /utrzymuje stolec? (Wynik: 10)',
+  'Jak oceniłbyś/oceniłabyś zdolność pacjenta do kontrolowanie moczu /zwieracza pęcherza moczowego? Pacjent nie panuje nad oddawaniem moczu lub cewnikowany i przez to niesamodzielny? (Wynik: 0)'
+]
+*/
