@@ -3,88 +3,118 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>QR Scanner — demo (poprawione)</title>
+  <title>QR Scanner — demo (z kamerą i klikaniem)</title>
   <style>
-    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;max-width:900px;margin:24px auto;padding:12px}
+    body{
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+      max-width:900px;margin:24px auto;padding:12px
+    }
     h1{font-size:1.4rem}
-    .card{padding:12px;border:1px solid #ddd;border-radius:8px;background:#fff}
-    video, canvas{max-width:100%;border-radius:8px}
-    textarea{width:100%;height:120px;padding:8px}
+    .card{
+      padding:12px;border:1px solid #ddd;border-radius:8px;background:#fff
+    }
+    .video-wrap{
+      position:relative;display:inline-block;width:100%;max-width:640px;
+    }
+    video{
+      width:100%;border-radius:8px;cursor:pointer;
+    }
+    .overlay-text{
+      position:absolute;top:0;left:0;right:0;bottom:0;
+      display:flex;align-items:center;justify-content:center;
+      color:white;font-size:1.2rem;text-shadow:0 0 8px #000;
+      pointer-events:none;opacity:0.8;
+    }
+    textarea{
+      width:100%;height:120px;padding:8px;margin-top:8px
+    }
     .controls{display:flex;gap:8px;margin-top:8px}
     .error{color:#900;margin-top:8px}
     .hint{color:#555;margin-top:6px;font-size:0.95rem}
+    button{
+      padding:8px 12px;border-radius:6px;border:1px solid #888;
+      background:#f8f8f8;cursor:pointer;
+    }
   </style>
 </head>
 <body>
-  <h1>Odczyt QR z kamery / zdjęcia — demo (poprawione)</h1>
-  <p>Ta strona używa lokalnej biblioteki <code>jsQR</code> (client-side) do odczytu kodu QR z obrazu — nie używa zewnętrznego API.</p>
+  <h1>Odczyt QR z kamery / zdjęcia — demo</h1>
+  <p>Użyj lokalnej kamery lub wybierz zdjęcie z kodem QR. Kliknij wideo, aby wykonać skan. Po udanym odczycie kamera zostanie zatrzymana.</p>
 
   <div class="card">
     <h3>Podgląd kamery</h3>
-    <video id="video" playsinline autoplay></video>
+    <div class="video-wrap">
+      <video id="video" playsinline autoplay></video>
+      <div class="overlay-text" id="overlayText">Kliknij, aby zeskanować</div>
+    </div>
+
     <div class="controls">
-      <button id="startCam">Start kamery</button>
-      <button id="snap">Zrób zdjęcie</button>
+      <button id="toggleCam">Uruchom kamerę</button>
       <input id="fileInput" type="file" accept="image/*" />
     </div>
 
     <canvas id="canvas" style="display:none"></canvas>
 
-    <p style="margin-top:8px">Odczytany tekst z QR:</p>
+    <p>Odczytany tekst z QR:</p>
     <textarea id="out" placeholder="Tutaj pojawi się zawartość QR"></textarea>
     <div id="status" class="hint"></div>
     <div id="error" class="error" style="display:none"></div>
   </div>
 
-  <!-- biblioteka jsQR - upewniamy się, że ładowana przed naszym skryptem -->
+  <!-- jsQR z CDN -->
   <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
 
   <script>
-    // Proste sprawdzenie, czy biblioteka jsQR w ogóle się załadowała:
-    if(typeof jsQR === 'undefined'){
-      const e = document.getElementById('error');
-      e.style.display = 'block';
-      e.textContent = 'Błąd: biblioteka jsQR nie została załadowana. Sprawdź połączenie sieciowe lub CDN.';
-      console.error('jsQR is not defined — upewnij się, że CDN jest dostępny i że tag <script> dla jsQR jest przed tym skryptem.');
-      // dalej skrypt nie przerwie się (zabezpieczenie), ale próby dekodowania będą ignorowane
-    }
-
     const video = document.getElementById('video');
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
     const out = document.getElementById('out');
-    const startCam = document.getElementById('startCam');
-    const snap = document.getElementById('snap');
+    const toggleCam = document.getElementById('toggleCam');
     const fileInput = document.getElementById('fileInput');
     const status = document.getElementById('status');
+    const overlayText = document.getElementById('overlayText');
     let stream = null;
+    let cameraOn = false;
 
     async function startCamera(){
       try{
         stream = await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'}});
         video.srcObject = stream;
         await video.play();
-        // ustaw canvas na wielkość video (po krótkim delay by video.videoWidth było ustawione)
-        setTimeout(()=> {
-          canvas.width = video.videoWidth || 640;
-          canvas.height = video.videoHeight || 480;
-          status.textContent = 'Kamera uruchomiona. Możesz zrobić zdjęcie lub skanować automatycznie (opcjonalnie).';
-        }, 200);
+        cameraOn = true;
+        toggleCam.textContent = 'Zatrzymaj kamerę';
+        status.textContent = 'Kamera uruchomiona. Kliknij obraz, aby zeskanować QR.';
       }catch(e){
-        const err = document.getElementById('error');
-        err.style.display = 'block';
-        err.textContent = 'Nie udało się uruchomić kamery: ' + e.message;
-        console.error(e);
+        showError('Nie udało się uruchomić kamery: ' + e.message);
       }
     }
 
-    startCam.addEventListener('click', ()=>{
-      startCamera();
+    function stopCamera(){
+      if(stream){
+        stream.getTracks().forEach(t=>t.stop());
+        stream = null;
+      }
+      video.srcObject = null;
+      cameraOn = false;
+      toggleCam.textContent = 'Uruchom kamerę';
+      status.textContent = 'Kamera zatrzymana.';
+    }
+
+    function showError(msg){
+      const err = document.getElementById('error');
+      err.style.display = 'block';
+      err.textContent = msg;
+      console.error(msg);
+    }
+
+    toggleCam.addEventListener('click', ()=>{
+      if(cameraOn) stopCamera(); else startCamera();
     });
 
-    snap.addEventListener('click', ()=>{
-      if(!video || video.readyState !== 4){
-        alert('Kamera nie jest gotowa. Najpierw naciśnij "Start kamery".');
+    // Kliknięcie w obraz - działa jak "zrób zdjęcie"
+    video.addEventListener('click', ()=>{
+      if(!cameraOn || video.readyState !== 4){
+        alert('Kamera nie jest uruchomiona.');
         return;
       }
       canvas.width = video.videoWidth;
@@ -93,6 +123,7 @@
       decodeCanvas();
     });
 
+    // Wczytanie obrazu z pliku
     fileInput.addEventListener('change', (ev)=>{
       const file = ev.target.files[0];
       if(!file) return;
@@ -108,42 +139,23 @@
     });
 
     function decodeCanvas(){
-      // jeśli biblioteka nie jest dostępna, przerwij:
-      if(typeof jsQR === 'undefined'){
-        const err = document.getElementById('error');
-        err.style.display = 'block';
-        err.textContent = 'Dekoder QR nie jest dostępny (jsQR niezaładowane).';
-        return;
-      }
+      if(typeof jsQR === 'undefined'){ showError('Dekoder jsQR niezaładowany.'); return; }
 
       try{
         const imageData = ctx.getImageData(0,0,canvas.width,canvas.height);
-        // jsQR expects Uint8ClampedArray of RGBA data
         const code = jsQR(imageData.data, imageData.width, imageData.height, { inversionAttempts: 'attemptBoth' });
         if(code){
-          // bezpieczne odkodowanie - jeśli dane były percent-encoded (encodeURIComponent) -> przywracamy
           let text = code.data;
-          try {
-            // jeśli code.data jest postaci percent-encoded to ta linia zadziała
-            text = decodeURIComponent(code.data);
-          } catch(e) {
-            // jeśli decodeURIComponent rzuci błąd (np. nieprawidłowe sekwencje), użyjemy surowego tekstu
-            console.warn('decodeURIComponent failed — using raw code.data', e);
-            text = code.data;
-          }
+          try { text = decodeURIComponent(code.data); } catch(e){}
           out.value = text;
           drawBoundingBox(code.location);
-          status.textContent = 'QR odczytany pomyślnie.';
+          status.textContent = 'Kod QR odczytany pomyślnie!';
+          stopCamera(); // zatrzymujemy kamerę po sukcesie
         } else {
-          out.value = '';
-          status.textContent = 'Nie znaleziono kodu QR na obrazie.';
+          status.textContent = 'Nie znaleziono kodu QR. Spróbuj ponownie.';
         }
       }catch(e){
-        out.value = '';
-        const err = document.getElementById('error');
-        err.style.display = 'block';
-        err.textContent = 'Błąd odczytu: ' + e.message;
-        console.error(e);
+        showError('Błąd odczytu: ' + e.message);
       }
     }
 
@@ -155,8 +167,8 @@
       overlay.style.position = 'relative';
       overlay.style.pointerEvents = 'none';
       const octx = overlay.getContext('2d');
-      octx.strokeStyle = 'red';
-      octx.lineWidth = Math.max(2, Math.round(canvas.width/200));
+      octx.strokeStyle = 'lime';
+      octx.lineWidth = 4;
       if(loc){
         octx.beginPath();
         octx.moveTo(loc.topLeftCorner.x, loc.topLeftCorner.y);
@@ -167,24 +179,8 @@
         octx.stroke();
       }
       document.body.appendChild(overlay);
-      setTimeout(()=>overlay.remove(), 1200);
+      setTimeout(()=>overlay.remove(), 1000);
     }
-
-    // Opcjonalnie: automatyczny skaner co 800ms (odkomentuj jeśli chcesz)
-    // let autoScanInterval = null;
-    // function startAutoScan(){
-    //   if(autoScanInterval) return;
-    //   autoScanInterval = setInterval(()=> {
-    //     if(video && video.readyState === 4){
-    //       canvas.width = video.videoWidth;
-    //       canvas.height = video.videoHeight;
-    //       ctx.drawImage(video,0,0,canvas.width,canvas.height);
-    //       decodeCanvas();
-    //     }
-    //   }, 800);
-    // }
-    // function stopAutoScan(){ clearInterval(autoScanInterval); autoScanInterval = null; }
-
   </script>
 </body>
 </html>
