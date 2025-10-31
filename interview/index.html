@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Projekt: Cyfrowy wywiad pacjenta z wykorzystaniem kodów QR</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      max-width: 900px;
+      margin: 2rem auto;
+      line-height: 1.6;
+      padding: 0 1rem;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    section {
+      background: #fafafa;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      padding: 1rem 1.5rem;
+      margin-top: 1.5rem;
+    }
+    a {
+      display: inline-block;
+      margin-top: 0.5rem;
+      padding: 0.5rem 1rem;
+      border: 1px solid #555;
+      border-radius: 8px;
+      text-decoration: none;
+      color: #222;
+      background: #fff;
+      transition: 0.2s;
+    }
+    a:hover {
+      background: #e7e7e7;
+    }
+    footer {
+      text-align: center;
+      color: #666;
+      font-size: 0.9rem;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>Cyfrowy wywiad pacjenta i przekaz danych przez kod QR</h1>
+
+  <p>
+    Projekt demonstruje prosty, ale praktyczny sposób wymiany danych między pacjentem a personelem medycznym
+    z wykorzystaniem kodów QR. Pozwala w bezpieczny i szybki sposób przekazać informacje o stanie zdrowia,
+    bez konieczności połączenia internetowego — dane są zapisane w kodzie QR, który można odczytać kamerą
+    dowolnego urządzenia.
+  </p>
+
+  <section>
+    <h2>🔹 Część 1 – Formularz pacjenta (survey.html)</h2>
+    <p>
+      W tej części użytkownik (pacjent) zaznacza objawy i opisuje swój stan zdrowia.  
+      Aplikacja automatycznie generuje krótki opis medyczny i przekształca go w kod QR, który można pokazać lekarzowi lub zeskanować w drugim etapie.
+    </p>
+    <a href="./survey.html">➡️ Otwórz formularz pacjenta (Część 1)</a>
+  </section>
+
+  <section>
+    <h2>🔹 Część 2 – Odczyt QR (decoder.html)</h2>
+    <p>
+      W tej części osoba przyjmująca pacjenta lub system diagnostyczny może zeskanować kod QR kamerą urządzenia
+      (lub wgrać jego zdjęcie).  
+      Wykorzystana biblioteka <code>jsQR</code> działa w całości po stronie przeglądarki, bez potrzeby przesyłania obrazu do sieci.
+    </p>
+    <a href="./decoder.html">➡️ Otwórz skaner QR (Część 2)</a>
+  </section>
+
+  <section>
+    <h2>📘 Zastosowanie i znaczenie</h2>
+    <p>
+      Choć projekt ma charakter demonstracyjny, prezentuje ważny trend w cyfryzacji medycyny:
+      przenoszenie prostych procedur na urządzenia mobilne przy zachowaniu prywatności pacjenta.
+      Dzięki kodom QR możliwa jest komunikacja między systemami w sytuacjach braku internetu,
+      np. w terenie, podczas transportu pacjenta czy w mobilnych punktach medycznych.
+    </p>
+    <p>
+      Wszystkie dane pozostają na urządzeniu użytkownika, a cały proces jest realizowany lokalnie —
+      bez serwera i bez transmisji danych przez sieć.
+    </p>
+  </section>
+
+  <footer>
+    © 2025 — Projekt demonstracyjny: cyfrowy wywiad i transmisja danych przez QR.
+  </footer>
+</body>
+</html>

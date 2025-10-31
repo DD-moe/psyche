@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+canvas.height = img.naturalHeight;
+ctx.drawImage(img,0,0);
+decodeCanvas();
+};
+img.onerror = ()=>alert('Nie można załadować pliku.');
+img.src = URL.createObjectURL(file);
+});
+
+
+function decodeCanvas(){
+try{
+const imageData = ctx.getImageData(0,0,canvas.width,canvas.height);
+// jsQR expects Uint8ClampedArray of RGBA data
+const code = jsQR(imageData.data, imageData.width, imageData.height, { inversionAttempts: 'attemptBoth' });
+if(code){
+out.value = code.data;
+// opcjonalnie pokaż prostokąt (dla dema) — rysujemy wideo overlay
+drawBoundingBox(code.location);
+} else {
+out.value = 'Nie znaleziono kodu QR na obrazie.';
+}
+}catch(e){
+out.value = 'Błąd odczytu: ' + e.message;
+}
+}
+
+
+function drawBoundingBox(loc){
+// tymczasowy overlay na canvasie (na potrzeby dema pokazujemy w oddzielnym oknie)
+// rysujemy półprzezroczysty prostokąt
+const overlay = document.createElement('canvas');
+overlay.width = canvas.width;
+overlay.height = canvas.height;
+overlay.style.maxWidth = '100%';
+overlay.style.position = 'relative';
+const octx = overlay.getContext('2d');
+octx.strokeStyle = 'red';
+octx.lineWidth = 4;
+if(loc){
+octx.beginPath();
+octx.moveTo(loc.topLeftCorner.x, loc.topLeftCorner.y);
+octx.lineTo(loc.topRightCorner.x, loc.topRightCorner.y);
+octx.lineTo(loc.bottomRightCorner.x, loc.bottomRightCorner.y);
+octx.lineTo(loc.bottomLeftCorner.x, loc.bottomLeftCorner.y);
+octx.closePath();
+octx.stroke();
+}
+// pokaż overlay zamiast canvas (na krótką chwilę)
+document.body.appendChild(overlay);
+setTimeout(()=>overlay.remove(), 1200);
+}
+
+
+// Dodatkowa funkcja: jeśli chcesz, automatycznie skanuj co X ms
+// (wyłączone domyślnie, bo użytkownik woli manualne zdjęcie)
+</script>
+</body>
+</html>
