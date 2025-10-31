@@ -80,7 +80,7 @@
     // Generowanie QR (dynamiczne)
     let qr;
     shareBtn.addEventListener('click', () => {
-    const payload = decodeURIComponent(encodeURIComponent(desc.value.trim()));
+    const payload = encodeURIComponent(desc.value.trim());
 
     if (!payload) {
         alert('Pole opisu jest puste — zaznacz objawy lub wpisz opis.');
