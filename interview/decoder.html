@@ -92,7 +92,7 @@
         // jsQR expects Uint8ClampedArray of RGBA data
         const code = jsQR(imageData.data, imageData.width, imageData.height, { inversionAttempts: 'attemptBoth' });
         if(code){
-          out.value = code.data;
+          out.value = decodeURIComponent(code.data);
           // opcjonalnie pokaż prostokąt (dla dema) — rysujemy wideo overlay
           drawBoundingBox(code.location);
         } else {
