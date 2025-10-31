@@ -77,24 +77,51 @@
     // Inicjalne wypełnienie
     buildDescription();
 
-    // Generowanie QR
+    // Generowanie QR (dynamiczne)
     let qr;
-    shareBtn.addEventListener('click', ()=>{
-      const payload = desc.value.trim();
-      if(!payload){
+    shareBtn.addEventListener('click', () => {
+    const payload = desc.value.trim();
+    if (!payload) {
         alert('Pole opisu jest puste — zaznacz objawy lub wpisz opis.');
         return;
-      }
-      // usuń poprzedni QR
-      qDiv.innerHTML='';
-      // tworzymy nowy QR (wielkość zależy od długości)
-      qr = new QRCode(qDiv, {
-        text: payload,
-        width: 220,
-        height: 220,
-        correctLevel: QRCode.CorrectLevel.M
-      });
+    }
+
+    qDiv.innerHTML = '';
+
+    // Dostępne poziomy korekcji błędów w kolejności od najwyższego do najniższego
+    const levels = ['H', 'Q', 'M', 'L'];
+    let width = 220;
+    let success = false;
+
+    for (let lvl of levels) {
+        try {
+        new QRCode(qDiv, {
+            text: payload,
+            width: width,
+            height: width,
+            correctLevel: QRCode.CorrectLevel[lvl]
+        });
+        success = true;
+        break; // działa — wychodzimy z pętli
+        } catch (err) {
+        // jeśli przepełnienie — spróbuj niższy poziom lub większy rozmiar
+        if (err.message.includes('code length overflow')) {
+            width += 50; // zwiększ rozmiar
+            qDiv.innerHTML = ''; // wyczyść i spróbuj dalej
+            continue;
+        } else {
+            console.error(err);
+            alert('Błąd generowania QR: ' + err.message);
+            return;
+        }
+        }
+    }
+
+    if (!success) {
+        alert('Tekst jest zbyt długi, aby zakodować go w QR.\nSkróć opis lub usuń część danych.');
+    }
     });
+
   </script>
 </body>
 </html>
