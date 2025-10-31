@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>QR Scanner — demo</title>
+  <title>QR Scanner — demo (poprawione)</title>
   <style>
     body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;max-width:900px;margin:24px auto;padding:12px}
     h1{font-size:1.4rem}
@@ -11,11 +11,13 @@
     video, canvas{max-width:100%;border-radius:8px}
     textarea{width:100%;height:120px;padding:8px}
     .controls{display:flex;gap:8px;margin-top:8px}
+    .error{color:#900;margin-top:8px}
+    .hint{color:#555;margin-top:6px;font-size:0.95rem}
   </style>
 </head>
 <body>
-  <h1>Odczyt QR z kamery / zdjęcia — demo</h1>
-  <p>Ta strona używa lokalnej biblioteki <code>jsQR</code> (client-side) do odczytu kodu QR z obrazu — nie używa żadnego zewnętrznego API.</p>
+  <h1>Odczyt QR z kamery / zdjęcia — demo (poprawione)</h1>
+  <p>Ta strona używa lokalnej biblioteki <code>jsQR</code> (client-side) do odczytu kodu QR z obrazu — nie używa zewnętrznego API.</p>
 
   <div class="card">
     <h3>Podgląd kamery</h3>
@@ -25,15 +27,28 @@
       <button id="snap">Zrób zdjęcie</button>
       <input id="fileInput" type="file" accept="image/*" />
     </div>
+
     <canvas id="canvas" style="display:none"></canvas>
+
     <p style="margin-top:8px">Odczytany tekst z QR:</p>
     <textarea id="out" placeholder="Tutaj pojawi się zawartość QR"></textarea>
+    <div id="status" class="hint"></div>
+    <div id="error" class="error" style="display:none"></div>
   </div>
 
-  <!-- Biblioteka jsQR (dekoder JS działający lokalnie) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jsqr/1.4.0/jsQR.min.js"></script>
+  <!-- biblioteka jsQR - upewniamy się, że ładowana przed naszym skryptem -->
+  <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
 
   <script>
+    // Proste sprawdzenie, czy biblioteka jsQR w ogóle się załadowała:
+    if(typeof jsQR === 'undefined'){
+      const e = document.getElementById('error');
+      e.style.display = 'block';
+      e.textContent = 'Błąd: biblioteka jsQR nie została załadowana. Sprawdź połączenie sieciowe lub CDN.';
+      console.error('jsQR is not defined — upewnij się, że CDN jest dostępny i że tag <script> dla jsQR jest przed tym skryptem.');
+      // dalej skrypt nie przerwie się (zabezpieczenie), ale próby dekodowania będą ignorowane
+    }
+
     const video = document.getElementById('video');
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
@@ -41,6 +56,7 @@
     const startCam = document.getElementById('startCam');
     const snap = document.getElementById('snap');
     const fileInput = document.getElementById('fileInput');
+    const status = document.getElementById('status');
     let stream = null;
 
     async function startCamera(){
@@ -48,12 +64,17 @@
         stream = await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'}});
         video.srcObject = stream;
         await video.play();
-        // ustaw canvas na wielkość video
-        canvas.width = video.videoWidth || 640;
-        canvas.height = video.videoHeight || 480;
-        // skanuj okresowo (lub po zrobieniu zdjęcia)
+        // ustaw canvas na wielkość video (po krótkim delay by video.videoWidth było ustawione)
+        setTimeout(()=> {
+          canvas.width = video.videoWidth || 640;
+          canvas.height = video.videoHeight || 480;
+          status.textContent = 'Kamera uruchomiona. Możesz zrobić zdjęcie lub skanować automatycznie (opcjonalnie).';
+        }, 200);
       }catch(e){
-        alert('Nie udało się uruchomić kamery: ' + e.message);
+        const err = document.getElementById('error');
+        err.style.display = 'block';
+        err.textContent = 'Nie udało się uruchomić kamery: ' + e.message;
+        console.error(e);
       }
     }
 
@@ -87,33 +108,55 @@
     });
 
     function decodeCanvas(){
+      // jeśli biblioteka nie jest dostępna, przerwij:
+      if(typeof jsQR === 'undefined'){
+        const err = document.getElementById('error');
+        err.style.display = 'block';
+        err.textContent = 'Dekoder QR nie jest dostępny (jsQR niezaładowane).';
+        return;
+      }
+
       try{
         const imageData = ctx.getImageData(0,0,canvas.width,canvas.height);
         // jsQR expects Uint8ClampedArray of RGBA data
         const code = jsQR(imageData.data, imageData.width, imageData.height, { inversionAttempts: 'attemptBoth' });
         if(code){
-          out.value = decodeURIComponent(code.data);
-          // opcjonalnie pokaż prostokąt (dla dema) — rysujemy wideo overlay
+          // bezpieczne odkodowanie - jeśli dane były percent-encoded (encodeURIComponent) -> przywracamy
+          let text = code.data;
+          try {
+            // jeśli code.data jest postaci percent-encoded to ta linia zadziała
+            text = decodeURIComponent(code.data);
+          } catch(e) {
+            // jeśli decodeURIComponent rzuci błąd (np. nieprawidłowe sekwencje), użyjemy surowego tekstu
+            console.warn('decodeURIComponent failed — using raw code.data', e);
+            text = code.data;
+          }
+          out.value = text;
           drawBoundingBox(code.location);
+          status.textContent = 'QR odczytany pomyślnie.';
         } else {
-          out.value = 'Nie znaleziono kodu QR na obrazie.';
+          out.value = '';
+          status.textContent = 'Nie znaleziono kodu QR na obrazie.';
         }
       }catch(e){
-        out.value = 'Błąd odczytu: ' + e.message;
+        out.value = '';
+        const err = document.getElementById('error');
+        err.style.display = 'block';
+        err.textContent = 'Błąd odczytu: ' + e.message;
+        console.error(e);
       }
     }
 
     function drawBoundingBox(loc){
-      // tymczasowy overlay na canvasie (na potrzeby dema pokazujemy w oddzielnym oknie)
-      // rysujemy półprzezroczysty prostokąt
       const overlay = document.createElement('canvas');
       overlay.width = canvas.width;
       overlay.height = canvas.height;
       overlay.style.maxWidth = '100%';
       overlay.style.position = 'relative';
+      overlay.style.pointerEvents = 'none';
       const octx = overlay.getContext('2d');
       octx.strokeStyle = 'red';
-      octx.lineWidth = 4;
+      octx.lineWidth = Math.max(2, Math.round(canvas.width/200));
       if(loc){
         octx.beginPath();
         octx.moveTo(loc.topLeftCorner.x, loc.topLeftCorner.y);
@@ -123,13 +166,25 @@
         octx.closePath();
         octx.stroke();
       }
-      // pokaż overlay zamiast canvas (na krótką chwilę)
       document.body.appendChild(overlay);
       setTimeout(()=>overlay.remove(), 1200);
     }
 
-    // Dodatkowa funkcja: jeśli chcesz, automatycznie skanuj co X ms
-    // (wyłączone domyślnie, bo użytkownik woli manualne zdjęcie)
+    // Opcjonalnie: automatyczny skaner co 800ms (odkomentuj jeśli chcesz)
+    // let autoScanInterval = null;
+    // function startAutoScan(){
+    //   if(autoScanInterval) return;
+    //   autoScanInterval = setInterval(()=> {
+    //     if(video && video.readyState === 4){
+    //       canvas.width = video.videoWidth;
+    //       canvas.height = video.videoHeight;
+    //       ctx.drawImage(video,0,0,canvas.width,canvas.height);
+    //       decodeCanvas();
+    //     }
+    //   }, 800);
+    // }
+    // function stopAutoScan(){ clearInterval(autoScanInterval); autoScanInterval = null; }
+
   </script>
 </body>
 </html>
