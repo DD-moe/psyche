@@ -1,53 +1,100 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Wywiad pacjenta — demo</title>
-<style>
-body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;max-width:900px;margin:24px auto;padding:12px}
-h1{font-size:1.4rem}
-.wrap{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.card{padding:12px;border:1px solid #ddd;border-radius:8px;background:#fafafa}
-label{display:block;margin:6px 0}
-textarea{width:100%;height:140px;padding:8px}
-#qrcode{margin-top:12px}
-button{padding:8px 12px;border-radius:6px;border:1px solid #888;background:#fff;cursor:pointer}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Wywiad pacjenta — demo</title>
+  <style>
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;max-width:900px;margin:24px auto;padding:12px}
+    h1{font-size:1.4rem}
+    .wrap{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .card{padding:12px;border:1px solid #ddd;border-radius:8px;background:#fafafa}
+    label{display:block;margin:6px 0}
+    textarea{width:100%;height:140px;padding:8px}
+    #qrcode{margin-top:12px}
+    button{padding:8px 12px;border-radius:6px;border:1px solid #888;background:#fff;cursor:pointer}
+  </style>
 </head>
 <body>
-<h1>Wywiad pacjenta — krótkie demo</h1>
-<p>Zaznacz objawy po lewej — na podstawie zaznaczeń wygeneruje się opis medyczny w polu po prawej. Możesz edytować opis ręcznie. Naciśnij <strong>Udostępnij</strong>, aby wygenerować kod QR z tekstem.</p>
+  <h1>Wywiad pacjenta — krótkie demo</h1>
+  <p>Zaznacz objawy po lewej — na podstawie zaznaczeń wygeneruje się opis medyczny w polu po prawej. Możesz edytować opis ręcznie. Naciśnij <strong>Udostępnij</strong>, aby wygenerować kod QR z tekstem.</p>
 
+  <div class="wrap">
+    <div class="card">
+      <h3>Objawy (zaznacz)</h3>
+      <div id="checkboxes">
+        <label><input type="checkbox" value="gorączka"/> Gorączka</label>
+        <label><input type="checkbox" value="kaszel"/> Kaszel</label>
+        <label><input type="checkbox" value="duszność"/> Duszność</label>
+        <label><input type="checkbox" value="bóle mięśni"/> Bóle mięśni</label>
+        <label><input type="checkbox" value="ból gardła"/> Ból gardła</label>
+        <label><input type="checkbox" value="utrata smaku/węchu"/> Utrata smaku/węchu</label>
+      </div>
+      <p style="margin-top:12px">Dodatkowe informacje:</p>
+      <input id="additional" placeholder="np. od kiedy, nasilenie, leki" style="width:100%;padding:6px" />
+      <div style="margin-top:12px">
+        <button id="shareBtn">Udostępnij (wygeneruj QR)</button>
+      </div>
 
-<div class="wrap">
-<div class="card">
-<h3>Objawy (zaznacz)</h3>
-<div id="checkboxes">
-<label><input type="checkbox" value="gorączka"/> Gorączka</label>
-<label><input type="checkbox" value="kaszel"/> Kaszel</label>
-<label><input type="checkbox" value="duszność"/> Duszność</label>
-<label><input type="checkbox" value="bóle mięśni"/> Bóle mięśni</label>
-<label><input type="checkbox" value="ból gardła"/> Ból gardła</label>
-<label><input type="checkbox" value="utrata smaku/węchu"/> Utrata smaku/węchu</label>
-</div>
-<p style="margin-top:12px">Dodatkowe informacje:</p>
-<input id="additional" placeholder="np. od kiedy, nasilenie, leki" style="width:100%;padding:6px" />
-<div style="margin-top:12px">
-<button id="shareBtn">Udostępnij (wygeneruj QR)</button>
-</div>
+      <div id="qrcode"></div>
+    </div>
 
+    <div class="card">
+      <h3>Wygenerowany opis</h3>
+      <textarea id="description" placeholder="Opis wygeneruje się automatycznie..."></textarea>
+      <p style="font-size:0.9rem;color:#555">Możesz edytować tekst ręcznie przed wygenerowaniem QR.</p>
+    </div>
+  </div>
 
-<div id="qrcode"></div>
-</div>
+  <!-- Biblioteka do tworzenia QR (lokalna, client-side) - nie API -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script>
+    // Proste mapowanie checkboxów -> opis
+    const checkboxes = Array.from(document.querySelectorAll('#checkboxes input[type=checkbox]'));
+    const desc = document.getElementById('description');
+    const additional = document.getElementById('additional');
+    const qDiv = document.getElementById('qrcode');
+    const shareBtn = document.getElementById('shareBtn');
 
+    function buildDescription(){
+      const checked = checkboxes.filter(c=>c.checked).map(c=>c.value);
+      let text = '';
+      if(checked.length===0){
+        text = 'Brak zgłaszanych objawów.';
+      } else {
+        // prosty, czytelny opis
+        text = 'Pacjent zgłasza: ' + checked.join(', ') + '.';
+      }
+      const add = additional.value.trim();
+      if(add) text += ' Dodatkowo: ' + add + '.';
+      desc.value = text;
+    }
 
-<div class="card">
-<h3>Wygenerowany opis</h3>
-<textarea id="description" placeholder="Opis wygeneruje się automatycznie..."></textarea>
-<p style="font-size:0.9rem;color:#555">Możesz edytować tekst ręcznie przed wygenerowaniem QR.</p>
-</div>
-</div>
+    // Aktualizacja przy zmianie
+    checkboxes.forEach(cb=>cb.addEventListener('change', buildDescription));
+    additional.addEventListener('input', buildDescription);
 
+    // Inicjalne wypełnienie
+    buildDescription();
 
+    // Generowanie QR
+    let qr;
+    shareBtn.addEventListener('click', ()=>{
+      const payload = desc.value.trim();
+      if(!payload){
+        alert('Pole opisu jest puste — zaznacz objawy lub wpisz opis.');
+        return;
+      }
+      // usuń poprzedni QR
+      qDiv.innerHTML='';
+      // tworzymy nowy QR (wielkość zależy od długości)
+      qr = new QRCode(qDiv, {
+        text: payload,
+        width: 220,
+        height: 220,
+        correctLevel: QRCode.CorrectLevel.M
+      });
+    });
+  </script>
+</body>
 </html>

@@ -1,59 +1,135 @@
 <!DOCTYPE html>
-canvas.height = img.naturalHeight;
-ctx.drawImage(img,0,0);
-decodeCanvas();
-};
-img.onerror = ()=>alert('Nie można załadować pliku.');
-img.src = URL.createObjectURL(file);
-});
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>QR Scanner — demo</title>
+  <style>
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;max-width:900px;margin:24px auto;padding:12px}
+    h1{font-size:1.4rem}
+    .card{padding:12px;border:1px solid #ddd;border-radius:8px;background:#fff}
+    video, canvas{max-width:100%;border-radius:8px}
+    textarea{width:100%;height:120px;padding:8px}
+    .controls{display:flex;gap:8px;margin-top:8px}
+  </style>
+</head>
+<body>
+  <h1>Odczyt QR z kamery / zdjęcia — demo</h1>
+  <p>Ta strona używa lokalnej biblioteki <code>jsQR</code> (client-side) do odczytu kodu QR z obrazu — nie używa żadnego zewnętrznego API.</p>
 
+  <div class="card">
+    <h3>Podgląd kamery</h3>
+    <video id="video" playsinline autoplay></video>
+    <div class="controls">
+      <button id="startCam">Start kamery</button>
+      <button id="snap">Zrób zdjęcie</button>
+      <input id="fileInput" type="file" accept="image/*" />
+    </div>
+    <canvas id="canvas" style="display:none"></canvas>
+    <p style="margin-top:8px">Odczytany tekst z QR:</p>
+    <textarea id="out" placeholder="Tutaj pojawi się zawartość QR"></textarea>
+  </div>
 
-function decodeCanvas(){
-try{
-const imageData = ctx.getImageData(0,0,canvas.width,canvas.height);
-// jsQR expects Uint8ClampedArray of RGBA data
-const code = jsQR(imageData.data, imageData.width, imageData.height, { inversionAttempts: 'attemptBoth' });
-if(code){
-out.value = code.data;
-// opcjonalnie pokaż prostokąt (dla dema) — rysujemy wideo overlay
-drawBoundingBox(code.location);
-} else {
-out.value = 'Nie znaleziono kodu QR na obrazie.';
-}
-}catch(e){
-out.value = 'Błąd odczytu: ' + e.message;
-}
-}
+  <!-- Biblioteka jsQR (dekoder JS działający lokalnie) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jsqr/1.4.0/jsQR.min.js"></script>
 
+  <script>
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const out = document.getElementById('out');
+    const startCam = document.getElementById('startCam');
+    const snap = document.getElementById('snap');
+    const fileInput = document.getElementById('fileInput');
+    let stream = null;
 
-function drawBoundingBox(loc){
-// tymczasowy overlay na canvasie (na potrzeby dema pokazujemy w oddzielnym oknie)
-// rysujemy półprzezroczysty prostokąt
-const overlay = document.createElement('canvas');
-overlay.width = canvas.width;
-overlay.height = canvas.height;
-overlay.style.maxWidth = '100%';
-overlay.style.position = 'relative';
-const octx = overlay.getContext('2d');
-octx.strokeStyle = 'red';
-octx.lineWidth = 4;
-if(loc){
-octx.beginPath();
-octx.moveTo(loc.topLeftCorner.x, loc.topLeftCorner.y);
-octx.lineTo(loc.topRightCorner.x, loc.topRightCorner.y);
-octx.lineTo(loc.bottomRightCorner.x, loc.bottomRightCorner.y);
-octx.lineTo(loc.bottomLeftCorner.x, loc.bottomLeftCorner.y);
-octx.closePath();
-octx.stroke();
-}
-// pokaż overlay zamiast canvas (na krótką chwilę)
-document.body.appendChild(overlay);
-setTimeout(()=>overlay.remove(), 1200);
-}
+    async function startCamera(){
+      try{
+        stream = await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'}});
+        video.srcObject = stream;
+        await video.play();
+        // ustaw canvas na wielkość video
+        canvas.width = video.videoWidth || 640;
+        canvas.height = video.videoHeight || 480;
+        // skanuj okresowo (lub po zrobieniu zdjęcia)
+      }catch(e){
+        alert('Nie udało się uruchomić kamery: ' + e.message);
+      }
+    }
 
+    startCam.addEventListener('click', ()=>{
+      startCamera();
+    });
 
-// Dodatkowa funkcja: jeśli chcesz, automatycznie skanuj co X ms
-// (wyłączone domyślnie, bo użytkownik woli manualne zdjęcie)
-</script>
+    snap.addEventListener('click', ()=>{
+      if(!video || video.readyState !== 4){
+        alert('Kamera nie jest gotowa. Najpierw naciśnij "Start kamery".');
+        return;
+      }
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      ctx.drawImage(video,0,0,canvas.width,canvas.height);
+      decodeCanvas();
+    });
+
+    fileInput.addEventListener('change', (ev)=>{
+      const file = ev.target.files[0];
+      if(!file) return;
+      const img = new Image();
+      img.onload = ()=>{
+        canvas.width = img.naturalWidth;
+        canvas.height = img.naturalHeight;
+        ctx.drawImage(img,0,0);
+        decodeCanvas();
+      };
+      img.onerror = ()=>alert('Nie można załadować pliku.');
+      img.src = URL.createObjectURL(file);
+    });
+
+    function decodeCanvas(){
+      try{
+        const imageData = ctx.getImageData(0,0,canvas.width,canvas.height);
+        // jsQR expects Uint8ClampedArray of RGBA data
+        const code = jsQR(imageData.data, imageData.width, imageData.height, { inversionAttempts: 'attemptBoth' });
+        if(code){
+          out.value = code.data;
+          // opcjonalnie pokaż prostokąt (dla dema) — rysujemy wideo overlay
+          drawBoundingBox(code.location);
+        } else {
+          out.value = 'Nie znaleziono kodu QR na obrazie.';
+        }
+      }catch(e){
+        out.value = 'Błąd odczytu: ' + e.message;
+      }
+    }
+
+    function drawBoundingBox(loc){
+      // tymczasowy overlay na canvasie (na potrzeby dema pokazujemy w oddzielnym oknie)
+      // rysujemy półprzezroczysty prostokąt
+      const overlay = document.createElement('canvas');
+      overlay.width = canvas.width;
+      overlay.height = canvas.height;
+      overlay.style.maxWidth = '100%';
+      overlay.style.position = 'relative';
+      const octx = overlay.getContext('2d');
+      octx.strokeStyle = 'red';
+      octx.lineWidth = 4;
+      if(loc){
+        octx.beginPath();
+        octx.moveTo(loc.topLeftCorner.x, loc.topLeftCorner.y);
+        octx.lineTo(loc.topRightCorner.x, loc.topRightCorner.y);
+        octx.lineTo(loc.bottomRightCorner.x, loc.bottomRightCorner.y);
+        octx.lineTo(loc.bottomLeftCorner.x, loc.bottomLeftCorner.y);
+        octx.closePath();
+        octx.stroke();
+      }
+      // pokaż overlay zamiast canvas (na krótką chwilę)
+      document.body.appendChild(overlay);
+      setTimeout(()=>overlay.remove(), 1200);
+    }
+
+    // Dodatkowa funkcja: jeśli chcesz, automatycznie skanuj co X ms
+    // (wyłączone domyślnie, bo użytkownik woli manualne zdjęcie)
+  </script>
 </body>
 </html>
