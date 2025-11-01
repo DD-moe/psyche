@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         arrow.classList.toggle('rotated', !isCollapsed);
 
         if (!isCollapsed) {
-          listWrapper.style.maxHeight = list.scrollHeight + 'px';
+          listWrapper.style.maxHeight = (list.scrollHeight + 25) + 'px';
         } else {
           listWrapper.style.maxHeight = '0';
         }
