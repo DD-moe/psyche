@@ -2,8 +2,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   const container = document.getElementById('categories');
 
   try {
-    const response = await fetch('./resources.json');
-    if (!response.ok) throw new Error('Nie udało się wczytać resources.json');
+    const response = await fetch('./presentation.json');
+    if (!response.ok) throw new Error('Nie udało się wczytać presentation.json');
 
     const data = await response.json();
 
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const li = document.createElement('li');
         li.className = 'resource-item';
         const link = document.createElement('a');
-        link.href = `./resources/${res.nazwa}`;
+        link.href = `./presentations/${res.nazwa}`;
         link.target = '_blank';
         link.textContent = res.etykieta;
         li.appendChild(link);
