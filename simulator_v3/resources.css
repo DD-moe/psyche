@@ -100,11 +100,16 @@
   text-align: left;        /* wyrównanie tekstu do lewej */
   line-height: 1.4;
   padding-left: 8px;
+  background-color: #1e1e2e;   /* ciemne tło jak w edytorze */
+  border-radius: 8px;
+  padding: 12px;
+  overflow-x: auto;
 }
 
 /* Kolorowanie składni */
-.tag { color: var(--accent-2); }
-.attr { color: #f9cb9c; }      /* nazwy atrybutów */
-.val { color: var(--accent); }
-.cmt { color: #64748b; font-style: italic; }
-.eq  { color: #a0aec0; }       /* znaki = */
+.tag { color: #4FC3F7; }      /* niebieski — tagi HTML */
+.attr { color: #FFD54F; }     /* żółty — atrybuty */
+.eq  { color: #B0BEC5; }      /* szary — znak = */
+.val { color: #81C784; }      /* zielony — wartości w "" */
+.cmt { color: #90A4AE; font-style: italic; } /* komentarze */
+
