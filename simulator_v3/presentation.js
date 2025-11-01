@@ -2,8 +2,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   const container = document.getElementById('categories');
 
   try {
-    const response = await fetch('./presentation.json');
-    if (!response.ok) throw new Error('Nie udało się wczytać presentation.json');
+    const response = await fetch('./resources.json');
+    if (!response.ok) throw new Error('Nie udało się wczytać resources.json');
 
     const data = await response.json();
 
@@ -22,9 +22,9 @@ document.addEventListener('DOMContentLoaded', async () => {
       const title = document.createElement('h3');
       title.className = 'category-title';
       title.textContent = category;
-      title.addEventListener('click', () => {
-        list.classList.toggle('hidden');
-      });
+
+      const listWrapper = document.createElement('div');
+      listWrapper.className = 'list-wrapper collapsed'; // domyślnie zwinięta
 
       const list = document.createElement('ul');
       list.className = 'resource-list';
@@ -32,16 +32,27 @@ document.addEventListener('DOMContentLoaded', async () => {
         const li = document.createElement('li');
         li.className = 'resource-item';
         const link = document.createElement('a');
-        link.href = `./presentations/${res.nazwa}`;
+        link.href = `./resources/${res.nazwa}`;
         link.target = '_blank';
         link.textContent = res.etykieta;
         li.appendChild(link);
         list.appendChild(li);
       });
 
+      listWrapper.appendChild(list);
       section.appendChild(title);
-      section.appendChild(list);
+      section.appendChild(listWrapper);
       container.appendChild(section);
+
+      // Kliknięcie rozwija / zwija
+      title.addEventListener('click', () => {
+        const isCollapsed = listWrapper.classList.toggle('collapsed');
+        if (!isCollapsed) {
+          listWrapper.style.maxHeight = list.scrollHeight + 'px';
+        } else {
+          listWrapper.style.maxHeight = '0';
+        }
+      });
     });
   } catch (err) {
     container.innerHTML = `<p class="muted small">Błąd wczytywania danych: ${err.message}</p>`;

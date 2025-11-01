@@ -39,3 +39,14 @@
 .hidden {
   display: none;
 }
+
+/* Animowane rozwijanie list kategorii */
+.list-wrapper {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.35s ease;
+}
+
+.list-wrapper:not(.collapsed) {
+  max-height: 500px; /* limit bezpieczeństwa, nadpisywany w JS */
+}
