@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded',function(){
 
   const year = new Date().getFullYear();
   footer.innerHTML = `
-  <div class="card small">
+  <div class="container">
     <div class="row">
       <div class="col">
         <strong>Autor:</strong> Damian Bezara<br>
