@@ -107,12 +107,22 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // --- 4) Proste kolorowanie składni HTML ---
-  function applySyntaxHighlight(el) {
-    let html = el.textContent;
-    html = html
-      .replace(/(&lt;!--[\s\S]*?--&gt;)/g, '<span class="cmt">$1</span>')
-      .replace(/(&lt;[\/]?[a-z0-9\-]+)/gi, '<span class="tag">$1</span>')
-      .replace(/("[^"]*")/g, '<span class="val">$1</span>');
-    el.innerHTML = html;
-  }
+function applySyntaxHighlight(el) {
+  // Zamiana < i > na encje HTML (by kod nie był interpretowany)
+  let html = el.textContent
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+
+  // Proste kolorowanie składni
+  html = html
+    .replace(/(&lt;!--[\s\S]*?--&gt;)/g, '<span class="cmt">$1</span>')
+    .replace(/(&lt;[\/]?[a-z0-9\-]+)/gi, '<span class="tag">$1</span>')
+    .replace(/("[^"]*")/g, '<span class="val">$1</span>');
+
+  el.innerHTML = html;
+}
+
+
+
 });

@@ -96,3 +96,10 @@
 .tag { color: var(--accent-2); }
 .val { color: var(--accent); }
 .cmt { color: #64748b; font-style: italic; }
+
+#body-code code {
+  white-space: pre;
+  display: block;
+  font-family: "Fira Code", monospace;
+  color: #e6eef6;
+}
