@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zasoby — Panel</title>
+  <link rel="stylesheet" href="g_styles.css">
+  <link rel="stylesheet" href="resources.css">
+</head>
+<body class="app-root">
+  <div class="container">
+    <header class="header">
+      <h1 class="title">Zasoby projektu</h1>
+      <p class="lead">Zarządzaj danymi, podglądem i edytorem AI</p>
+    </header>
+
+    <!-- Pasek zakładek -->
+    <nav class="tabs">
+      <button class="tab-btn active" data-target="tab-user">Dane użytkownika</button>
+      <button class="tab-btn" data-target="tab-preview">Podgląd prezentacji</button>
+      <button class="tab-btn" data-target="tab-code">Kod prezentacji</button>
+      <button class="tab-btn" data-target="tab-ai">AI Editor</button>
+    </nav>
+
+    <!-- Zawartość zakładek -->
+    <section class="tabs-content">
+      <div id="tab-user" class="tab-pane active">
+        <div class="card">
+          <h3 class="card-title">Dane użytkownika</h3>
+          <div class="card-body">
+            <p>Tutaj pojawią się dane użytkownika.</p>
+          </div>
+        </div>
+      </div>
+
+      <div id="tab-preview" class="tab-pane">
+        <div class="card">
+          <h3 class="card-title">Podgląd prezentacji</h3>
+          <div class="card-body">
+            <p>Podgląd zostanie załadowany automatycznie.</p>
+          </div>
+        </div>
+      </div>
+
+      <div id="tab-code" class="tab-pane">
+        <div class="card">
+          <h3 class="card-title">Kod prezentacji</h3>
+          <div class="card-body">
+            <pre><code>// Kod prezentacji pojawi się tutaj...</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="tab-ai" class="tab-pane">
+        <div class="card">
+          <h3 class="card-title">AI Editor</h3>
+          <div class="card-body">
+            <p>Wkrótce: interaktywny edytor treści wspomagany przez AI.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="resources.js"></script>
+  <script src="copywright.js"></script>
+</body>
+</html>
