@@ -107,9 +107,10 @@
 }
 
 /* Kolorowanie składni */
-.tag { color: #4FC3F7; }      /* niebieski — tagi HTML */
-.attr { color: #FFD54F; }     /* żółty — atrybuty */
-.eq  { color: #B0BEC5; }      /* szary — znak = */
-.val { color: #81C784; }      /* zielony — wartości w "" */
-.cmt { color: #90A4AE; font-style: italic; } /* komentarze */
+.tag  { color: #4FC3F7; }      /* jasny niebieski */
+.attr { color: #FFD54F; }      /* żółty */
+.eq   { color: #B0BEC5; }      /* szary */
+.val  { color: #81C784; }      /* zielony */
+.cmt  { color: #90A4AE; font-style: italic; } /* komentarz */
+
 
