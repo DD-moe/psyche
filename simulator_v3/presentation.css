@@ -40,7 +40,26 @@
   display: none;
 }
 
-/* Animowane rozwijanie list kategorii */
+/* Nagłówki kategorii z animowaną strzałką */
+.category-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  padding: 4px 0;
+}
+
+.arrow {
+  font-size: 1.2rem;
+  color: var(--accent);
+  transition: transform 0.3s ease;
+}
+
+.arrow.rotated {
+  transform: rotate(90deg);
+}
+
+/* Animacja rozwijania listy */
 .list-wrapper {
   overflow: hidden;
   max-height: 0;
@@ -48,5 +67,5 @@
 }
 
 .list-wrapper:not(.collapsed) {
-  max-height: 500px; /* limit bezpieczeństwa, nadpisywany w JS */
+  max-height: 500px; /* limit bezpieczeństwa, JS nadpisuje realną wysokość */
 }

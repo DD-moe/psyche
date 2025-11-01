@@ -2,8 +2,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   const container = document.getElementById('categories');
 
   try {
-    const response = await fetch('./resources.json');
-    if (!response.ok) throw new Error('Nie udało się wczytać resources.json');
+    const response = await fetch('./presentation.json');
+    if (!response.ok) throw new Error('Nie udało się wczytać presentation.json');
 
     const data = await response.json();
 
@@ -19,12 +19,24 @@ document.addEventListener('DOMContentLoaded', async () => {
       const section = document.createElement('div');
       section.className = 'category';
 
+      // Nagłówek kategorii (nazwa + strzałka)
+      const header = document.createElement('div');
+      header.className = 'category-header row';
+
       const title = document.createElement('h3');
-      title.className = 'category-title';
+      title.className = 'category-title col';
       title.textContent = category;
 
+      const arrow = document.createElement('span');
+      arrow.className = 'arrow collapsed';
+      arrow.textContent = '▶'; // początkowo "prawo"
+
+      header.appendChild(title);
+      header.appendChild(arrow);
+
+      // Wrapper listy
       const listWrapper = document.createElement('div');
-      listWrapper.className = 'list-wrapper collapsed'; // domyślnie zwinięta
+      listWrapper.className = 'list-wrapper collapsed';
 
       const list = document.createElement('ul');
       list.className = 'resource-list';
@@ -32,7 +44,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const li = document.createElement('li');
         li.className = 'resource-item';
         const link = document.createElement('a');
-        link.href = `./resources/${res.nazwa}`;
+        link.href = `./presentations/${res.nazwa}`;
         link.target = '_blank';
         link.textContent = res.etykieta;
         li.appendChild(link);
@@ -40,13 +52,15 @@ document.addEventListener('DOMContentLoaded', async () => {
       });
 
       listWrapper.appendChild(list);
-      section.appendChild(title);
+      section.appendChild(header);
       section.appendChild(listWrapper);
       container.appendChild(section);
 
-      // Kliknięcie rozwija / zwija
-      title.addEventListener('click', () => {
+      // Kliknięcie nagłówka rozwija / zwija
+      header.addEventListener('click', () => {
         const isCollapsed = listWrapper.classList.toggle('collapsed');
+        arrow.classList.toggle('rotated', !isCollapsed);
+
         if (!isCollapsed) {
           listWrapper.style.maxHeight = list.scrollHeight + 'px';
         } else {
