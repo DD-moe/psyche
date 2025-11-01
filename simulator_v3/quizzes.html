@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ustawienia Quizów</title>
+  <link rel="stylesheet" href="g_styles.css">
+  <link rel="stylesheet" href="settings.css">
+</head>
+<body class="app-root">
+  <div class="container">
+    <header class="header">
+      <h1 class="title">🧠 Ustawienia Quizów</h1>
+      <p class="lead">Personalizuj sposób wyświetlania i oceniania quizów</p>
+    </header>
+
+    <div class="card small">
+      <h2 class="card-title">Preferencje quizów</h2>
+      <div class="card-body">
+        <label class="row">
+          <span class="col">Pokaż odpowiedzi po zakończeniu</span>
+          <input id="show_answers" class="necessary-data" type="checkbox">
+        </label>
+
+        <label class="row">
+          <span class="col">Limit czasu (sekundy)</span>
+          <input id="time_limit" class="necessary-data" type="number" min="10" max="600">
+        </label>
+
+        <label class="row">
+          <span class="col">Poziom trudności</span>
+          <select id="difficulty" class="necessary-data">
+            <option value="easy">Łatwy</option>
+            <option value="medium">Średni</option>
+            <option value="hard">Trudny</option>
+          </select>
+        </label>
+
+        <label class="row">
+          <span class="col">Uwagi</span>
+          <textarea id="quiz_notes" class="necessary-data" rows="3" placeholder="Twoje notatki..."></textarea>
+        </label>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="settings.js"></script>
+  <script src="copywright.js"></script>
+</body>
+</html>

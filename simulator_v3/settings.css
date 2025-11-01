@@ -1,0 +1,23 @@
+/* settings.css — uzupełnienie do g_styles.css */
+.necessary-data {
+  background: var(--surface-2);
+  border: 1px solid rgba(255,255,255,0.06);
+  color: #e8eef8;
+  border-radius: 8px;
+  padding: 6px 8px;
+  width: 100%;
+}
+
+.necessary-data[type=checkbox],
+.necessary-data[type=range] {
+  width: auto;
+}
+
+label.row {
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+textarea.necessary-data {
+  resize: vertical;
+}
