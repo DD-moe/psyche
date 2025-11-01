@@ -3,11 +3,11 @@
 document.addEventListener('DOMContentLoaded',function(){
   // przygotuj kontener stopki
   const footer = document.createElement('div');
-  footer.className = 'meta-footer card small no-select';
+  footer.className = 'container';
 
   const year = new Date().getFullYear();
   footer.innerHTML = `
-  <div class="container">
+  <div class="meta-footer card small no-select">
     <div class="row">
       <div class="col">
         <strong>Autor:</strong> Damian Bezara<br>
