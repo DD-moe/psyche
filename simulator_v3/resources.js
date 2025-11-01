@@ -108,20 +108,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- 4) Proste kolorowanie składni HTML ---
 function applySyntaxHighlight(el) {
-  // Zamiana < i > na encje HTML (by kod nie był interpretowany)
+  // Ucieczka HTML
   let html = el.textContent
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;');
 
-  // Proste kolorowanie składni
-  html = html
-    .replace(/(&lt;!--[\s\S]*?--&gt;)/g, '<span class="cmt">$1</span>')
-    .replace(/(&lt;[\/]?[a-z0-9\-]+)/gi, '<span class="tag">$1</span>')
-    .replace(/("[^"]*")/g, '<span class="val">$1</span>');
+  // Kolorowanie komentarzy
+  html = html.replace(/(&lt;!--[\s\S]*?--&gt;)/g, '<span class="cmt">$1</span>');
+
+  // Kolorowanie tagów otwierających/zamykających
+  html = html.replace(/(&lt;\/?[a-zA-Z0-9-]+)/g, '<span class="tag">$1</span>');
+
+  // Kolorowanie nazw atrybutów (np. src, alt, class)
+  html = html.replace(/\s([a-zA-Z-:]+)(=)/g, ' <span class="attr">$1</span><span class="eq">$2</span>');
+
+  // Kolorowanie wartości atrybutów w cudzysłowie
+  html = html.replace(/(".*?")/g, '<span class="val">$1</span>');
 
   el.innerHTML = html;
 }
+
 
 
 

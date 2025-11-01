@@ -92,14 +92,19 @@
   color: var(--muted);
 }
 
-/* Kolorowanie składni */
-.tag { color: var(--accent-2); }
-.val { color: var(--accent); }
-.cmt { color: #64748b; font-style: italic; }
-
 #body-code code {
   white-space: pre;
   display: block;
   font-family: "Fira Code", monospace;
   color: #e6eef6;
+  text-align: left;        /* wyrównanie tekstu do lewej */
+  line-height: 1.4;
+  padding-left: 8px;
 }
+
+/* Kolorowanie składni */
+.tag { color: var(--accent-2); }
+.attr { color: #f9cb9c; }      /* nazwy atrybutów */
+.val { color: var(--accent); }
+.cmt { color: #64748b; font-style: italic; }
+.eq  { color: #a0aec0; }       /* znaki = */
