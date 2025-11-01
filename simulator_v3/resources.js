@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    
+
     // === AI Editor: Wczytywanie promptów i obsługa przycisku ===
     (async () => {
     const select = document.getElementById('promptSelect');
@@ -198,21 +198,18 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     })();
 
+});
 
 
 /// testowe prompty
-async function prompt_refactor(code, notes, files) {
-  return `Zrefaktoryzowany kod:\n${code}\n\nUwagi: ${notes || 'brak'}`;
-}
+    async function prompt_refactor(code, notes, files) {
+    return `Zrefaktoryzowany kod:\n${code}\n\nUwagi: ${notes || 'brak'}`;
+    }
 
-async function prompt_explain(code) {
-  return `Ten kod robi to:\n${code.slice(0, 80)}...`;
-}
+    async function prompt_explain(code) {
+    return `Ten kod robi to:\n${code.slice(0, 80)}...`;
+    }
 
-async function prompt_summarize(code, notes) {
-  return `Podsumowanie:\nKod ma ${code.split('\n').length} linii.\n${notes ? 'Uwagi: ' + notes : ''}`;
-}
-
-
-
-});
+    async function prompt_summarize(code, notes) {
+    return `Podsumowanie:\nKod ma ${code.split('\n').length} linii.\n${notes ? 'Uwagi: ' + notes : ''}`;
+    }
