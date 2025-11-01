@@ -1,0 +1,17 @@
+[
+  {
+    "funkcja": "prompt_refactor",
+    "nazwa": "Refaktoryzuj kod",
+    "kategoria": "Kod"
+  },
+  {
+    "funkcja": "prompt_explain",
+    "nazwa": "Wyjaśnij działanie kodu",
+    "kategoria": "Kod"
+  },
+  {
+    "funkcja": "prompt_summarize",
+    "nazwa": "Podsumuj treść",
+    "kategoria": "Tekst"
+  }
+]

@@ -63,8 +63,46 @@
       <div id="tab-ai" class="tab-pane">
         <div class="card">
           <h3 class="card-title">AI Editor</h3>
-          <div class="card-body" id="body-ai">
-            <p>Wkrótce: interaktywny edytor treści wspomagany przez AI.</p>
+            <div class="row">
+            <div class="col">
+                <label for="promptSelect" class="small muted">Wybierz prompt:</label>
+                <select id="promptSelect" class="prompt-select">
+                <option disabled selected>Wczytywanie...</option>
+                </select>
+            </div>
+            </div>
+
+            <div class="row">
+            <div class="col">
+                <label for="aiCodeInput" class="small muted">Dotychczasowy kod:</label>
+                <textarea id="aiCodeInput" class="ai-textarea" placeholder="Wklej tutaj kod lub treść..." rows="6"></textarea>
+            </div>
+            </div>
+
+            <div class="row">
+            <div class="col">
+                <label for="aiFiles" class="small muted">Załącz pliki (opcjonalnie):</label>
+                <input type="file" id="aiFiles" class="ai-files" multiple />
+            </div>
+            </div>
+
+            <div class="row">
+            <div class="col">
+                <label for="aiNotes" class="small muted">Dodatkowe uwagi:</label>
+                <textarea id="aiNotes" class="ai-textarea" placeholder="Wpisz uwagi..." rows="3"></textarea>
+            </div>
+            </div>
+
+            <div class="row">
+            <button id="aiGenerateBtn" class="btn">Generuj</button>
+            </div>
+
+            <div class="row">
+            <div class="col">
+                <label for="aiResult" class="small muted">Wynik:</label>
+                <textarea id="aiResult" class="ai-textarea" placeholder="Tutaj pojawi się wynik..." rows="8" readonly></textarea>
+            </div>
+            </div>
           </div>
         </div>
       </div>

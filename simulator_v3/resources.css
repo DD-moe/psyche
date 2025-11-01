@@ -114,3 +114,32 @@
 .cmt  { color: #90A4AE; font-style: italic; } /* komentarz */
 
 
+.prompt-select {
+  width: 100%;
+  padding: 8px;
+  background: var(--surface-2);
+  color: #e6eef6;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
+}
+
+.ai-textarea {
+  width: 100%;
+  background: var(--surface-2);
+  color: #e6eef6;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
+  padding: 8px;
+  resize: vertical;
+  font-family: "Fira Code", monospace;
+}
+
+.ai-files {
+  width: 100%;
+  color: var(--muted);
+  padding: 6px 0;
+}
+
+#aiGenerateBtn {
+  margin-top: 12px;
+}
