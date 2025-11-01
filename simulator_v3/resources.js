@@ -111,14 +111,14 @@ function applySyntaxHighlight(el) {
   let html = el.textContent
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;/');
+    .replace(/>/g, '&gt;');
 
   // Komentarze
   html = html.replace(/(&lt;!--[\s\S]*?--&gt;)/g, '<span class="cmt">$1</span>');
 
-  // Tagi z atrybutami
+  // Kolorowanie tagów z atrybutami
   html = html.replace(
-    /(&lt;\/?)([a-zA-Z0-9\-]+)((?:\s+[a-zA-Z0-9\-:]+(?:="[^"]*")?)*)\s*(&gt;)/g,
+    /(&lt;\/?)([a-zA-Z0-9\-]+)((?:\s+[a-zA-Z0-9\-:]+(?:="[^"]*")?)*)\s*(\/?&gt;)/g,
     (_, open, tag, attrs, close) => {
       if (attrs) {
         attrs = attrs.replace(
@@ -130,8 +130,12 @@ function applySyntaxHighlight(el) {
     }
   );
 
+  // Kolorowanie tekstu pomiędzy tagami
+  html = html.replace(/([^<]+)(?=(?:&lt;|$))/g, '<span class="txt">$1</span>');
+
   el.innerHTML = html;
 }
+
 
 
 
