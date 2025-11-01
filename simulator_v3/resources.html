@@ -27,16 +27,25 @@
       <div id="tab-user" class="tab-pane active">
         <div class="card">
           <h3 class="card-title">Dane użytkownika</h3>
-          <div class="card-body">
-            <p>Tutaj pojawią się dane użytkownika.</p>
-          </div>
+            <div class="card-body" id="body-user">
+            <div class="form-group">
+                <label for="geminiToken" class="label">Token (Gemini API):</label>
+                <input type="password" id="geminiToken" class="input" placeholder="Wpisz swój token Gemini">
+            </div>
+
+            <div class="form-group">
+                <button id="btn-folder" class="btn">Wczytaj folder projektu</button>
+            </div>
+
+            <p class="muted small" id="folder-status">Nie wybrano folderu.</p>
+            </div>
         </div>
       </div>
 
       <div id="tab-preview" class="tab-pane">
         <div class="card">
           <h3 class="card-title">Podgląd prezentacji</h3>
-          <div class="card-body">
+          <div class="card-body" id="body-preview">
             <p>Podgląd zostanie załadowany automatycznie.</p>
           </div>
         </div>
@@ -45,7 +54,7 @@
       <div id="tab-code" class="tab-pane">
         <div class="card">
           <h3 class="card-title">Kod prezentacji</h3>
-          <div class="card-body">
+          <div class="card-body" id="body-code">
             <pre><code>// Kod prezentacji pojawi się tutaj...</code></pre>
           </div>
         </div>
@@ -54,7 +63,7 @@
       <div id="tab-ai" class="tab-pane">
         <div class="card">
           <h3 class="card-title">AI Editor</h3>
-          <div class="card-body">
+          <div class="card-body" id="body-ai">
             <p>Wkrótce: interaktywny edytor treści wspomagany przez AI.</p>
           </div>
         </div>
