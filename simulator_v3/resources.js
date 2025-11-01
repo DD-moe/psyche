@@ -133,13 +133,19 @@ document.addEventListener('DOMContentLoaded', () => {
     el.innerHTML = html;
     }
 
+
+    
     // === AI Editor: Wczytywanie promptów i obsługa przycisku ===
-    document.addEventListener('DOMContentLoaded', async () => {
+    (async () => {
     const select = document.getElementById('promptSelect');
     const genBtn = document.getElementById('aiGenerateBtn');
     const resultBox = document.getElementById('aiResult');
 
-    // Wczytaj prompts.json
+    if (!select || !genBtn) {
+        console.warn('AI Editor: elementy nie istnieją w DOM (może zakładka jeszcze nie wczytana)');
+        return;
+    }
+
     try {
         const res = await fetch('./prompts.json');
         const prompts = await res.json();
@@ -169,7 +175,6 @@ document.addEventListener('DOMContentLoaded', () => {
         select.innerHTML = '<option>Błąd ładowania promptów</option>';
     }
 
-    // Obsługa przycisku Generuj
     genBtn.addEventListener('click', async () => {
         const selected = select.value;
         if (!selected) return alert('Wybierz prompt.');
@@ -177,7 +182,6 @@ document.addEventListener('DOMContentLoaded', () => {
         resultBox.value = '⏳ Generowanie...';
 
         try {
-        // Wywołaj asynchronicznie wskazaną funkcję promptu (np. prompt_demo())
         if (typeof window[selected] === 'function') {
             const code = document.getElementById('aiCodeInput').value;
             const notes = document.getElementById('aiNotes').value;
@@ -192,7 +196,8 @@ document.addEventListener('DOMContentLoaded', () => {
         resultBox.value = '❌ Błąd podczas generowania: ' + e.message;
         }
     });
-    });
+    })();
+
 
 
 /// testowe prompty
