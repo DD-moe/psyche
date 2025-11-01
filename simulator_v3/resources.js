@@ -111,28 +111,28 @@ function applySyntaxHighlight(el) {
   let html = el.textContent
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;');
+    .replace(/>/g, '&gt;/');
 
-  // Kolorowanie komentarzy
+  // Komentarze
   html = html.replace(/(&lt;!--[\s\S]*?--&gt;)/g, '<span class="cmt">$1</span>');
 
-  // Kolorowanie tagów i ich wnętrza
+  // Tagi z atrybutami
   html = html.replace(
-    /(&lt;\/?)([a-zA-Z0-9\-]+)([^&]*?)(&gt;)/g,
+    /(&lt;\/?)([a-zA-Z0-9\-]+)((?:\s+[a-zA-Z0-9\-:]+(?:="[^"]*")?)*)\s*(&gt;)/g,
     (_, open, tag, attrs, close) => {
-      // koloruj atrybuty wewnątrz tagu
-      attrs = attrs
-        .replace(/([a-zA-Z0-9\-:]+)(=)("[^"]*")/g,
-          '<span class="attr">$1</span><span class="eq">$2</span><span class="val">$3</span>'
-        )
-        .replace(/([a-zA-Z0-9\-:]+)/g, '<span class="attr">$1</span>'); // pojedyncze atrybuty bez wartości
-
-      return `<span class="tag">${open}${tag}</span>${attrs}<span class="tag">${close}</span>`;
+      if (attrs) {
+        attrs = attrs.replace(
+          /([a-zA-Z0-9\-:]+)(=("[^"]*"))/g,
+          '<span class="attr">$1</span><span class="eq">=</span><span class="val">$3</span>'
+        );
+      }
+      return `<span class="tag">${open}${tag}</span>${attrs || ''}<span class="tag">${close}</span>`;
     }
   );
 
   el.innerHTML = html;
 }
+
 
 
 });
