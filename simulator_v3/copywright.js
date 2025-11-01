@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded',function(){
 
   const year = new Date().getFullYear();
   footer.innerHTML = `
+  <div class="card small">
     <div class="row">
       <div class="col">
         <strong>Autor:</strong> Damian Bezara<br>
@@ -16,6 +17,7 @@ document.addEventListener('DOMContentLoaded',function(){
         <button id="show-license" class="btn">🔒 Zobacz licencję</button>
       </div>
     </div>
+  </div>
   `;
 
   document.body.appendChild(footer);
@@ -35,7 +37,6 @@ document.addEventListener('DOMContentLoaded',function(){
           <li>Zakazana jest modyfikacja i publikacja zmodyfikowanej wersji bez formalnej zgody autora. Wnioski o zgodę należy kierować osobiście do autora.</li>
           <li>Autor nie ponosi odpowiedzialności za skutki użycia oprogramowania.</li>
         </ol>
-        <p><strong>Uwaga:</strong> aby zniechęcić przypadkowe kopiowanie — zawartość tej sekcji jest chroniona przed zaznaczaniem i kopiowaniem na poziomie interfejsu. Nie jest to zabezpieczenie prawne i nie zwalnia z obowiązku przestrzegania licencji.</p>
       </div>
       <div class="license-actions">
         <button id="close-license" class="btn">Zamknij</button>
