@@ -46,13 +46,17 @@ async function Create_Presentation_Structure(code, notes, files) {
         Poniżej masz przykład struktury HTML:
 
         <div class="presentation">
+            <h1>Tytuł prezentacji</h1>
             <div class="chapter">
+                <h2>Tytuł rozdziału</h2>
                 <div class="plot">
+                    <h3>Tytuł wątku</h3>
                 </div>
             </div>
         </div>
 
         UWAGA: nie pisz pełnego kodu HTML tylko jego fragment - tj. zawartość <div class="presentation">
+        Nie pisz też zawartości poszczególnych div innej niż tytuły pokazane w przykłądzie (1 tytuł na div)
       `.trim(),
     });
 
