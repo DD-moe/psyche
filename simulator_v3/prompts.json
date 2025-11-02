@@ -13,5 +13,10 @@
     "funkcja": "prompt_summarize",
     "nazwa": "Podsumuj treść",
     "kategoria": "Tekst"
-  }
+  },
+  {
+    "funkcja": "Create_Presentation_Structure",
+    "nazwa": "Stwórz szkielet prezentacji",
+    "kategoria": "Podstawowe"
+  }  
 ]
