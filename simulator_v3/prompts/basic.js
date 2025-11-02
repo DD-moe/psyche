@@ -1,5 +1,11 @@
-// dynamiczny import modułu GoogleGenAI
-const { GoogleGenAI } = await import("https://esm.run/@google/genai");
+async function initGemini() {
+  const { GoogleGenAI } = await import("https://esm.run/@google/genai");
+  window.GoogleGenAI = GoogleGenAI; // zapis globalny
+  console.log("Gemini załadowany");
+}
+
+initGemini();
+
 
 /**
  * Tworzy lub modyfikuje strukturę prezentacji w HTML na podstawie istniejącego kodu i notatek użytkownika.
@@ -19,7 +25,7 @@ async function Create_Presentation_Structure(code, notes, files) {
   }
 
   // inicjalizacja klienta AI
-  const ai = new GoogleGenAI({ apiKey });
+  const ai = new window.GoogleGenAI({ apiKey });
 
   try {
     const response = await ai.models.generateContent({
