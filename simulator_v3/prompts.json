@@ -18,5 +18,20 @@
     "funkcja": "Create_Presentation_Structure",
     "nazwa": "Stwórz szkielet prezentacji",
     "kategoria": "Podstawowe"
-  }  
+  },  
+  {
+    "funkcja": "Create_Table",
+    "nazwa": "Stwórz tabelę",
+    "kategoria": "Podstawowe"
+  }, 
+  {
+    "funkcja": "Create_Numbered_List",
+    "nazwa": "Stwórz listę",
+    "kategoria": "Podstawowe"
+  },
+  {
+    "funkcja": "Create_Diagnostic_Block",
+    "nazwa": "Bot odpytujący z diagnostyki różnicowej",
+    "kategoria": "Quizy"
+  }       
 ]
