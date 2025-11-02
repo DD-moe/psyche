@@ -45,14 +45,28 @@ async function Create_Presentation_Structure(code, notes, files) {
         jednemu slajdowi lub stronie dokumentu.
         Poniżej masz przykład struktury HTML:
 
-        <div class="chapter">
-            <div class="plot">
+        <div class="presentation">
+            <div class="chapter">
+                <div class="plot">
+                </div>
             </div>
         </div>
+
+        UWAGA: nie pisz pełnego kodu HTML tylko jego fragment - tj. zawartość <div class="presentation">
       `.trim(),
     });
 
-    return response?.text || "[Brak odpowiedzi]";
+    let text = response?.text || "[Brak odpowiedzi]";
+
+    // 🧹 czyszczenie znaczników kodu
+    text = text
+      .replace(/^```[a-z]*\n?/i, '')
+      .replace(/```$/i, '')
+      .replace(/^'''[a-z]*\n?/i, '')
+      .replace(/'''$/i, '')
+      .trim();
+
+    return text;
   } catch (err) {
     console.error("Błąd podczas generowania prezentacji:", err);
     return `[Błąd: ${err.message || "Nieznany błąd"}]`;
