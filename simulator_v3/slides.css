@@ -1,273 +1,99 @@
-/* ==============================
-   OGÓLNE USTAWIENIA PREZENTACJI
-   ============================== */
+/* slides.css — styl prezentacji (odizolowany w .presentation) */
 
 .presentation {
+  all: initial; /* resetuje dziedziczenie, izoluje od reszty strony */
+  font-family: 'Inter', 'Segoe UI', sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
+  background: #0b0f14;
+  color: #e6eef6;
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding: 40px 20px;
+}
+
+.presentation .slide {
+  all: unset;
+  display: block;
   width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
-  overflow-y: auto; /* przewijanie w pionie */
-  overflow-x: hidden;
-  background: #fdfdfd;
-  color: #222;
-  font-family: "Inter", "Segoe UI", Roboto, sans-serif;
-  line-height: 1.6;
-  transition: all 0.3s ease-in-out;
-  border-radius: 1rem;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
+  max-width: 860px;
+  background: #101722;
+  border: 1px solid rgba(255,255,255,0.05);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  border-radius: 12px;
+  padding: 36px;
+  margin-bottom: 28px;
+  color: #d9e6f7;
+  box-sizing: border-box;
 }
 
-/* Skalowalność okna */
-.presentation:fullscreen {
-  max-width: none;
-  height: 100vh;
-  padding: 3rem;
-  border-radius: 0;
+.presentation .title-slide {
+  text-align: center;
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), transparent);
 }
 
-.presentation h1, .presentation h2, .presentation h3 {
-  margin: 0.5em 0;
+.presentation .title-slide h1 {
+  all: unset;
+  display: block;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #6ee7b7;
+  margin-bottom: 10px;
   text-align: center;
 }
 
-.presentation h1 {
-  font-size: 2rem;
-  color: #1a1a1a;
-  border-bottom: 3px solid #ccc;
-  padding-bottom: 0.5rem;
+.presentation .title-slide .subtitle {
+  all: unset;
+  display: block;
+  font-size: 1rem;
+  color: #9aa6b2;
 }
 
 .presentation h2 {
-  font-size: 1.6rem;
-  color: #333;
+  all: unset;
+  display: block;
+  font-size: 1.4rem;
+  color: #60a5fa;
+  margin-bottom: 12px;
 }
 
-.presentation h3 {
-  font-size: 1.3rem;
-  color: #444;
+.presentation p {
+  all: unset;
+  display: block;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: #e6eef6;
+  margin-bottom: 12px;
 }
 
-/* ==============================
-   STRUKTURA PREZENTACJI
-   ============================== */
-
-.chapter {
-  width: 100%;
-  background: #ffffff;
-  margin: 1.5rem 0;
-  padding: 1.5rem;
-  border-left: 5px solid #007bff;
-  border-radius: 0.75rem;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s ease-in-out;
+.presentation ul {
+  all: unset;
+  display: block;
+  list-style: disc;
+  padding-left: 24px;
+  color: #e6eef6;
 }
 
-.chapter:hover {
-  transform: scale(1.01);
+.presentation li {
+  all: unset;
+  display: list-item;
+  margin-bottom: 6px;
 }
 
-.plot {
-  background: #f8faff;
-  margin-top: 1rem;
-  padding: 1rem 1.5rem;
-  border-radius: 0.5rem;
-  border: 1px solid #e5e8ee;
-}
-
-/* ==============================
-   LISTY I TABELKI
-   ============================== */
-
-ol, ul {
-  margin: 1rem 0;
-  padding-left: 2rem;
-}
-
-li {
-  margin: 0.5rem 0;
-}
-
-/* Tabele */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 1rem 0;
-  font-size: 0.95rem;
-  border: 1px solid #ccc;
-}
-
-thead {
-  font-weight: bold;
-}
-
-th, td {
-  padding: 0.75rem 1rem;
-  border: 1px solid #ddd;
-}
-
-th {
-  text-align: left;
-}
-
-/* Kolory tła tabeli */
-.darkBlue { background-color: #1a3c7a; color: #fff; }
-.darkGray { background-color: #333; color: #fff; }
-.darkGreen { background-color: #1e5631; color: #fff; }
-.darkRed { background-color: #7a1a1a; color: #fff; }
-
-/* Obramowania */
-.lightGray { border: 1px solid #ddd; }
-.lightBlue { border: 1px solid #b3d1ff; }
-.white { border: 1px solid #fff; }
-
-/* ==============================
-   STYLIZACJE TEKSTU I WYRÓŻNIENIA
-   ============================== */
-
-.yellow { background-color: #fff5a8; }
-.orange { background-color: #ffd59e; }
-.red { background-color: #ffb3b3; }
-.lightblue { background-color: #d9ebff; }
-.magenta { background-color: #ffccf5; }
-
-.bold { font-weight: 700; }
-.italic { font-style: italic; }
-
-.s_underline {
-  text-decoration: underline 3px solid #000;
-  text-underline-offset: 4px;
-}
-
-.l_underline {
-  text-decoration: underline 1px solid #888;
-  text-underline-offset: 4px;
-}
-
-.quotation {
-  font-style: italic;
-  border-left: 4px solid #ccc;
-  padding-left: 1rem;
-  color: #555;
-  margin: 1rem 0;
-}
-
-/* Linki tekstowe i emoji */
-.t_link {
-  color: #0066cc;
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-.t_link:hover {
-  color: #004999;
-}
-
-.e_link {
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-
-.e_link:hover {
-  transform: scale(1.2);
-}
-
-/* --- Blok diagnostyczny / AI --- */
-.diagnostic, .repetitor {
-  width: 100%;
-  background: #fefefe;
-  border: 1px solid #ddd;
-  border-radius: 12px;
-  padding: 1.5rem;
-  margin-top: 1.5rem;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
-  transition: background 0.2s ease;
-}
-
-.diagnostic:hover, .repetitor:hover {
-  background: #fcfcff;
-}
-
-/* --- Przyciski w blokach --- */
-.diagnostic button, .repetitor button {
-  align-self: flex-start;
-  background: #4a6cf7;
-  color: white;
-  border: none;
+.presentation img {
+  all: unset;
+  display: block;
+  max-width: 100%;
   border-radius: 8px;
-  padding: 0.6rem 1.2rem;
-  font-size: 0.95rem;
-  cursor: pointer;
-  transition: background 0.2s ease, transform 0.1s ease;
+  margin: 12px auto;
 }
 
-.diagnostic button:hover, .repetitor button:hover {
-  background: #3b5de3;
-  transform: translateY(-1px);
-}
-
-/* --- Pole tekstowe odpowiedzi --- */
-.diagnostic textarea, .repetitor textarea {
-  width: 100%;
-  min-height: 120px;
-  resize: vertical;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 0.8rem;
-  font-size: 1rem;
-  font-family: inherit;
-  box-sizing: border-box;
-  background: #fff;
-  transition: border 0.2s ease;
-}
-
-.diagnostic textarea:focus, .repetitor textarea:focus {
-  outline: none;
-  border-color: #4a6cf7;
-}
-
-/* --- Pole z wygenerowanym przypadkiem --- */
-.diagnostic pre, .repetitor pre {
-  background: #f5f7fb;
-  border-radius: 8px;
-  padding: 0.8rem;
-  font-size: 0.95rem;
-  overflow-x: auto;
-  white-space: pre-wrap;
-  line-height: 1.4;
-  font-family: "Consolas", monospace;
-}
-
-/* --- Etykiety i checkbox --- */
-.diagnostic label, .repetitor label {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-size: 0.9rem;
-  color: #444;
-}
-
-/* ==============================
-   DROBNE DETALE I RESPONSYWNOŚĆ
-   ============================== */
-
-@media (max-width: 768px) {
-  .presentation {
-    padding: 1rem;
+@media (max-width: 700px) {
+  .presentation .slide {
+    padding: 24px;
   }
-
-  .chapter {
-    padding: 1rem;
-  }
-
-  table, th, td {
-    font-size: 0.9rem;
+  .presentation .title-slide h1 {
+    font-size: 1.6rem;
   }
 }

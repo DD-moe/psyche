@@ -17,99 +17,85 @@
     <!-- Pasek zakładek -->
     <nav class="tabs">
       <button class="tab-btn active" data-target="tab-user">Dane użytkownika</button>
-      <button class="tab-btn" data-target="tab-preview">Podgląd prezentacji</button>
-      <button class="tab-btn" data-target="tab-code">Kod prezentacji</button>
-      <button class="tab-btn" data-target="tab-ai">AI Editor</button>
+      <button class="tab-btn" data-target="tab-instruction">Jak tworzyć nowe zasoby</button>
+      <button class="tab-btn" data-target="tab-code">Biblioteka promptów</button>
     </nav>
 
-    <!-- Zawartość zakładek -->
     <section class="tabs-content">
+
+      <!-- 1️⃣ Dane użytkownika -->
       <div id="tab-user" class="tab-pane active">
-        <div class="card">
+        <div class="card small">
           <h3 class="card-title">Dane użytkownika</h3>
-            <div class="card-body" id="body-user">
+          <div class="card-body">
             <div class="form-group">
-                <label for="geminiToken" class="label">Token (Gemini API):</label>
-                <input type="password" id="geminiToken" class="input" placeholder="Wpisz swój token Gemini">
+              <label for="geminiToken" class="label">Token (Gemini API):</label>
+              <input type="password" id="geminiToken" class="input" placeholder="Wpisz swój token Gemini">
             </div>
-
             <div class="form-group">
-                <button id="btn-folder" class="btn">Wczytaj folder projektu</button>
+              <label class="label">Wybierz API chatbota:</label>
+              <select class="input select-api">
+                <option value="gemini" selected>Gemini</option>
+                <option value="openai">OpenAI</option>
+                <option value="claude">Claude</option>
+                <option value="local">Lokalny model</option>
+              </select>
             </div>
-
-            <p class="muted small" id="folder-status">Nie wybrano folderu.</p>
-            </div>
-        </div>
-      </div>
-
-      <div id="tab-preview" class="tab-pane">
-        <div class="card">
-          <h3 class="card-title">Podgląd prezentacji</h3>
-          <div class="card-body" id="body-preview">
-            <p>Podgląd zostanie załadowany automatycznie.</p>
           </div>
         </div>
       </div>
 
+      <!-- 2️⃣ Instrukcja -->
+      <div id="tab-instruction" class="tab-pane">
+        <div class="card">
+          <h3 class="card-title">Tworzenie nowego zasobu (prezentacji)</h3>
+          <div class="card-body">
+            <p><a href="./templates/index.html" download class="btn">Pobierz szablon (HTML)</a></p>
+            <ol class="features small">
+              <li>Pobierz plik z tej strony.</li>
+              <li>Umieść go w pustym folderze i nazwij folder jak prezentacja, używając "_" zamiast spacji (np. <code>nazwa_prezentacji</code>).</li>
+              <li>Otwórz cały folder w edytorze (np. VS Code).</li>
+              <li>Edytuj <code>index.html</code>, wpisując treść prezentacji w wyznaczone miejsca.</li>
+              <li>Wszystkie pliki multimediów trzymaj w folderze prezentacji.</li>
+              <li>Aby podejrzeć prezentację, otwórz <code>index.html</code> w przeglądarce.</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3️⃣ Prompty -->
       <div id="tab-code" class="tab-pane">
         <div class="card">
-          <h3 class="card-title">Kod prezentacji</h3>
-          <div class="card-body" id="body-code">
-            <pre><code>// Kod prezentacji pojawi się tutaj...</code></pre>
+          <h3 class="card-title">Biblioteka promptów</h3>
+          <div class="card-body prompt-section">
+
+            <!-- Przykładowa sekcja -->
+            <div class="promptbox">
+              <input type="text" class="prompt-name" placeholder="Nazwa promptu">
+              <textarea class="prompt-text" rows="4" placeholder="Treść promptu..."></textarea>
+              <div class="row">
+                <label><input type="checkbox" class="prompt-include"> Dołącz instrukcje HTML</label>
+                <button class="btn btn-copy">Kopiuj</button>
+              </div>
+            </div>
+
+            <hr>
+
+            <!-- Sekcja z edytowalnymi promptami -->
+            <h4 class="muted small">Własne prompty (do edycji)</h4>
+            <div class="custom-prompts"></div>
+
+            <div class="row btn-bar">
+              <button class="btn btn-export">Eksportuj własne prompty</button>
+              <button class="btn btn-import">Importuj prompty</button>
+            </div>
           </div>
         </div>
       </div>
 
-      <div id="tab-ai" class="tab-pane">
-        <div class="card">
-          <h3 class="card-title">AI Editor</h3>
-            <div class="row">
-            <div class="col">
-                <label for="promptSelect" class="small muted">Wybierz prompt:</label>
-                <select id="promptSelect" class="prompt-select">
-                <option disabled selected>Wczytywanie...</option>
-                </select>
-            </div>
-            </div>
-
-            <div class="row">
-            <div class="col">
-                <label for="aiCodeInput" class="small muted">Dotychczasowy kod:</label>
-                <textarea id="aiCodeInput" class="ai-textarea" placeholder="Wklej tutaj kod lub treść..." rows="6"></textarea>
-            </div>
-            </div>
-
-            <div class="row">
-            <div class="col">
-                <label for="aiFiles" class="small muted">Załącz pliki (opcjonalnie):</label>
-                <input type="file" id="aiFiles" class="ai-files" multiple />
-            </div>
-            </div>
-
-            <div class="row">
-            <div class="col">
-                <label for="aiNotes" class="small muted">Dodatkowe uwagi:</label>
-                <textarea id="aiNotes" class="ai-textarea" placeholder="Wpisz uwagi..." rows="3"></textarea>
-            </div>
-            </div>
-
-            <div class="row">
-            <button id="aiGenerateBtn" class="btn">Generuj</button>
-            </div>
-
-            <div class="row">
-            <div class="col">
-                <label for="aiResult" class="small muted">Wynik:</label>
-                <textarea id="aiResult" class="ai-textarea" placeholder="Tutaj pojawi się wynik..." rows="8" readonly></textarea>
-            </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </section>
   </div>
 
-  <script src="./prompts/basic.js"></script>
   <script src="resources.js"></script>
   <script src="copywright.js"></script>
 </body>

@@ -1,4 +1,10 @@
-// resources.js — logika przełączania zakładek
+// wytyczne do tworznenia promptów html:
+const PROMPT_GUIDELINES = `
+[Wytyczne: wygeneruj treść HTML zgodną ze strukturą pliku "template.html".
+Każda sekcja prezentacji powinna być umieszczona w <section class="slide">.
+W treści stosuj nagłówki (h2–h3), akapity (<p>), listy (<ul><li>), obrazy (<img>) i cytaty.
+Nie dodawaj znaczników <html>, <head> ani <body>. Wynik ma być gotowy do wklejenia do .presentation.]
+`;
 
 document.addEventListener('DOMContentLoaded', () => {
   const buttons = document.querySelectorAll('.tab-btn');
@@ -6,210 +12,119 @@ document.addEventListener('DOMContentLoaded', () => {
 
   buttons.forEach(btn => {
     btn.addEventListener('click', () => {
-      // Deaktywuj wszystkie zakładki i przyciski
       buttons.forEach(b => b.classList.remove('active'));
       panes.forEach(p => p.classList.remove('active'));
-
-      // Aktywuj bieżącą
       btn.classList.add('active');
-      const target = document.getElementById(btn.dataset.target);
-      if (target) target.classList.add('active');
+      document.getElementById(btn.dataset.target)?.classList.add('active');
     });
   });
-});
 
-// === UZUPEŁNIENIE LOGIKI ===
-
-// Globalne zmienne
-window.GeminiToken = localStorage.getItem('simV3_Gemini_Token') || '';
-window.ProjectDirectory = null;
-
-document.addEventListener('DOMContentLoaded', () => {
+  // --- TOKEN GEMINI ---
   const tokenInput = document.getElementById('geminiToken');
-  const folderBtn = document.getElementById('btn-folder');
-  const folderStatus = document.getElementById('folder-status');
-  const bodyPreview = document.getElementById('body-preview');
-  const bodyCode = document.getElementById('body-code');
+  window.GeminiToken = localStorage.getItem('simV3_Gemini_Token') || '';
 
-  // Jeśli token był zapisany — wstaw go do inputa (zamaskowany)
   if (window.GeminiToken) tokenInput.value = window.GeminiToken;
 
-  // --- 1) Obsługa zapisu tokenu ---
   tokenInput.addEventListener('change', e => {
-    window.GeminiToken = e.target.value.trim();
-    if (window.GeminiToken) {
-      localStorage.setItem('simV3_Gemini_Token', window.GeminiToken);
+    const val = e.target.value.trim();
+    if (val) {
+      window.GeminiToken = val;
+      localStorage.setItem('simV3_Gemini_Token', val);
       console.log('Zapisano token Gemini');
     }
   });
 
-  // --- 2) Wybór folderu projektu ---
-  folderBtn.addEventListener('click', async () => {
-    try {
-      const dirHandle = await window.showDirectoryPicker();
-      window.ProjectDirectory = dirHandle;
-      folderStatus.textContent = `📁 Wybrano: ${dirHandle.name}`;
-      console.log('Folder projektu:', dirHandle);
-      await loadProjectPreview(dirHandle);
-    } catch (err) {
-      console.warn('Nie wybrano folderu:', err);
+  // --- WYBÓR API ---
+  const apiSelect = document.querySelector('.select-api');
+  const savedApi = localStorage.getItem('simV3_Choosed_API') || 'gemini';
+  apiSelect.value = savedApi;
+  apiSelect.addEventListener('change', () => {
+    const choice = apiSelect.value;
+    localStorage.setItem('simV3_Choosed_API', choice);
+    console.log('Wybrano API:', choice);
+  });
+
+  // --- PROMPTY ---
+  const customPromptsContainer = document.querySelector('.custom-prompts');
+  const exportBtn = document.querySelector('.btn-export');
+  const importBtn = document.querySelector('.btn-import');
+
+  // Tworzenie 16 pustych promptów
+  for (let i = 0; i < 16; i++) {
+    const box = document.createElement('div');
+    box.className = 'promptbox';
+    box.innerHTML = `
+      <input type="text" class="prompt-name" placeholder="Nazwa promptu">
+      <textarea class="prompt-text" rows="3" placeholder="Treść promptu..."></textarea>
+      <div class="row">
+        <label><input type="checkbox" class="prompt-include"> Dołącz instrukcje HTML</label>
+        <button class="btn btn-copy">Kopiuj</button>
+      </div>
+    `;
+    customPromptsContainer.appendChild(box);
+  }
+
+  // Obsługa kopiowania
+  document.body.addEventListener('click', e => {
+    if (e.target.classList.contains('btn-copy')) {
+      const box = e.target.closest('.promptbox');
+      const text = box.querySelector('.prompt-text').value;
+      const include = box.querySelector('.prompt-include').checked;
+      const toCopy = include
+        ? text + '\n\n' + PROMPT_GUIDELINES
+        : text;
+      navigator.clipboard.writeText(toCopy);
+      e.target.textContent = 'Skopiowano!';
+      setTimeout(() => (e.target.textContent = 'Kopiuj'), 1500);
     }
   });
 
-  // --- 3) Wczytywanie podglądu index.html ---
-  async function loadProjectPreview(dirHandle) {
-    try {
-      const fileHandle = await dirHandle.getFileHandle('index.html');
-      const file = await fileHandle.getFile();
-      const html = await file.text();
-
-      // osadzamy kod w podglądzie (bez skryptów)
-      bodyPreview.innerHTML = html;
-
-      // Uzupełniamy ścieżki plików src (obrazki itp.)
-      const elements = bodyPreview.querySelectorAll('[src]');
-      for (const el of elements) {
-        const src = el.getAttribute('src');
-        if (!src.startsWith('http')) {
-          try {
-            const resHandle = await dirHandle.getFileHandle(src.replace('./', ''));
-            const blob = await resHandle.getFile();
-            el.src = URL.createObjectURL(blob);
-          } catch {
-            console.warn('Nie udało się wczytać:', src);
-          }
-        }
-      }
-
-      // Wstawienie kodu w zakładce 3
-      const codeBox = bodyCode.querySelector('pre code');
-      codeBox.textContent = html;
-      applySyntaxHighlight(codeBox);
-
-      // Wypisanie listy plików w folderze
-      const fileList = [];
-      for await (const entry of dirHandle.values()) {
-        if (entry.kind === 'file') fileList.push(entry.name);
-      }
-      fileList.sort();
-
-      const listEl = document.createElement('ul');
-      listEl.className = 'file-list';
-      fileList.forEach(f => {
-        const li = document.createElement('li');
-        li.textContent = f;
-        listEl.appendChild(li);
+  // Eksport własnych promptów
+  exportBtn.addEventListener('click', () => {
+    const data = [];
+    customPromptsContainer.querySelectorAll('.promptbox').forEach(box => {
+      data.push({
+        name: box.querySelector('.prompt-name').value,
+        text: box.querySelector('.prompt-text').value,
+        include: box.querySelector('.prompt-include').checked,
       });
-      bodyCode.appendChild(listEl);
-    } catch (err) {
-      console.error('Błąd wczytywania projektu:', err);
-    }
-  }
-
-  // --- 4) Proste kolorowanie składni HTML ---
-    function applySyntaxHighlight(el) {
-    let html = el.textContent
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;');
-
-    // Komentarze
-    html = html.replace(/(&lt;!--[\s\S]*?--&gt;)/g, '<span class="cmt">$1</span>');
-
-    // Tagi z atrybutami
-    html = html.replace(
-        /(&lt;\/?)([a-zA-Z0-9\-]+)((?:\s+[a-zA-Z0-9\-:]+(?:="[^"]*")?)*)\s*(&gt;)/g,
-        (_, open, tag, attrs, close) => {
-        if (attrs) {
-            attrs = attrs.replace(
-            /([a-zA-Z0-9\-:]+)(=("[^"]*"))/g,
-            '<span class="attr">$1</span><span class="eq">=</span><span class="val">$3</span>'
-            );
-        }
-        return `<span class="tag">${open}${tag}</span>${attrs || ''}<span class="tag">${close}</span>`;
-        }
-    );
-
-    el.innerHTML = html;
-    }
-
-
-
-    // === AI Editor: Wczytywanie promptów i obsługa przycisku ===
-    (async () => {
-    const select = document.getElementById('promptSelect');
-    const genBtn = document.getElementById('aiGenerateBtn');
-    const resultBox = document.getElementById('aiResult');
-
-    if (!select || !genBtn) {
-        console.warn('AI Editor: elementy nie istnieją w DOM (może zakładka jeszcze nie wczytana)');
-        return;
-    }
-
-    try {
-        const res = await fetch('./prompts.json');
-        const prompts = await res.json();
-
-        // Grupowanie po kategorii
-        const grouped = {};
-        prompts.forEach(p => {
-        if (!grouped[p.kategoria]) grouped[p.kategoria] = [];
-        grouped[p.kategoria].push(p);
-        });
-
-        // Tworzenie optgroup
-        select.innerHTML = '';
-        Object.keys(grouped).forEach(cat => {
-        const optgroup = document.createElement('optgroup');
-        optgroup.label = cat;
-        grouped[cat].forEach(p => {
-            const opt = document.createElement('option');
-            opt.value = p.funkcja;
-            opt.textContent = p.nazwa;
-            optgroup.appendChild(opt);
-        });
-        select.appendChild(optgroup);
-        });
-    } catch (err) {
-        console.error('Nie udało się wczytać prompts.json:', err);
-        select.innerHTML = '<option>Błąd ładowania promptów</option>';
-    }
-
-    genBtn.addEventListener('click', async () => {
-        const selected = select.value;
-        if (!selected) return alert('Wybierz prompt.');
-
-        resultBox.value = '⏳ Generowanie...';
-
-        try {
-        if (typeof window[selected] === 'function') {
-            const code = document.getElementById('aiCodeInput').value;
-            const notes = document.getElementById('aiNotes').value;
-            const files = document.getElementById('aiFiles').files;
-            const result = await window[selected](code, notes, files);
-            resultBox.value = result || 'Brak wyniku.';
-        } else {
-            resultBox.value = `Nie znaleziono funkcji: ${selected}`;
-        }
-        } catch (e) {
-        console.error(e);
-        resultBox.value = '❌ Błąd podczas generowania: ' + e.message;
-        }
     });
-    })();
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'custom_prompts.json';
+    a.click();
+    URL.revokeObjectURL(url);
+  });
 
+  // Import własnych promptów
+  importBtn.addEventListener('click', () => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '.json';
+    input.addEventListener('change', e => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = ev => {
+        try {
+          const arr = JSON.parse(ev.target.result);
+          const boxes = customPromptsContainer.querySelectorAll('.promptbox');
+          arr.forEach((p, i) => {
+            if (boxes[i]) {
+              boxes[i].querySelector('.prompt-name').value = p.name || '';
+              boxes[i].querySelector('.prompt-text').value = p.text || '';
+              boxes[i].querySelector('.prompt-include').checked = !!p.include;
+            }
+          });
+          console.log('Zaimportowano prompty');
+        } catch (err) {
+          alert('Błąd podczas importu pliku.');
+        }
+      };
+      reader.readAsText(file);
+    });
+    input.click();
+  });
 });
-
-
-/// testowe prompty
-    async function prompt_refactor(code, notes, files) {
-    return `Zrefaktoryzowany kod:\n${code}\n\nUwagi: ${notes || 'brak'}`;
-    }
-
-    async function prompt_explain(code) {
-    return `Ten kod robi to:\n${code.slice(0, 80)}...`;
-    }
-
-    async function prompt_summarize(code, notes) {
-    return `Podsumowanie:\nKod ma ${code.split('\n').length} linii.\n${notes ? 'Uwagi: ' + notes : ''}`;
-    }
