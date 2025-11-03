@@ -2,7 +2,7 @@
   "name": "AI Presentation Viewer",
   "short_name": "Slides",
   "description": "Lekka prezentacja w trybie offline z obsługą AI i interaktywnymi slajdami.",
-  "start_url": "./template.html",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#0f172a",
   "theme_color": "#1e293b",
