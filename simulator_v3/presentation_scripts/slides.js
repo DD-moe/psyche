@@ -18,6 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
       slide.style.opacity = i === index ? '1' : '0';
       slide.style.transition = 'opacity 0.4s ease';
     });
+    // import ale dopiero po wykonaniu modułu
+    import("./repetitor.js");
   }
 
   function nextSlide() {
@@ -148,8 +150,3 @@ document.addEventListener('DOMContentLoaded', () => {
   showSlide(currentIndex);
   updateInfo();
 });
-
-
-
-// import ale dopiero po wykonaniu modułu
-import "./repetitor.js";
