@@ -115,7 +115,8 @@ Odpowiedz w formacie JSON:
     try {
       const res = await AskGemini(prompt);
       const txt = res.text;
-      const parsed = JSON.parse(txt);
+      const cleanedTxt = txt.replace(/^\s*```json\s*|^\s*```\s*|^\s*|```\s*$|\s*$/g, '');
+      const parsed = JSON.parse(cleanedTxt);
       evalDiv.innerHTML = `<strong>Ocena:</strong> ${parsed.score}/5<br>${parsed.feedback}`;
     } catch (e) {
       evalDiv.textContent = "Błąd oceny: " + e.message;
