@@ -1,13 +1,13 @@
-/* Dodatkowe style specyficzne dla resources.html */
+/* Dodatkowe style specyficzne dla resources.html — wersja z jednostkami względnymi */
 
 .category {
-  margin-bottom: 16px;
+  margin-bottom: 1rem; /* 16px */
 }
 
 .category-title {
   font-weight: 600;
   color: var(--accent-2);
-  margin: 10px 0 6px;
+  margin: 0.625rem 0 0.375rem; /* 10px 0 6px */
   cursor: pointer;
   transition: color 0.2s;
 }
@@ -18,12 +18,12 @@
 
 .resource-list {
   list-style: none;
-  padding-left: 18px;
+  padding-left: 1.125rem; /* 18px */
   margin: 0;
 }
 
 .resource-item {
-  margin: 6px 0;
+  margin: 0.375rem 0; /* 6px */
 }
 
 .resource-item a {
@@ -46,7 +46,7 @@
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
-  padding: 4px 0;
+  padding: 0.25rem 0; /* 4px 0 */
 }
 
 .arrow {
@@ -67,5 +67,5 @@
 }
 
 .list-wrapper:not(.collapsed) {
-  max-height: 500px; /* limit bezpieczeństwa, JS nadpisuje realną wysokość */
+  max-height: clamp(10rem, 60vh, 40rem);
 }
