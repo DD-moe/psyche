@@ -34,6 +34,35 @@
         <li>Punkt trzeci</li>
       </ul>
     </section>
+
+    <section>
+      <!-- główny kontener prezentacyjny -->
+      <div class="presentation-block">
+
+        <!-- ukryte definicje -->
+        <div class="definitions hidden">
+          <pre name="Zespół Reya">Nagły postępujący obrzęk mózgu u dziecka po infekcji wirusowej i podaniu aspiryny.</pre>
+          <pre name="Ostre zapalenie wyrostka">Ból w prawym dole biodrowym, gorączka, objaw Blumberga dodatni.</pre>
+          <pre name="Migrena z aurą">Pulsujący ból głowy z aurą wzrokową, często jednostronny.</pre>
+        </div>
+
+        <!-- widoczny obszar ćwiczenia -->
+        <div class="playground card">
+          <label>Pytanie / opis przypadku:</label>
+          <pre class="case card">(naciśnij „Wygeneruj pytanie”)</pre>
+
+          <button onclick="generateCase()">Wygeneruj pytanie</button>
+
+          <label>Twoja odpowiedź:</label>
+          <textarea class="answer" placeholder="Wpisz swoją odpowiedź..."></textarea>
+
+          <button onclick="checkAnswer()">Sprawdź</button>
+
+          <div class="evaluation card hidden"></div>
+        </div>
+      </div>
+    </section>
+
   </div>
 
   <!-- Skrypt modułowy (możesz w nim rozszerzać funkcjonalność) -->

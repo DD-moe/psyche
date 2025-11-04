@@ -88,3 +88,7 @@
   border-radius: 0.5rem; /* 8px */
   margin: 0.75rem auto; /* 12px */
 }
+
+.presentation .hidden{
+  display:none;
+}

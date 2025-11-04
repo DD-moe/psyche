@@ -1,5 +1,6 @@
 /// kod tymczasowy:
 // slides.js — moduł obsługujący tryb prezentacji
+import "repetitor.js";
 
 document.addEventListener('DOMContentLoaded', () => {
   const presentation = document.querySelector('.presentation');
