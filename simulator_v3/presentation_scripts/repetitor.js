@@ -1,4 +1,4 @@
-import { GoogleGenAI } from "@google/genai";
+import { GoogleGenAI } from "https://esm.run/@google/genai";
 
   const TOKEN_KEY = 'simV3_Gemini_Token';
   const COUNT_KEY = 'defUsageCounts';
