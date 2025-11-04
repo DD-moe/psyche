@@ -64,10 +64,9 @@ import { GoogleGenAI } from "https://esm.run/@google/genai";
 
     casePre.textContent = "Generuję przypadek...";
 
-    const defsText = defs.map(d => `• ${d.name}: ${d.text}`).join("\n");
     const prompt = `
 Masz zestaw definicji:
-${defsText}
+${selected.text}
 
 Na podstawie definicji "${selected.name}" ułóż krótki przypadek kliniczny (3–6 zdań).
 Opisz pacjenta, objawy i kontekst, bez podawania rozpoznania.
@@ -76,7 +75,7 @@ Na końcu dodaj pytanie kliniczne (np. "Jakie jest rozpoznanie?").
 
     try {
       const res = await AskGemini(prompt);
-      const text = res.response.text();
+      const text = res.text;
       casePre.textContent = text;
       evalDiv.classList.add('hidden');
       window._lastCase = text;
@@ -115,7 +114,7 @@ Odpowiedz w formacie JSON:
 
     try {
       const res = await AskGemini(prompt);
-      const txt = res.response.text();
+      const txt = res.text;
       const parsed = JSON.parse(txt);
       evalDiv.innerHTML = `<strong>Ocena:</strong> ${parsed.score}/5<br>${parsed.feedback}`;
     } catch (e) {
