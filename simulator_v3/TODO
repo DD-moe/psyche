@@ -1,8 +1,12 @@
 Kroki do Zrobienia
 1) dodaj prawidłowe opcje do simulator.html i quizzes.html
 2) napisz demo prezkę o depresji
+3) utwóz wytyczne do tworzenia prezentacji
+4) zmień style na takie co nie wykorzystują px - bo strona ma działać na róznych rozdzielczościach ekanów
+5) stwórz i przetestuj podstawowe skrypty
 
-czym są pliki i foldery
+czym są pliki i foldery:
+icons - zawiera ikony
 presentation_scripts - moduły js do obsługi niezależnych stron prezentacji
 presentations - zawiera foldery z prezentacjami - każdy folder to index.html plus wszystkie media
 templates - zawiera szablon prezentacji do testowania na localhost
@@ -10,6 +14,7 @@ check_settings.js - dialog popup informujący użytkownik o koniecznych konfigur
 copywright.js - dialog popup informujacy o prawach autorskich i licencji
 g_styles.css - globalne style
 index.html - landing page
+manifest.webmanifest - manifest dla stworzenia minimalistycznego PWA bez service worker
 presentation.css - specyficzne style dla spisu ptrzentacji
 presentation.html - szablon strony na listę prezentacji
 presentation.js - logika strony z spisem prezentacji
@@ -22,3 +27,4 @@ settings.css - zestaw specyficznych stylów dla quizzes.html i simulator.html
 settings.js - logika dla quizzes.html i simulator.html
 simulator.html - ustawienia dla symulatora pacjenta
 slides.css - zawiera stylowania dla slajdów
+TODO - zawiera kroki do zrobienia i opis struktury projektu
