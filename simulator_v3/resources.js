@@ -1,9 +1,52 @@
 // wytyczne do tworznenia promptów html:
 const PROMPT_GUIDELINES = `
-[Wytyczne: wygeneruj treść HTML zgodną ze strukturą pliku "template.html".
-Każda sekcja prezentacji powinna być umieszczona w <section class="slide">.
-W treści stosuj nagłówki (h2–h3), akapity (<p>), listy (<ul><li>), obrazy (<img>) i cytaty.
-Nie dodawaj znaczników <html>, <head> ani <body>. Wynik ma być gotowy do wklejenia do .presentation.]
+[Instrukcja dla modelu AI: generowanie slajdów prezentacji w HTML]
+
+Twoim zadaniem jest wygenerowanie fragmentu kodu HTML przeznaczonego do wklejenia do elementu <div class="presentation"> w gotowym szablonie prezentacji.
+
+⚙️ Struktura i zasady:
+- Każdy slajd powinien być osobną sekcją w formacie:
+  <section class="slide">
+    ...treść slajdu...
+  </section>
+
+- Możesz także użyć:
+  <section class="slide title-slide"> — dla slajdu tytułowego (zawiera h1 i ewentualnie .subtitle)
+
+🎨 Dopuszczone elementy HTML:
+- Nagłówki: <h1>, <h2>, <h3>
+- Akapity: <p>
+- Listy: <ul>, <ol>, <li>
+- Obrazy: <img src="..." alt="...">
+- Cytaty: <blockquote>
+- Ewentualnie krótkie <strong> i <em> do podkreślenia znaczenia
+
+🚫 Zabronione:
+- Nie dodawaj <html>, <head>, <body> ani <div class="presentation">
+- Nie stosuj inline CSS, znaczników <style>, <script> ani obcych klas
+- Nie dodawaj linków zewnętrznych, ramek, formularzy, tabel ani przycisków
+- Nie stosuj JS, atrybutów onClick itp.
+
+🎨 Stylizacja:
+Wszystkie style są już zdefiniowane w pliku CSS:
+https://git.1ioe.top/psyche/simulator_v3/slides.css
+
+Dostępne klasy CSS:
+- .presentation — główny kontener (nie używaj bezpośrednio)
+- .slide — pojedynczy slajd
+- .title-slide — slajd tytułowy
+- .content-slide — zwykły slajd z treścią
+- .subtitle — podtytuł na slajdzie tytułowym
+
+📏 Formatowanie:
+- Zachowuj umiar — 1–3 akapity lub lista na slajd
+- Wykorzystuj elementy semantyczne HTML
+- Dbaj o czytelność i strukturę
+- Nie używaj zbyt długich zdań — tekst ma być przejrzysty jak w prezentacji
+
+🧩 Wynik:
+Wynikowy HTML ma być gotowy do wklejenia bezpośrednio do .presentation w szablonie.
+Nie dodawaj żadnych komentarzy, instrukcji ani opisów — tylko czysty kod HTML sekcji.
 `;
 
 document.addEventListener('DOMContentLoaded', () => {
