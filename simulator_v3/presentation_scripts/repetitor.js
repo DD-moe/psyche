@@ -22,13 +22,7 @@ import { GoogleGenAI } from "https://esm.run/@google/genai";
 
   function loadDefinitions() {
 
-    let counts = {};
-    
-    try {
-        counts = root.count;
-    } catch {
-        counts = {};
-    }
+    const counts = root.count || {};
 
     return Array.from(defsDiv.querySelectorAll('pre')).map(pre => ({
       name: pre.getAttribute('name'),
