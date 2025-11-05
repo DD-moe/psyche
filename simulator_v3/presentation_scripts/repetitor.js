@@ -21,7 +21,7 @@ import { GoogleGenAI } from "https://esm.run/@google/genai";
   const evalDiv = playDiv.querySelector('.evaluation');
 
   function loadDefinitions() {
-    const counts = JSON.parse(localStorage.getItem(COUNT_KEY) || '{}');
+    const counts = JSON.parse(root.dataset.count || '{}');
     return Array.from(defsDiv.querySelectorAll('pre')).map(pre => ({
       name: pre.getAttribute('name'),
       text: pre.textContent.trim(),
@@ -33,7 +33,7 @@ import { GoogleGenAI } from "https://esm.run/@google/genai";
   function saveCounts(defs) {
     const obj = {};
     defs.forEach(d => obj[d.name] = d.count || 0);
-    localStorage.setItem(COUNT_KEY, JSON.stringify(obj));
+    root.dataset.count = JSON.stringify(obj);
   }
 
   function pickLeastUsed(defs) {
