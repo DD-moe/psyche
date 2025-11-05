@@ -44,11 +44,12 @@ import { GoogleGenAI } from "https://esm.run/@google/genai";
     root.dataset.count = JSON.stringify(obj);
   }
 
-  function pickLeastUsed(defs) {
-    const min = Math.min(...defs.map(d => d.count || 0));
-    const pool = defs.filter(d => d.count === min);
-    return pool[Math.floor(Math.random() * pool.length)];
-  }
+function pickLeastUsed(defs) {
+  if (!defs || defs.length === 0) return null;
+  const min = Math.min(...defs.map(d => d.count || 0));
+  const pool = defs.filter(d => d.count === min);
+  return pool.length ? pool[Math.floor(Math.random() * pool.length)] : null;
+}
 
   // --- generowanie przypadku ---
   async function generateCase() {
