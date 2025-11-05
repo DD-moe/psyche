@@ -13,14 +13,51 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // === FUNKCJE ===
   function showSlide(index) {
+    // --- wyświetlenie slajdu ---
     slides.forEach((slide, i) => {
       slide.style.display = i === index ? 'block' : 'none';
       slide.style.opacity = i === index ? '1' : '0';
       slide.style.transition = 'opacity 0.4s ease';
     });
-    // import ale dopiero po wykonaniu modułu
+
+    // --- sprawdź tokeny ---
+    const TOKEN_KEY = 'simV3_Gemini_Token';
+    const TOKEN_KEY1 = 'simV3_quizzes';
+    const TOKEN_KEY2 = 'simV3_simulator';
+
+    let token = localStorage.getItem(TOKEN_KEY);
+    let token1 = localStorage.getItem(TOKEN_KEY1);
+    let token2 = localStorage.getItem(TOKEN_KEY2);
+
+    // --- token główny ---
+    if (!token) {
+      token = prompt("Podaj klucz API (token) dla Gemini:");
+      if (token) localStorage.setItem(TOKEN_KEY, token);
+      else {
+        alert("Bez klucza nie można korzystać z Gemini.");
+        return;
+      }
+    }
+
+    // --- pozostałe ustawienia ---
+    if (!token1 || !token2) {
+      try {
+        const settings = prompt("Podaj JSON z ustawieniami (quizzes + simulator):");
+        const parsed = JSON.parse(settings);
+
+        if (parsed.quizzes) localStorage.setItem(TOKEN_KEY1, JSON.stringify(parsed.quizzes));
+        if (parsed.simulator) localStorage.setItem(TOKEN_KEY2, JSON.stringify(parsed.simulator));
+
+        if (!parsed.quizzes || !parsed.simulator)
+          alert("JSON nie zawiera pełnych danych (quizzes, simulator).");
+      } catch (err) {
+        alert("Błąd parsowania JSON: " + err.message);
+      }
+    }
+
     import("./repetitor.js");
   }
+
 
   function nextSlide() {
     currentIndex = (currentIndex + 1) % slides.length;

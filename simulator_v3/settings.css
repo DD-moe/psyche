@@ -22,3 +22,16 @@ label.row {
 textarea.necessary-data {
   resize: vertical;
 }
+
+.export-btn {
+  background: #0f172a;
+  color: #e6eef6;
+  border: 0.0625rem solid #6ee7b7;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.export-btn:hover {
+  background: #1e293b;
+}

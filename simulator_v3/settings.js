@@ -47,4 +47,23 @@ document.addEventListener('DOMContentLoaded', () => {
     el.addEventListener('change', saveAll);
     el.addEventListener('input', saveAll);
   });
+
 });
+
+  function exportGeminiSettings() {
+    const TOKEN_KEY1 = 'simV3_quizzes';
+    const TOKEN_KEY2 = 'simV3_simulator';
+
+    const quizzes = localStorage.getItem(TOKEN_KEY1);
+    const simulator = localStorage.getItem(TOKEN_KEY2);
+
+    const settings = {
+      quizzes: quizzes ? JSON.parse(quizzes) : {},
+      simulator: simulator ? JSON.parse(simulator) : {}
+    };
+
+    const json = JSON.stringify(settings, null, 2);
+    console.log(json);
+    alert("Skopiuj poniższy JSON i użyj w prompt():\n\n" + json);
+    return json;
+  }

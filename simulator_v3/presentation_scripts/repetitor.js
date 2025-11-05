@@ -1,15 +1,6 @@
 import { GoogleGenAI } from "https://esm.run/@google/genai";
 
-  const TOKEN_KEY = 'simV3_Gemini_Token';
   const COUNT_KEY = 'defUsageCounts';
-
-  // --- sprawdź token ---
-  let token = localStorage.getItem(TOKEN_KEY);
-  if (!token) {
-    token = prompt("Podaj klucz API (token) dla Gemini:");
-    if (token) localStorage.setItem(TOKEN_KEY, token);
-    else alert("Bez klucza nie można korzystać z Gemini.");
-  }
 
   // --- podstawowa funkcja komunikacji ---
   async function AskGemini(promptText) {
