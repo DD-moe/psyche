@@ -12,14 +12,16 @@ import { GoogleGenAI } from "https://esm.run/@google/genai";
     return response;
   }
 
-  // --- pomocnicze ---
   function getActiveRoot() {
-    const blocks = document.querySelectorAll('.presentation-block');
-    for (const el of blocks) {
-      if (getComputedStyle(el).display !== 'none') return el;
+    const slides = document.querySelectorAll('.slide');
+    for (const slide of slides) {
+      if (getComputedStyle(slide).display !== 'none') {
+        return slide.querySelector('.presentation-block');
+      }
     }
-    return blocks[0] || null;
+    return null;
   }
+
 
 
   function getElements() {
