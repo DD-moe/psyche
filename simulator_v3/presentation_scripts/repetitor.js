@@ -6,7 +6,7 @@ import { GoogleGenAI } from "https://esm.run/@google/genai";
       apiKey: window.token,
     });
     const response = await ai.models.generateContent({
-      model: window.token1.model,
+      model: window.token1.model.value, // nazwa tokenu . nazwa zmiennej . value
       contents: promptText,
     });
     return response;
