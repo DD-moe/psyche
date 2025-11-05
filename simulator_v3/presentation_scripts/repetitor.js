@@ -21,7 +21,15 @@ import { GoogleGenAI } from "https://esm.run/@google/genai";
   const evalDiv = playDiv.querySelector('.evaluation');
 
   function loadDefinitions() {
-    const counts = JSON.parse(root.dataset.count || '{}');
+
+    let counts = {};
+    
+    try {
+        counts = JSON.parse(root.dataset.count || '{}');
+    } catch {
+        counts = {};
+    }
+
     return Array.from(defsDiv.querySelectorAll('pre')).map(pre => ({
       name: pre.getAttribute('name'),
       text: pre.textContent.trim(),
