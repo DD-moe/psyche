@@ -96,13 +96,14 @@ Na końcu dodaj pytanie kliniczne (np. "Jakie jest rozpoznanie?").
 
     const prompt = `
 Oceń odpowiedź studenta.
-Zadanie:
+
+Student otrzymał pytanie:
 ${window._lastCase}
 
-Odpowiedź:
+Odpowiedział:
 ${answer}
 
-Definicje:
+Celem pytania było przećwiczenie różnicowania jednostkek chorobowych spośród poniżej wymienionych:
 ${defsText}
 
 Odpowiedz w formacie JSON:

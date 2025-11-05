@@ -6,6 +6,8 @@ Kroki do Zrobienia
 czym są pliki i foldery:
 icons - zawiera ikony
 presentation_scripts - moduły js do obsługi niezależnych stron prezentacji
+    repetitor.js - moduł do podstawowego przepytywacza
+    slides.js - moduł do podstawowej obsługi prezentacji - GŁÓWNY
 presentations - zawiera foldery z prezentacjami - każdy folder to index.html plus wszystkie media
 templates - zawiera szablon prezentacji do testowania na localhost
 check_settings.js - dialog popup informujący użytkownik o koniecznych konfiguracjach
