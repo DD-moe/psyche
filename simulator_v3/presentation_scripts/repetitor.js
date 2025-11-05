@@ -26,6 +26,11 @@ import { GoogleGenAI } from "https://esm.run/@google/genai";
 
 
   function getElements() {
+    if (!root || !root.querySelector) {
+      console.warn("Brak aktywnego bloku prezentacji.");
+      return {};
+    }
+
     const root = getActiveRoot();
     const defsDiv = root.querySelector('.definitions');
     const playDiv = root.querySelector('.playground');
