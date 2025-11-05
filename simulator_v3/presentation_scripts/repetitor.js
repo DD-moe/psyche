@@ -1,8 +1,5 @@
 import { GoogleGenAI } from "https://esm.run/@google/genai";
 
-  // zmiene globalne
-  let activeRoot = null;
-
   // --- podstawowa funkcja komunikacji ---
   async function AskGemini(promptText) {
     const ai = new GoogleGenAI({
@@ -55,7 +52,7 @@ import { GoogleGenAI } from "https://esm.run/@google/genai";
   function saveCounts(defs) {
     const obj = {};
     defs.forEach(d => obj[d.name] = d.count || 0);
-    const root = activeRoot || getActiveRoot();
+    const root = getActiveRoot();
     if (root) root.count = obj;
   }
 
@@ -139,24 +136,6 @@ Odpowiedz w formacie JSON:
       evalDiv.textContent = "Błąd oceny: " + e.message;
     }
   }
-
-  const observer = new MutationObserver(() => {
-    const visible = [...document.querySelectorAll('.presentation-block')]
-      .find(el => getComputedStyle(el).display !== 'none');
-    if (visible && visible !== activeRoot) {
-      activeRoot = visible;
-      console.log("Aktywny blok:", activeRoot);
-    }
-  });
-
-  document.querySelectorAll('.presentation-block').forEach(block => {
-    observer.observe(block, { attributes: true, attributeFilter: ['style'] });
-  });
-
-  window.addEventListener('DOMContentLoaded', () => {
-    activeRoot = getActiveRoot();
-  });
-
 
   // eksport funkcji do window
   window.generateCase = generateCase;
