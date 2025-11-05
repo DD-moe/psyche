@@ -75,8 +75,8 @@ Na końcu dodaj pytanie kliniczne (np. "Jakie jest rozpoznanie?").
       const text = res.text;
       casePre.textContent = text;
       evalDiv.classList.add('hidden');
-      window._lastCase = text;
-      window._lastDefs = defs;
+      root._lastCase = text;
+      root._lastDefs = defs;
     } catch (e) {
       casePre.textContent = "Błąd: " + e.message;
     }
@@ -85,20 +85,20 @@ Na końcu dodaj pytanie kliniczne (np. "Jakie jest rozpoznanie?").
   // --- sprawdzanie odpowiedzi ---
   async function checkAnswer() {
     const answer = ansArea.value.trim();
-    if (!window._lastCase) return alert("Najpierw wygeneruj pytanie.");
+    if (!root._lastCase) return alert("Najpierw wygeneruj pytanie.");
     if (!answer) return alert("Wpisz odpowiedź.");
 
     evalDiv.textContent = "Oceniam odpowiedź...";
     evalDiv.classList.remove('hidden');
 
-    const defs = window._lastDefs || loadDefinitions();
+    const defs = root._lastDefs || loadDefinitions();
     const defsText = defs.map(d => `- ${d.name}: ${d.text}`).join("\n");
 
     const prompt = `
 Oceń odpowiedź studenta.
 
 Student otrzymał pytanie:
-${window._lastCase}
+${root._lastCase}
 
 Odpowiedział:
 ${answer}
