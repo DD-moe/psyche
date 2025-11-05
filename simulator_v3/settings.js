@@ -50,20 +50,50 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
-  function exportGeminiSettings() {
-    const TOKEN_KEY1 = 'simV3_quizzes';
-    const TOKEN_KEY2 = 'simV3_simulator';
+function exportGeminiSettings() {
+  const TOKEN_KEY1 = 'simV3_quizzes';
+  const TOKEN_KEY2 = 'simV3_simulator';
 
-    const quizzes = localStorage.getItem(TOKEN_KEY1);
-    const simulator = localStorage.getItem(TOKEN_KEY2);
+  const quizzes = localStorage.getItem(TOKEN_KEY1);
+  const simulator = localStorage.getItem(TOKEN_KEY2);
 
-    const settings = {
-      quizzes: quizzes ? JSON.parse(quizzes) : {},
-      simulator: simulator ? JSON.parse(simulator) : {}
-    };
+  let alertMsg = "";
 
-    const json = JSON.stringify(settings, null, 2);
-    console.log(json);
-    alert("Skopiuj poniższy JSON i użyj w prompt():\n\n" + json);
-    return json;
+  if (!quizzes || quizzes.trim() === "") {
+    alertMsg += '⚠️ Uzupełnij: "📝 Quizy, testy i podręcznik (ustawienia) 🔧"\n';
   }
+  if (!simulator || simulator.trim() === "") {
+    alertMsg += '⚠️ Uzupełnij: "🤖 Symulator AI (ustawienia) 🔧"\n';
+  }
+
+  if (alertMsg !== "") {
+    alert(alertMsg);
+    return;
+  }
+
+  let settings;
+  try {
+    settings = {
+      quizzes: JSON.parse(quizzes),
+      simulator: JSON.parse(simulator)
+    };
+  } catch (err) {
+    alert("❌ Błąd: dane w localStorage nie są poprawnym JSON-em.\n" + err.message);
+    return;
+  }
+
+  const json = JSON.stringify(settings, null, 2);
+
+  navigator.clipboard.writeText(json)
+    .then(() => {
+      alert("✅ Skopiowano ustawienia (JSON) do schowka!");
+    })
+    .catch(err => {
+      console.error("❌ Błąd kopiowania:", err);
+      alert("Nie udało się skopiować JSON do schowka. Sprawdź konsolę (F12).");
+    });
+
+  console.log("Eksport Gemini settings:", json);
+  return json;
+}
+
