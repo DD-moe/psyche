@@ -25,7 +25,7 @@ import { GoogleGenAI } from "https://esm.run/@google/genai";
     let counts = {};
     
     try {
-        counts = JSON.parse(root.dataset.count || '{}');
+        counts = root.count;
     } catch {
         counts = {};
     }
@@ -41,7 +41,7 @@ import { GoogleGenAI } from "https://esm.run/@google/genai";
   function saveCounts(defs) {
     const obj = {};
     defs.forEach(d => obj[d.name] = d.count || 0);
-    root.dataset.count = JSON.stringify(obj);
+    root.count = obj;
   }
 
 function pickLeastUsed(defs) {
