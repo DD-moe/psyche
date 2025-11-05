@@ -17,10 +17,13 @@ import { GoogleGenAI } from "https://esm.run/@google/genai";
 
   // --- pomocnicze ---
   function getActiveRoot() {
-    return document.querySelector('.presentation-block[style*="display: block"]')
-        || document.querySelector('.presentation-block:not([style*="display: none"])')
-        || document.querySelector('.presentation-block');
+    const blocks = document.querySelectorAll('.presentation-block');
+    for (const el of blocks) {
+      if (getComputedStyle(el).display !== 'none') return el;
+    }
+    return blocks[0] || null;
   }
+
 
   function getElements() {
     const root = getActiveRoot();
@@ -46,8 +49,10 @@ import { GoogleGenAI } from "https://esm.run/@google/genai";
   function saveCounts(defs) {
     const obj = {};
     defs.forEach(d => obj[d.name] = d.count || 0);
-    root.count = obj;
+    const root = activeRoot || getActiveRoot();
+    if (root) root.count = obj;
   }
+
 
   function pickLeastUsed(defs) {
     if (!defs || defs.length === 0) return null;
@@ -58,7 +63,7 @@ import { GoogleGenAI } from "https://esm.run/@google/genai";
 
   // --- generowanie przypadku ---
   async function generateCase() {
-    const { root, defsDiv, casePre, evalDiv } = getElements();
+    const { root, defsDiv, playDiv, casePre, ansArea, evalDiv} = getElements();
     const defs = loadDefinitions(root, defsDiv);
     const selected = pickLeastUsed(defs);
     if (!selected) return alert("Brak definicji.");
@@ -90,7 +95,7 @@ Na końcu dodaj pytanie kliniczne (np. "Jakie jest rozpoznanie?").
 
   // --- sprawdzanie odpowiedzi ---
   async function checkAnswer() {
-    const { root, playDiv, ansArea, evalDiv } = getElements();
+    const { root, defsDiv, playDiv, casePre, ansArea, evalDiv } = getElements();
     const answer = ansArea.value.trim();
     if (!root._lastCase) return alert("Najpierw wygeneruj pytanie.");
     if (!answer) return alert("Wpisz odpowiedź.");
@@ -98,7 +103,8 @@ Na końcu dodaj pytanie kliniczne (np. "Jakie jest rozpoznanie?").
     evalDiv.textContent = "Oceniam odpowiedź...";
     evalDiv.classList.remove('hidden');
 
-    const defs = root._lastDefs || loadDefinitions();
+    const defs = loadDefinitions(root, defsDiv);
+
     const defsText = defs.map(d => `- ${d.name}: ${d.text}`).join("\n");
 
     const prompt = `
@@ -137,7 +143,13 @@ Odpowiedz w formacie JSON:
     }
   });
 
-  observer.observe(document.body, { attributes: true, subtree: true, attributeFilter: ['style'] });
+  document.querySelectorAll('.presentation-block').forEach(block => {
+    observer.observe(block, { attributes: true, attributeFilter: ['style'] });
+  });
+
+  window.addEventListener('DOMContentLoaded', () => {
+    activeRoot = getActiveRoot();
+  });
 
 
   // eksport funkcji do window
