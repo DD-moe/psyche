@@ -57,8 +57,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ponowne załadowanie tokenów
     window.token = localStorage.getItem(TOKEN_KEY);
-    window.token1 = localStorage.getItem(TOKEN_KEY1);
-    window.token2 = localStorage.getItem(TOKEN_KEY2);
+    window.token1 = JSON.parse(localStorage.getItem(TOKEN_KEY1));
+    window.token2 = JSON.parse(localStorage.getItem(TOKEN_KEY2));
 
     import("./repetitor.js");
   }
