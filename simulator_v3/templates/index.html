@@ -64,6 +64,37 @@
       </div>
     </section>
 
+    <section class="slide content-slide">
+      <h2>Przećwicz definicje – choroby układu krążenia</h2>
+      <!-- główny kontener prezentacyjny -->
+      <div class="presentation-block">
+
+        <!-- ukryte definicje -->
+        <div class="definitions hidden">
+          <pre name="Zawał mięśnia sercowego">Ostry ból zamostkowy promieniujący do lewego ramienia, duszność, poty, wzrost troponin.</pre>
+          <pre name="Nadciśnienie tętnicze">Utrzymujące się wartości ciśnienia tętniczego powyżej 140/90 mmHg w spoczynku.</pre>
+          <pre name="Niewydolność serca">Zmniejszona zdolność serca do pompowania krwi, duszność wysiłkowa, obrzęki kończyn dolnych.</pre>
+          <pre name="Migotanie przedsionków">Nieregularny rytm serca, kołatanie, ryzyko powstawania skrzeplin i udaru mózgu.</pre>
+        </div>
+
+        <!-- widoczny obszar ćwiczenia -->
+        <div class="playground card">
+          <label>Pytanie / opis przypadku:</label>
+          <pre class="case card">(naciśnij „Wygeneruj pytanie”)</pre>
+
+          <button onclick="generateCase()">Wygeneruj pytanie</button>
+
+          <label>Twoja odpowiedź:</label>
+          <textarea class="answer" placeholder="Wpisz swoją odpowiedź..."></textarea>
+
+          <button onclick="checkAnswer()">Sprawdź</button>
+
+          <div class="evaluation card hidden"></div>
+        </div>
+      </div>
+    </section>
+
+
   </div>
 
   <!-- Skrypt modułowy (możesz w nim rozszerzać funkcjonalność) -->
