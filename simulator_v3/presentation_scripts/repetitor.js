@@ -59,7 +59,6 @@ function pickLeastUsed(defs) {
 
     selected.count++;
     saveCounts(defs);
-    console.log(loadDefinitions());
     casePre.textContent = "Generuję przypadek...";
 
     const prompt = `
@@ -74,7 +73,6 @@ Na końcu dodaj pytanie kliniczne (np. "Jakie jest rozpoznanie?").
     try {
       const res = await AskGemini(prompt);
       const text = res.text;
-      console.log(text);
       casePre.textContent = text;
       evalDiv.classList.add('hidden');
       window._lastCase = text;
