@@ -1,5 +1,8 @@
 import { GoogleGenAI } from "https://esm.run/@google/genai";
 
+  // zmiene globalne
+  let activeRoot = null;
+
   // --- podstawowa funkcja komunikacji ---
   async function AskGemini(promptText) {
     const ai = new GoogleGenAI({
@@ -13,17 +16,24 @@ import { GoogleGenAI } from "https://esm.run/@google/genai";
   }
 
   // --- pomocnicze ---
-  const root = document.querySelector('.presentation-block');
-  const defsDiv = root.querySelector('.definitions');
-  const playDiv = root.querySelector('.playground');
-  const casePre = playDiv.querySelector('.case');
-  const ansArea = playDiv.querySelector('.answer');
-  const evalDiv = playDiv.querySelector('.evaluation');
+  function getActiveRoot() {
+    return document.querySelector('.presentation-block[style*="display: block"]')
+        || document.querySelector('.presentation-block:not([style*="display: none"])')
+        || document.querySelector('.presentation-block');
+  }
 
-  function loadDefinitions() {
+  function getElements() {
+    const root = getActiveRoot();
+    const defsDiv = root.querySelector('.definitions');
+    const playDiv = root.querySelector('.playground');
+    const casePre = playDiv.querySelector('.case');
+    const ansArea = playDiv.querySelector('.answer');
+    const evalDiv = playDiv.querySelector('.evaluation');
+    return { root, defsDiv, playDiv, casePre, ansArea, evalDiv };
+  }
 
+  function loadDefinitions(root, defsDiv) {
     const counts = root.count || {};
-
     return Array.from(defsDiv.querySelectorAll('pre')).map(pre => ({
       name: pre.getAttribute('name'),
       text: pre.textContent.trim(),
@@ -32,22 +42,24 @@ import { GoogleGenAI } from "https://esm.run/@google/genai";
     }));
   }
 
+
   function saveCounts(defs) {
     const obj = {};
     defs.forEach(d => obj[d.name] = d.count || 0);
     root.count = obj;
   }
 
-function pickLeastUsed(defs) {
-  if (!defs || defs.length === 0) return null;
-  const min = Math.min(...defs.map(d => d.count || 0));
-  const pool = defs.filter(d => d.count === min);
-  return pool.length ? pool[Math.floor(Math.random() * pool.length)] : null;
-}
+  function pickLeastUsed(defs) {
+    if (!defs || defs.length === 0) return null;
+    const min = Math.min(...defs.map(d => d.count || 0));
+    const pool = defs.filter(d => d.count === min);
+    return pool.length ? pool[Math.floor(Math.random() * pool.length)] : null;
+  }
 
   // --- generowanie przypadku ---
   async function generateCase() {
-    const defs = loadDefinitions();
+    const { root, defsDiv, casePre, evalDiv } = getElements();
+    const defs = loadDefinitions(root, defsDiv);
     const selected = pickLeastUsed(defs);
     if (!selected) return alert("Brak definicji.");
 
@@ -78,6 +90,7 @@ Na końcu dodaj pytanie kliniczne (np. "Jakie jest rozpoznanie?").
 
   // --- sprawdzanie odpowiedzi ---
   async function checkAnswer() {
+    const { root, playDiv, ansArea, evalDiv } = getElements();
     const answer = ansArea.value.trim();
     if (!root._lastCase) return alert("Najpierw wygeneruj pytanie.");
     if (!answer) return alert("Wpisz odpowiedź.");
@@ -114,6 +127,18 @@ Odpowiedz w formacie JSON:
       evalDiv.textContent = "Błąd oceny: " + e.message;
     }
   }
+
+  const observer = new MutationObserver(() => {
+    const visible = [...document.querySelectorAll('.presentation-block')]
+      .find(el => getComputedStyle(el).display !== 'none');
+    if (visible && visible !== activeRoot) {
+      activeRoot = visible;
+      console.log("Aktywny blok:", activeRoot);
+    }
+  });
+
+  observer.observe(document.body, { attributes: true, subtree: true, attributeFilter: ['style'] });
+
 
   // eksport funkcji do window
   window.generateCase = generateCase;
