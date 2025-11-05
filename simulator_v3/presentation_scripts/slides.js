@@ -25,9 +25,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const TOKEN_KEY1 = 'simV3_quizzes';
     const TOKEN_KEY2 = 'simV3_simulator';
 
-    let token = localStorage.getItem(TOKEN_KEY);
-    let token1 = localStorage.getItem(TOKEN_KEY1);
-    let token2 = localStorage.getItem(TOKEN_KEY2);
+    window.token = localStorage.getItem(TOKEN_KEY);
+    window.token1 = localStorage.getItem(TOKEN_KEY1);
+    window.token2 = localStorage.getItem(TOKEN_KEY2);
 
     // --- token główny ---
     if (!token) {

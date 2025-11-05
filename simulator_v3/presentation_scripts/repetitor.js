@@ -1,14 +1,12 @@
 import { GoogleGenAI } from "https://esm.run/@google/genai";
 
-  const COUNT_KEY = 'defUsageCounts';
-
   // --- podstawowa funkcja komunikacji ---
   async function AskGemini(promptText) {
     const ai = new GoogleGenAI({
-      apiKey: token,
+      apiKey: window.token,
     });
     const response = await ai.models.generateContent({
-      model: "gemini-2.5-flash",
+      model: window.token1.model,
       contents: promptText,
     });
     return response;
