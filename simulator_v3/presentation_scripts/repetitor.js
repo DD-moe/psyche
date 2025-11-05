@@ -54,7 +54,9 @@ function pickLeastUsed(defs) {
   // --- generowanie przypadku ---
   async function generateCase() {
     const defs = loadDefinitions();
+    console.log(defs);
     const selected = pickLeastUsed(defs);
+    console.log(selected);
     if (!selected) return alert("Brak definicji.");
 
     selected.count++;
