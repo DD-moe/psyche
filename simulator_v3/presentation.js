@@ -40,12 +40,16 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       const list = document.createElement('ul');
       list.className = 'resource-list';
+
+      const isPWA = window.matchMedia('(display-mode: standalone)').matches ||
+              window.navigator.standalone === true; // dla iOS
+
       grouped[category].forEach(res => {
         const li = document.createElement('li');
         li.className = 'resource-item';
         const link = document.createElement('a');
         link.href = `./presentations/${res.nazwa}`;
-        link.target = '_blank';
+        link.target = isPWA ? '_self' : '_blank';
         link.textContent = res.etykieta;
         li.appendChild(link);
         list.appendChild(li);
