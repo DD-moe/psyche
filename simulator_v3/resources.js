@@ -113,8 +113,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const text = box.querySelector('.prompt-text').value;
       const include = box.querySelector('.prompt-include').checked;
       const toCopy = include
-        ? text + '\n\n' + PROMPT_GUIDELINES
-        : text;
+        ? text + '\n\n' + PROMPT_GUIDELINES + '\n\n Poniżej masz szczegółowe dane i polecenie od użytkownika:\n\n'
+        : text + '\n\n Poniżej masz szczegółowe dane i polecenie od użytkownika:\n\n';
       navigator.clipboard.writeText(toCopy);
       e.target.textContent = 'Skopiowano!';
       setTimeout(() => (e.target.textContent = 'Kopiuj'), 1500);

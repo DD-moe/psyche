@@ -73,10 +73,12 @@
 
             <!-- Przykładowa sekcja -->
             <div class="promptbox">
-              <input type="text" class="prompt-name" placeholder="Nazwa promptu">
-              <textarea class="prompt-text" rows="4" placeholder="Treść promptu..."></textarea>
+              <input type="text" class="prompt-name" placeholder="Nazwa promptu" value="przygotuj Wprowadzenie" disabled>
+              <textarea class="prompt-text" rows="4" placeholder="Treść promptu..." disabled>
+                Przygotuj wprowadzenie do prezentacji. Posługując się: elementami html: h3, p, blacquote - dla definicji wyjaśnij cel obecnej lekcji.
+              </textarea>
               <div class="row">
-                <label><input type="checkbox" class="prompt-include"> Dołącz instrukcje HTML</label>
+                <label><input type="checkbox" class="prompt-include" checked disabled> Dołącz instrukcje HTML</label>
                 <button class="btn btn-copy">Kopiuj</button>
               </div>
             </div>
