@@ -88,8 +88,9 @@ document.addEventListener('DOMContentLoaded', () => {
   panel.innerHTML = `
     <button class="ctrl-btn prev">⟨</button>
     <span class="ctrl-info"></span>
-    <button class="ctrl-btn next">⟩</button>
     <button class="ctrl-btn fullscreen">⛶</button>
+    <button class="ctrl-btn exit">X</button>
+    <button class="ctrl-btn next">⟩</button>
   `;
   document.body.appendChild(panel);
 
@@ -108,6 +109,10 @@ document.addEventListener('DOMContentLoaded', () => {
     updateInfo();
   });
   panel.querySelector('.fullscreen').addEventListener('click', toggleFullscreen);
+  panel.querySelector('.exit').addEventListener('click', () => {
+    window.history.back();
+  });
+
 
   // Klawiatura
   document.addEventListener('keydown', e => {
@@ -172,6 +177,15 @@ document.addEventListener('DOMContentLoaded', () => {
       font-size: 1rem;
       transition: background 0.2s;
     }
+
+    /* 🔸 Pozycjonowanie skrajnych przycisków */
+    .ctrl-btn.prev {
+      margin-right: auto;
+    }
+
+    .ctrl-btn.next {
+      margin-left: auto;
+    }    
 
     .ctrl-btn:hover {
       background: rgba(255,255,255,0.18);
