@@ -10,8 +10,10 @@ czym są pliki i foldery:
         slides.js - moduł do podstawowej obsługi prezentacji - GŁÓWNY
     presentations - zawiera foldery z prezentacjami - każdy folder to index.html plus wszystkie media
     templates - zawiera szablon prezentacji do testowania na localhost
-
     tools - zawiera zestaw samodzielnych narzędzi typu SPA.
+        pre_editor.html - edycja elemetów <pre> użytych jako lista danych dla repetytora AI
+        tools.css - style css dla folderu narzędzi
+
     check_settings.js - dialog popup informujący użytkownik o koniecznych konfiguracjach
     copywright.js - dialog popup informujacy o prawach autorskich i licencji
     g_styles.css - globalne style

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<title>Edytor definicji</title>
+<link rel="stylesheet" href="../g_styles.css">
+<link rel="stylesheet" href="tools.css">
+</head>
+<body class="app-root">
+  <div class="container small">
+    <header class="header">
+      <h1 class="title">Edytor elementów &lt;pre&gt;</h1>
+      <p class="lead">Wklej kod HTML z definicjami, edytuj i zapisuj automatycznie.</p>
+    </header>
+
+    <div class="card small">
+      <h3 class="card-title">Kod źródłowy</h3>
+      <div class="card-body">
+        <textarea id="inputArea" placeholder="Wklej tu kod HTML z elementami &lt;pre&gt;..."></textarea>
+        <br>
+        <button id="processBtn" class="btn">Przetwórz</button>
+      </div>
+    </div>
+
+    <div id="buttons" class="card small"></div>
+
+    <div id="editor" class="card small" style="display:none;">
+      <h3 class="card-title">Edytuj element &lt;pre&gt;</h3>
+      <div class="card-body">
+        <label>Nazwa (atrybut <code>name</code>):</label>
+        <input type="text" id="editName"><br><br>
+        <label>Treść:</label><br>
+        <textarea id="editContent" rows="5"></textarea><br><br>
+        <button id="saveBtn" class="btn">Zapisz</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+const inputArea = document.getElementById("inputArea");
+const processBtn = document.getElementById("processBtn");
+const buttonsDiv = document.getElementById("buttons");
+const editor = document.getElementById("editor");
+const editName = document.getElementById("editName");
+const editContent = document.getElementById("editContent");
+const saveBtn = document.getElementById("saveBtn");
+
+let preElements = [];
+let currentIndex = null;
+
+function processCode() {
+  buttonsDiv.innerHTML = "";
+  editor.style.display = "none";
+
+  const temp = document.createElement("div");
+  temp.innerHTML = inputArea.value;
+
+  preElements = Array.from(temp.querySelectorAll("pre"));
+  if (preElements.length === 0) {
+    buttonsDiv.innerHTML = "<p class='muted small'><i>Nie znaleziono elementów &lt;pre&gt;.</i></p>";
+    return;
+  }
+
+  preElements.forEach((el, i) => {
+    const btn = document.createElement("button");
+    btn.textContent = el.getAttribute("name") || `Bez nazwy ${i+1}`;
+    btn.className = "btn pre-btn";
+    btn.onclick = () => openEditor(i);
+    buttonsDiv.appendChild(btn);
+  });
+}
+
+function openEditor(index) {
+  currentIndex = index;
+  const el = preElements[index];
+  editName.value = el.getAttribute("name") || "";
+  editContent.value = el.textContent.trim();
+  editor.style.display = "block";
+}
+
+function saveChanges() {
+  if (currentIndex === null) return;
+
+  const name = editName.value.trim();
+  const content = editContent.value.trim();
+  preElements[currentIndex].setAttribute("name", name);
+  preElements[currentIndex].textContent = content;
+
+  const newCode = preElements.map(el => 
+    `<pre name="${el.getAttribute("name")}">${el.textContent}</pre>`
+  ).join("\n");
+  
+  inputArea.value = newCode;
+  processCode();
+}
+
+processBtn.onclick = processCode;
+saveBtn.onclick = saveChanges;
+</script>
+</body>
+</html>
