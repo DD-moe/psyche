@@ -1,31 +1,32 @@
 Kroki do Zrobienia
 1) dodaj prawidłowe opcje do simulator.html 
-2) napisz demo prezkę o zaburzeniach spostrzegania
-3) stwórz i przetestuj podstawowe skrypty + sprawdź czy są wszystkie potrzebne style + czy instrukcja systemowa promptu jest ok.
-4) dodać stylowanie dla tego co zauważę w trakcie
+2) dodać stylowanie dla tego co zauważę w trakcie (podbić kontrast, stworzyć szablony w programie graficznym - dostosować wygląd przez AI)
+3) zasoby projektu - jak worzyć nowe zasoby - tu dodaj linki do mininarzędzi wspierajacych pracę - np. korektę treści generowanej przez AI
 
 czym są pliki i foldery:
-icons - zawiera ikony
-presentation_scripts - moduły js do obsługi niezależnych stron prezentacji
-    repetitor.js - moduł do podstawowego przepytywacza
-    slides.js - moduł do podstawowej obsługi prezentacji - GŁÓWNY
-presentations - zawiera foldery z prezentacjami - każdy folder to index.html plus wszystkie media
-templates - zawiera szablon prezentacji do testowania na localhost
-check_settings.js - dialog popup informujący użytkownik o koniecznych konfiguracjach
-copywright.js - dialog popup informujacy o prawach autorskich i licencji
-g_styles.css - globalne style
-index.html - landing page
-manifest.webmanifest - manifest dla stworzenia minimalistycznego PWA bez service worker
-presentation.css - specyficzne style dla spisu ptrzentacji
-presentation.html - szablon strony na listę prezentacji
-presentation.js - logika strony z spisem prezentacji
-presentation.json - lista + kategoryzacja prezentacji
-quizzes.html - ustawienia dla prezentacji, quizów i repetytora ai 
-resources.css - specyficzne style dla sekcji tworzenia nowych zasobów
-resources.html - strona do tworzenia nowych zasobów: zakładki tokenu AI, instrukcji rozbudowy prezentacji, biblioteki promptów
-resources.js - logika sekcji tworzenia nowych zasobów
-settings.css - zestaw specyficznych stylów dla quizzes.html i simulator.html
-settings.js - logika dla quizzes.html i simulator.html
-simulator.html - ustawienia dla symulatora pacjenta
-slides.css - zawiera stylowania dla slajdów
-TODO - zawiera kroki do zrobienia i opis struktury projektu
+    icons - zawiera ikony
+    presentation_scripts - moduły js do obsługi niezależnych stron prezentacji
+        repetitor.js - moduł do podstawowego przepytywacza
+        slides.js - moduł do podstawowej obsługi prezentacji - GŁÓWNY
+    presentations - zawiera foldery z prezentacjami - każdy folder to index.html plus wszystkie media
+    templates - zawiera szablon prezentacji do testowania na localhost
+
+    tools - zawiera zestaw samodzielnych narzędzi typu SPA.
+    check_settings.js - dialog popup informujący użytkownik o koniecznych konfiguracjach
+    copywright.js - dialog popup informujacy o prawach autorskich i licencji
+    g_styles.css - globalne style
+    index.html - landing page
+    manifest.webmanifest - manifest dla stworzenia minimalistycznego PWA bez service worker
+    presentation.css - specyficzne style dla spisu ptrzentacji
+    presentation.html - szablon strony na listę prezentacji
+    presentation.js - logika strony z spisem prezentacji
+    presentation.json - lista + kategoryzacja prezentacji
+    quizzes.html - ustawienia dla prezentacji, quizów i repetytora ai 
+    resources.css - specyficzne style dla sekcji tworzenia nowych zasobów
+    resources.html - strona do tworzenia nowych zasobów: zakładki tokenu AI, instrukcji rozbudowy prezentacji, biblioteki promptów
+    resources.js - logika sekcji tworzenia nowych zasobów
+    settings.css - zestaw specyficznych stylów dla quizzes.html i simulator.html
+    settings.js - logika dla quizzes.html i simulator.html
+    simulator.html - ustawienia dla symulatora pacjenta
+    slides.css - zawiera stylowania dla slajdów
+    TODO - zawiera kroki do zrobienia i opis struktury projektu

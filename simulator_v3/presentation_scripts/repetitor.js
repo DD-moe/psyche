@@ -1,5 +1,14 @@
 import { GoogleGenAI } from "https://esm.run/@google/genai";
 
+  // zmienne globalne
+  const attitude = [
+    "przychylne, motywujące, doceniające, niekiedy przymykajće oko, zauważa raczej mocne niż słabe strony",
+    "przychylne, doceniające sukcesy, ale obiektywne i niekrytykujace w przypadku błędu",
+    "neutralne, unika zarówno dużych pochwał jak i ostrej krytyki, skupia się na merytoryce",
+    "nieprzychylne, krytyczne, ale merytoryczne, nie czepia sie innej niż merytoryczna słabości odpowiedzi, unika pochwał",
+    "nieprzychylne, krytyczne, czepia się szczegółów i pozamerytorycznych aspektów odpowiedzi, niekiedy zgryźliwe uwagi",
+  ];
+
   // --- podstawowa funkcja komunikacji ---
   async function AskGemini(promptText) {
     const ai = new GoogleGenAI({
@@ -84,6 +93,7 @@ ${selected.text}
 Na podstawie definicji "${selected.name}" ułóż krótki przypadek kliniczny (3–6 zdań).
 Opisz pacjenta, objawy i kontekst, bez podawania rozpoznania.
 Na końcu dodaj pytanie kliniczne (np. "Jakie jest rozpoznanie?").
+Poziom trudności pytania to: ${window.token1.difficulty.value}
 `;
 
     try {
@@ -113,9 +123,9 @@ Na końcu dodaj pytanie kliniczne (np. "Jakie jest rozpoznanie?").
     const defsText = defs.map(d => `- ${d.name}: ${d.text}`).join("\n");
 
     const prompt = `
-Oceń odpowiedź studenta.
+Oceń odpowiedź użytkownika.
 
-Student otrzymał pytanie:
+Użytkownik, który przedstawił się jako: ${window.token1.name.value==="" ? "student" : window.token1.name.value} otrzymał pytanie:
 ${root._lastCase}
 
 Odpowiedział:
@@ -123,6 +133,8 @@ ${answer}
 
 Celem pytania było przećwiczenie różnicowania jednostkek chorobowych spośród poniżej wymienionych:
 ${defsText}
+
+Oceniając przybież nastawienie do odpowiadajacego: ${attitude[parseInt(window.token1.attitude.value) - 1]}
 
 Odpowiedz w formacie JSON:
 {"score":0-5,"feedback":"krótkie uzasadnienie"}

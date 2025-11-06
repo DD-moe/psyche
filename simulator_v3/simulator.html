@@ -19,14 +19,10 @@
     <div class="card small">
       <h2 class="card-title">Opcje główne</h2>
       <div class="card-body">
+
         <label class="row">
           <span class="col">Tryb ciemny</span>
           <input id="dark_mode" class="necessary-data" type="checkbox">
-        </label>
-
-        <label class="row">
-          <span class="col">Szybkość symulacji</span>
-          <input id="speed" class="necessary-data" type="range" min="1" max="10">
         </label>
 
         <label class="row">
@@ -39,11 +35,6 @@
         </label>
 
         <label class="row">
-          <span class="col">Notatka</span>
-          <textarea id="sim_notes" class="necessary-data" rows="3" placeholder="Twoje uwagi..."></textarea>
-        </label>
-
-        <label class="row">
           <span class="col">Pokaż odpowiedzi po zakończeniu</span>
           <input id="show_answers" class="necessary-data" type="checkbox">
         </label>
@@ -51,15 +42,6 @@
         <label class="row">
           <span class="col">Limit czasu (sekundy)</span>
           <input id="time_limit" class="necessary-data" type="number" min="10" max="600">
-        </label>
-
-        <label class="row">
-          <span class="col">Poziom trudności</span>
-          <select id="difficulty" class="necessary-data">
-            <option value="easy">Łatwy</option>
-            <option value="medium">Średni</option>
-            <option value="hard">Trudny</option>
-          </select>
         </label>
 
         <label class="row">
