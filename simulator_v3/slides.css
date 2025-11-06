@@ -129,6 +129,67 @@
   color: #93c5fd;
 }
 
+/* === ELEMENTY ODSTĘPÓW === */
+.presentation hr {
+  all: unset;
+  display: block;
+  width: 100%;
+  height: 0.0625rem; /* 1px */
+  background: rgba(255, 255, 255, 0.08);
+  border: none;
+  margin: 1.5rem 0; /* 24px góra/dół */
+  border-radius: 0.125rem; /* 2px */
+}
+
+.presentation br {
+  all: unset;
+  display: block;
+  height: 1rem; /* 16px odstępu */
+  content: "";
+}
+
+/* === TABELA === */
+.presentation table {
+  all: unset;
+  display: table;
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 0.5rem; /* 8px */
+  overflow: hidden;
+  margin: 1rem 0; /* 16px góra/dół */
+  font-size: 1.05rem;
+  color: #e6eef6;
+}
+
+.presentation th,
+.presentation td {
+  all: unset;
+  display: table-cell;
+  padding: 0.75rem 1rem; /* 12px 16px */
+  border-bottom: 0.0625rem solid rgba(255, 255, 255, 0.08); /* 1px */
+  vertical-align: middle;
+  text-align: left;
+  line-height: 1.5;
+  box-sizing: border-box;
+}
+
+.presentation th {
+  background: rgba(255, 255, 255, 0.05);
+  font-weight: 600;
+  color: #93c5fd;
+}
+
+.presentation tr:last-child td {
+  border-bottom: none;
+}
+
+.presentation tbody tr:hover {
+  background: rgba(255, 255, 255, 0.04);
+  transition: background 0.2s ease;
+}
+
 
 /* === stylowanie modułu ćwiczeniowego === */
 /* === stylowanie modułu ćwiczeniowego === */
