@@ -24,8 +24,7 @@ Twoim zadaniem jest wygenerowanie fragmentu kodu HTML przeznaczonego do wklejeni
 🚫 Zabronione:
 - Nie dodawaj <html>, <head>, <body> ani <div class="presentation">
 - Nie stosuj inline CSS, znaczników <style>, <script> ani obcych klas
-- Nie dodawaj linków zewnętrznych, ramek, formularzy, tabel ani przycisków
-- Nie stosuj JS, atrybutów onClick itp.
+[chyba, że użytkownik wyraźnie poprosi o to w prompcie]
 
 🎨 Stylizacja:
 Wszystkie style są już zdefiniowane w pliku CSS:
