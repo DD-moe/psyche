@@ -1,7 +1,8 @@
 Kroki do Zrobienia
 1) dodaj prawidłowe opcje do simulator.html 
-2) dodać stylowanie dla tego co zauważę w trakcie (podbić kontrast, stworzyć szablony w programie graficznym - dostosować wygląd przez AI)
-3) zasoby projektu - jak worzyć nowe zasoby - tu dodaj linki do mininarzędzi wspierajacych pracę - np. korektę treści generowanej przez AI
+2) dać ludiom do testowania - poprawić drobne błędy merytoryczne, stylistyczne i js.
+3) dodać ustawienie do quizzes - odnośnie wyboru które elementy pokazywać 
+4) dorabiać dodatkowy interface jako nakładki - js
 
 czym są pliki i foldery:
     icons - zawiera ikony
