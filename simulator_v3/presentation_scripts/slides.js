@@ -113,22 +113,6 @@ document.addEventListener('DOMContentLoaded', () => {
     window.history.back();
   });
 
-
-  // Klawiatura
-  document.addEventListener('keydown', e => {
-    if (e.key === 'ArrowRight') {
-      nextSlide();
-      updateInfo();
-    }
-    if (e.key === 'ArrowLeft') {
-      prevSlide();
-      updateInfo();
-    }
-    if (e.key.toLowerCase() === 'f') {
-      toggleFullscreen();
-    }
-  });
-
   // Pokazywanie panelu tylko przy aktywności myszy
   let hideTimeout;
   function showPanel() {
