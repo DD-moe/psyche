@@ -71,24 +71,28 @@
           <h3 class="card-title">Biblioteka promptów</h3>
           <div class="card-body prompt-section">
 
-            <!-- Przykładowa sekcja -->
+<!-- Przygotuj Wprowadzenie -->
+<!-- Przygotuj Wprowadzenie --> 
             <div class="promptbox">
               <input type="text" class="prompt-name" placeholder="Nazwa promptu" value="Przygotuj Wprowadzenie" disabled>
               <textarea class="prompt-text" rows="4" placeholder="Treść promptu..." disabled>
 Przygotuj wprowadzenie do prezentacji. Posługując się: elementami html: h3, p, blacquote - dla definicji wyjaśnij cel obecnej lekcji.
 
 🧩 WZÓR:
-  <div class="presentation">
     <section class="slide title-slide">
       <h1>Tytuł prezentacji</h1>
       <h3 class="subtitle">Autor / Autorzy prezentacji</h3>
+      <hr><br>
       <h3>Zanim Zaczniesz</h3>
+      <br><br>
       <p>Krótki opis wprowadzający...</p>
+      <br><br>
       <blockquote>Definicja lub cytat...</blockquote>
     </section>
 
 Możesz wykorzystać kilka <p> i <blockquote> jeśli uznasz, że potrzeba dłuższego wprowadzenia.
-Pisz po polsku lekkim dydaktycznym językiem, konkretnie, niezbyt rozwlekle le też nie skrótowo.
+Pisz po polsku lekkim dydaktycznym językiem, konkretnie, niezbyt rozwlekle le też nie skrótowo. między <p> a <blockquote> dawaj: <br><br>,
+między <p> a <p>: <br> i między <h3> a <p>: <br><br>
               </textarea>
               <div class="row">
                 <label><input type="checkbox" class="prompt-include" checked disabled> Dołącz instrukcje HTML</label>
@@ -96,9 +100,54 @@ Pisz po polsku lekkim dydaktycznym językiem, konkretnie, niezbyt rozwlekle le t
               </div>
             </div>
 
-            <hr>
+<!-- Słowniczek Definicji -->
+<!-- Słowniczek Definicji -->
 
-            <!-- Sekcja z edytowalnymi promptami -->
+            <div class="promptbox">
+              <input type="text" class="prompt-name" placeholder="Nazwa promptu" value="Słowniczek Definicji" disabled>
+              <textarea class="prompt-text" rows="4" placeholder="Treść promptu..." disabled>
+Przygotuj slajd do prezentacji będący słowniczkiem definicji. Posługując się: elementami html: h3, p, blacquote - dla definicji.
+
+🧩 WZÓR:
+    <section class="slide content-slide">
+      <h2>Słowniczek definicji</h2>
+      <hr><br>
+      <blockquote>Definicja lub cytat...</blockquote>
+      <br><br>
+      <p>Poniżej kilka przykładów</p>
+      <ul>
+        <li>Przykład pierwszy</li>
+        <li>Przykład drugi</li>
+      </ul>
+      <br><br>
+      <blockquote>Definicja lub cytat...</blockquote>
+      <br><br>
+      <p>Rozbijmy definicję na skałdowe</p>
+      <ul>
+        <li><blockquote>Poddefinicja 1</blockquote></li>
+        <li><blockquote>Poddefinicja 2</blockquote></li>
+      </ul>      
+    </section>
+
+Możesz wykorzystać kilka <p> i <ul> jeśli uznasz, że potrzeba więcej przykłądów lub więcej poddefinicji
+Pisz po polsku lekkim dydaktycznym językiem, konkretnie, niezbyt rozwlekle le też nie skrótowo. między  <blockquote> a <p> dawaj: <br><br>,
+między <p> a <p> lub mędzy <ul> a <p>: <br> ale między <p> a <ul> - nie dawaj <br>
+              </textarea>
+              <div class="row">
+                <label><input type="checkbox" class="prompt-include" checked disabled> Dołącz instrukcje HTML</label>
+                <button class="btn btn-copy">Kopiuj</button>
+              </div>
+            </div>            
+
+<!-- Słowniczek Definicji -->
+<!-- Słowniczek Definicji -->            
+
+            
+<hr>
+<!-- Sekcja z edytowalnymi promptami -->
+<!-- Sekcja z edytowalnymi promptami -->
+ 
+
             <h4 class="muted small">Własne prompty (do edycji)</h4>
             <div class="custom-prompts"></div>
 
