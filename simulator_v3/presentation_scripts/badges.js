@@ -8,15 +8,15 @@ window.mic = true;
 
 const badgesData = [
   {
-    top: '90%',
-    left: '10rem',
+    top: '1rem',
+    left: '1rem',
     main: '🔊',
     sub: '🚫',
     action: toggleSound,
   },
   {
-    top: '90%',
-    left: '16rem',
+    top: '1rem',
+    left: '5rem',
     main: '🎙️',
     sub: '🔇',
     action: toggleMic,
@@ -114,16 +114,47 @@ function removeBadges() {
 
 // ======= AKCJE BADGES =======
 function toggleSound() {
+  // sprawdzenie, czy działa synteza mowy (SpeechSynthesis)
+  const synth = window.speechSynthesis;
+  const voices = synth?.getVoices?.() || [];
+  const hasPolish = voices.some(v => v.lang.toLowerCase().startsWith('pl'));
+
+  if (!synth || voices.length === 0 || !hasPolish) {
+    alert('⚠️ Przeglądarka nie obsługuje syntezy mowy lub brak głosów PL.');
+    window.sound = false;
+    badgesData[0].sub = '🚫';
+    console.warn('🚫 Brak obsługi mowy.');
+    updateBadges();
+    return;
+  }
+
+  // jeśli wszystko działa — przełącz dźwięk
   window.sound = !window.sound;
   badgesData[0].sub = window.sound ? '🚫' : '✅';
   console.log(`🎧 Dźwięk ${window.sound ? 'włączony' : 'wyłączony'}`);
+  updateBadges();
 }
 
 function toggleMic() {
+  // sprawdzenie, czy działa rozpoznawanie mowy (SpeechRecognition)
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+  if (!SpeechRecognition) {
+    alert('⚠️ Przeglądarka nie wspiera rozpoznawania mowy.');
+    window.mic = false;
+    badgesData[1].sub = '🚫';
+    console.warn('🚫 Brak obsługi SpeechRecognition.');
+    updateBadges();
+    return;
+  }
+
+  // jeśli działa — przełącz mikrofon
   window.mic = !window.mic;
-  badgesData[1].sub = window.mic ? '🔇' : '🎤';
+  badgesData[1].sub = window.mic ? '🚫' : '✅';
   console.log(`🎙️ Mikrofon ${window.mic ? 'włączony' : 'wyłączony'}`);
+  updateBadges();
 }
+
 
 // ======= NASŁUCHIWANIE DWUKLIKU =======
 document.addEventListener('dblclick', () => {
