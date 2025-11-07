@@ -18,7 +18,7 @@ const badgesData = [
     top: '1rem',
     left: '6rem',
     main: '🎙️',
-    sub: '🔇',
+    sub: '🚫',
     action: toggleMic,
   },
 ];
@@ -143,7 +143,7 @@ async function toggleSound() {
   if (window.sound === false) {
     stopAllSpeech();
   }
-  badgesData[0].sub = window.sound ? '🚫' : '✅';
+  badgesData[0].sub = window.sound ? '✅' : '🚫';
   console.log(`🎧 Dźwięk ${window.sound ? 'włączony' : 'wyłączony'}`);
   updateBadges();
 }
@@ -164,7 +164,7 @@ function toggleMic() {
   if (window.mic === false) {
     stopRecognition();
   }
-  badgesData[1].sub = window.mic ? '🚫' : '✅';
+  badgesData[1].sub = window.mic ? '✅' : '🚫';
   console.log(`🎙️ Mikrofon ${window.mic ? 'włączony' : 'wyłączony'}`);
   updateBadges();
 }
