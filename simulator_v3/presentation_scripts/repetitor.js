@@ -1,4 +1,5 @@
 import { GoogleGenAI } from "https://esm.run/@google/genai";
+import { stopAllSpeech, stopRecognition, startRecognition } from './voices.js';
 
   // zmienne globalne
   const attitude = [
@@ -104,6 +105,7 @@ Poziom trudności pytania to: ${window.token1.difficulty.value}
       evalDiv.classList.add('hidden');
       root._lastCase = text;
       root._lastDefs = defs;
+      speakText(text);
     } catch (e) {
       casePre.textContent = "Błąd: " + e.message;
     }
@@ -147,6 +149,7 @@ Odpowiedz w formacie JSON:
       const cleanedTxt = txt.replace(/^\s*```json\s*|^\s*```\s*|^\s*|```\s*$|\s*$/g, '');
       const parsed = JSON.parse(cleanedTxt);
       evalDiv.innerHTML = `<strong>Ocena:</strong> ${parsed.score}/5<br>${parsed.feedback}`;
+      speakText(parsed.feedback);
     } catch (e) {
       evalDiv.textContent = "Błąd oceny: " + e.message;
     }

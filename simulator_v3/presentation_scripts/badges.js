@@ -1,10 +1,10 @@
 // badges.js — moduł zarządzający wyświetlaniem interaktywnych emoji-badge’y
-
+import { stopAllSpeech, startRecognition, stopRecognition } from './voices.js';
 // ======= KONFIGURACJA BADGES =======
 // badges.js — interaktywne kontrolki dźwięku i mikrofonu
 
-window.sound = true;
-window.mic = true;
+window.sound = false;
+window.mic = false;
 
 const badgesData = [
   {
@@ -140,6 +140,9 @@ async function toggleSound() {
 
   // wszystko działa — toggle
   window.sound = !window.sound;
+  if (window.sound === false) {
+    stopAllSpeech();
+  }
   badgesData[0].sub = window.sound ? '🚫' : '✅';
   console.log(`🎧 Dźwięk ${window.sound ? 'włączony' : 'wyłączony'}`);
   updateBadges();
@@ -158,6 +161,9 @@ function toggleMic() {
 
   // działa — toggle
   window.mic = !window.mic;
+  if (window.mic === false) {
+    stopRecognition();
+  }
   badgesData[1].sub = window.mic ? '🚫' : '✅';
   console.log(`🎙️ Mikrofon ${window.mic ? 'włączony' : 'wyłączony'}`);
   updateBadges();
@@ -201,5 +207,43 @@ document.addEventListener('dblclick', () => {
     }
 });
 
-// ======= EKSPORT MODUŁU (opcjonalnie) =======
-//export { createBadges, removeBadges, badgesData };
+// ======= OBSŁUGA PISANIA GŁOSOWEGO =======
+document.querySelectorAll('textarea').forEach((textarea) => {
+  let isRecognizing = false;
+
+  textarea.addEventListener('dblclick', () => {
+    // sprawdź, czy textarea jest aktywna
+    if (document.activeElement === textarea) {
+      if (!isRecognizing) {
+        isRecognizing = true;
+        console.log('🎤 Rozpoczynam rozpoznawanie mowy dla tego textarea');
+
+        startRecognition((text, isFinal) => {
+          // wstaw tekst w miejsce kursora
+          const start = textarea.selectionStart;
+          const end = textarea.selectionEnd;
+          const before = textarea.value.substring(0, start);
+          const after = textarea.value.substring(end);
+          textarea.value = before + text + after;
+
+          // ustaw nową pozycję kursora
+          const newCursorPos = before.length + text.length;
+          textarea.selectionStart = textarea.selectionEnd = newCursorPos;
+        });
+      }
+    } else {
+      console.log('🛑 Textarea nie jest aktywna — zatrzymuję rozpoznawanie.');
+      stopRecognition();
+      isRecognizing = false;
+    }
+  });
+
+  // jeśli textarea traci fokus, zatrzymaj rozpoznawanie
+  textarea.addEventListener('blur', () => {
+    if (isRecognizing) {
+      console.log('🛑 Utracono fokus — zatrzymuję rozpoznawanie.');
+      stopRecognition();
+      isRecognizing = false;
+    }
+  });
+});
