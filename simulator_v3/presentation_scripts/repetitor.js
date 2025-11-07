@@ -1,5 +1,5 @@
 import { GoogleGenAI } from "https://esm.run/@google/genai";
-import { stopAllSpeech, stopRecognition, startRecognition } from './voices.js';
+import { speakText, stopAllSpeech, stopRecognition, startRecognition } from './voices.js';
 
   // zmienne globalne
   const attitude = [

@@ -110,11 +110,15 @@ export function startRecognition(onResult) {
     let interimTranscript = '';
     let finalTranscript = '';
 
-    for (let i = event.resultIndex; i < event.results.length; ++i) {
-      const transcript = event.results[i][0].transcript.trim();
-      if (event.results[i].isFinal) finalTranscript += transcript + ' ';
-      else interimTranscript += transcript + ' ';
+    const result = event.results[event.results.length - 1];
+    const transcript = result[0].transcript.trim();
+
+    if (result.isFinal) {
+    if (onResult) onResult(transcript + ' ', true);
+    } else {
+    if (onResult) onResult(transcript + ' ', false);
     }
+
 
     if (onResult) {
       if (finalTranscript) onResult(finalTranscript, true);
