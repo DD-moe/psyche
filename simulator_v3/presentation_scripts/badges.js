@@ -208,7 +208,6 @@ document.addEventListener('dblclick', () => {
 });
 
 // ======= OBSŁUGA PISANIA GŁOSOWEGO =======
-import { startRecognition, stopRecognition } from './voices.js';
 
 document.querySelectorAll('textarea').forEach((textarea) => {
   let isRecognizing = false;
