@@ -208,37 +208,41 @@ document.addEventListener('dblclick', () => {
 });
 
 // ======= OBSŁUGA PISANIA GŁOSOWEGO =======
+import { startRecognition, stopRecognition } from './voices.js';
+
 document.querySelectorAll('textarea').forEach((textarea) => {
   let isRecognizing = false;
+  let tpr = '', tpo = '', rp = '';
 
   textarea.addEventListener('dblclick', () => {
-    // sprawdź, czy textarea jest aktywna
     if (document.activeElement === textarea) {
       if (!isRecognizing) {
         isRecognizing = true;
         console.log('🎤 Rozpoczynam rozpoznawanie mowy dla tego textarea');
 
-        startRecognition((text, isFinal) => {
-          // wstaw tekst w miejsce kursora
-          const start = textarea.selectionStart;
-          const end = textarea.selectionEnd;
-          const before = textarea.value.substring(0, start);
-          const after = textarea.value.substring(end);
-          textarea.value = before + text + after;
+        // zapamiętaj tekst sprzed rozpoczęcia rozpoznawania
+        const start = textarea.selectionStart;
+        const end = textarea.selectionEnd;
+        tpr = textarea.value.substring(0, start);
+        tpo = textarea.value.substring(end);
+        rp = '';
 
-          // ustaw nową pozycję kursora
-          const newCursorPos = before.length + text.length;
-          textarea.selectionStart = textarea.selectionEnd = newCursorPos;
+        startRecognition((text, isFinal) => {
+          rp = text; // po prostu aktualizujemy bufor rozpoznanego tekstu
+          textarea.value = tpr + rp + tpo;
+
+          // przenosimy kursor za rozpoznany tekst
+          const cursor = (tpr + rp).length;
+          textarea.selectionStart = textarea.selectionEnd = cursor;
         });
       }
     } else {
-      console.log('🛑 Textarea nie jest aktywna — zatrzymuję rozpoznawanie.');
+      console.log('🛑 Textarea nieaktywna — zatrzymuję rozpoznawanie.');
       stopRecognition();
       isRecognizing = false;
     }
   });
 
-  // jeśli textarea traci fokus, zatrzymaj rozpoznawanie
   textarea.addEventListener('blur', () => {
     if (isRecognizing) {
       console.log('🛑 Utracono fokus — zatrzymuję rozpoznawanie.');
@@ -247,3 +251,4 @@ document.querySelectorAll('textarea').forEach((textarea) => {
     }
   });
 });
+
