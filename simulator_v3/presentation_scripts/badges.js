@@ -16,7 +16,7 @@ const badgesData = [
   },
   {
     top: '1rem',
-    left: '5rem',
+    left: '6rem',
     main: '🎙️',
     sub: '🔇',
     action: toggleMic,
@@ -113,22 +113,32 @@ function removeBadges() {
 }
 
 // ======= AKCJE BADGES =======
-function toggleSound() {
-  // sprawdzenie, czy działa synteza mowy (SpeechSynthesis)
-  const synth = window.speechSynthesis;
-  const voices = synth?.getVoices?.() || [];
-  const hasPolish = voices.some(v => v.lang.toLowerCase().startsWith('pl'));
 
-  if (!synth || voices.length === 0 || !hasPolish) {
-    alert('⚠️ Przeglądarka nie obsługuje syntezy mowy lub brak głosów PL.');
+async function toggleSound() {
+  const synth = window.speechSynthesis;
+
+  // jeśli brak wsparcia dla speechSynthesis
+  if (!synth) {
+    alert('⚠️ Przeglądarka nie obsługuje syntezy mowy.');
     window.sound = false;
     badgesData[0].sub = '🚫';
-    console.warn('🚫 Brak obsługi mowy.');
     updateBadges();
     return;
   }
 
-  // jeśli wszystko działa — przełącz dźwięk
+  // czekaj aż głosy zostaną załadowane (max 1 sekunda)
+  const voices = await waitForVoices(1500);
+  const hasPolish = voices.some(v => v.lang.toLowerCase().startsWith('pl'));
+
+  if (voices.length === 0 || !hasPolish) {
+    alert('⚠️ Brak głosów dla języka polskiego.');
+    window.sound = false;
+    badgesData[0].sub = '🚫';
+    updateBadges();
+    return;
+  }
+
+  // wszystko działa — toggle
   window.sound = !window.sound;
   badgesData[0].sub = window.sound ? '🚫' : '✅';
   console.log(`🎧 Dźwięk ${window.sound ? 'włączony' : 'wyłączony'}`);
@@ -136,24 +146,49 @@ function toggleSound() {
 }
 
 function toggleMic() {
-  // sprawdzenie, czy działa rozpoznawanie mowy (SpeechRecognition)
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
   if (!SpeechRecognition) {
     alert('⚠️ Przeglądarka nie wspiera rozpoznawania mowy.');
     window.mic = false;
     badgesData[1].sub = '🚫';
-    console.warn('🚫 Brak obsługi SpeechRecognition.');
     updateBadges();
     return;
   }
 
-  // jeśli działa — przełącz mikrofon
+  // działa — toggle
   window.mic = !window.mic;
   badgesData[1].sub = window.mic ? '🚫' : '✅';
   console.log(`🎙️ Mikrofon ${window.mic ? 'włączony' : 'wyłączony'}`);
   updateBadges();
 }
+
+// ======= Pomocnicza funkcja: czekanie na głosy =======
+function waitForVoices(timeout = 1000) {
+  return new Promise((resolve) => {
+    const synth = window.speechSynthesis;
+    let voices = synth.getVoices();
+
+    if (voices.length) {
+      resolve(voices);
+      return;
+    }
+
+    const handle = setInterval(() => {
+      voices = synth.getVoices();
+      if (voices.length) {
+        clearInterval(handle);
+        resolve(voices);
+      }
+    }, 100);
+
+    setTimeout(() => {
+      clearInterval(handle);
+      resolve(synth.getVoices());
+    }, timeout);
+  });
+}
+
 
 
 // ======= NASŁUCHIWANIE DWUKLIKU =======
