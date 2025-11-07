@@ -46,7 +46,9 @@ import { GoogleGenAI } from "https://esm.run/@google/genai";
     const casePre = playDiv.querySelector('.case');
     const ansArea = playDiv.querySelector('.answer');
     const evalDiv = playDiv.querySelector('.evaluation');
-    return { root, defsDiv, playDiv, casePre, ansArea, evalDiv };
+    const def_prompt = playDiv.querySelector('.prompt');
+    const aim = playDiv.querySelector('.aim');
+    return { root, defsDiv, playDiv, casePre, ansArea, evalDiv, def_prompt, aim };
   }
 
   function loadDefinitions(root, defsDiv) {
@@ -77,7 +79,7 @@ import { GoogleGenAI } from "https://esm.run/@google/genai";
 
   // --- generowanie przypadku ---
   async function generateCase() {
-    const { root, defsDiv, playDiv, casePre, ansArea, evalDiv} = getElements();
+    const { root, defsDiv, playDiv, casePre, ansArea, evalDiv, def_prompt, aim} = getElements();
     const defs = loadDefinitions(root, defsDiv);
     const selected = pickLeastUsed(defs);
     if (!selected) return alert("Brak definicji.");
@@ -87,12 +89,11 @@ import { GoogleGenAI } from "https://esm.run/@google/genai";
     casePre.textContent = "Generuję przypadek...";
 
     const prompt = `
-Masz zestaw definicji:
-${selected.text}
+Tu masz definicję:
+${selected.text} - "${selected.name}"
 
-Na podstawie definicji "${selected.name}" ułóż krótki przypadek kliniczny (3–6 zdań).
-Opisz pacjenta, objawy i kontekst, bez podawania rozpoznania.
-Na końcu dodaj pytanie kliniczne (np. "Jakie jest rozpoznanie?").
+${def_prompt}
+
 Poziom trudności pytania to: ${window.token1.difficulty.value}
 `;
 
@@ -110,7 +111,7 @@ Poziom trudności pytania to: ${window.token1.difficulty.value}
 
   // --- sprawdzanie odpowiedzi ---
   async function checkAnswer() {
-    const { root, defsDiv, playDiv, casePre, ansArea, evalDiv } = getElements();
+    const { root, defsDiv, playDiv, casePre, ansArea, evalDiv, def_prompt, aim } = getElements();
     const answer = ansArea.value.trim();
     if (!root._lastCase) return alert("Najpierw wygeneruj pytanie.");
     if (!answer) return alert("Wpisz odpowiedź.");
@@ -131,7 +132,7 @@ ${root._lastCase}
 Odpowiedział:
 ${answer}
 
-Celem pytania było przećwiczenie różnicowania jednostkek chorobowych spośród poniżej wymienionych:
+${aim}:
 ${defsText}
 
 Oceniając przybież nastawienie do odpowiadajacego: ${attitude[parseInt(window.token1.attitude.value) - 1]}
