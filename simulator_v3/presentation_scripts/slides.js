@@ -61,6 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.token2 = JSON.parse(localStorage.getItem(TOKEN_KEY2));
 
     import("./repetitor.js");
+    import("./badges.js");
   }
 
 
