@@ -46,8 +46,8 @@ import { GoogleGenAI } from "https://esm.run/@google/genai";
     const casePre = playDiv.querySelector('.case');
     const ansArea = playDiv.querySelector('.answer');
     const evalDiv = playDiv.querySelector('.evaluation');
-    const def_prompt = playDiv.querySelector('.prompt').textContent;
-    const aim = playDiv.querySelector('.aim').textContent;
+    const def_prompt = root.querySelector('.prompt').textContent;
+    const aim = root.querySelector('.aim').textContent;
     return { root, defsDiv, playDiv, casePre, ansArea, evalDiv, def_prompt, aim };
   }
 
