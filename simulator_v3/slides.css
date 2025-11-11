@@ -317,10 +317,14 @@
 
 .presentation .widget .panel {
   position: relative;
-  border: 0.128rem solid #9aa6b2;
-  background: #1e293b;
+  background: #101722;
+  border: 0.0625rem solid rgba(255,255,255,0.05);
+  border-radius: 0.75rem;
+  box-shadow: 0 0.25rem 1rem rgba(0,0,0,0.5);
+  padding: 1.75rem;
+  margin-bottom: 1.5rem;
+  box-sizing: border-box;
   color: white;
-  padding: 0.5em;
   width: 50%;
   min-width: 64rem;
   max-width: 90%;
