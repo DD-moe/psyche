@@ -78,12 +78,12 @@
   text-align: center; /* centrowanie listy */
 }
 
-ul li ul {
+.presentation .ll2 {
   list-style-type: circle; /* puste kółka */
 }
 
 /* Poziom 3 (ul w ul w ul) */
-ul li ul li ul {
+.presentation .ll3 {
   list-style-type: square; /* kwadraty */
 }
 
@@ -120,20 +120,11 @@ ul li ul li ul {
   text-align: center; /* centrowanie listy */
 }
 
-ol {
-  list-style-type: decimal; /* 1, 2, 3... */
-}
-
-ol li ol {
-  list-style-type: lower-alpha; /* a, b, c... */
-}
-
-ol li ol li ol {
-  list-style-type: lower-roman; /* i, ii, iii... */
+.presentation .ib{
+  display: inline-block;
 }
 
 .presentation blockquote {
-  all: unset;
   display: block;
   font-size: 1.05rem;
   line-height: 1.6;
