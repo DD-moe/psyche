@@ -407,6 +407,22 @@
       <div data-content="addons">🧰 Dodatki</div>
       <div data-content="basis">📚 Podstawy</div>
 
+      <div class="widget">
+        <div class="widget-icon" onclick="widgetClick(this)">🪄</div>
+
+        <div class="panel hidden">
+          <div class="controls">
+            <span data-action="min" onclick="widgetClick(this)">➖</span>
+            <span data-action="max" onclick="widgetClick(this)">🗖</span>
+            <span data-action="norm" class="hidden" onclick="widgetClick(this)">🗗</span>
+          </div>
+          <div class="widget-body">
+            <p>Treść panelu, którą można przewijać.</p>
+          </div>
+        </div>
+      </div>
+
+
       <!-- główny kontener prezentacyjny -->
       <div class="presentation-block">
         <!-- prompt do generowania pytania -->
