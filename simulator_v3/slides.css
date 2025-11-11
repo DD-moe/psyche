@@ -339,10 +339,3 @@
   user-select: none;
   cursor: pointer;
 }
-
-.presentation .widget .widget-body{
-  position: absolute;
-  z-index: 5;
-  top: 0.512rem;
-  left: 0rem;
-}
