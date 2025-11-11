@@ -314,6 +314,8 @@
   all: unset;
   display: inline-block;
   position: relative;
+  box-sizing: border-box;
+  width: 100%;
 }
 
 .presentation .widget .panel {
