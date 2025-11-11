@@ -13,6 +13,7 @@ async function widgetClick(el) {
 
   switch (action) {
     case "min": {
+      if (document.fullscreenElement) await document.exitFullscreen();
       panel.classList.add("hidden");
       icon.classList.remove("hidden");
       break;
