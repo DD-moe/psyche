@@ -78,6 +78,15 @@
   text-align: center; /* centrowanie listy */
 }
 
+ul ul {
+  list-style-type: circle; /* puste kółka */
+}
+
+/* Poziom 3 (ul w ul w ul) */
+ul ul ul {
+  list-style-type: square; /* kwadraty */
+}
+
 .presentation li {
   all: unset;
   display: list-item;
@@ -109,6 +118,18 @@
   padding-left: 1.5rem; /* 24px */
   color: white;
   text-align: center; /* centrowanie listy */
+}
+
+ol {
+  list-style-type: decimal; /* 1, 2, 3... */
+}
+
+ol ol {
+  list-style-type: lower-alpha; /* a, b, c... */
+}
+
+ol ol ol {
+  list-style-type: lower-roman; /* i, ii, iii... */
 }
 
 .presentation blockquote {
