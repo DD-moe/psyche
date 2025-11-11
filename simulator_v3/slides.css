@@ -318,7 +318,6 @@
 
 .presentation .widget .panel {
   all: unset;
-  display: block;
   position: relative;
   background: #101722;
   border: 0.0625rem solid rgba(255,255,255,0.05);
