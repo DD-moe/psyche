@@ -309,3 +309,24 @@
 .presentation .hidden {
   display: none;
 }
+
+.presentation .widget {
+  display: inline-block;
+  position: relative;
+}
+
+.presentation .widget .panel {
+  position: relative;
+  border: 0.128rem solid #9aa6b2;
+  background: #1e293b;
+  color: white;
+  padding: 0.5em;
+}
+
+.presentation .widget .controls {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  user-select: none;
+  cursor: pointer;
+}

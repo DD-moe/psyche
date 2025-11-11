@@ -35,27 +35,3 @@ textarea.necessary-data {
 .export-btn:hover {
   background: #1e293b;
 }
-
-/* stylowanie css dla widgetów */
-.hidden { display: none; }
-
-.widget {
-  display: inline-block;
-  position: relative;
-}
-
-.widget .panel {
-  position: relative;
-  border: 1px solid #555;
-  background: #111;
-  color: #eee;
-  padding: 0.5em;
-}
-
-.widget .controls {
-  position: fixed;
-  top: 10px;
-  right: 10px;
-  user-select: none;
-  cursor: pointer;
-}
