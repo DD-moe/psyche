@@ -317,7 +317,6 @@
 }
 
 .presentation .widget .panel {
-  all: unset;
   position: relative;
   background: #101722;
   border: 0.0625rem solid rgba(255,255,255,0.05);
@@ -334,7 +333,6 @@
 }
 
 .presentation .widget .controls {
-  all: unset;
   position: absolute;
   z-index: 10;
   top: 0.128rem;
