@@ -328,11 +328,21 @@ div{
   line-height: 1.5;
   color: white;
 }
+/* === stylowanie modułu ćwiczeniowego === */
+/* === stylowanie modułu ćwiczeniowego === */
+/* === stylowanie modułu ćwiczeniowego === */
 
+
+/* ukryte elementy */
+/* ukryte elementy */
 /* ukryte elementy */
 .presentation .hidden {
   display: none;
 }
+/* ukryte elementy */
+/* ukryte elementy */
+/* ukryte elementy */
+
 
 /* widget - używaj w nowej lini*/
 /* widget - używaj w nowej lini*/
@@ -358,6 +368,7 @@ div{
   color: white;
   width: 75%;
   max-height: 75%;
+  max-width: 50rem; /* ok. 800px */
   overflow: auto;
 }
 
@@ -370,3 +381,7 @@ div{
   user-select: none;
   cursor: pointer;
 }
+
+/* widget - używaj w nowej lini*/
+/* widget - używaj w nowej lini*/
+/* widget - używaj w nowej lini*/
