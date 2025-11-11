@@ -78,12 +78,12 @@
   text-align: center; /* centrowanie listy */
 }
 
-ul ul {
+ul li ul {
   list-style-type: circle; /* puste kółka */
 }
 
 /* Poziom 3 (ul w ul w ul) */
-ul ul ul {
+ul li ul li ul {
   list-style-type: square; /* kwadraty */
 }
 
@@ -124,17 +124,17 @@ ol {
   list-style-type: decimal; /* 1, 2, 3... */
 }
 
-ol ol {
+ol li ol {
   list-style-type: lower-alpha; /* a, b, c... */
 }
 
-ol ol ol {
+ol li ol li ol {
   list-style-type: lower-roman; /* i, ii, iii... */
 }
 
 .presentation blockquote {
   
-  display: block;
+  display: inline-block;
   font-size: 1.05rem;
   line-height: 1.6;
   color: wheat;
