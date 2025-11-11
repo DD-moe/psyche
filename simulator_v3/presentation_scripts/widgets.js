@@ -16,6 +16,8 @@ async function widgetClick(el) {
       if (document.fullscreenElement) await document.exitFullscreen();
       panel.classList.add("hidden");
       icon.classList.remove("hidden");
+      btnNorm.classList.add("hidden");
+      btnMax.classList.remove("hidden");
       break;
     }
 
