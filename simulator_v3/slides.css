@@ -324,13 +324,15 @@
   width: 50%;
   min-width: 64rem;
   max-width: 90%;
+  max-height: 90%;
+  overflow: auto;
 }
 
 .presentation .widget .controls {
   position: absolute;
   z-index: 10;
-  top: 1rem;
-  right: 1rem;
+  top: 0.128rem;
+  right: 0.128rem;
   font-size: 2rem;
   user-select: none;
   cursor: pointer;

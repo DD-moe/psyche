@@ -422,15 +422,17 @@
         </div>
       </div>
 
-      <!-- element z pojęciem; kliknięcie cyklicznie pokazuje kolejne wyjaśnienia, a potem wraca do oryginału -->
-      <p class="term" onclick="termClick(this)"
-        data-explanations='[
-          "&lt;b&gt;Krótko:&lt;/b&gt; komórka nerwowa.",
-          "&lt;i&gt;Średnio:&lt;/i&gt; neuron przenosi sygnały elektryczne i chemiczne.",
-          "&lt;small&gt;Szczegóły:&lt;/small&gt; składa się z ciała komórkowego, dendrytów i aksonu; bierze udział w tworzeniu sieci."
-        ]'>
+      <p class="term" onclick="termClick(this)">
         Neuron
+        <script type="application/json" class="defs">
+        [
+          "<b>Krótko:</b> komórka nerwowa.",
+          "<i>Średnio:</i> neuron przenosi sygnały elektryczne i chemiczne.",
+          "<small>Szczegóły:</small> składa się z ciała komórkowego, dendrytów i aksonu."
+        ]
+        </script>
       </p>
+
   
 
       <!-- główny kontener prezentacyjny -->

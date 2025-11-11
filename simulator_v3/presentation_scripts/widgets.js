@@ -43,38 +43,32 @@ async function widgetClick(el) {
 function termClick(el) {
   if (!el) return;
 
-  // zachowaj oryginalny content (tylko raz)
   if (!el.dataset.original) {
-    el.dataset.original = el.innerHTML;
+    el.dataset.original = el.childNodes[0].textContent.trim(); // tylko tekst, bez skryptu
   }
   const original = el.dataset.original;
 
-  // wczytaj explanations (bezpiecznie obrobić błąd parsowania)
-  let explanations;
+  // znajdź wewnętrzny <script class="defs">
+  const script = el.querySelector('script.defs');
+  if (!script) return;
+
+  let explanations = [];
   try {
-    explanations = JSON.parse(el.dataset.explanations || "[]");
-    if (!Array.isArray(explanations)) explanations = [];
+    explanations = JSON.parse(script.textContent.trim());
   } catch (err) {
-    console.error("Błąd parsowania data-explanations:", err);
-    return;
+    console.error("Błąd parsowania JSON w <script>:", err);
   }
 
-  // indeks następnego wyjaśnienia do pokazania (0..len-1), jeśli brak -> 0
   let idx = el.dataset.index ? parseInt(el.dataset.index, 10) : 0;
-
   if (idx < explanations.length) {
-    // pokaż wyjaśnienie o indeksie idx
-    // explanations powinny zawierać HTML (np. "<b>...</b>")
-    el.innerHTML = explanations[idx];
-    // zapisz kolejny indeks
+    el.innerHTML = explanations[idx] + script.outerHTML; // zachowaj <script> w elemencie
     el.dataset.index = idx + 1;
   } else {
-    // jeśli już wszystkie wyjaśnienia pokazane — przywróć oryginał i resetuj indeks
-    el.innerHTML = original;
+    el.innerHTML = original + script.outerHTML;
     el.dataset.index = 0;
   }
 }
 
-
+// globalizacja funkcji
 window.widgetClick = widgetClick;
 window.termClick = termClick;
