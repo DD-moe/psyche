@@ -197,32 +197,32 @@ document.addEventListener('DOMContentLoaded', () => {
   document.head.appendChild(style);
 
 
-// Główna funkcja porównująca
-function compareAndUpdate() {
-  const types = ["advices", "mnemo", "addons", "basis"];
+  // Główna funkcja porównująca
+  function compareAndUpdate() {
+    const types = ["advices", "mnemo", "addons", "basis"];
 
-  types.forEach(type => {
-    const tokenValue = window.token1[`show_${type}`];
-    const contentValue = window.content[`show_${type}`];
+    types.forEach(type => {
+      const tokenValue = window.token1[`show_${type}`];
+      const contentValue = window.content[`show_${type}`];
 
-    if (tokenValue !== contentValue) {
-      // Aktualizuj content i widoczność
-      window.content[`show_${type}`] = tokenValue.value;
-      updateVisibility(type, tokenValue);
-    }
-  });
-}
+      if (tokenValue !== contentValue) {
+        // Aktualizuj content i widoczność
+        window.content[`show_${type}`] = tokenValue.value;
+        updateVisibility(type, tokenValue.value);
+      }
+    });
+  }
 
-function updateVisibility(type, visible) {
-  const elements = document.querySelectorAll(`[data-content="${type}"]`);
-  elements.forEach(el => {
-    if (visible) {
-      el.classList.remove("hidden");
-    } else {
-      el.classList.add("hidden");
-    }
-  });
-}
+  function updateVisibility(type, visible) {
+    const elements = document.querySelectorAll(`[data-content="${type}"]`);
+    elements.forEach(el => {
+      if (visible) {
+        el.classList.remove("hidden");
+      } else {
+        el.classList.add("hidden");
+      }
+    });
+  }
 
 
   // === INICJALIZACJA ===
