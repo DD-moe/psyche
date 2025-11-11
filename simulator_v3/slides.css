@@ -325,10 +325,8 @@
   margin-bottom: 1.5rem;
   box-sizing: border-box;
   color: white;
-  width: 50%;
-  min-width: 64rem;
-  max-width: 90%;
-  max-height: 90%;
+  width: 75%;
+  max-height: 75%;
   overflow: auto;
 }
 
