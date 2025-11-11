@@ -71,6 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     import("./repetitor.js");
     import("./badges.js");
+    import("./widgets.js");
   }
 
 
