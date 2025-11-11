@@ -1,5 +1,11 @@
-/// kod tymczasowy:
 // slides.js — moduł obsługujący tryb prezentacji
+window.content = {
+  show_advices: false,
+  show_mnemo: false,
+  show_addons: true,
+  show_basis: false
+};
+
 
 document.addEventListener('DOMContentLoaded', () => {
   const presentation = document.querySelector('.presentation');
@@ -59,6 +65,9 @@ document.addEventListener('DOMContentLoaded', () => {
     window.token = localStorage.getItem(TOKEN_KEY);
     window.token1 = JSON.parse(localStorage.getItem(TOKEN_KEY1));
     window.token2 = JSON.parse(localStorage.getItem(TOKEN_KEY2));
+
+    // sprawdź rodzaj treści
+    compareAndUpdate();
 
     import("./repetitor.js");
     import("./badges.js");
@@ -186,6 +195,35 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   `;
   document.head.appendChild(style);
+
+
+// Główna funkcja porównująca
+function compareAndUpdate() {
+  const types = ["advices", "mnemo", "addons", "basis"];
+
+  types.forEach(type => {
+    const tokenValue = window.token1[`show_${type}`];
+    const contentValue = window.content[`show_${type}`];
+
+    if (tokenValue !== contentValue) {
+      // Aktualizuj content i widoczność
+      window.content[`show_${type}`] = tokenValue.value;
+      updateVisibility(type, tokenValue);
+    }
+  });
+}
+
+function updateVisibility(type, visible) {
+  const elements = document.querySelectorAll(`[data-content="${type}"]`);
+  elements.forEach(el => {
+    if (visible) {
+      el.classList.remove("hidden");
+    } else {
+      el.classList.add("hidden");
+    }
+  });
+}
+
 
   // === INICJALIZACJA ===
   showSlide(currentIndex);
