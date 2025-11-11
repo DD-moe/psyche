@@ -133,7 +133,7 @@ ol li ol li ol {
 }
 
 .presentation blockquote {
-  
+  all: unset;
   display: inline-block;
   font-size: 1.05rem;
   line-height: 1.6;
