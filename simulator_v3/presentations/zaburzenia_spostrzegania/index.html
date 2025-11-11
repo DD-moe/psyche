@@ -407,33 +407,39 @@
       <div data-content="addons">🧰 Dodatki</div>
       <div data-content="basis">📚 Podstawy</div>
 
-      <div class="widget">
-        <div class="widget-icon" onclick="widgetClick(this)">🪄</div>
+      <ul>
+        <li><blockquote class="ib">
+          Odczucie nierealności, jakby „był we śnie”
+          <div class="widget">
+            <div class="widget-icon" onclick="widgetClick(this)">🪄</div>
 
-        <div class="panel hidden">
-          <div class="controls">
-            <span data-action="min" onclick="widgetClick(this)">➖</span>
-            <span data-action="max" onclick="widgetClick(this)">🗖</span>
-            <span data-action="norm" class="hidden" onclick="widgetClick(this)">🗗</span>
+            <div class="panel hidden">
+              <div class="controls">
+                <span data-action="min" onclick="widgetClick(this)">➖</span>
+                <span data-action="max" onclick="widgetClick(this)">🗖</span>
+                <span data-action="norm" class="hidden" onclick="widgetClick(this)">🗗</span>
+              </div>
+              <div class="widget-body">
+                <p>Treść panelu, którą można przewijać.</p>
+              </div>
+            </div>
           </div>
-          <div class="widget-body">
-            <p>Treść panelu, którą można przewijać.</p>
-          </div>
-        </div>
-      </div>
+        </blockquote></li>
+        <li><blockquote class="ib">
+          Odczucie nierealności, jakby „był we śnie”
+          <p class="term" onclick="termClick(this)">
+            Neuron
+            <script type="application/json" class="defs">
+            [
+              "<b>Krótko:</b> komórka nerwowa.",
+              "<i>Średnio:</i> neuron przenosi sygnały elektryczne i chemiczne.",
+              "<small>Szczegóły:</small> składa się z ciała komórkowego, dendrytów i aksonu."
+            ]
+            </script>
+          </p>
+        </blockquote></li>
+      </ul>
 
-      <p class="term" onclick="termClick(this)">
-        Neuron
-        <script type="application/json" class="defs">
-        [
-          "<b>Krótko:</b> komórka nerwowa.",
-          "<i>Średnio:</i> neuron przenosi sygnały elektryczne i chemiczne.",
-          "<small>Szczegóły:</small> składa się z ciała komórkowego, dendrytów i aksonu."
-        ]
-        </script>
-      </p>
-
-  
 
       <!-- główny kontener prezentacyjny -->
       <div class="presentation-block">
