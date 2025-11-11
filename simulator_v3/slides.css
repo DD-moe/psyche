@@ -325,7 +325,7 @@
   box-shadow: 0 0.25rem 1rem rgba(0,0,0,0.5);
   padding: 0.75rem;
   padding-top: 2rem;
-  margin-bottom: 1.5rem;
+  margin: 0 auto;
   box-sizing: border-box;
   color: white;
   width: 75%;
@@ -335,7 +335,6 @@
 
 .presentation .widget .controls {
   all: unset;
-  display: block;  
   position: absolute;
   z-index: 10;
   top: 0.128rem;
