@@ -392,6 +392,18 @@
   cursor: pointer;
 }
 
+.anim {
+  display: inline; /* lub inline-block */
+  animation: fadeMove 2s infinite linear;
+}
+
+@keyframes fadeMove {
+  0% { opacity: 0.9; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(-0.1rem); }
+  100% { opacity: 0.9; transform: translateY(0); }
+}
+
+
 /* widget - używaj w nowej lini*/
 /* widget - używaj w nowej lini*/
 /* widget - używaj w nowej lini*/
