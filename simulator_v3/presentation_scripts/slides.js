@@ -98,8 +98,8 @@ document.addEventListener('DOMContentLoaded', () => {
   panel.className = 'presentation-controls';
   panel.innerHTML = `
     <button class="ctrl-btn prev">⟨</button>
-    <span class="ctrl-info"></span>
     <button class="ctrl-btn fullscreen">⛶</button>
+    <span class="ctrl-info"></span>
     <button class="ctrl-btn exit">X</button>
     <button class="ctrl-btn next">⟩</button>
   `;
@@ -176,10 +176,12 @@ document.addEventListener('DOMContentLoaded', () => {
     /* 🔸 Pozycjonowanie skrajnych przycisków */
     .ctrl-btn.prev {
       margin-right: auto;
+      font-size: 2rem;
     }
 
     .ctrl-btn.next {
       margin-left: auto;
+      font-size: 2rem;
     }    
 
     .ctrl-btn:hover {
@@ -188,7 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     .ctrl-info {
       color: #9aa6b2;
-      font-size: 0.95rem;
+      font-size: 1rem;
       font-family: 'Roboto', 'Arial', 'sans-serif';
       min-width: 60px;
       text-align: center;
