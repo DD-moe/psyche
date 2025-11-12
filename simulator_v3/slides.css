@@ -1,5 +1,6 @@
-/* slides.css — styl prezentacji (odizolowany w .presentation) z jednostkami względnymi */
-
+/* podstawy slajdu */
+/* podstawy slajdu */
+/* podstawy slajdu */
 .presentation {
   all: initial; /* resetuje dziedziczenie, izoluje od reszty strony */
   font-family: 'Inter', 'Segoe UI', sans-serif;
@@ -27,192 +28,175 @@
   box-sizing: border-box;
 }
 
-.presentation .title-slide .content-slide{
-  text-align: center;
-  background: linear-gradient(180deg, rgba(255,255,255,0.04), transparent);
+.presentation .hidden {
+  display: none;
 }
+/* podstawy slajdu */
+/* podstawy slajdu */
+/* podstawy slajdu */
 
-.presentation .title-slide h1 {
-  
+
+/* === TYPOGRAFIA OGÓLNA === */
+/* === TYPOGRAFIA OGÓLNA === */
+/* === TYPOGRAFIA OGÓLNA === */
+.presentation h1 {
   display: block;
-  font-size: 2rem;
+  font-size: 4rem; /* duży tytuł */
   font-weight: 700;
-  color: #6ee7b7;
-  margin-bottom: 0.625rem; /* 10px */
   text-align: center;
-}
-
-.presentation .title-slide .subtitle {
-  
-  display: block;
-  font-size: 1.5rem;
-  color: #9aa6b2;
-  text-align: right;
+  margin-bottom: 1rem;
 }
 
 .presentation h2 {
-  
   display: block;
-  font-size: 1.4rem;
-  color: #60a5fa;
-  margin-bottom: 0.75rem; /* 12px */
+  font-size: 3.5rem; /* duży tytuł */
+  font-weight: 500;
   text-align: center;
-}
-
-.presentation p {
-  
-  display: block;
-  font-size: 1.05rem;
-  line-height: 1.6;
-  color: white;
-  margin-bottom: 0.75rem; /* 12px */
-  text-align: center;
-}
-
-.presentation ul {
-  
-  display: block;
-  list-style: disc;
-  padding-left: 1.5rem; /* 24px */
-  color: white;
-  text-align: center; /* centrowanie listy */
-}
-
-.presentation .ll2 {
-  list-style-type: circle; /* puste kółka */
-}
-
-/* Poziom 3 (ul w ul w ul) */
-.presentation .ll3 {
-  list-style-type: square; /* kwadraty */
-}
-
-.presentation li {
-  
-  display: list-item;
-  margin-bottom: 0.375rem; /* 6px */
-  list-style-position: inside; /* kropka w linii */
-}
-
-.presentation img {
-  
-  display: block;
-  max-width: 100%;
-  border-radius: 0.5rem; /* 8px */
-  margin: 0.75rem auto; /* 12px */
+  margin-bottom: 0.75rem;
 }
 
 .presentation h3 {
-  
   display: block;
-  font-size: 1.2rem;
-  color: #93c5fd;
-  margin-bottom: 0.5rem; /* 8px */
+  font-size: 3rem; /* duży tytuł */
+  font-weight: 200;
   text-align: center;
+  margin-bottom: 0.5rem;
 }
 
-.presentation ol {
-  
+.presentation p {
   display: block;
-  list-style: decimal;
-  padding-left: 1.5rem; /* 24px */
-  color: white;
-  text-align: center; /* centrowanie listy */
+  font-size: 2rem; /* tekst wyśrodkowany */
+  text-align: center;
+  line-height: 1.5;
 }
 
-.presentation .ib{
-  display: inline-block;
+.presentation ul,
+.presentation ol {
+  padding-left: 2rem;
+  text-align: center;
+  list-style-position: inside;
+  margin-bottom: 1rem;
+}
+
+.presentation ul { list-style-type: disc; }
+.presentation ol { list-style-type: decimal; }
+
+.presentation img {
+  all: unset;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border: none;
+}
+
+.presentation .img-auto {
+  width: 100%;
+  height: auto;
+}
+
+.presentation table {
+  all: unset;
+  display: table;
+  width: 100%;
+  height: 100%;
+  border-collapse: collapse;
+  text-align: center;
+  font-size: 1rem;
+  transform-origin: top left;
+}
+
+.presentation table,
+.presentation th,
+.presentation td {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0.5rem;
+}
+
+/* tabela skalowana jak obraz – zachowuje proporcje */
+.presentation .table-scale {
+  transform: scale(0.9);
+  width: 100%;
+  height: 100%;
+}
+
+/* tabela skalowana tylko po szerokości */
+.presentation .table-scale-x {
+  width: 100%;
+  height: auto;
+}
+
+.presentation a {
+  all: unset;
+  color: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: inherit; /* wielkość rodzica */
+}
+
+.presentation a:hover {
+  color: #00bcd4;
 }
 
 .presentation blockquote {
+  all: unset;
   display: block;
-  font-size: 1.05rem;
-  line-height: 1.6;
-  color: wheat;
-  background: rgba(255,255,255,0.05);
-  border-left: 0.25rem solid #0b0b0b; /* 4px */
-  padding: 0.75rem 1rem; /* 12px 16px */
-  border-radius: 0.5rem; /* 8px */
-  margin: 1rem 0; /* 16px 0 */
-  text-align: center;
-}
-
-div{
-  text-align: center;
-}
-
-.presentation strong {
-  
-  font-weight: 700;
-  color: #6ee7b7;
-}
-
-.presentation em {
-  
+  margin: 1.5rem auto;
+  padding: 1rem 2rem;
   font-style: italic;
-  color: #93c5fd;
+  background: rgba(255,255,255,0.05);
+  border-left: 0.25rem solid #00bcd4;
+  max-width: 60rem;
+  line-height: 1.5;
 }
 
-/* === ELEMENTY ODSTĘPÓW === */
+/* === HR i BR === */
 .presentation hr {
-  
+  all: unset;
   display: block;
-  width: 100%;
-  height: 0.0625rem; /* 1px */
-  background: rgba(255, 255, 255, 0.08);
+  height: 0.125rem; /* 2px */
+  background: rgba(255,255,255,0.2);
   border: none;
-  margin: 1.5rem 0; /* 24px góra/dół */
-  border-radius: 0.125rem; /* 2px */
+  margin: 2rem 0;
+  width: 80%;
 }
 
 .presentation br {
-  
-  display: block;
-  height: 1rem; /* 16px odstępu */
   content: "";
+  display: block;
+  margin: 0.5rem 0;
 }
 
-/* === TABELA === */
-.presentation table {
-  
-  display: table;
-  width: 100%;
-  border-collapse: collapse;
-  border-spacing: 0;
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 0.5rem; /* 8px */
-  overflow: hidden;
-  margin: 1rem 0; /* 16px góra/dół */
-  font-size: 1.05rem;
-  color: white;
+.presentation .right{
+  text-align: right;
 }
 
-.presentation th,
-.presentation td {
-  
-  display: table-cell;
-  padding: 0.75rem 1rem; /* 12px 16px */
-  border-bottom: 0.0625rem solid rgba(255, 255, 255, 0.08); /* 1px */
-  vertical-align: middle;
+.presentation .left{
   text-align: left;
-  line-height: 1.5;
-  box-sizing: border-box;
 }
 
-.presentation th {
-  background: rgba(255, 255, 255, 0.05);
-  font-weight: 600;
-  color: #93c5fd;
+.presentation .block{
+  display: block;
 }
 
-.presentation tr:last-child td {
-  border-bottom: none;
+.presentation .inl-block{
+  display: inline-block;
 }
 
-.presentation tbody tr:hover {
-  background: rgba(255, 255, 255, 0.04);
-  transition: background 0.2s ease;
+.presentation .inline {
+  display: inline;
 }
+
+.presentation .color-primary { color: #00bcd4; }
+.presentation .color-accent { color: #ff4081; }
+.presentation .color-warm { color: #ffc107; }
+.presentation .color-cool { color: #2196f3; }
+.presentation .color-muted { color: #9e9e9e; }
+.presentation .color-positive { color: #6ee7b7; }
+.presentation .color-calm { color: #60a5fa; }
+/* === TYPOGRAFIA OGÓLNA === */
+/* === TYPOGRAFIA OGÓLNA === */
+/* === TYPOGRAFIA OGÓLNA === */
 
 
 /* === stylowanie modułu ćwiczeniowego === */
@@ -331,17 +315,6 @@ div{
 /* === stylowanie modułu ćwiczeniowego === */
 /* === stylowanie modułu ćwiczeniowego === */
 /* === stylowanie modułu ćwiczeniowego === */
-
-
-/* ukryte elementy */
-/* ukryte elementy */
-/* ukryte elementy */
-.presentation .hidden {
-  display: none;
-}
-/* ukryte elementy */
-/* ukryte elementy */
-/* ukryte elementy */
 
 
 /* widget - używaj w nowej lini*/

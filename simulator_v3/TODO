@@ -1,8 +1,7 @@
 Kroki do Zrobienia
 1) dodaj prawidłowe opcje do simulator.html 
 2) dać ludiom do testowania - poprawić drobne błędy merytoryczne, stylistyczne i js.
-3) dodać ustawienie do quizzes - odnośnie wyboru które elementy pokazywać 
-4) dorabiać dodatkowy interface jako nakładki - js
+3) ujednolicić i uładnić stylowanie css
 
 czym są pliki i foldery:
     icons - zawiera ikony
