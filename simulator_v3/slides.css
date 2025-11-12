@@ -126,6 +126,7 @@ div{
   height: auto;
   object-fit: contain;
   border: none;
+  margin: 0 auto;
 }
 
 .presentation .img-auto {
