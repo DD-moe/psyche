@@ -110,6 +110,10 @@
   list-style-type: "⚕️";
 }
 
+.outer {
+  list-style-position: outside;
+}
+
 .presentation img {
   display: block;
   width: 100%;
