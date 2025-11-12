@@ -1,8 +1,5 @@
 Kroki do Zrobienia
 4) rozwijany panel - z opcją minimalny na start, lub z opcją okienko na start.
-7) panel do justowania długiego bloku tekstu
-- tutaj ograniczmy max width ale w rem nie w %
-8) klasa koloru - ma zmieniać kolor bazowy elementu przypisany w css
 9) lista ul i ol punktatury - inner, text align - center
 10) klasy zmieniające typ punktowania listy oraz dające a) text align left b) punktatiry outer
 11) obraz - bez obramowania - width 100% height 100% 

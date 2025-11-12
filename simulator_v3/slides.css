@@ -47,7 +47,7 @@
 /* === TYPOGRAFIA OGÓLNA === */
 .presentation h1 {
   display: block;
-  font-size: 4rem; /* duży tytuł */
+  font-size: 3.5rem; /* duży tytuł */
   font-weight: 700;
   text-align: center;
   margin-bottom: 1rem;
@@ -55,7 +55,7 @@
 
 .presentation h2 {
   display: block;
-  font-size: 3.5rem; /* duży tytuł */
+  font-size: 3rem; /* duży tytuł */
   font-weight: 500;
   text-align: center;
   margin-bottom: 0.75rem;
@@ -63,7 +63,7 @@
 
 .presentation h3 {
   display: block;
-  font-size: 3rem; /* duży tytuł */
+  font-size: 2.5rem; /* duży tytuł */
   font-weight: 200;
   text-align: center;
   margin-bottom: 0.5rem;
@@ -71,7 +71,7 @@
 
 .presentation p {
   display: block;
-  font-size: 2rem; /* tekst wyśrodkowany */
+  font-size: 1.6rem; /* tekst wyśrodkowany */
   text-align: center;
   line-height: 1.5;
 }
@@ -161,6 +161,7 @@
   border-left: 0.25rem solid #00bcd4;
   max-width: 60rem;
   line-height: 1.5;
+  font-size: 1.2;
 }
 
 /* === HR i BR === */
@@ -210,10 +211,11 @@
 .presentation .color-warm { color: #e2ff07; }
 .presentation .color-cool { color: #af76ff; }
 .presentation .color-vivid { color: #dba754; }
+.presentation .color-pleasant { color: #5cd462; }
 /* === tytuły === */
 .presentation .color-muted { color: #9e9e9e; }
-.presentation .color-calm { color: #60a5fa; }
-.presentation .color-positive { color: #6ee7b7; }
+.presentation .color-calm { color: #628dc1; }
+.presentation .color-positive { color: #6bba9a; }
 /* === TYPOGRAFIA OGÓLNA === */
 /* === TYPOGRAFIA OGÓLNA === */
 /* === TYPOGRAFIA OGÓLNA === */
