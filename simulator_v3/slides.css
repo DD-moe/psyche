@@ -180,6 +180,7 @@
   margin: 0.5rem 0;
 }
 
+/* === klasy sterujące === */
 .presentation .right{
   text-align: right;
 }
@@ -198,6 +199,7 @@
 
 .presentation .inline {
   display: inline;
+  margin: 0;
 }
 
 .justify{
