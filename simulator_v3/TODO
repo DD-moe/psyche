@@ -1,7 +1,5 @@
 Kroki do Zrobienia
-4) rozwijany panel - z opcją minimalny na start, lub z opcją okienko na start.
-11) obraz - bez obramowania - width 100% height 100% 
-12) dodatkowa klasa dla obrazu - width 100% height auto
+1) skorygować w resources style globalne i instrukcje
 13) tabela - width - 100% height 100% I ma być skalowana tak jak obraz by mieściła się w swoim kontenerze - także ma być przeskalowany w dól tekst.
 14) dodatkowa klasa dla tabeli - dająca skalowanie takie jak obraz ale tylko dla width - nie dla height (czyli do 100% width kontenera)
 
