@@ -189,7 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
     .ctrl-info {
       color: #9aa6b2;
       font-size: 0.95rem;
-      font-family: Inter, sans-serif;
+      font-family: 'Roboto', 'Arial', 'sans-serif';
       min-width: 60px;
       text-align: center;
       user-select: none;

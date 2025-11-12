@@ -10,11 +10,13 @@
   --surface-2: #0d1116;
 }
 
+*{
+  font-family: 'Roboto', 'Arial', 'sans-serif';
+}
 /* Layout */
 .app-root {
   background: var(--bg);
   color: #e6eef6;
-  font-family: Inter, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
