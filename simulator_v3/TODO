@@ -1,7 +1,18 @@
 Kroki do Zrobienia
-1) dodaj prawidłowe opcje do simulator.html 
-2) dać ludiom do testowania - poprawić drobne błędy merytoryczne, stylistyczne i js.
-3) ujednolicić i uładnić stylowanie css
+4) rozwijany panel - z opcją minimalny na start, lub z opcją okienko na start.
+7) panel do justowania długiego bloku tekstu
+- tutaj ograniczmy max width ale w rem nie w %
+8) klasa koloru - ma zmieniać kolor bazowy elementu przypisany w css
+9) lista ul i ol punktatury - inner, text align - center
+10) klasy zmieniające typ punktowania listy oraz dające a) text align left b) punktatiry outer
+11) obraz - bez obramowania - width 100% height 100% 
+12) dodatkowa klasa dla obrazu - width 100% height auto
+13) tabela - width - 100% height 100% I ma być skalowana tak jak obraz by mieściła się w swoim kontenerze - także ma być przeskalowany w dól tekst.
+14) dodatkowa klasa dla tabeli - dająca skalowanie takie jak obraz ale tylko dla width - nie dla height (czyli do 100% width kontenera)
+15) dodatkowa klasa zmieniająca dany element w inline- block lub online
+16 - klasa dla link - wielkość rodzica
+17) klasa dla blockquuote
+18) odpowiednie stylowania HR i br
 
 czym są pliki i foldery:
     icons - zawiera ikony

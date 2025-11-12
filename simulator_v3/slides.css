@@ -12,6 +12,7 @@
   min-height: 100vh;
   box-sizing: border-box;
   padding: 2.5rem 1.25rem; /* 40px 20px */
+  overflow-wrap: break-word;
 }
 
 .presentation .slide {
