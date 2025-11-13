@@ -24,6 +24,17 @@ label.row textarea {
   width: auto;  
 }
 
+label.row select {
+  flex: 2;             /* lub inna proporcja, żeby input był większy */
+  width: auto;  
+}
+
+label.row input[type="text"],
+label.row input[type="number"] {
+  flex: 2;             /* lub inna proporcja, żeby input był większy */
+  width: auto;  
+}
+
 textarea.necessary-data {
   resize: vertical;
 }
