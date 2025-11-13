@@ -52,7 +52,7 @@ div{
 .presentation h1 {
   display: block;
   font-size: 3.5rem; /* duży tytuł */
-  font-weight: 700;
+  font-weight: 900;
   text-align: center;
   margin-bottom: 1rem;
 }
@@ -60,7 +60,7 @@ div{
 .presentation h2 {
   display: block;
   font-size: 2.8rem; /* duży tytuł */
-  font-weight: 500;
+  font-weight: 600;
   text-align: center;
   margin-bottom: 0.75rem;
 }
@@ -68,7 +68,7 @@ div{
 .presentation h3 {
   display: block;
   font-size: 2.2rem; /* duży tytuł */
-  font-weight: 200;
+  font-weight: 300;
   text-align: center;
   margin-bottom: 0.5rem;
 }
@@ -223,9 +223,9 @@ div{
 .presentation .color-vivid { color: #dba754; }
 .presentation .color-pleasant { color: #5cd462; }
 /* === tytuły === */
-.presentation .color-muted { color: #9e9e9e; }
-.presentation .color-calm { color: #628dc1; }
-.presentation .color-positive { color: #6bba9a; }
+.presentation .color-muted { color: #c3c3c3; }
+.presentation .color-calm { color: #92b2db; }
+.presentation .color-positive { color: #8cc3ad; }
 /* === tło === */
 .bg-blue {background: #1d365e;}
 .bg-purple {background: #3e2b5f;}
@@ -390,7 +390,7 @@ div{
   cursor: pointer;
 }
 
-.widget-body{
+.presentation .widget-body{
   z-index: 5;
   box-sizing: border-box;
   overflow: auto;
@@ -402,9 +402,9 @@ div{
 }
 
 @keyframes fadeMove {
-  0% { opacity: 0.9; transform: translateY(0); }
+  0% { opacity: 0.7; transform: translateY(0); }
   50% { opacity: 1; transform: translateY(-0.1rem); }
-  100% { opacity: 0.9; transform: translateY(0); }
+  100% { opacity: 0.7; transform: translateY(0); }
 }
 
 
