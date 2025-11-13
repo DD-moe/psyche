@@ -21,9 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function showSlide(index) {
     // --- wyświetlenie slajdu ---
     slides.forEach((slide, i) => {
-      slide.style.display = i === index ? 'block' : 'none';
-      slide.style.opacity = i === index ? '1' : '0';
-      slide.style.transition = 'opacity 0.4s ease';
+      slide.classList.toggle('active', i === index);
     });
 
     // --- sprawdź tokeny ---

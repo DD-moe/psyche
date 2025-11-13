@@ -17,7 +17,9 @@
 
 .presentation .slide {
   all: unset;
-  display: block;
+  display: none;   /* wszystkie slajdy od razu ukryte */
+  opacity: 0;      /* do fade-in */
+  transition: opacity 0.4s ease;
   width: 100%;
   background: black;
   border: 0.0625rem solid rgba(255,255,255,0.05); /* 1px */
@@ -27,6 +29,11 @@
   margin-bottom: 1.75rem; /* 28px */
   color: white;
   box-sizing: border-box;
+}
+
+.presentation .slide.active {
+  display: block;
+  opacity: 1;
 }
 
 .presentation * {
