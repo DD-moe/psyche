@@ -97,9 +97,10 @@
 
 .presentation ul,
 .presentation ol {
-  padding-left: 2rem;
+  padding-left: 1rem;
   text-align: center;
   list-style-position: inside;
+  margin: 0rem;
   margin-bottom: 1rem;
   font-size: 1.4rem;
 }
