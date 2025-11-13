@@ -403,7 +403,6 @@
 }
 
 .presentation .anim {
-  display: inline; /* lub inline-block */
   animation: fadeMove 2s infinite linear;
 }
 
