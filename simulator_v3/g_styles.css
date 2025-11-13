@@ -23,9 +23,10 @@
 }
 
 .container {
-  max-width: 61.25rem; /* 980px */
+  max-width: 64rem; /* 1024px */
   margin: 2.25rem auto; /* 36px */
   padding: 1.25rem; /* 20px */
+  width: 100%;
 }
 
 .header {
@@ -53,7 +54,8 @@
 }
 
 .card.small {
-  max-width: 40rem; /* 640px */
+  max-width: 48rem; /* 640px */
+  width: 100%;
 }
 
 .card-title {
@@ -127,7 +129,7 @@
 }
 
 .container.small {
-  max-width: 61.25rem; /* 980px */
+  max-width: 64rem; /* 980px */
 }
 
 /* License modal */
@@ -147,7 +149,7 @@
 
 .license-dialog {
   background: var(--card);
-  max-width: 51.25rem; /* 820px */
+  max-width: 48rem; /* 768px */
   width: 92%;
   padding: 1.125rem;
   border-radius: 0.75rem;
