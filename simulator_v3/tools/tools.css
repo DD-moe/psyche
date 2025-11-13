@@ -57,4 +57,5 @@ button.btn.pre-btn:hover {
 
 #processBtn{
   margin: 0 auto;
+  display: block;
 }

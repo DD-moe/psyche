@@ -32,7 +32,7 @@ textarea.necessary-data {
   cursor: pointer;
   transition: 0.2s;
   margin: 0 auto;
-  display: inline-block;
+  display: block;
 }
 .export-btn:hover {
   background: #1e293b;

@@ -1,6 +1,13 @@
 /* podstawy slajdu */
 /* podstawy slajdu */
 /* podstawy slajdu */
+.presentation * {
+  font-family: 'Roboto', 'Arial', 'sans-serif';
+  overflow-wrap: break-word;
+  word-wrap: break-word; /* stary alias dla starszych przeglądarek */
+  box-sizing: border-box;
+}
+
 .presentation {
   all: initial; /* resetuje dziedziczenie, izoluje od reszty strony */
   font-family: 'Roboto', 'Arial', 'sans-serif';
@@ -34,12 +41,6 @@
 .presentation .slide.active {
   display: block;
   opacity: 1;
-}
-
-.presentation * {
-  overflow-wrap: break-word;
-  word-wrap: break-word; /* stary alias dla starszych przeglądarek */
-  box-sizing: border-box;
 }
 
 .presentation .hidden {
