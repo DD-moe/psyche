@@ -118,6 +118,11 @@
   list-style-position: outside;
 }
 
+.presentation .flli li {
+  display: flex;
+  align-items: flex-start;
+}
+
 .presentation img {
   display: block;
   max-width: 100%;
