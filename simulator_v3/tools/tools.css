@@ -56,7 +56,6 @@ button.btn.pre-btn:hover {
 }
 
 #processBtn{
-  justify-content: flex-end;
-  margin-top: 0.625rem; /* 10px */
+  right: 0.625rem;
   display: block;
 }
