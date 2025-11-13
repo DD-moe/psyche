@@ -372,7 +372,6 @@ div{
   width: 75%;
   max-height: 75%;
   max-width: 50rem; /* ok. 800px */
-  overflow: auto;
 }
 
 .presentation .widget .controls {
@@ -388,6 +387,7 @@ div{
 .widget-body{
   z-index: 5;
   box-sizing: border-box;
+  overflow: auto;
 }
 
 .anim {
