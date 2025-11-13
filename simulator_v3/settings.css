@@ -15,9 +15,21 @@
 }
 
 label.row {
-  justify-content: space-between;
-  margin-bottom: 0.75rem; /* 12px */
+  display: flex;
+  align-items: center; /* wyśrodkowanie w pionie */
+  gap: 0.5rem;         /* odstęp między span a input */
 }
+
+label.row .col {
+  flex: 1;             /* zajmuje tyle miejsca ile może */
+}
+
+label.row input,
+label.row textarea {
+  flex: 2;             /* lub inna proporcja, żeby input był większy */
+  width: auto;         /* nie rozciągaj na 100% w flexie */
+}
+
 
 textarea.necessary-data {
   resize: vertical;
