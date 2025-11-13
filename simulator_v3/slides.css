@@ -32,6 +32,7 @@
 .presentation * {
   overflow-wrap: break-word;
   word-wrap: break-word; /* stary alias dla starszych przeglądarek */
+  box-sizing: border-box;
 }
 
 .presentation .hidden {
@@ -170,6 +171,7 @@
   background: rgba(255,255,255,0.05);
   border-left: 0.25rem solid #00bcd4;
   max-width: 64rem;
+  width: 100%;
   line-height: 1.5;
   font-size: 1.4rem;
 }
@@ -181,7 +183,7 @@
   background: rgba(255,255,255,0.2);
   border: none;
   margin: 2rem 0;
-  width: 80%;
+  width: 100%;
 }
 
 .presentation br {
@@ -217,11 +219,11 @@
 }
 
 .presentation .line-relaxed {
-  line-height: 1.8;
+  line-height: 2;
 }
 
 .presentation .line-loose {
-  line-height: 2.5;
+  line-height: 3;
 }
 
 /* === podkreślenie kolorem === */
@@ -258,7 +260,6 @@
   width: 100%;
   max-width: 64rem; /* ok. 800px */
   margin: 0 auto;
-  box-sizing: border-box;
   color: white;
 }
 
@@ -275,7 +276,6 @@
   box-shadow: 0 0.25rem 1rem rgba(0,0,0,0.5);
   padding: 1.75rem;
   margin-bottom: 1.5rem;
-  box-sizing: border-box;
 }
 
 /* obszar ćwiczenia */
@@ -319,7 +319,6 @@
   font-size: 1rem;
   padding: 0.75rem;
   resize: vertical;
-  box-sizing: border-box;
 }
 
 /* przyciski */
@@ -366,10 +365,8 @@
 /* widget - używaj w nowej lini*/
 /* widget - używaj w nowej lini*/
 .presentation .widget {
-  
   display: inline-block;
   position: relative;
-  box-sizing: border-box;
   width: 100%;
 }
 
@@ -382,7 +379,6 @@
   padding: 0.75rem;
   padding-top: 2rem;
   margin: 0 auto;
-  box-sizing: border-box;
   color: white;
   width: 75%;
   max-height: 75%;
@@ -401,7 +397,6 @@
 
 .presentation .widget-body{
   z-index: 5;
-  box-sizing: border-box;
   overflow: auto;
   max-height: 100%;
   max-width: 100%; /* lub dowolna wartość */
@@ -417,8 +412,6 @@
   50% { opacity: 1; transform: translateY(-0.1rem); }
   100% { opacity: 0.7; transform: translateY(0); }
 }
-
-
 /* widget - używaj w nowej lini*/
 /* widget - używaj w nowej lini*/
 /* widget - używaj w nowej lini*/
