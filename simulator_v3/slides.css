@@ -394,6 +394,8 @@ div{
   z-index: 5;
   box-sizing: border-box;
   overflow: auto;
+  max-height: 100%;
+  max-width: 100%; /* lub dowolna wartość */
 }
 
 .anim {
