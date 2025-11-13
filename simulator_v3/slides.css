@@ -38,7 +38,7 @@
   display: none;
 }
 
-div{
+.presentation div{
   text-align: center;
 }
 /* podstawy slajdu */
@@ -114,7 +114,7 @@ div{
   list-style-type: "⚕️";
 }
 
-.outer {
+.presentation .outer {
   list-style-position: outside;
 }
 
@@ -211,8 +211,16 @@ div{
   margin: 0;
 }
 
-.justify{
+.presentation .justify{
   text-align: justify;
+}
+
+.presentation .line-relaxed {
+  line-height: 1.5;
+}
+
+.presentation .line-loose {
+  line-height: 2;
 }
 
 /* === podkreślenie kolorem === */
@@ -227,11 +235,11 @@ div{
 .presentation .color-calm { color: #92b2db; }
 .presentation .color-positive { color: #8cc3ad; }
 /* === tło === */
-.bg-blue {background: #1d365e;}
-.bg-purple {background: #3e2b5f;}
-.bg-green {background: #234e3c;}
-.bg-red {background: #502b2b;}
-.bg-amber {background: #4a3e14;}
+.presentation .bg-blue {background: #1d365e;}
+.presentation .bg-purple {background: #3e2b5f;}
+.presentation .bg-green {background: #234e3c;}
+.presentation .bg-red {background: #502b2b;}
+.presentation .bg-amber {background: #4a3e14;}
 /* === TYPOGRAFIA OGÓLNA === */
 /* === TYPOGRAFIA OGÓLNA === */
 /* === TYPOGRAFIA OGÓLNA === */
@@ -398,7 +406,7 @@ div{
   max-width: 100%; /* lub dowolna wartość */
 }
 
-.anim {
+.presentation .anim {
   display: inline; /* lub inline-block */
   animation: fadeMove 2s infinite linear;
 }
