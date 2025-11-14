@@ -1,52 +1,82 @@
 // wytyczne do tworznenia promptów html:
 const PROMPT_GUIDELINES = `
-[Instrukcja dla modelu AI: generowanie slajdów prezentacji w HTML]
+[Instrukcja dla modelu AI:
 
-Twoim zadaniem jest wygenerowanie fragmentu kodu HTML przeznaczonego do wklejenia do elementu <div class="presentation"> w gotowym szablonie prezentacji.
+Twoim zadaniem jest wygenerowanie fragmentu kodu HTML - generuj tylko fragment a nie cały HTML
 
-⚙️ Struktura i zasady:
+Struktura i zasady:
 - Każdy slajd powinien być osobną sekcją w formacie:
   <section class="slide">
     ...treść slajdu...
   </section>
 
-- Możesz także użyć:
-  <section class="slide title-slide"> — dla slajdu tytułowego (zawiera h1 i ewentualnie .subtitle)
-
-🎨 Dopuszczone elementy HTML:
+Dopuszczone standardowe elementy HTML:
 - Nagłówki: <h1>, <h2>, <h3>
 - Akapity: <p>
 - Listy: <ul>, <ol>, <li>
 - Obrazy: <img src="..." alt="...">
 - Cytaty: <blockquote>
-- Ewentualnie krótkie <strong> i <em> do podkreślenia znaczenia
+- Przerwy: <br>, <hr>
+- Linki: <a>
+- Tabele: <table>, <thead>, <tr>, <tbody>, <th>, <td>
+- Modyfikacje Tekstu: <i>, <b>, <em>, <span>, <s>, <strong>, <u>, <small>, <del>
+- UWAGI: <srong>, <em>, <del> - mają odmienne stylowanie niż ich odpowiedniki: <b>, <i>, <s>
 
-🚫 Zabronione:
+Zabronione:
 - Nie dodawaj <html>, <head>, <body> ani <div class="presentation">
 - Nie stosuj inline CSS, znaczników <style>, <script> ani obcych klas
 [chyba, że użytkownik wyraźnie poprosi o to w prompcie]
 
-🎨 Stylizacja:
+Stylizacja:
 Wszystkie style są już zdefiniowane w pliku CSS:
 https://git.1ioe.top/psyche/simulator_v3/slides.css
 
-Dostępne klasy CSS:
-- .presentation — główny kontener (nie używaj bezpośrednio)
-- .slide — pojedynczy slajd
-- .title-slide — slajd tytułowy
-- .content-slide — zwykły slajd z treścią
-- .subtitle — podtytuł na slajdzie tytułowym
-
-📏 Formatowanie:
-- Zachowuj umiar — 1–3 akapity lub lista na slajd
-- Wykorzystuj elementy semantyczne HTML
-- Dbaj o czytelność i strukturę
-- Nie używaj zbyt długich zdań — tekst ma być przejrzysty jak w prezentacji
+Dostępne standardowe klasy CSS:
+- list-style-type (modyfikacja domyślnych - odpowiednio dla ol i ul: decimal i disc):
+  *.ol1 - upper-roman
+  *.ol2 - lower-alpha
+  *.ul1 - 💊
+  *.ul2 - ⚕️
+- list-style-position (domyślnie inner):
+  *.outer - outer
+- image (domyślnie width: 100% i width: auto) i (domyślnie height: 100% i height: auto) i (object-fit: contain):
+  *.img-auto tylko (width: 100%, height:auto)
+- text-align (domyślnie: center):
+  *.right
+  *.left
+  *.justify
+- display(domyslnie block dla elementów stanadrdowych, oprócz tabel i modyfikacji tekstu):
+  *.block
+  *.inline
+  *.inl-block
+- line-height:
+  *.line-relaxed - 2
+  *.line-loose - 3
+- color (akapity, tabele, listy, itp. - domyślnie białe):
+  *.color-primary - niebieskawy
+  *.color-accent - czerwonawy
+  *.color-warm - żółtawy 
+  *.color-cool - fioletowawy
+  *.color-vivid - pomarańczowawy
+  *.color-pleasant - zielonkawy
+- color (tytuły, nagłówki, itp. - domyślnie białe):
+  *.color-muted - popielaty
+  *.color-calm - sinoniebieski
+  *.color-positive - morski
+- background (domyślnie czarne):
+  *.bg-blue - ciemnoniebieski
+  *.bg-purple - ciemnopurpurowy
+  *.bg-green - ciemnozielony
+  *.bg-red - ciemnoczerwony
+  *.bg-amber - brązowawy
+- animation:
+  *.anim - animacja wzrosku/spadku przezroczystości (zwraca uwagę na elemenety interaktywne)
 
 🧩 Wynik:
 Wynikowy HTML ma być gotowy do wklejenia bezpośrednio do .presentation w szablonie.
 Nie dodawaj żadnych komentarzy, instrukcji ani opisów — tylko czysty kod HTML sekcji.
-`;
+Zadbaj by HTML był czytelnie sformatowany
+]`;
 
 document.addEventListener('DOMContentLoaded', () => {
   const buttons = document.querySelectorAll('.tab-btn');

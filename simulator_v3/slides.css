@@ -92,7 +92,8 @@
 .presentation strong,
 .presentation em,
 .presentation del {
-  text-shadow: 0 0 0.128rem rgba(255, 255, 255, 0.8);
+  text-shadow: 0 0 0.256rem white;
+  text-shadow: 0 0 0.128rem black;
 }
 
 
@@ -209,6 +210,10 @@
   text-align: left;
 }
 
+.presentation .justify{
+  text-align: justify;
+}
+
 .presentation .block{
   display: block;
 }
@@ -220,10 +225,6 @@
 .presentation .inline {
   display: inline;
   margin: 0;
-}
-
-.presentation .justify{
-  text-align: justify;
 }
 
 .presentation .line-relaxed {
