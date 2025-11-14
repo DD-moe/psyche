@@ -92,8 +92,7 @@
 .presentation strong,
 .presentation em,
 .presentation del {
-  text-shadow: 0 0 0.256rem white;
-  text-shadow: 0 0 0.128rem black;
+  text-shadow: 0 0 0.128rem black, 0 0 0.256rem white;
 }
 
 
