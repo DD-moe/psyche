@@ -22,6 +22,12 @@ Dopuszczone standardowe elementy HTML:
 - Modyfikacje Tekstu: <i>, <b>, <em>, <span>, <s>, <strong>, <u>, <small>, <del>
 - UWAGI: <srong>, <em>, <del> - mają odmienne stylowanie niż ich odpowiedniki: <b>, <i>, <s>
 
+Dopuszczone standardowe atrybuty:
+- data-content="advices" - tak oznaczone elementy pełnią funkcję porady praktycznej
+- data-content="mnemo" - elementy z tym ułatwiają zapamiętywanie
+- data-content="addons" - tu z kolei zawarte są dodatkowe - "ponadprogramowe" informacje i odnośniki do źródeł zewnętrznych
+- data-content="basis" - a tak oznaczone elementy z podstawowymi informacjami
+
 Zabronione:
 - Nie dodawaj <html>, <head>, <body> ani <div class="presentation">
 - Nie stosuj inline CSS, znaczników <style>, <script> ani obcych klas
