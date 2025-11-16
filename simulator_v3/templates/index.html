@@ -7,44 +7,193 @@
   <link rel="icon" type="image/png" sizes="192x192" href="https://git.1ioe.top/psyche/simulator_v3/icons/icon-192.jpg">
   <link rel="apple-touch-icon" href="https://git.1ioe.top/psyche/simulator_v3/icons/icon-512.jpg">
   <!-- Styl prezentacji -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://git.1ioe.top/psyche/simulator_v3/slides.css">
 </head>
 <body>
 
   <!-- Główna sekcja prezentacji -->
   <div class="presentation">
-    <section class="slide title-slide">
-      <h1>Tytuł prezentacji</h1>
-      <p class="subtitle">Podtytuł lub autor</p>
-    </section>
 
-    <section class="slide content-slide">
-      <h2>Wprowadzenie</h2>
+    <!-- slajd 1 -->
+    <section class="slide" >
+      <h1 class="color-calm">Prezentacja szablonów</h1>
+      <h2 class="left color-muted">Autorzy: </h2>
+      <h3 class="right color-muted">Damian Bezara</h3>
+      <hr><br>
+      <h3 class="color-positive">Zanim zaczniesz</h3>
+      <br><br>
       <p>
-        Tutaj wklej zawartość wygenerowaną z promptu — tekst, listy, ilustracje, 
-        tabele lub inne elementy HTML zgodne ze strukturą szablonu.
+        Zanim zagłębimy się w temat zaburzeń spostrzegania, warto uświadomić sobie, jak złożony jest sam proces odbierania i interpretowania bodźców. To właśnie od prawidłowego rozumienia pojęć
+        <span class="color-pleasant">„spostrzeganie”</span>,
+        <span class="color-pleasant">„spostrzeżenie”</span> i
+        <span class="color-pleasant">„wyobrażenie”</span>
+        zależy, czy potrafimy właściwie odróżnić zjawiska patologiczne od fizjologicznych.
       </p>
+      <br>
+      <p>Studenci często mylą <i class="color-primary">omamy</i> z <em class="color-primary">urojeniami</em> oraz <b class="color-vivid">halucynacje</b> z <strong class="color-vivid">pseudohalucynacjami</strong>. Celem tej lekcji jest uporządkowanie tych pojęć i pokazanie, że nie każde zaburzenie spostrzegania musi oznaczać <del>chorobę psychiczną</del>.</p>
+      <br><br>
+      <blockquote class="justify"><u class="color-accent">Spostrzeganie</u> — to proces psychiczny polegający na odbiorze i interpretacji bodźców zmysłowych, który pozwala człowiekowi tworzyć obraz rzeczywistości.</blockquote>
+      <blockquote class="justify"><s class="color-warm">Spostrzeżenie</s> — to pojedynczy akt poznawczy będący wynikiem spostrzegania, czyli konkretne ujęcie jakiegoś obiektu, zdarzenia lub zjawiska.</blockquote>
+      <blockquote class="justify"><small class="color-cool">Wyobrażenie</small> — to odtworzenie w świadomości wcześniej spostrzeżonego obrazu, niezależnie od aktualnego działania bodźców zmysłowych.</blockquote>
+      <br><br>
+      <p>W dalszej części prezentacji zobaczysz, jak zaburzenia tych procesów wpływają na sposób, w jaki człowiek postrzega świat i samego siebie.</p>
+      <a href="https://git.1ioe.top/psyche/simulator_v3/presentation.html">Zobacz też inne Prezntacje</a>
     </section>
 
-    <section class="slide content-slide">
-      <h2>Podsumowanie</h2>
-      <ul>
-        <li>Punkt pierwszy</li>
-        <li>Punkt drugi</li>
-        <li>Punkt trzeci</li>
-      </ul>
+    <!-- slajd 2 -->
+    <section class="slide">
+      <h2 class="color-calm" data-content="basis"><strong>Link</strong></h2>
+      <hr><br>
+      <p>Zawsze używaj linków chcąc się odwołać do treśc zewnętrznych, tak jak poniżej. Nie wstawiaj iframe z src do obcych witryn.</p>
+      <br>
+      <a href="https://git.1ioe.top/psyche/simulator_v3/presentation.html">Zobacz też inne Prezntacje</a>
     </section>
 
-    <section class="slide content-slide">
+    <!-- slajd 3 -->
+    <section class="slide">
+      <h2 class="color-calm" data-content="basis"><strong>4 Typy treści</strong></h2>
+      <hr><br>
+      <p>W ustawieniach możesz wybrać które rodzaje treści mają się pokazać na prezentacji, a ktróe nie</p>
+      <hr>
+      <div data-content="advices">🧠 Porady - wiedza praktyczą jakiej nie poznasz z podręczników</div>
+      <div data-content="mnemo">🧩 Mnemoniki - łatwo zapamiętasz podstawowe informacje</div>
+      <div data-content="addons">🧰 Dodatki - dodatkowe informacje dla chcących pogłębić wiedzę</div>
+      <div data-content="basis">📚 Podstawy - bazowa treść kursu</div>
+    </section>
+
+    <!-- slajd 4 -->
+    <section class="slide">
+      <h2 class="color-calm" data-content="basis"><strong>Widget Panel</strong></h2>
+      <hr><br>
+      <p>Możesz utworzyć tekst lub emojoi po kliknięciu którego pokazane zostanie okienko z dodatkową treścią.</p>
+      <br>
+        <div class="widget">
+          <div class="widget-icon anim" onclick="widgetClick(this)">🪄</div>
+
+          <div class="panel hidden">
+            <div class="controls">
+              <span data-action="min" onclick="widgetClick(this)">🔴</span>
+              <span data-action="max" onclick="widgetClick(this)">🟢</span>
+              <span data-action="norm" class="hidden" onclick="widgetClick(this)">🟡</span>
+            </div>
+            <div class="widget-body">
+              <p>Treść panelu, którą można przewijać.</p>
+            </div>
+          </div>
+        </div>
+      <br>
+      <p>Gdy chcesz tam umieścić obrazy pamiętaj o podaniu linku do pliku znajdującego się w tym samym folderze co index.html prezentacji.</p>
+      <s>Nie używaj src do zasobów zewnętrznych nim nie upewnisz się, że ni łamiesz prawa autorskiego.</s>
+      <br>
+        <div class="widget">
+          <div class="widget-icon anim hidden" onclick="widgetClick(this)">🪄</div>
+          <div class="panel">
+            <div class="controls">
+              <span data-action="min" onclick="widgetClick(this)">🔴</span>
+              <span data-action="max" onclick="widgetClick(this)">🟢</span>
+              <span data-action="norm" class="hidden" onclick="widgetClick(this)">🟡</span>
+            </div>
+            <div class="widget-body">
+              <img src="https://git.1ioe.top/psyche/simulator_v3/templates/example.html">
+            </div>
+          </div>
+        </div>
+      <br>
+      <p>Dodaj klasę <em>img-auto</em> by w trybie pełnoekranowym obraz rozciągnął się na całą szerokość ekranu</p>
+      <br>
+        <div class="widget">
+          <div class="widget-icon anim hidden" onclick="widgetClick(this)">🪄</div>
+          <div class="panel">
+            <div class="controls">
+              <span data-action="min" onclick="widgetClick(this)">🔴</span>
+              <span data-action="max" onclick="widgetClick(this)">🟢</span>
+              <span data-action="norm" class="hidden" onclick="widgetClick(this)">🟡</span>
+            </div>
+            <div class="widget-body">
+              <img src="https://git.1ioe.top/psyche/simulator_v3/templates/example.html" class="img-auto">
+            </div>
+          </div>
+        </div> 
+      <br>
+      <p>W przypadku <em>TABELI</em> widget panel jest wewnętrznie przewijalny, co umożliwia umieszczanie ogromnych tabel.</p>
+      <br>        
+      <div class="widget">
+        <div class="widget-icon anim hidden" onclick="widgetClick(this)">🪄</div>
+        <div class="panel">
+          <div class="controls">
+            <span data-action="min" onclick="widgetClick(this)">🔴</span>
+            <span data-action="max" onclick="widgetClick(this)">🟢</span>
+            <span data-action="norm" class="hidden" onclick="widgetClick(this)">🟡</span>
+          </div>
+          <div class="widget-body">
+
+            <table>
+              <thead>
+                <tr class="bg-blue">
+                  <th>#</th>
+                  <th>Nazwa</th>
+                  <th>Kategoria</th>
+                  <th>Opis</th>
+                  <th>Wartość 1</th>
+                  <th>Wartość 2</th>
+                  <th>Jednostka</th>
+                  <th>Zakres min</th>
+                  <th>Zakres max</th>
+                  <th>Uwagi</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="bg-purple"><td>1</td><td>Hemoglobina</td><td>Badania krwi</td><td>Stężenie Hb</td><td>14.2</td><td>14.8</td><td>g/dl</td><td>12</td><td>17</td><td>Norma</td></tr>
+                <tr class="bg-green"><td>2</td><td>Leukocyty</td><td>Badania krwi</td><td>WBC</td><td>6.4</td><td>6.8</td><td>×10⁹/l</td><td>4.0</td><td>10.0</td><td>Norma</td></tr>
+                <tr class="bg-red"><td>3</td><td>Płytki krwi</td><td>Badania krwi</td><td>PLT</td><td>250</td><td>240</td><td>×10⁹/l</td><td>150</td><td>400</td><td>Norma</td></tr>
+                <tr class="bg-amber"><td>4</td><td>Glukoza</td><td>Metabolizm</td><td>Poziom cukru</td><td>95</td><td>102</td><td>mg/dl</td><td>70</td><td>99</td><td>Podwyższona</td></tr>
+                <tr><td>5</td><td>Kreatynina</td><td>Nerki</td><td>Funkcja nerek</td><td>1.0</td><td>1.1</td><td>mg/dl</td><td>0.6</td><td>1.3</td><td>Norma</td></tr>
+                <tr><td>6</td><td>Mocznik</td><td>Nerki</td><td>Katabolizm białek</td><td>35</td><td>40</td><td>mg/dl</td><td>17</td><td>43</td><td>Norma</td></tr>
+                <tr><td>7</td><td>ALT</td><td>Wątroba</td><td>Aminotransferaza alaninowa</td><td>28</td><td>32</td><td>U/l</td><td>0</td><td>41</td><td>Norma</td></tr>
+                <tr><td>8</td><td>AST</td><td>Wątroba</td><td>Aminotransferaza asparaginowa</td><td>25</td><td>27</td><td>U/l</td><td>0</td><td>40</td><td>Norma</td></tr>
+                <tr><td>9</td><td>Bilirubina</td><td>Wątroba</td><td>Poziom bilirubiny</td><td>0.8</td><td>0.9</td><td>mg/dl</td><td>0.1</td><td>1.2</td><td>Norma</td></tr>
+                <tr><td>10</td><td>Sód</td><td>Elektrolity</td><td>Stężenie Na⁺</td><td>140</td><td>138</td><td>mmol/l</td><td>135</td><td>145</td><td>Norma</td></tr>
+                <tr><td>11</td><td>Potas</td><td>Elektrolity</td><td>Stężenie K⁺</td><td>4.2</td><td>4.0</td><td>mmol/l</td><td>3.5</td><td>5.1</td><td>Norma</td></tr>
+                <tr><td>12</td><td>Cholesterol</td><td>Lipidy</td><td>Całkowity poziom cholesterolu</td><td>185</td><td>195</td><td>mg/dl</td><td>0</td><td>200</td><td>Na granicy</td></tr>
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div> 
+    </section>    
+
+    <!-- slajd 5 -->
+    <section class="slide " >
+      <h2 class="color-calm" data-content="basis"><strong>Repetytor AI cz. 1</strong></h2>
+      <hr><br>
+      <p>Poniżej masz przykłąd repetytora AI - wszystkie treści zawarte są w strukturze HTML</p>
+      <u>UWAGA - na jednym slajdzie może być tylko jeden repetytor - inaczej nie będzie działać prawidłowo.</u>  
+      <hr><hr><br>   
       <h2>Przećwicz definicje</h2>
       <!-- główny kontener prezentacyjny -->
       <div class="presentation-block">
-
+        <!-- prompt do generowania pytania -->
+        <div class="prompt hidden">
+          Na podstawie definicji  ułóż krótki przypadek kliniczny (3–6 zdań).
+          Opisz pacjenta, objawy i kontekst, bez podawania rozpoznania.
+          Na końcu dodaj pytanie kliniczne (np. "Jakie jest rozpoznanie?").
+        </div>
+        <!-- prompt do generowania odpowiedzi -->
+        <div class="aim hidden">
+          Celem pytania było przećwiczenie różnicowania jednostkek chorobowych spośród poniżej wymienionych          
+        </div>        
         <!-- ukryte definicje -->
         <div class="definitions hidden">
-          <pre name="Zespół Reya">Nagły postępujący obrzęk mózgu u dziecka po infekcji wirusowej i podaniu aspiryny.</pre>
-          <pre name="Ostre zapalenie wyrostka">Ból w prawym dole biodrowym, gorączka, objaw Blumberga dodatni.</pre>
-          <pre name="Migrena z aurą">Pulsujący ból głowy z aurą wzrokową, często jednostronny.</pre>
+          <pre name="Pareidolie">Złudne spostrzeganie znanych kształtów w przypadkowych bodźcach (np. twarzy w chmurach); utrzymane poczucie nierealności spostrzeżeń.</pre>
+          <pre name="Iluzje">Zniekształcone spostrzeżenia rzeczywistych bodźców zmysłowych; wynikające z warunków zewnętrznych lub stanu emocjonalnego.</pre>
+          <pre name="Synestezja">Współwystępowanie wrażeń z różnych modalności zmysłowych, np. słyszenie kolorów lub widzenie dźwięków; zwykle stała i niepatologiczna.</pre>
+          <pre name="Omamy">Fałszywe spostrzeżenia powstające bez bodźca zewnętrznego; mają pełną żywotność zmysłową i są uznawane za realne przez osobę doświadczającą.</pre>
+          <pre name="Pseudohalucynacje">Doznania przypominające omamy, ale osoba je doświadczajaca twierdzi, że pochodzą z nierealnej przestrzeni, np. z kosmosu, z wątroby, z odległego miasta.</pre>
+          <pre name="Halucynoidy">Wrażenia zmysłowe podobne do omamów, zwykle krótkotrwałe, bez utraty krytycyzmu; często związane z uszkodzeniami mózgu lub substancjami psychoaktywnymi.</pre>
+          <pre name="Depersonalizacja">Poczucie obcości wobec własnego ciała, emocji lub myśli; wrażenie obserwowania siebie z zewnątrz, przy zachowanym krytycyzmie.</pre>
+          <pre name="Derealizacja">Wrażenie nierealności lub zmienionej jakości otoczenia; świat wydaje się sztuczny, odległy, jak we śnie — przy zachowanym wglądzie.</pre>
         </div>
 
         <!-- widoczny obszar ćwiczenia -->
@@ -64,17 +213,54 @@
       </div>
     </section>
 
-    <section class="slide content-slide">
-      <h2>Przećwicz definicje – choroby układu krążenia</h2>
+    <!-- slajd 6 -->
+    <section class="slide " >
+      <h2 class="color-calm" data-content="basis"><strong>Repetytor AI cz. 2</strong></h2>
+      <hr><br>
+      <p>Tu bardziej zaawansowany repetytor AI</p>
+      <u>UWAGA - Im więcej dasz definicji tym więcej tokenów AI zużyje na jedno zapytanie i tym dłużej będzie trwało generowanie treści (zalecam 30 definicji max).</u>  
+      <hr><hr><br>        
+      <h2>Przećwicz definicje – dokładna klasyfikacja</h2>
       <!-- główny kontener prezentacyjny -->
       <div class="presentation-block">
-
+        <!-- prompt do generowania pytania -->
+        <div class="prompt hidden">
+          Na podstawie definicji  ułóż krótki przypadek kliniczny (3–6 zdań).
+          Opisz pacjenta, objawy i kontekst, bez podawania rozpoznania.
+          Na końcu dodaj pytanie kliniczne (np. "Jakie jest rozpoznanie?").
+        </div>
+        <!-- prompt do generowania odpowiedzi -->
+        <div class="aim hidden">
+          Celem pytania było przećwiczenie różnicowania jednostkek chorobowych spośród poniżej wymienionych          
+        </div>
         <!-- ukryte definicje -->
         <div class="definitions hidden">
-          <pre name="Zawał mięśnia sercowego">Ostry ból zamostkowy promieniujący do lewego ramienia, duszność, poty, wzrost troponin.</pre>
-          <pre name="Nadciśnienie tętnicze">Utrzymujące się wartości ciśnienia tętniczego powyżej 140/90 mmHg w spoczynku.</pre>
-          <pre name="Niewydolność serca">Zmniejszona zdolność serca do pompowania krwi, duszność wysiłkowa, obrzęki kończyn dolnych.</pre>
-          <pre name="Migotanie przedsionków">Nieregularny rytm serca, kołatanie, ryzyko powstawania skrzeplin i udaru mózgu.</pre>
+          <pre name="Pareidolie">Złudne rozpoznawanie znanych kształtów lub obiektów w przypadkowych bodźcach (np. twarzy w chmurach, dźwięków w szumie). U osób zdrowych – z zachowanym krytycyzmem.</pre>
+          <pre name="Iluzje fizjologiczne">Błędne spostrzeżenia rzeczywistych bodźców powstające u osób zdrowych w warunkach zmęczenia, złego oświetlenia lub nieuwagi; mają charakter przemijający i niechorobowy.</pre>
+          <pre name="Iluzje patologiczne">Zniekształcone spostrzeżenia rzeczywistych bodźców u osób z zaburzeniami psychicznymi; wynikają z zaburzeń emocji, świadomości lub procesów poznawczych, brak krytycyzmu.</pre>
+          <pre name="Synestezje">Zjawisko współwystępowania doznań z różnych modalności zmysłowych, np. widzenie dźwięków lub słyszenie kolorów; może mieć charakter fizjologiczny lub patologiczny.</pre>
+          <pre name="Objaw Liepmana">Pacjent (majaczenie alkoholowe) po uciśnięciu gałek ocznych ma omamy wzrokowe, mogące niekiedy wywołać agresję.</pre>
+          <pre name="Objaw Reicharda">Pacjent (majaczenie alkoholowe) jest bardzo sugestywny i czyta z sufitu, niezapisanej kartki itp. [omamy wzrokowe pod wpływem sugestii]</pre>
+          <pre name="Objaw Aschafenberga">Pacjent (majaczenie alkoholowe) jest bardzo sugestywny i rozmawia przez wyłączony telefon itp. [omamy słuchowe pod wpływem sugestii]</pre>
+          <pre name="Objaw nawlekania nitki">Pacjent (majaczenie alkoholowe) jest bardzo sugestywny i nawleka nieistniejącą nitkęna nieistniejacą igłę itp. [pod wpływem sugestii]</pre>
+          <pre name="Omamy wzrokowe proste">Proste błyski, plamy, światła lub cienie widziane bez rzeczywistego bodźca wzrokowego; często w padaczce, migrenie lub uszkodzeniach płata potylicznego.</pre>
+          <pre name="Omamy wzrokowe złożone">Złożone obrazy osób, zwierząt, scen; mają pełną żywotność zmysłową i są uznawane za realne; typowe dla psychoz, delirium, uszkodzeń OUN.</pre>
+          <pre name="Omamy słuchowe proste">Nieartykulowane dźwięki – szumy, trzaski, gwizdy – bez rzeczywistego źródła akustycznego; mogą poprzedzać omamy słuchowe złożone.</pre>
+          <pre name="Omamy słuchowe złożone">Słyszenie głosów, rozmów, zdań lub melodii bez bodźca zewnętrznego; treść często znacząca i odnosząca się do chorego.</pre>
+          <pre name="Omamy słuchowe komentujące">Głosy komentujące zachowanie, myśli lub działania chorego; typowy objaw pierwszorzędowy schizofrenii.</pre>
+          <pre name="Omamy słuchowe imperatywne">Głosy wydające polecenia lub rozkazy, często o charakterze przymuszającym; mogą prowadzić do zachowań niebezpiecznych (np. samobójczych lub aktów agresji).</pre>
+          <pre name="Dialog omamowy">Dwa lub więcej głosów rozmawia ze sobą o chorym lub na jego temat; klasyczny objaw schizofreniczny.</pre>
+          <pre name="Omamy węchowe">Doznania zapachowe bez rzeczywistego źródła; zwykle nieprzyjemne (np. gnicia, dymu); mogą występować w padaczce skroniowej lub psychozach.</pre>
+          <pre name="Omamy smakowe">Nieistniejące wrażenia smakowe, często o nieprzyjemnej treści (np. smak trucizny); zwykle towarzyszą omamom węchowym.</pre>
+          <pre name="Omamy czucia skórnego">Fałszywe odczucia dotykowe – np. pełzania, ukąszeń, prądu pod skórą; mogą występować w psychozach, zatruciach lub delirium tremens.</pre>
+          <pre name="Omamy kinestetyczne">Wrażenia ruchu własnych kończyn lub ciała bez rzeczywistego poruszenia; związane z zaburzeniem czucia głębokiego lub chorobami OUN.</pre>
+          <pre name="Omamy cenestetyczne">Fałszywe wrażenia dotyczące narządów wewnętrznych (np. rozrastania się, gnicia ciała, przemieszczania organów).</pre>
+          <pre name="Omamy hipagogiczne">Krótkotrwałe omamy pojawiające się w momencie zasypiania; fizjologiczne, niechorobowe, często wzrokowe lub słuchowe.</pre>
+          <pre name="Omamy hipnopompiczne">Omamy występujące w chwili wybudzania ze snu; zwykle fizjologiczne i krótkotrwałe, mogą towarzyszyć narkolepsji.</pre>
+          <pre name="Pseudohalucynacje">Doznania przypominające omamy, lecz z umiejscowieniem przez chorego w przestrzeni nierealnej lub niedostępnej dla zmysłów, np. z głowy, z wątroby , z kosmosy, od Boga, z odległego miasta.</pre>
+          <pre name="Parahalucynacje">Zaburzenia spostrzegania polegające na powstawaniu fałszywych doznań zmysłowych przy zachowanej świadomości ich nierealności, często w chorobach organicznych mózgu.</pre>
+          <pre name="Depersonalizacja">Poczucie obcości wobec własnego ciała, emocji lub myśli; wrażenie bycia obserwatorem samego siebie przy zachowanym krytycyzmie.</pre>
+          <pre name="Derealizacja">Poczucie nierealności otoczenia; świat wydaje się sztuczny, jak we śnie lub filmie; często towarzyszy lękowi lub depersonalizacji.</pre>
         </div>
 
         <!-- widoczny obszar ćwiczenia -->
@@ -94,6 +280,119 @@
       </div>
     </section>
 
+    <!-- slajd 7 -->
+    <section class="slide">
+      <h2 class="color-calm" data-content="basis"><strong>Link</strong></h2>
+      <hr><br>
+      <p>Masz też możliwość stworzenia tekstu po kliknięciu któego pojawi się dłuższa definicja.</p>
+      <b>Dzięki temu ktoś ciekawy może zwiększyć poziom szczegółów.</b>
+      <u>Takie elemnty zawsze pulsują zmieniając delikatnie przezroczystość, odpowiada za to klasa:<em>anim</em>.</u>
+      <br>
+        <p class="term anim" onclick="termClick(this)">
+          Neuron
+          <script type="application/json" class="defs">
+          [
+            "<b>Krótko:</b> komórka nerwowa.",
+            "<i>Średnio:</i> neuron przenosi sygnały elektryczne i chemiczne.",
+            "<small>Szczegóły:</small> składa się z ciała komórkowego, dendrytów i aksonu."
+          ]
+          </script>
+        </p>
+    </section>    
+
+    <!-- slajd 8 -->
+    <section class="slide">
+      <h2 class="color-calm" data-content="basis"><strong>Instrukcja dla promptów:</strong></h2>
+      <hr><br>
+      <p>Poniżej zawarta jest instrukcja dla promptów, którą AI używa dla zachowania jednolitości stylów.</p>
+      <br>
+      <code>
+`
+[Instrukcja dla modelu AI:
+
+Twoim zadaniem jest wygenerowanie fragmentu kodu HTML - generuj tylko fragment a nie cały HTML
+
+Struktura i zasady:
+- Każdy slajd powinien być osobną sekcją w formacie:
+  <section class="slide">
+    ...treść slajdu...
+  </section>
+
+Dopuszczone standardowe elementy HTML:
+- Nagłówki: <h1>, <h2>, <h3>
+- Akapity: <p>
+- Listy: <ul>, <ol>, <li>
+- Obrazy: <img src="..." alt="...">
+- Cytaty: <blockquote>
+- Przerwy: <br>, <hr>
+- Linki: <a>
+- Tabele: <table>, <thead>, <tr>, <tbody>, <th>, <td>
+- Modyfikacje Tekstu: <i>, <b>, <em>, <span>, <s>, <strong>, <u>, <small>, <del>
+- UWAGI: <srong>, <em>, <del> - mają odmienne stylowanie niż ich odpowiedniki: <b>, <i>, <s>
+
+Dopuszczone standardowe atrybuty:
+- data-content="advices" - tak oznaczone elementy pełnią funkcję porady praktycznej
+- data-content="mnemo" - elementy z tym ułatwiają zapamiętywanie
+- data-content="addons" - tu z kolei zawarte są dodatkowe - "ponadprogramowe" informacje i odnośniki do źródeł zewnętrznych
+- data-content="basis" - a tak oznaczone elementy z podstawowymi informacjami
+
+Zabronione:
+- Nie dodawaj <html>, <head>, <body> ani <div class="presentation">
+- Nie stosuj inline CSS, znaczników &lt;style&gt;, &lt;script&gt; ani obcych klas
+[chyba, że użytkownik wyraźnie poprosi o to w prompcie]
+
+Stylizacja:
+Wszystkie style są już zdefiniowane w pliku CSS:
+https://git.1ioe.top/psyche/simulator_v3/slides.css
+
+Dostępne standardowe klasy CSS:
+- list-style-type (modyfikacja domyślnych - odpowiednio dla ol i ul: decimal i disc):
+  *.ol1 - upper-roman
+  *.ol2 - lower-alpha
+  *.ul1 - 💊
+  *.ul2 - ⚕️
+- list-style-position (domyślnie inner):
+  *.outer - outer
+- image (domyślnie width: 100% i width: auto) i (domyślnie height: 100% i height: auto) i (object-fit: contain):
+  *.img-auto tylko (width: 100%, height:auto)
+- text-align (domyślnie: center):
+  *.right
+  *.left
+  *.justify
+- display(domyslnie block dla elementów stanadrdowych, oprócz tabel i modyfikacji tekstu):
+  *.block
+  *.inline
+  *.inl-block
+- line-height:
+  *.line-relaxed - 2
+  *.line-loose - 3
+- color (akapity, tabele, listy, itp. - domyślnie białe):
+  *.color-primary - niebieskawy
+  *.color-accent - czerwonawy
+  *.color-warm - żółtawy 
+  *.color-cool - fioletowawy
+  *.color-vivid - pomarańczowawy
+  *.color-pleasant - zielonkawy
+- color (tytuły, nagłówki, itp. - domyślnie białe):
+  *.color-muted - popielaty
+  *.color-calm - sinoniebieski
+  *.color-positive - morski
+- background (domyślnie czarne):
+  *.bg-blue - ciemnoniebieski
+  *.bg-purple - ciemnopurpurowy
+  *.bg-green - ciemnozielony
+  *.bg-red - ciemnoczerwony
+  *.bg-amber - brązowawy
+- animation:
+  *.anim - animacja wzrosku/spadku przezroczystości (zwraca uwagę na elemenety interaktywne)
+
+🧩 Wynik:
+Wynikowy HTML ma być gotowy do wklejenia bezpośrednio do .presentation w szablonie.
+Nie dodawaj żadnych komentarzy, instrukcji ani opisów — tylko czysty kod HTML sekcji.
+Zadbaj by HTML był czytelnie sformatowany
+]`        
+      </code>
+    </section>
 
   </div>
 
