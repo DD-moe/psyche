@@ -22,6 +22,7 @@
       <h3 class="right color-muted">Damian Bezara</h3>
       <hr><br>
       <h3 class="color-positive">Zanim zaczniesz</h3>
+      <b>Tu masz przykłądową stronę tytułową z prezentacji, postaraj się tworzyć inne strony tytułowe na wzór tej.</b>
       <br><br>
       <p>
         Zanim zagłębimy się w temat zaburzeń spostrzegania, warto uświadomić sobie, jak złożony jest sam proces odbierania i interpretowania bodźców. To właśnie od prawidłowego rozumienia pojęć
@@ -54,7 +55,7 @@
     <section class="slide">
       <h2 class="color-calm" data-content="basis"><strong>4 Typy treści</strong></h2>
       <hr><br>
-      <p>W ustawieniach możesz wybrać które rodzaje treści mają się pokazać na prezentacji, a ktróe nie</p>
+      <p>W ustawieniach możesz wybrać które rodzaje treści mają się pokazać na prezentacji, a które nie</p>
       <hr>
       <div data-content="advices">🧠 Porady - wiedza praktyczą jakiej nie poznasz z podręczników</div>
       <div data-content="mnemo">🧩 Mnemoniki - łatwo zapamiętasz podstawowe informacje</div>
@@ -66,7 +67,7 @@
     <section class="slide">
       <h2 class="color-calm" data-content="basis"><strong>Widget Panel</strong></h2>
       <hr><br>
-      <p>Możesz utworzyć tekst lub emojoi po kliknięciu którego pokazane zostanie okienko z dodatkową treścią.</p>
+      <p>Możesz utworzyć tekst lub emoji po kliknięciu którego pokazane zostanie okienko z dodatkową treścią.</p>
       <br>
         <div class="widget">
           <div class="widget-icon anim" onclick="widgetClick(this)">🪄</div>
@@ -95,7 +96,7 @@
               <span data-action="norm" class="hidden" onclick="widgetClick(this)">🟡</span>
             </div>
             <div class="widget-body">
-              <img src="https://git.1ioe.top/psyche/simulator_v3/templates/example.html">
+              <img src="https://git.1ioe.top/psyche/simulator_v3/templates/example.jpg">
             </div>
           </div>
         </div>
@@ -111,7 +112,7 @@
               <span data-action="norm" class="hidden" onclick="widgetClick(this)">🟡</span>
             </div>
             <div class="widget-body">
-              <img src="https://git.1ioe.top/psyche/simulator_v3/templates/example.html" class="img-auto">
+              <img src="https://git.1ioe.top/psyche/simulator_v3/templates/example.jpg" class="img-auto">
             </div>
           </div>
         </div> 
@@ -314,21 +315,21 @@ Twoim zadaniem jest wygenerowanie fragmentu kodu HTML - generuj tylko fragment a
 
 Struktura i zasady:
 - Każdy slajd powinien być osobną sekcją w formacie:
-  <section class="slide">
+  section class="slide">
     ...treść slajdu...
-  </section>
+  /section>
 
 Dopuszczone standardowe elementy HTML:
-- Nagłówki: <h1>, <h2>, <h3>
-- Akapity: <p>
-- Listy: <ul>, <ol>, <li>
-- Obrazy: <img src="..." alt="...">
-- Cytaty: <blockquote>
-- Przerwy: <br>, <hr>
-- Linki: <a>
-- Tabele: <table>, <thead>, <tr>, <tbody>, <th>, <td>
-- Modyfikacje Tekstu: <i>, <b>, <em>, <span>, <s>, <strong>, <u>, <small>, <del>
-- UWAGI: <srong>, <em>, <del> - mają odmienne stylowanie niż ich odpowiedniki: <b>, <i>, <s>
+- Nagłówki: h1>, h2>, h3>
+- Akapity: p>
+- Listy: ul>, ol>, li>
+- Obrazy: img src="..." alt="...">
+- Cytaty: blockquote>
+- Przerwy: br>, hr>
+- Linki: a>
+- Tabele: table>, thead>, tr>, tbody>, th>, td>
+- Modyfikacje Tekstu: i>, b>, em>, span>, s>, strong>, u>, small>, del>
+- UWAGI: srong>, em>, del> - mają odmienne stylowanie niż ich odpowiedniki: b>, i>, s>
 
 Dopuszczone standardowe atrybuty:
 - data-content="advices" - tak oznaczone elementy pełnią funkcję porady praktycznej
@@ -337,8 +338,8 @@ Dopuszczone standardowe atrybuty:
 - data-content="basis" - a tak oznaczone elementy z podstawowymi informacjami
 
 Zabronione:
-- Nie dodawaj <html>, <head>, <body> ani <div class="presentation">
-- Nie stosuj inline CSS, znaczników &lt;style&gt;, &lt;script&gt; ani obcych klas
+- Nie dodawaj html>, head>, body> ani div class="presentation">
+- Nie stosuj inline CSS, znaczników style>, script> ani obcych klas
 [chyba, że użytkownik wyraźnie poprosi o to w prompcie]
 
 Stylizacja:
