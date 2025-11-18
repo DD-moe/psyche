@@ -22,5 +22,20 @@ function carouselPrev(btn) {
   imgs[idx].classList.add("active");
 }
 
+function openTab(btn) {
+  const tabs = btn.closest(".tabs");                   // kontener tego panelu
+  const views = tabs.querySelector(".tabs-views");     // zbiór widoków
+  const name = btn.dataset.tab;                        // nazwa zakładki
+
+  // przełącz przyciski
+  tabs.querySelectorAll(".tab-btn")
+      .forEach(b => b.classList.toggle("active", b === btn));
+
+  // przełącz widoki
+  views.querySelectorAll(".tab-view")
+      .forEach(v => v.classList.toggle("active", v.dataset.tab === name));
+}
+
 window.carouselPrev = carouselPrev;
 window.carouselNext = carouselNext;
+window.openTab = openTab;

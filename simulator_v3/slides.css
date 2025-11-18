@@ -485,3 +485,68 @@
 /* karuzela obrazów */
 /* karuzela obrazów */
 /* karuzela obrazów */
+
+/* tabs */
+/* tabs */
+/* tabs */
+.tabs {
+  background: #0b0f14;
+  border: 0.125rem solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.75rem;
+  padding: 0.75rem;
+  margin: 1.25rem auto;
+  max-width: 900px;
+  box-sizing: border-box;
+}
+
+.tabs-header {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.tab-btn {
+  all: unset;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+
+  background: rgba(255,255,255,0.07);
+  border: 0.1rem solid rgba(255,255,255,0.12);
+
+  font-size: 0.95rem;
+  color: #e6eef6;
+  user-select: none;
+  transition: background 0.25s ease, border 0.25s ease;
+}
+
+.tab-btn:hover {
+  background: rgba(255,255,255,0.14);
+}
+
+.tab-btn.active {
+  background: rgba(255,255,255,0.22);
+  border-color: rgba(255,255,255,0.3);
+}
+
+.tabs-views {
+  background: #0f141a;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  border: 0.1rem solid rgba(255,255,255,0.05);
+}
+
+.tab-view {
+  display: none;
+  color: #e6eef6;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.tab-view.active {
+  display: block;
+  opacity: 1;
+}
+/* tabs */
+/* tabs */
+/* tabs */
