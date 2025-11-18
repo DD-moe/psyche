@@ -1,4 +1,12 @@
 Kroki do Zrobienia
+1) przetestować panel widgetów
+2) przygotować i przetestować panel wywiadu
+3) zaprojektować koncepcję badania przedmiotowego, wykonać i przetestować
+4) zaprojektować koncepcję diagnostyki (koszyk zakupowy plus czas), wykonać i przetestować
+5) zaprojektować koncepcję leczenia (koszyk zakupowy plus czas), wykonać i przetestować
+6) zaprojektować koncepcję badania podsumowania, wykonać i przetestować
+7) wykonać i przetestować ocenę
+8) dodać ustawieia w simulator
 
 czym są pliki i foldery:
     icons - zawiera ikony
