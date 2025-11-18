@@ -5,9 +5,9 @@ document.addEventListener("click", async (e) => {
   if (!action) return;
 
   // ★ Znajduje najbliższy element data-sim-root
-  const root = e.target.closest("[data-sim-root]");
+  const root = e.target.closest("[data-sim-src]");
   if (!root) {
-    alert("Nie można znaleźć elementu data-sim-root.");
+    alert("Nie można znaleźć elementu data-sim-src.");
     return;
   }
 
@@ -120,7 +120,7 @@ document.addEventListener("click", async (e) => {
   if (action === "next") {
     await prepareNextStep(sim);
   }
-  
+
 });
 
 // ------------------------------------
