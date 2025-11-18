@@ -71,6 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
     import("./badges.js");
     import("./widgets.js");
     import("./sim_utils.js");
+    import("./sim_main.js");
   }
 
 

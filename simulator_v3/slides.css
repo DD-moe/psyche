@@ -546,6 +546,20 @@
   display: block;
   opacity: 1;
 }
+
+.tab-view button {
+  padding: 0.5rem 1rem;
+  background: rgba(255,255,255,0.05);
+  border: 0.128rem solid rgba(255,255,255,0.1);
+  border-radius: 0.4rem;
+  color: #eef;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.tab-view button:hover {
+  background: rgba(255,255,255,0.12);
+}
 /* tabs */
 /* tabs */
 /* tabs */
