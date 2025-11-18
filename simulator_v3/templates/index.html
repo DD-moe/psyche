@@ -307,18 +307,33 @@
       <hr><br>
       <p>"karuzela" dla obrazów</p>
       <br>
-        <div class="carousel">
-          <button class="carousel-btn left" onclick="carouselPrev(this)">◀</button>
+        <div class="widget">
+          <div class="widget-icon anim hidden" onclick="widgetClick(this)">🪄</div>
+          <div class="panel">
+            <div class="controls">
+              <span data-action="min" onclick="widgetClick(this)">🔴</span>
+              <span data-action="max" onclick="widgetClick(this)">🟢</span>
+              <span data-action="norm" class="hidden" onclick="widgetClick(this)">🟡</span>
+            </div>
+            <div class="widget-body">
+              <!-- karuzela -->
+              <div class="carousel">
+                <button class="carousel-btn left" onclick="carouselPrev(this)">◀</button>
 
-          <div class="carousel-track">
-            <img src="https://git.1ioe.top/psyche/simulator_v3/templates/example.jpg" class="active">
-            <img src="https://git.1ioe.top/psyche/simulator_v3/templates/example_h.jpg">
-            <img src="https://git.1ioe.top/psyche/simulator_v3/templates/example.jpg">
-            <img src="https://git.1ioe.top/psyche/simulator_v3/templates/example_h.jpg">
+                <div class="carousel-track">
+                  <img src="https://git.1ioe.top/psyche/simulator_v3/templates/example.jpg" class="active">
+                  <img src="https://git.1ioe.top/psyche/simulator_v3/templates/example_h.jpg">
+                  <img src="https://git.1ioe.top/psyche/simulator_v3/templates/example.jpg">
+                  <img src="https://git.1ioe.top/psyche/simulator_v3/templates/example_h.jpg">
+                </div>
+
+                <button class="carousel-btn right" onclick="carouselNext(this)">▶</button>
+              </div>
+              <!-- karuzela -->
+            </div>
           </div>
+        </div> 
 
-          <button class="carousel-btn right" onclick="carouselNext(this)">▶</button>
-        </div>
     </section>
 
     <!-- slajd 9 -->
