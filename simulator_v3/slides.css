@@ -562,8 +562,8 @@
 }
 
 .w20{
-  max-width: 20rem;
-  width: 100%;
+  max-width: 100%;
+  width: 20rem;
 }
 
 /* tabs */
