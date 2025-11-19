@@ -396,7 +396,7 @@
   margin: 0 auto;
   color: white;
   aspect-ratio: 1 / 1;
-  width: 64rem;
+  height: 64rem;
   max-height: 90vh;
   max-width: 75%;
   box-sizing: border-box;
