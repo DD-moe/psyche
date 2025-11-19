@@ -16,7 +16,7 @@ document.addEventListener("click", async (e) => {
     root.sim_data = {};
   }
 
-  const sim = root.sim_data; // referencja do zmiennej
+  let sim = root.sim_data; // referencja do zmiennej
 
   // -------------------------------------------------
   // 1) ZAŁADUJ SCENARIUSZ – wczytywanie z data-sim-src
