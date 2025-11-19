@@ -396,6 +396,7 @@
   margin: 0 auto;
   color: white;
   width: 75%;
+  height: 90vh;
   max-height: 90vh;
   max-width: 64rem; /* ok. 800px */
 }
