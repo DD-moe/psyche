@@ -34,8 +34,8 @@ style.textContent = `
     width: 4rem;
     height: 4rem;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.08);
-    box-shadow: 0 0 0.625rem rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.32);
+    box-shadow: 0 0 0.625rem rgba(255, 255, 255, 0.32);
     backdrop-filter: blur(0.375rem);
     display: flex;
     align-items: center;
