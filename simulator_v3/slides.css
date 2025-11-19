@@ -234,6 +234,10 @@
   line-height: 3;
 }
 
+.presentation pre{
+  max-width: 100%;
+}
+
 /* === podkreślenie kolorem === */
 .presentation .color-primary { color: #00bcd4; }
 .presentation .color-accent { color: #ff4081; }
@@ -426,7 +430,7 @@
 /* karuzela obrazów */
 /* karuzela obrazów */
 /* karuzela obrazów */
-.carousel {
+.presentation .carousel {
   position: relative;
   width: 100%;
   height: auto;
@@ -441,45 +445,47 @@
   margin: 0 auto;
 }
 
-.carousel-track {
+.presentation .carousel-track {
   width: 100%;
   position: relative;
   overflow: hidden;
 }
 
-.carousel-track img {
+.presentation .carousel-track img {
   width: 100%;
   display: none;
   opacity: 0;
   transition: opacity .3s ease;
 }
 
-.carousel-track img.active {
+.presentation .carousel-track img.active {
   display: block;
   opacity: 1;
 }
 
-.carousel-btn {
+.presentation .carousel-btn {
   all: unset;
+  position: absolute;
   cursor: pointer;
   color: #e6eef6;
   background: rgba(255,255,255,0.08);
   border: 1px solid rgba(255,255,255,0.15);
-  width: 36px;
-  height: 36px;
-  border-radius: 6px;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.375rem;
   display: grid;
   place-items: center;
-  font-size: 18px;
-  margin: 0 10px;
+  font-size: 1.2rem;
+  margin: 0 0.625rem;
   user-select: none;
+  z-index: 5;
 }
 
-.carousel-btn:hover {
+.presentation .carousel-btn:hover {
   background: rgba(255,255,255,0.18);
 }
 
-.carousel-btn:active {
+.presentation .carousel-btn:active {
   transform: scale(0.94);
 }
 /* karuzela obrazów */
@@ -489,7 +495,7 @@
 /* tabs */
 /* tabs */
 /* tabs */
-.tabs {
+.presentation .tabs {
   background: #0b0f14;
   border: 0.125rem solid rgba(255, 255, 255, 0.08);
   border-radius: 0.75rem;
@@ -498,7 +504,7 @@
   box-sizing: border-box;
 }
 
-.tabs-header {
+.presentation .tabs-header {
   display: flex;
   gap: 0.5rem;
   margin-bottom: 0.75rem;
@@ -507,7 +513,7 @@
   justify-content: center;
 }
 
-.tab-btn {
+.presentation .tab-btn {
   all: unset;
   cursor: pointer;
   padding: 0.5rem 1rem;
@@ -522,35 +528,35 @@
   transition: background 0.25s ease, border 0.25s ease;
 }
 
-.tab-btn:hover {
+.presentation .tab-btn:hover {
   background: rgba(255,255,255,0.14);
 }
 
-.tab-btn.active {
+.presentation .tab-btn.active {
   background: rgba(255,255,255,0.22);
   border-color: rgba(255,255,255,0.3);
 }
 
-.tabs-views {
+.presentation .tabs-views {
   background: #0f141a;
   border-radius: 0.5rem;
   padding: 1rem;
   border: 0.1rem solid rgba(255,255,255,0.05);
 }
 
-.tab-view {
+.presentation .tab-view {
   display: none;
   color: #e6eef6;
   opacity: 0;
   transition: opacity 0.3s ease;
 }
 
-.tab-view.active {
+.presentation .tab-view.active {
   display: block;
   opacity: 1;
 }
 
-.tab-view button {
+.presentation .tab-view button {
   padding: 0.5rem 1rem;
   background: rgba(255,255,255,0.05);
   border: 0.128rem solid rgba(255,255,255,0.1);
@@ -560,11 +566,11 @@
   transition: 0.2s ease;
 }
 
-.tab-view button:hover {
+.presentation .tab-view button:hover {
   background: rgba(255,255,255,0.12);
 }
 
-.w20{
+.presentation .w20{
   max-width: 100%;
   width: 20rem;
 }
