@@ -397,8 +397,6 @@
   color: white;
   height: 64rem;
   width: 64rem;
-  min-height: 75vw;
-  aspect-ratio: 1/1;
   max-height: 90vh;
   max-width: 75%; 
   box-sizing: border-box;
