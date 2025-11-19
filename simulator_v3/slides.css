@@ -395,8 +395,9 @@
   padding-top: 2rem;
   margin: 0 auto;
   color: white;
-  height: 64rem;
-  width: 64rem;
+  height: 20rem;
+  width: 20rem;
+  min-width: 75%;
   max-height: 90vh;
   max-width: 75%; 
   box-sizing: border-box;
