@@ -395,10 +395,10 @@
   padding-top: 2rem;
   margin: 0 auto;
   color: white;
-  width: 75%;
-  height: auto;
+  width: 64rem;
+  height: 64rem;
   max-height: 90vh;
-  max-width: 64rem; /* ok. 800px */
+  max-width: 75%; /* ok. 800px */
   box-sizing: border-box;
 }
 
