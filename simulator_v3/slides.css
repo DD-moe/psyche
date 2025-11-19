@@ -234,9 +234,12 @@
   line-height: 3;
 }
 
-.presentation pre{
+.presentation pre {
   max-width: 100%;
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }
+
 
 /* === podkreślenie kolorem === */
 .presentation .color-primary { color: #00bcd4; }
@@ -578,3 +581,12 @@
 /* tabs */
 /* tabs */
 /* tabs */
+
+/*block modifiers*/
+.l{
+  left: 0rem;
+}
+
+.r{
+  right: 0rem;
+}
