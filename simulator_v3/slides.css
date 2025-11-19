@@ -399,6 +399,7 @@
   height: auto;
   max-height: 90vh;
   max-width: 64rem; /* ok. 800px */
+  box-sizing: border-box;
 }
 
 .presentation .widget .controls {
@@ -416,6 +417,7 @@
   overflow: auto;
   max-height: 100%;
   max-width: 100%; /* lub dowolna wartość */
+  box-sizing: border-box;
 }
 
 .presentation .anim {
