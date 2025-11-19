@@ -1,5 +1,4 @@
 Kroki do Zrobienia
-1) przetestować panel widgetów
 2) przygotować i przetestować panel wywiadu
 3) zaprojektować koncepcję badania przedmiotowego, wykonać i przetestować
 4) zaprojektować koncepcję diagnostyki (koszyk zakupowy plus czas), wykonać i przetestować
@@ -11,11 +10,20 @@ Kroki do Zrobienia
 czym są pliki i foldery:
     icons - zawiera ikony
     presentation_scripts - moduły js do obsługi niezależnych stron prezentacji
+        badges.js - moduł z ikonami aktywacji syntezy i rozpoznawania mowy
         repetitor.js - moduł do podstawowego przepytywacza
+        sim_main.js - moduł z logiką symulatora pacjenta
+        sim_utils.js - moduł z logiką wizualną komponentów symulatora
         slides.js - moduł do podstawowej obsługi prezentacji - GŁÓWNY
+        voices.js - modul z obsługą syntezy i rozpoznawania mowy
+        widgets.js - moduł do obsługi widgetu okienka
     presentations - zawiera foldery z prezentacjami - każdy folder to index.html plus wszystkie media
             
-    templates - zawiera szablon prezentacji do testowania na localhost
+    templates - zawiera szablon prezentacji do testowania na localhost:
+        example_h.jpg
+        example.jpg - przykładowe obrazy o różnych wielkościach
+        example.json - szablon z konfiguracją symulatora pacjenta
+        index.html - szablon z plikiem prezentacji
     tools - zawiera zestaw samodzielnych narzędzi typu SPA.
         pre_editor.html - edycja elemetów <pre> użytych jako lista danych dla repetytora AI
         tools.css - style css dla folderu narzędzi
