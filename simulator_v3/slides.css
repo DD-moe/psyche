@@ -504,6 +504,7 @@
   margin-bottom: 0.75rem;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
 }
 
 .tab-btn {
