@@ -583,10 +583,15 @@
 /* tabs */
 
 /*block modifiers*/
-.l{
+/*block modifiers*/
+/*block modifiers*/
+.presentation .l{
   left: 0rem;
 }
 
-.r{
+.presentation .r{
   right: 0rem;
 }
+/*block modifiers*/
+/*block modifiers*/
+/*block modifiers*/
