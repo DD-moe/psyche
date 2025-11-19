@@ -560,6 +560,12 @@
 .tab-view button:hover {
   background: rgba(255,255,255,0.12);
 }
+
+.w20{
+  max-width: 20rem;
+  width: 100%;
+}
+
 /* tabs */
 /* tabs */
 /* tabs */
