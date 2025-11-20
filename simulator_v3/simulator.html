@@ -22,22 +22,23 @@
       <div class="card-body">
 
         <label class="row">
-          <span class="col">Tryb AI</span>
-          <select id="ai_mode" class="necessary-data">
-            <option value="basic" selected>Podstawowy</option>
-            <option value="advanced">Zaawansowany</option>
-            <option value="expert">Ekspercki</option>
+          <span class="col">Wybierz model Gemini do Quizów</span>
+          <select id="model" class="necessary-data">
+            <optgroup label="🔹 Gemini 2.5">
+              <option value="gemini-2.5-pro">gemini-2.5-pro</option>
+              <option value="gemini-2.5-flash">gemini-2.5-flash</option>
+              <option value="gemini-2.5-flash-lite">gemini-2.5-flash-lite</option>
+            </optgroup>
+            <optgroup label="🔹 Gemini 2.0">
+              <option value="gemini-2.0-flash">gemini-2.0-flash</option>
+              <option value="gemini-2.0-flash-lite" selected>gemini-2.0-flash-lite</option>
+            </optgroup>
           </select>
         </label>
-
+        
         <label class="row">
-          <span class="col">Limit czasu (sekundy)</span>
-          <input id="time_limit" class="necessary-data" type="number" min="10" max="600" value="100">
-        </label>
-
-        <label class="row">
-          <span class="col">Uwagi</span>
-          <textarea id="quiz_notes" class="necessary-data" rows="3" placeholder="Twoje notatki..."></textarea>
+          <span class="col">Jak się tytułujesz</span>
+          <textarea id="name" class="necessary-data" rows="3" placeholder="Twoje imie tytuły, rola itp..."></textarea>
         </label>        
 
         <button onclick="exportGeminiSettings()" class="export-btn">
