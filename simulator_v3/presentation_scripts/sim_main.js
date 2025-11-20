@@ -201,32 +201,33 @@ async function sendMessage(btn) {
         if (replyObj === undefined || replyObj === null || replyObj.odpowiedź === undefined || replyObj.stan === undefined) {
             return;
         }        
+
+        // dodaj wiadomość użytkownika
+        const userMsg = document.createElement("div");
+        userMsg.className = "msg-row sent";
+        userMsg.innerHTML = `<div class="bubble sent">${text}</div>`;
+        history.appendChild(userMsg);
+        // odpowiedź AI - cz. dalsza
+        const botMsg = document.createElement("div");
+        botMsg.className = "msg-row received";
+        const bubble = document.createElement("div");
+        bubble.className = "bubble received";
+        bubble.textContent = replyObj.odpowiedź;
+        botMsg.appendChild(bubble);
+
+        history.appendChild(botMsg);
+        sim.wywiad.historia.push(`${window.token2.name.value}: ${text}`);
+        sim.wywiad.historia.push(`Pacjent: ${replyObj.odpowiedź}`);
+        if (replyObj.stan && replyObj.stan.trim() !== "") {
+            sim.wywiad.stan = replyObj.stan;
+        }
+        history.scrollTop = history.scrollHeight;
+
+        speakText(replyObj.odpowiedź);
+
     } catch (error) {
-        console.error(reply.text);        
-    }
-
-    // dodaj wiadomość użytkownika
-    const userMsg = document.createElement("div");
-    userMsg.className = "msg-row sent";
-    userMsg.innerHTML = `<div class="bubble sent">${text}</div>`;
-    history.appendChild(userMsg);
-    // odpowiedź AI - cz. dalsza
-    const botMsg = document.createElement("div");
-    botMsg.className = "msg-row received";
-    const bubble = document.createElement("div");
-    bubble.className = "bubble received";
-    bubble.textContent = replyObj.odpowiedź;
-    botMsg.appendChild(bubble);
-
-    history.appendChild(botMsg);
-    sim.wywiad.historia.push(`${window.token2.name.value}: ${text}`);
-    sim.wywiad.historia.push(`Pacjent: ${replyObj.odpowiedź}`);
-    if (replyObj.stan && replyObj.stan.trim() !== "") {
-        sim.wywiad.stan = replyObj.stan;
-    }
-    history.scrollTop = history.scrollHeight;
-
-    speakText(replyObj.odpowiedź);
+        console.error();        
+    }    
 }
 
 
