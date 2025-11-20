@@ -148,30 +148,37 @@ async function prepareNextStep(sim) {
 
 
 // chat
-function sendMessage(element) {
-    const input = element.closest(".answer");
-    const history = element.closest(".chat-history");
+async function sendMessage(btn) {
+    const container = btn.closest(".widget-body");
+    const input = container.querySelector(".answer");
+    const history = container.querySelector(".chat-history");
+
     const text = input.value.trim();
     if (!text) return;
 
-    // wywołanie funkcji AI przez użytkownika
-    if (typeof window.onAiReply === 'function') {
-        window.AskGemini(promptText).then(reply => {
-            // dodaj wiadomość użytkownika
-            const userMsg = document.createElement('div');
-            userMsg.className = 'msg-row sent';
-            userMsg.innerHTML = `<div class="bubble sent">${text}</div>`;
-            sim.wywiad.historia.push(userMsg);
-            history.appendChild(userMsg);
-            // bot dodaje wiadomość            
-            const botMsg = document.createElement('div');
-            botMsg.className = 'msg-row received';
-            botMsg.innerHTML = `<div class="bubble received">${reply}</div>`;
-            history.appendChild(botMsg);
-            history.scrollTop = history.scrollHeight;
-            speakText(botMsg);
-        });
-    }
+    input.value = "";
+
+    // dodaj wiadomość użytkownika
+    const userMsg = document.createElement("div");
+    userMsg.className = "msg-row sent";
+    userMsg.innerHTML = `<div class="bubble sent">${text}</div>`;
+    history.appendChild(userMsg);
+    sim.wywiad.historia.push(userMsg);
+    history.scrollTop = history.scrollHeight;
+
+    // odpowiedź AI
+    const reply = await window.AskGemini(text);
+
+    const botMsg = document.createElement("div");
+    botMsg.className = "msg-row received";
+    botMsg.innerHTML = `<div class="bubble received">${reply}</div>`;
+    history.appendChild(botMsg);
+    sim.wywiad.historia.push(botMsg);
+
+    history.scrollTop = history.scrollHeight;
+
+    speakText(botMsg);
 }
+
 
 window.sendMessage = sendMessage;
