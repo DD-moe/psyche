@@ -167,17 +167,17 @@ async function sendMessage(btn) {
     history.scrollTop = history.scrollHeight;
 
     // odpowiedź AI
-    const reply = await window.AskGemini(text).text;
-
+    const reply = await window.AskGemini(text);
+    console.log(reply);
     const botMsg = document.createElement("div");
     botMsg.className = "msg-row received";
-    botMsg.innerHTML = `<div class="bubble received">${reply}</div>`;
+    botMsg.innerHTML = `<div class="bubble received">${reply.text}</div>`;
     history.appendChild(botMsg);
-    sim.wywiad.historia.push(botMsg);
+    sim.wywiad.historia.push(reply.text);
 
     history.scrollTop = history.scrollHeight;
 
-    speakText(botMsg);
+    speakText(reply.text);
 }
 
 
