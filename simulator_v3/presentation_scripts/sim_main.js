@@ -2,6 +2,18 @@ import { GoogleGenAI } from "https://esm.run/@google/genai";
 import { speakText, stopAllSpeech, stopRecognition, startRecognition } from './voices.js';
 let sim;
 
+  // --- podstawowa funkcja komunikacji ---
+  async function AskGemini(promptText) {
+    const ai = new GoogleGenAI({
+      apiKey: window.token,
+    });
+    const response = await ai.models.generateContent({
+      model: window.token2.model.value, // nazwa tokenu . nazwa zmiennej . value
+      contents: promptText,
+    });
+    return response;
+  }
+
 
 document.addEventListener("click", async (e) => {
   if (!e.target.matches(".tab-view button")) return;
@@ -158,26 +170,63 @@ async function sendMessage(btn) {
 
     input.value = "";
 
+    const prompt = 
+    `Twoim zadaniem jest nasladowanie pacjenta podczas wywiadu jaki prowadzisz z użytkownikiem, który przedstawił się jako:
+    ${window.token2.name.value==="" ? "student" : window.token2.name.value}
+    Dane pacjenta którego masz naśladować dostępne są poniżej:
+    ${sim.wywiad.konfiguracja} 
+    ${sim.wywiad.modyfikator}
+
+    Symulując miej na względzie obecny stan pacjenta podany poniżej:
+    ${sim.wywiad.stan}
+
+    dla lepszego kontekstu masz tu 5 ostatnich elementów czatu:
+    ${sim.wywiad.historia.slice(-5).join("\n")} 
+
+    Odpowiedź zwróć jako JSON w formacie:
+    {
+    odpowiedź:"" - tutaj czysta odpowiedź pacjenta bez prefiksu "Pacjent:"
+    stan":"" - tu modyfikujesz stan pacjenta który otrzymałeś w prompcie, ale UWAGA tylko wtedy gdy uznasz, że stan pacjenta powienien się zmienić w trakcie wywiadu z nim.
+    jeśli uznasz, że stan pacjenta się nie zmienił to zostaw pusty string: ""
+    }
+    `;
+
+    // odpowiedź AI
+    try {
+        const reply = await AskGemini(prompt);
+        if (reply === undefined || reply===null) {
+            return;
+        }
+        const replyObj = JSON.parse(reply.text.replace(/^\s*```json\s*|^\s*```\s*|^\s*|```\s*$|\s*$/g, ''));
+        if (replyObj === undefined || replyObj === null || replyObj.odpowiedź === undefined || replyObj.stan === undefined) {
+            return;
+        }        
+    } catch (error) {
+        console.error(reply.text);        
+    }
+
     // dodaj wiadomość użytkownika
     const userMsg = document.createElement("div");
     userMsg.className = "msg-row sent";
     userMsg.innerHTML = `<div class="bubble sent">${text}</div>`;
     history.appendChild(userMsg);
-    sim.wywiad.historia.push(userMsg);
-    history.scrollTop = history.scrollHeight;
-
-    // odpowiedź AI
-    const reply = await window.AskGemini(text);
-    console.log(reply);
+    // odpowiedź AI - cz. dalsza
     const botMsg = document.createElement("div");
     botMsg.className = "msg-row received";
-    botMsg.innerHTML = `<div class="bubble received">${reply.text}</div>`;
-    history.appendChild(botMsg);
-    sim.wywiad.historia.push(reply.text);
+    const bubble = document.createElement("div");
+    bubble.className = "bubble received";
+    bubble.textContent = replyObj.odpowiedź;
+    botMsg.appendChild(bubble);
 
+    history.appendChild(botMsg);
+    sim.wywiad.historia.push(`${window.token2.name.value}: ${text}`);
+    sim.wywiad.historia.push(`Pacjent: ${replyObj.odpowiedź}`);
+    if (replyObj.stan && replyObj.stan.trim() !== "") {
+        sim.wywiad.stan = replyObj.stan;
+    }
     history.scrollTop = history.scrollHeight;
 
-    speakText(reply.text);
+    speakText(replyObj.odpowiedź);
 }
 
 

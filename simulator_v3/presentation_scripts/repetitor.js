@@ -148,7 +148,19 @@ Odpowiedz w formacie JSON:
       const txt = res.text;
       const cleanedTxt = txt.replace(/^\s*```json\s*|^\s*```\s*|^\s*|```\s*$|\s*$/g, '');
       const parsed = JSON.parse(cleanedTxt);
-      evalDiv.innerHTML = `<strong>Ocena:</strong> ${parsed.score}/5<br>${parsed.feedback}`;
+      evalDiv.innerHTML = ``;
+      
+      const strong = document.createElement("strong");
+      strong.textContent = "Ocena:";
+      evalDiv.appendChild(strong);
+
+      evalDiv.append(` ${parsed.score}/5`);
+      evalDiv.appendChild(document.createElement("br"));
+
+      const feedback = document.createElement("span");
+      feedback.textContent = parsed.feedback;
+      evalDiv.appendChild(feedback);
+
       speakText(parsed.feedback);
     } catch (e) {
       evalDiv.textContent = "Błąd oceny: " + e.message;
@@ -158,4 +170,3 @@ Odpowiedz w formacie JSON:
   // eksport funkcji do window
   window.generateCase = generateCase;
   window.checkAnswer = checkAnswer;
-  window.AskGemini = AskGemini;
