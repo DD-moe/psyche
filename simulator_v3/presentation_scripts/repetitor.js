@@ -158,3 +158,4 @@ Odpowiedz w formacie JSON:
   // eksport funkcji do window
   window.generateCase = generateCase;
   window.checkAnswer = checkAnswer;
+  window.AskGemini = AskGemini;
