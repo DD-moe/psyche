@@ -173,3 +173,5 @@ function sendMessage(this) {
         });
     }
 }
+
+window.sendMessage = sendMessage;
