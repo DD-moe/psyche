@@ -189,7 +189,9 @@ async function sendMessage(btn) {
     stan":"" - tu modyfikujesz stan pacjenta który otrzymałeś w prompcie, ale UWAGA tylko wtedy gdy uznasz, że stan pacjenta powienien się zmienić w trakcie wywiadu z nim.
     jeśli uznasz, że stan pacjenta się nie zmienił to zostaw pusty string: ""
     }
-    `;
+
+    ${window.token2.name.value==="" ? "student" : window.token2.name.value} zadał pytanie do Ciebie:
+    ${text}`;
 
     // odpowiedź AI
     try {
