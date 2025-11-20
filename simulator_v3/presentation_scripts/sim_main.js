@@ -205,14 +205,14 @@ async function sendMessage(btn) {
         // dodaj wiadomość użytkownika
         const userMsg = document.createElement("div");
         userMsg.className = "msg-row sent";
-        userMsg.innerHTML = `<div class="bubble sent">${text}</div>`;
+        userMsg.innerHTML = `<div class="bubble sent">${window.token2.name.value}: ${text}</div>`;
         history.appendChild(userMsg);
         // odpowiedź AI - cz. dalsza
         const botMsg = document.createElement("div");
         botMsg.className = "msg-row received";
         const bubble = document.createElement("div");
         bubble.className = "bubble received";
-        bubble.textContent = replyObj.odpowiedź;
+        bubble.textContent = `Pacjent: ${replyObj.odpowiedź}`;
         botMsg.appendChild(bubble);
 
         history.appendChild(botMsg);
