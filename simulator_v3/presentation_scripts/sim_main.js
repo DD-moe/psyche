@@ -148,9 +148,9 @@ async function prepareNextStep(sim) {
 
 
 // chat
-function sendMessage(this) {
-    const input = this.closest(".answer");
-    const history = this.closest(".chat-history");
+function sendMessage(element) {
+    const input = element.closest(".answer");
+    const history = element.closest(".chat-history");
     const text = input.value.trim();
     if (!text) return;
 
