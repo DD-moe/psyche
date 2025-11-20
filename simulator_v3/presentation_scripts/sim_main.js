@@ -167,7 +167,7 @@ async function sendMessage(btn) {
     history.scrollTop = history.scrollHeight;
 
     // odpowiedź AI
-    const reply = await window.AskGemini(text);
+    const reply = await window.AskGemini(text).text;
 
     const botMsg = document.createElement("div");
     botMsg.className = "msg-row received";
