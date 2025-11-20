@@ -149,7 +149,7 @@ async function prepareNextStep(sim) {
 
 // chat
 async function sendMessage(btn) {
-    const container = btn.closest(".widget-body");
+    const container = btn.closest("[data-tab='wywiad']");
     const input = container.querySelector(".answer");
     const history = container.querySelector(".chat-history");
 
