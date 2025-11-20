@@ -33,7 +33,8 @@ document.addEventListener("click", async (e) => {
     root.sim_data = {};
   }
 
-  sim = root.sim_data; // referencja do zmiennej
+    Object.assign(root.sim_data, json); // ← WAŻNE
+    sim = root.sim_data;
 
   // -------------------------------------------------
   // 1) ZAŁADUJ SCENARIUSZ – wczytywanie z data-sim-src
@@ -50,7 +51,8 @@ document.addEventListener("click", async (e) => {
       if (!res.ok) throw new Error("Nie można pobrać pliku.");
 
       const json = await res.json();
-      sim = json;
+      Object.assign(root.sim_data, json); // ← to samo
+      sim = root.sim_data;
 
       alert("Scenariusz załadowany.");
     } catch (err) {
@@ -73,7 +75,7 @@ document.addEventListener("click", async (e) => {
       try {
         const text = await file.text();
         const json = JSON.parse(text);
-        sim = json;
+        Object.assign(sim, json);
         alert("Scenariusz zaimportowany.");
       } catch {
         alert("Plik nie jest poprawnym JSON.");
