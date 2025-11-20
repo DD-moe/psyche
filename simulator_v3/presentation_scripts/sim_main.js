@@ -172,7 +172,7 @@ async function sendMessage(btn) {
 
     const prompt = 
     `Twoim zadaniem jest nasladowanie pacjenta podczas wywiadu jaki prowadzisz z użytkownikiem, który przedstawił się jako:
-    ${window.token2.name.value==="" ? "student" : window.token2.name.value}
+    ${window.token2.name.value==="" ? "Student" : window.token2.name.value}
     Dane pacjenta którego masz naśladować dostępne są poniżej:
     ${sim.wywiad.konfiguracja} 
     ${sim.wywiad.modyfikator}
@@ -190,7 +190,7 @@ async function sendMessage(btn) {
     jeśli uznasz, że stan pacjenta się nie zmienił to zostaw pusty string: ""
     }
 
-    ${window.token2.name.value==="" ? "student" : window.token2.name.value} zadał pytanie do Ciebie:
+    ${window.token2.name.value==="" ? "Student" : window.token2.name.value} zadał pytanie do Ciebie:
     ${text}`;
 
     // odpowiedź AI
@@ -207,7 +207,7 @@ async function sendMessage(btn) {
         // dodaj wiadomość użytkownika
         const userMsg = document.createElement("div");
         userMsg.className = "msg-row sent";
-        userMsg.innerHTML = `<div class="bubble sent">${window.token2.name.value==="" ? "student" : window.token2.name.value}: ${text}</div>`;
+        userMsg.innerHTML = `<div class="bubble sent">${window.token2.name.value==="" ? "Student" : window.token2.name.value}: ${text}</div>`;
         history.appendChild(userMsg);
         // odpowiedź AI - cz. dalsza
         const botMsg = document.createElement("div");
@@ -218,7 +218,7 @@ async function sendMessage(btn) {
         botMsg.appendChild(bubble);
 
         history.appendChild(botMsg);
-        sim.wywiad.historia.push(`${window.token2.name.value==="" ? "student" : window.token2.name.value}: ${text}`);
+        sim.wywiad.historia.push(`${window.token2.name.value==="" ? "Student" : window.token2.name.value}: ${text}`);
         sim.wywiad.historia.push(`Pacjent: ${replyObj.odpowiedź}`);
         if (replyObj.stan && replyObj.stan.trim() !== "") {
             sim.wywiad.stan = replyObj.stan;
