@@ -33,8 +33,7 @@ document.addEventListener("click", async (e) => {
     root.sim_data = {};
   }
 
-    Object.assign(root.sim_data, json); // ← WAŻNE
-    sim = root.sim_data;
+  sim = root.sim_data;
 
   // -------------------------------------------------
   // 1) ZAŁADUJ SCENARIUSZ – wczytywanie z data-sim-src
