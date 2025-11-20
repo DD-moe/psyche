@@ -50,8 +50,7 @@ document.addEventListener("click", async (e) => {
       if (!res.ok) throw new Error("Nie można pobrać pliku.");
 
       const json = await res.json();
-      Object.assign(root.sim_data, json); // ← to samo
-      sim = root.sim_data;
+      Object.assign(sim, json); // ← to samo
 
       alert("Scenariusz załadowany.");
     } catch (err) {
