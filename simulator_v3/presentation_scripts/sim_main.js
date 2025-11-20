@@ -1,3 +1,8 @@
+import { GoogleGenAI } from "https://esm.run/@google/genai";
+import { speakText, stopAllSpeech, stopRecognition, startRecognition } from './voices.js';
+let sim;
+
+
 document.addEventListener("click", async (e) => {
   if (!e.target.matches(".tab-view button")) return;
 
@@ -16,7 +21,7 @@ document.addEventListener("click", async (e) => {
     root.sim_data = {};
   }
 
-  let sim = root.sim_data; // referencja do zmiennej
+  sim = root.sim_data; // referencja do zmiennej
 
   // -------------------------------------------------
   // 1) ZAŁADUJ SCENARIUSZ – wczytywanie z data-sim-src
@@ -121,6 +126,13 @@ document.addEventListener("click", async (e) => {
     await prepareNextStep(sim);
   }
 
+  // -------------------------------------------------
+  // 7) PRZYGOTUJ POPRZEDNI KROK (pusta async funkcja)
+  // -------------------------------------------------
+  if (action === "prev") {
+    await preparePrevStep(sim);
+  }  
+
 });
 
 // ------------------------------------
@@ -132,4 +144,32 @@ async function evaluateScenario(sim) {
 
 async function prepareNextStep(sim) {
   console.log("prepareNextStep()", sim);
+}
+
+
+// chat
+function sendMessage(this) {
+    const input = this.closest(".answer");
+    const history = this.closest(".chat-history");
+    const text = input.value.trim();
+    if (!text) return;
+
+    // wywołanie funkcji AI przez użytkownika
+    if (typeof window.onAiReply === 'function') {
+        window.AskGemini(promptText).then(reply => {
+            // dodaj wiadomość użytkownika
+            const userMsg = document.createElement('div');
+            userMsg.className = 'msg-row sent';
+            userMsg.innerHTML = `<div class="bubble sent">${text}</div>`;
+            sim.wywiad.historia.push(userMsg);
+            history.appendChild(userMsg);
+            // bot dodaje wiadomość            
+            const botMsg = document.createElement('div');
+            botMsg.className = 'msg-row received';
+            botMsg.innerHTML = `<div class="bubble received">${reply}</div>`;
+            history.appendChild(botMsg);
+            history.scrollTop = history.scrollHeight;
+            speakText(botMsg);
+        });
+    }
 }

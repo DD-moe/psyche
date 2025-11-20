@@ -399,7 +399,7 @@
                 <div class="tabs" data-sim-src="example.json">
                   <div class="tabs-header">
                     <button class="tab-btn active" data-tab="symulacja" onclick="openTab(this)">Symulacja</button>
-                    <button class="tab-btn" data-tab="two" onclick="openTab(this)">Zakładka 2</button>
+                    <button class="tab-btn" data-tab="wywiad" onclick="openTab(this)">Wywiad</button>
                     <button class="tab-btn" data-tab="three" onclick="openTab(this)">Zakładka 3</button>
                   </div>
 
@@ -413,11 +413,20 @@
                         <li><button data-sim-action="copy" class="w20">Skopiuj scenariusz do schowka</button></li>
                         <li><button data-sim-action="evaluate" class="w20">Oceń scenariusz</button></li>
                         <li><button data-sim-action="next" class="w20">Przygotuj następny krok</button></li>
+                        <li><button data-sim-action="prev" class="w20">Wczytaj poprzedni krok</button></li>
                       </ul>
                     </div>
 
                     <div class="tab-view" data-tab="two">
-                      <p>Treść zakładki 2</p>
+                      <!-- historia czatu -->
+                      <div class="chat-history">
+                      </div>
+
+                      <!-- pole tekstowe i przycisk -->
+                      <div class="chat-input-wrap">
+                        <textarea class="answer" placeholder="Napisz wiadomość..."></textarea>
+                        <button onclick="sendMessage()">😄 Wyślij ✈️</button>
+                      </div>
                     </div>
 
                     <div class="tab-view" data-tab="three">

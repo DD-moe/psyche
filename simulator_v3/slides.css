@@ -587,6 +587,61 @@
 /* tabs */
 /* tabs */
 
+/* chat */
+/* chat */
+/* chat */
+.chat-history {
+background: #0f1720;
+border: 0.0625rem solid rgba(255,255,255,0.08);
+border-radius: 0.5rem;
+padding: 1rem;
+color: white;
+display: flex;
+flex-direction: column;
+gap: 0.75rem;
+height: 40vmin;
+overflow-y: auto;
+}
+
+.msg-row {
+display: flex;
+max-width: 80%;
+}
+.msg-row.sent {
+margin-left: auto;
+}
+.bubble {
+padding: 0.6rem 0.9rem;
+border-radius: 0.5rem;
+line-height: 1.4;
+font-size: 0.95rem;
+}
+.bubble.received {
+background: #1b2533;
+border: 0.0625rem solid rgba(255,255,255,0.05);
+}
+.bubble.sent {
+background: linear-gradient(90deg, #60a5fa, #6ee7b7);
+color: #0b0f14;
+font-weight: 600;
+}
+
+.chat-input-wrap {
+margin-top: 1rem;
+display: flex;
+flex-direction: column;
+gap: 0.5rem;
+}
+
+.chat-input-wrap textarea {
+width: 100%;
+height: 5rem;
+resize: vertical;
+}
+/* chat */
+/* chat */
+/* chat */
+
 /*block modifiers*/
 /*block modifiers*/
 /*block modifiers*/
