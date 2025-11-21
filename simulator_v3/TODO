@@ -1,6 +1,6 @@
 Kroki do Zrobienia
 2) przetestować panel wywiadu
-3) zaprojektować koncepcję badania przedmiotowego, wykonać i przetestować
+3) przetestować panel badania przedmiotowego 
 4) zaprojektować koncepcję diagnostyki (koszyk zakupowy plus czas), wykonać i przetestować
 5) zaprojektować koncepcję leczenia (koszyk zakupowy plus czas), wykonać i przetestować
 6) zaprojektować koncepcję badania podsumowania, wykonać i przetestować
@@ -25,6 +25,7 @@ czym są pliki i foldery:
         example.json - szablon z konfiguracją symulatora pacjenta
         index.html - szablon z plikiem prezentacji
     tools - zawiera zestaw samodzielnych narzędzi typu SPA.
+        pre_buttons_editor.html - edycja panelu do tworzenia svg dla badania fizykalnego
         pre_editor.html - edycja elemetów <pre> użytych jako lista danych dla repetytora AI
         tools.css - style css dla folderu narzędzi
 

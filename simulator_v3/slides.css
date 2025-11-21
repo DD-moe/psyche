@@ -648,30 +648,28 @@ resize: vertical;
 .image-with-buttons {
   position: relative;
   display: inline-block;
+  width: 100%;       /* możesz zmienić na 120%, 80%, 600px itd. */
 }
 
 .base-image {
   display: block;
-  max-width: 100%;
+  width: 100%;       /* obraz dopasowuje się do kontenera */
   height: auto;
 }
 
 .button-overlay {
   position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;          /* skrót dla: left:0; top:0; width:100%; height:100%; */
 }
 
 .button-overlay svg {
   width: 100%;
   height: 100%;
-  pointer-events: none; /* SVG nie blokuje myszy */
+  pointer-events: none; /* ale do <g> będzie dochodziło */
 }
 
 .svg-button-group {
-  pointer-events: all; /* Ale klikamy grupy */
+  pointer-events: all; /* normalnie reaguje na kliknięcia */
   cursor: pointer;
 }
 /* fizykalne*/
