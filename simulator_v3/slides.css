@@ -648,34 +648,34 @@ resize: vertical;
 .presentation .image-with-buttons {
   position: relative;
   display: block;
-  width: 100%;       /* wypełnia rodzica */
-  max-width: 100%;   /* ograniczenie do szerokości rodzica */
+  width: 80vw;    /* kontrola rozmiaru całego bloku */
+  max-width: 100%;
 }
 
-.presentation img .base-image {
-  all: unset;
+.presentation .base-image {
   display: block;
-  width: 80vw;       /* dopasowuje się do kontenera */
-  height: auto;      /* zachowuje proporcje */
+  width: 100%;    /* dopasowanie do kontenera */
+  height: auto;   /* zachowanie proporcji */
   margin: 0 auto;
   border: none;
 }
 
 .presentation .button-overlay {
   position: absolute;
-  inset: 0;          /* left:0; top:0; width:100%; height:100% */
+  inset: 0;       /* left:0; top:0; width:100%; height:100% */
 }
 
 .presentation .button-overlay svg {
-  width: 80vw;
-  height: auto;
-  pointer-events: none; /* overlay sam nie blokuje */
+  width: 100%;    /* skalowanie dokładnie jak obraz */
+  height: 100%;
+  pointer-events: none;
 }
 
 .presentation .svg-button-group {
-  pointer-events: all; /* kliknięcia działają */
+  pointer-events: all;
   cursor: pointer;
 }
+
 /* fizykalne*/
 /* fizykalne*/
 /* fizykalne*/
