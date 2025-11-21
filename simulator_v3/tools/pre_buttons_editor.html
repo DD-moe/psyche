@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Edytor przycisków nad obrazem (SVG)</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../g_styles.css">
+<link rel="stylesheet" href="tools.css">
+<style>
+/* Kilka drobnych reguł pomocniczych lokalnych (jeśli chcesz, można przenieść do tools.css) */
+.image-wrap {
+  position: relative;
+  display: inline-block;
+  max-width: 100vmin;
+  max-height: 100vmin;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  background: var(--surface-1);
+}
+.image-wrap img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+.svg-overlay {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* domyślnie ignoruj; przyciski mają pointer-events w grupach */
+}
+/* boczny panel edycji i output */
+.side-panel {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+}
+.small-muted { font-size: .9rem; color: var(--muted); }
+.controls { display:flex; gap:0.5rem; flex-wrap:wrap; align-items:center; }
+.kv { display:flex; gap:0.5rem; align-items:center; }
+.kv label { min-width: 5rem; font-weight:600; }
+textarea.output {
+  width:100%;
+  min-height:6rem;
+  background:var(--surface-2);
+  color: #e6eef6;
+  border-radius:0.5rem;
+  padding:0.5rem;
+  border:1px solid rgba(255,255,255,0.04);
+  font-family:monospace;
+  resize:vertical;
+}
+
+/* classname dla zaznaczonej "przyciskiwnej" grupy w SVG */
+.svg-button-group { cursor: pointer; pointer-events: all; }
+.svg-button-bg { opacity: 0.95; }
+.svg-button-text { font-size: 16px; dominant-baseline: middle; text-anchor: middle; user-select:none; }
+
+/* fallback style for small screens */
+@media (max-width:720px) {
+  .kv label { min-width: 3.5rem; font-size:0.9rem; }
+}
+</style>
+</head>
+<body class="app-root">
+  <div class="container small">
+    <header class="header">
+      <h1 class="title">Edytor przycisków nad obrazem (SVG)</h1>
+      <p class="lead">Wczytaj obraz, dodawaj przyciski przez podwójny klik, edytuj ich nazwy i generuj podsumowanie.</p>
+    </header>
+
+    <div class="card small">
+      <h3 class="card-title">1. Wczytaj obraz</h3>
+      <div class="card-body">
+        <input id="fileInput" type="file" accept="image/*">
+        <p class="small-muted">Maksymalny widoczny rozmiar obrazu: <strong>100vmin</strong>.</p>
+      </div>
+    </div>
+
+    <div class="card small">
+      <h3 class="card-title">2. Obraz i warstwa przycisków (SVG)</h3>
+      <div class="card-body">
+        <div id="imageContainer" class="image-wrap" style="display:none;">
+          <!-- img i svg zostaną dodane dynamicznie -->
+        </div>
+        <p id="hint" class="small-muted">Podwójne kliknięcie na obraz doda przycisk. Pojedyncze kliknięcie na przycisk pozwala edytować jego nazwę po prawej stronie.</p>
+      </div>
+    </div>
+
+    <div class="card small">
+      <h3 class="card-title">3. Edycja przycisku</h3>
+      <div class="card-body">
+        <div class="side-panel">
+          <div class="kv">
+            <label>Wybrany:</label>
+            <div id="selectedInfo" class="small-muted">brak</div>
+          </div>
+
+          <div class="kv">
+            <label>Nazwa:</label>
+            <input id="nameInput" type="text" placeholder="Nowa nazwa...">
+            <button id="applyNameBtn" class="btn">Zastosuj</button>
+            <button id="deleteBtn" class="btn">Usuń</button>
+          </div>
+
+          <div class="controls">
+            <button id="genBtn" class="btn">Generuj podsumowanie</button>
+            <button id="clearBtn" class="btn">Wyczyść przyciski</button>
+          </div>
+
+          <label>JSON z unikatowymi nazwami:</label>
+          <textarea id="jsonOutput" class="output" readonly placeholder="Tutaj pojawi się JSON..."></textarea>
+
+          <label>Tekst SVG (warstwa przycisków):</label>
+          <textarea id="svgOutput" class="output" readonly placeholder="Tutaj pojawi się SVG..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <section class="card small">
+      <h2 class="card-title">Sekcje aplikacji</h2>
+      <ul class="links">
+        <li><a class="link" href="../index.html">🏠 Strona główna</a></li>
+        <li><a class="link" href="../presentation.html">📘 Prezentacje</a></li>
+        <li><a class="link" href="../simulator.html">🤖 Symulator AI (ustawienia) 🔧</a></li>
+        <li><a class="link" href="../quizzes.html">📝 Quizy, testy i podręcznik (ustawienia)</a></li>
+        <li><a class="link" href="../resources.html">🔗 Tworzenie nowych zasobów</a></li>
+      </ul>
+    </section>
+
+  </div>
+
+<script>
+/*
+  Główne idee implementacji:
+  - Warstwa przycisków to SVG umieszczone absolutnie nad <img>.
+  - SVG ma viewBox ustawiony na naturalne wymiary obrazu (img.naturalWidth/naturalHeight).
+    Dzięki temu współrzędne dodawane na podstawie kliknięć w CSS-pikselach można zamienić na koordynaty viewBox.
+  - Przycisk reprezentowany jako grupa <g> zawierająca rect i text. Grupa ma klasę .svg-button-group i atrybut data-name.
+  - Rozmiar "przycisku" ustawiony w jednostkach viewBox (np. 8% szerokości obrazu).
+  - Eventy: dblclick na obrazie -> dodaj przycisk; click na grupie -> zaznacz i umożliw edycję; przycisk generuj -> zbuduj JSON i wyświetl SVG.
+*/
+
+const fileInput = document.getElementById('fileInput');
+const imageContainer = document.getElementById('imageContainer');
+const nameInput = document.getElementById('nameInput');
+const applyNameBtn = document.getElementById('applyNameBtn');
+const selectedInfo = document.getElementById('selectedInfo');
+const genBtn = document.getElementById('genBtn');
+const jsonOutput = document.getElementById('jsonOutput');
+const svgOutput = document.getElementById('svgOutput');
+const deleteBtn = document.getElementById('deleteBtn');
+const clearBtn = document.getElementById('clearBtn');
+
+let imgEl = null;
+let svgEl = null;
+let selectedGroup = null;
+let buttonCounter = 0;
+
+fileInput.addEventListener('change', (e) => {
+  const file = e.target.files && e.target.files[0];
+  if (!file) return;
+  const url = URL.createObjectURL(file);
+  loadImage(url);
+});
+
+function loadImage(url) {
+  // Usuń istniejące
+  imageContainer.innerHTML = '';
+  selectedGroup = null;
+  selectedInfo.textContent = 'brak';
+  nameInput.value = '';
+  jsonOutput.value = '';
+  svgOutput.value = '';
+
+  imgEl = document.createElement('img');
+  imgEl.src = url;
+  imgEl.alt = 'Załadowany obraz';
+  imgEl.draggable = false;
+
+  // Po wczytaniu obrazu ustawiamy SVG tak, żeby miało viewBox zgodny z naturalnymi wymiarami
+  imgEl.onload = () => {
+    const w = imgEl.naturalWidth;
+    const h = imgEl.naturalHeight;
+
+    // kontener jest widoczny i ograniczony do 100vmin przez CSS
+    imageContainer.style.display = 'inline-block';
+
+    // Utwórz SVG overlay
+    svgEl = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svgEl.setAttribute('class', 'svg-overlay');
+    svgEl.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+    svgEl.setAttribute('viewBox', `0 0 ${w} ${h}`);
+    svgEl.style.pointerEvents = 'none'; // domyślnie blokuj — pojedyncze grupy będą miały pointer-events enabled
+
+    // transparent background rect to capture dblclick coordinates reliably
+    const bg = document.createElementNS(svgEl.namespaceURI, 'rect');
+    bg.setAttribute('x', 0);
+    bg.setAttribute('y', 0);
+    bg.setAttribute('width', w);
+    bg.setAttribute('height', h);
+    bg.setAttribute('fill', 'transparent');
+    bg.style.pointerEvents = 'all';
+    // dblclick listener na bg (taki sam efekt jak na obraz)
+    bg.addEventListener('dblclick', (ev) => {
+      ev.preventDefault();
+      const pt = getSVGPointFromEvent(svgEl, ev);
+      addButtonAt(pt.x, pt.y, w, h);
+    });
+    svgEl.appendChild(bg);
+
+    // Umożliwimy kliknięcie (pojedyncze) na grupach — event delegation
+    svgEl.addEventListener('click', (ev) => {
+      const g = ev.target.closest && ev.target.closest('.svg-button-group');
+      if (g) {
+        ev.stopPropagation();
+        selectGroup(g);
+      } else {
+        // klik poza elementami przycisków — odznacz
+        deselectGroup();
+      }
+    }, true);
+
+    // Dodaj elementy do kontenera
+    imageContainer.appendChild(imgEl);
+    imageContainer.appendChild(svgEl);
+
+    // Obsługa dblclick bezpośrednio na obraz (dla wygody)
+    imgEl.addEventListener('dblclick', (ev) => {
+      // musimy przemapować event offset do współrzędnych obrazu w viewBox
+      const bbox = imgEl.getBoundingClientRect();
+      const cx = ev.clientX - bbox.left;
+      const cy = ev.clientY - bbox.top;
+      const scaleX = imgEl.naturalWidth / bbox.width;
+      const scaleY = imgEl.naturalHeight / bbox.height;
+      const vx = cx * scaleX;
+      const vy = cy * scaleY;
+      addButtonAt(vx, vy, imgEl.naturalWidth, imgEl.naturalHeight);
+    });
+  };
+}
+
+/* Zamienia event (mouse) na współrzędne w układzie viewBox SVG */
+function getSVGPointFromEvent(svg, ev) {
+  const pt = svg.createSVGPoint();
+  pt.x = ev.clientX;
+  pt.y = ev.clientY;
+  const ctm = svg.getScreenCTM().inverse();
+  const localPt = pt.matrixTransform(ctm);
+  return { x: localPt.x, y: localPt.y };
+}
+
+/* Dodaje nowy "przycisk" (grupę) w SVG w koordynatach viewBox */
+function addButtonAt(x, y, imgW, imgH) {
+  if (!svgEl) return;
+  buttonCounter += 1;
+  const defaultName = `Bez_nazwy_${buttonCounter}`;
+
+  // rozmiar przycisku w jednostkach viewBox - np. 8% szerokości obrazu
+  const btnW = Math.max(30, imgW * 0.08); // min 30px żeby było czytelne
+  const btnH = Math.max(20, imgH * 0.06);
+
+  const group = document.createElementNS(svgEl.namespaceURI, 'g');
+  group.setAttribute('class', 'svg-button-group');
+  group.setAttribute('data-name', defaultName);
+  group.setAttribute('transform', `translate(${x - btnW/2}, ${y - btnH/2})`);
+  group.style.pointerEvents = 'all'; // aktywne do klików
+
+  // tło (okrągły prostokąt)
+  const rect = document.createElementNS(svgEl.namespaceURI, 'rect');
+  rect.setAttribute('class', 'svg-button-bg');
+  rect.setAttribute('x', 0);
+  rect.setAttribute('y', 0);
+  rect.setAttribute('width', btnW);
+  rect.setAttribute('height', btnH);
+  rect.setAttribute('rx', Math.min(btnH*0.4, 12));
+  rect.setAttribute('fill', '#ffd166'); // możesz zmienić przez CSS
+  rect.setAttribute('stroke', '#073642');
+  rect.setAttribute('stroke-width', Math.max(1, btnW*0.01));
+
+  // tekst na środku
+  const text = document.createElementNS(svgEl.namespaceURI, 'text');
+  text.setAttribute('class', 'svg-button-text');
+  text.setAttribute('x', btnW/2);
+  text.setAttribute('y', btnH/2);
+  text.textContent = defaultName;
+
+  // aby grupa reagowała też na dblclick (np. żeby nie tworzyć przycisku przez podwójne kliknięcie na istniejącym)
+  group.addEventListener('dblclick', (ev) => {
+    ev.stopPropagation();
+    // nie rób nic — zapobiegamy tworzeniu nakładających się elementów
+  });
+
+  // pozwól przeciągać przyciski myszką (opcjonalne - proste przesuwanie)
+  makeDraggable(group, svgEl, imgW, imgH, btnW, btnH);
+
+  group.appendChild(rect);
+  group.appendChild(text);
+
+  svgEl.appendChild(group);
+
+  // ustaw jako zaznaczony
+  selectGroup(group);
+  updateSVGOutputs();
+}
+
+/* Zaznaczenie grupy (przycisku) - pokazujemy w panelu jego nazwę */
+function selectGroup(g) {
+  if (selectedGroup) {
+    // odznacz poprzedni (np. przywróć styl)
+    selectedGroup.querySelector('.svg-button-bg').setAttribute('stroke', '#073642');
+  }
+  selectedGroup = g;
+  const name = selectedGroup.getAttribute('data-name') || '';
+  selectedInfo.textContent = name;
+  nameInput.value = name;
+  // wyróżnij obrys
+  const bg = selectedGroup.querySelector('.svg-button-bg');
+  if (bg) bg.setAttribute('stroke', '#ff3366');
+}
+
+/* Odznacz */
+function deselectGroup() {
+  if (selectedGroup) {
+    const bg = selectedGroup.querySelector('.svg-button-bg');
+    if (bg) bg.setAttribute('stroke', '#073642');
+  }
+  selectedGroup = null;
+  selectedInfo.textContent = 'brak';
+  nameInput.value = '';
+}
+
+/* Zastosuj nową nazwę */
+applyNameBtn.addEventListener('click', () => {
+  if (!selectedGroup) return alert('Brak wybranego przycisku.');
+  const v = (nameInput.value || '').trim();
+  selectedGroup.setAttribute('data-name', v || selectedGroup.getAttribute('data-name'));
+  const textEl = selectedGroup.querySelector('.svg-button-text');
+  if (textEl) textEl.textContent = v || selectedGroup.getAttribute('data-name');
+  selectedInfo.textContent = selectedGroup.getAttribute('data-name');
+  updateSVGOutputs();
+});
+
+/* Usuń zaznaczony przycisk */
+deleteBtn.addEventListener('click', () => {
+  if (!selectedGroup) return alert('Brak wybranego przycisku do usunięcia.');
+  selectedGroup.remove();
+  selectedGroup = null;
+  selectedInfo.textContent = 'brak';
+  nameInput.value = '';
+  updateSVGOutputs();
+});
+
+/* Wyczyść wszystkie przyciski (poza tłem) */
+clearBtn.addEventListener('click', () => {
+  if (!svgEl) return;
+  // usuń wszystkie grupy z klasą svg-button-group
+  const groups = svgEl.querySelectorAll('.svg-button-group');
+  groups.forEach(g => g.remove());
+  selectedGroup = null;
+  selectedInfo.textContent = 'brak';
+  nameInput.value = '';
+  updateSVGOutputs();
+});
+
+/* Generuj JSON i SVG text */
+genBtn.addEventListener('click', () => {
+  if (!svgEl) {
+    jsonOutput.value = 'Brak załadowanego obrazu / SVG.';
+    svgOutput.value = '';
+    return;
+  }
+  const names = Array.from(svgEl.querySelectorAll('.svg-button-group'))
+    .map(g => (g.getAttribute('data-name') || '').trim())
+    .filter(n => n.length > 0);
+  const uniq = Array.from(new Set(names));
+  jsonOutput.value = JSON.stringify(uniq, null, 2);
+
+  // Zwróć samą warstwę przycisków jako tekst SVG
+  // (tworzymy kopię SVG zawierającą tylko przyciski, bez tła i obrazka)
+  const tempSvg = svgEl.cloneNode(true);
+  // usuń tło (pierwszy rect o fill transparent) jeśli chcesz
+  const bg = tempSvg.querySelector('rect[fill="transparent"]');
+  if (bg) bg.remove();
+  // Usuń pointer-events style na kopii (niepotrzebne)
+  tempSvg.removeAttribute('style');
+  // Serializuj
+  const svgText = new XMLSerializer().serializeToString(tempSvg);
+  svgOutput.value = svgText;
+});
+
+/* Aktualizuj widoky (gdy dodano/zmieniono) */
+function updateSVGOutputs() {
+  // można automatycznie odświeżać JSON/SVG choć przycisk "Generuj" robi to na żądanie
+  // tutaj odświeżymy jedynie svgOutput by użytkownik widział aktualny SVG
+  if (!svgEl) return;
+  const tempSvg = svgEl.cloneNode(true);
+  const bg = tempSvg.querySelector('rect[fill="transparent"]');
+  if (bg) bg.remove();
+  tempSvg.removeAttribute('style');
+  svgOutput.value = new XMLSerializer().serializeToString(tempSvg);
+}
+
+/* Proste przeciąganie przycisków po obrazie:
+   - group w transform translate(x,y) gdzie x,y to lewy górny rogu przycisku
+   - ograniczone do granic obrazu
+*/
+function makeDraggable(group, svg, imgW, imgH, btnW, btnH) {
+  let dragging = false;
+  let start = null;
+  group.addEventListener('mousedown', (ev) => {
+    ev.preventDefault();
+    dragging = true;
+    const pt = getSVGPointFromEvent(svg, ev);
+    // wyciągnij obecną translację
+    const t = parseTranslate(group.getAttribute('transform'));
+    start = { mouseX: pt.x, mouseY: pt.y, startX: t.x, startY: t.y };
+    // tymczasowo podnieś z-index (przez przeniesienie na koniec)
+    svg.appendChild(group);
+  });
+  window.addEventListener('mousemove', (ev) => {
+    if (!dragging) return;
+    const pt = getSVGPointFromEvent(svg, ev);
+    const dx = pt.x - start.mouseX;
+    const dy = pt.y - start.mouseY;
+    let nx = start.startX + dx;
+    let ny = start.startY + dy;
+    // ograniczenia granicowe
+    nx = Math.max(0, Math.min(nx, imgW - btnW));
+    ny = Math.max(0, Math.min(ny, imgH - btnH));
+    group.setAttribute('transform', `translate(${nx}, ${ny})`);
+  });
+  window.addEventListener('mouseup', () => {
+    if (dragging) {
+      dragging = false;
+      updateSVGOutputs();
+    }
+  });
+}
+
+/* Pomoc: sparsuj transform translate(x,y) */
+function parseTranslate(tstr) {
+  if (!tstr) return { x:0, y:0 };
+  const m = /translate\(\s*([-\d.]+)[ ,]+\s*([-\d.]+)\s*\)/.exec(tstr);
+  if (m) return { x: parseFloat(m[1]), y: parseFloat(m[2]) };
+  return { x:0, y:0 };
+}
+</script>
+
+<script src="../copywright.js"></script>
+</body>
+</html>

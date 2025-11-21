@@ -5,8 +5,10 @@
     "stan": "",
     "historia": []
   },
-  "badanie_przedmiotowe": "",
+  "badanie_przedmiotowe": {
+    "konfiguracja":[],
+    "historia": []
+  },
   "diagnostyka": "",
-  "leczenie": "",
   "ocena": ""
 }
