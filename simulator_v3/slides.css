@@ -657,7 +657,6 @@ resize: vertical;
   display: block;
   width: 100%;       /* dopasowuje się do kontenera */
   height: auto;      /* zachowuje proporcje */
-  object-fit: contain; /* zachowuje proporcje obrazu w boxie */
   margin: 0 auto;
   border: none;
 }
