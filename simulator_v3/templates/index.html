@@ -400,10 +400,11 @@
                   <div class="tabs-header">
                     <button class="tab-btn active" data-tab="symulacja" onclick="openTab(this)">Symulacja</button>
                     <button class="tab-btn" data-tab="wywiad" onclick="openTab(this)">Wywiad</button>
-                    <button class="tab-btn" data-tab="three" onclick="openTab(this)">Zakładka 3</button>
+                    <button class="tab-btn" data-tab="fizykalne" onclick="openTab(this)">Badanie fizykalne</button>
                   </div>
 
                   <div class="tabs-views">
+                    
                     <div class="tab-view active" data-tab="symulacja">
                       <ul class="outer">
                         <li><button data-sim-action="load" class="w20">Załaduj scenariusz</button></li>
@@ -429,9 +430,20 @@
                       </div>
                     </div>
 
-                    <div class="tab-view" data-tab="three">
-                      <p>Treść zakładki 3</p>
+                    <div class="tab-view" data-tab="fizykalne">
+
+                      <div class="image-with-buttons">
+                        <img src="https://git.1ioe.top/psyche/simulator_v3/templates/example.jpg" alt="" class="base-image">
+
+                        <!-- Wklej tu SVG wyeksportowane z edytora -->
+                        <div class="button-overlay">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="svg-overlay" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><g class="svg-button-group" data-name="A" data-info="kwiat 1" transform="translate(119.31998779296875, 336.2400061035156)" style="pointer-events: all;"><rect class="svg-button-bg" x="0" y="0" width="40.96" height="30.72" rx="12" fill="#ffd166" stroke="#073642" stroke-width="1"/><text class="svg-button-text" x="20.48" y="15.36" dominant-baseline="middle" text-anchor="middle">A</text></g><g class="svg-button-group" data-name="B" data-info="kwiat 2" transform="translate(349.31998779296873, 339.2400061035156)" style="pointer-events: all;"><rect class="svg-button-bg" x="0" y="0" width="40.96" height="30.72" rx="12" fill="#ffd166" stroke="#ff3366" stroke-width="1"/><text class="svg-button-text" x="20.48" y="15.36" dominant-baseline="middle" text-anchor="middle">B</text></g></svg>
+                        </div>
+
+                      </div>
+
                     </div>
+
                   </div>
                 </div>
               <!-- zakładki -->

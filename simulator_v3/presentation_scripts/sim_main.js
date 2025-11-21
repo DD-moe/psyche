@@ -232,5 +232,27 @@ async function sendMessage(btn) {
     }    
 }
 
+// fizykalne
+document.addEventListener("click", function (e) {
+  const g = e.target.closest(".svg-button-group");
+  if (!g) return;
+
+  const name = g.getAttribute("data-name") || "";
+  const info = g.getAttribute("data-info") || "";
+
+  onSvgButtonClick(name, info);
+});
+
+function onSvgButtonClick(name, info) {
+  // TU ROBISZ CO CHCESZ
+  console.log("Kliknięto przycisk:");
+  console.log("name:", name);
+  console.log("info:", info);
+
+  // przykład użycia:
+  // if (name === "Serce") pokazPanelSerce(info);
+  // if (info === "X123") wykonajInnąAkcję();
+}
+
 
 window.sendMessage = sendMessage;

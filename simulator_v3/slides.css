@@ -642,6 +642,42 @@ resize: vertical;
 /* chat */
 /* chat */
 
+/* fizykalne*/
+/* fizykalne*/
+/* fizykalne*/
+.image-with-buttons {
+  position: relative;
+  display: inline-block;
+}
+
+.base-image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.button-overlay {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.button-overlay svg {
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* SVG nie blokuje myszy */
+}
+
+.svg-button-group {
+  pointer-events: all; /* Ale klikamy grupy */
+  cursor: pointer;
+}
+/* fizykalne*/
+/* fizykalne*/
+/* fizykalne*/
+
 /*block modifiers*/
 /*block modifiers*/
 /*block modifiers*/
