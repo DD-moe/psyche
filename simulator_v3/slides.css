@@ -647,7 +647,7 @@ resize: vertical;
 /* fizykalne*/
 .image-with-buttons {
   position: relative;
-  display: inline-block;
+  display: block;
   width: 100%;       /* możesz zmienić na 120%, 80%, 600px itd. */
 }
 
