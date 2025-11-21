@@ -128,18 +128,12 @@ function loadImage(url) {
     });
     svgEl.appendChild(bg);
 
-    // kliknięcie wybiera przycisk (delegacja)
+    // kliknięcie odznacza przycisk
     svgEl.addEventListener('click', ev => {
-      const g = ev.target.closest && ev.target.closest('.svg-button-group');
-      if (g) {
-        ev.stopPropagation();
-        const obj = selectButton(g); // zwraca {name, info}
-        // obiekt jest automatycznie wprowadzony do pól (see selectButton)
-        // możesz też obsłużyć obj dalej, np. console.log(obj)
-      } else {
-        clearSelection();
-      }
-    }, true);
+    const g = ev.target.closest && ev.target.closest('.svg-button-group');
+    if (!g) clearSelection();
+    });
+
 
     imageContainer.appendChild(imgEl);
     imageContainer.appendChild(svgEl);
@@ -264,29 +258,55 @@ clearBtn.addEventListener('click', () => {
 
 /* prosty drag (przeniesienie grupy) */
 function makeDraggable(group, svg, imgW, imgH, btnW, btnH) {
-  let dragging=false, start=null;
+  let dragging = false;
+  let moved = false;
+  let start = null;
+
   group.addEventListener('mousedown', ev => {
     ev.preventDefault();
-    dragging=true;
+    dragging = true;
+    moved = false;
+
     const p = toViewBoxPoint(svg, ev);
     const t = parseTranslate(group.getAttribute('transform'));
     start = { mx: p.x, my: p.y, gx: t.x, gy: t.y };
+
     // bring to top
     svg.appendChild(group);
   });
+
   window.addEventListener('mousemove', ev => {
     if (!dragging) return;
     const p = toViewBoxPoint(svg, ev);
-    const dx = p.x - start.mx, dy = p.y - start.my;
+
+    const dx = p.x - start.mx;
+    const dy = p.y - start.my;
+
+    // jeżeli ruszyłeś się więcej niż 3px → to już drag
+    if (Math.abs(dx) > 3 || Math.abs(dy) > 3) moved = true;
+
     let nx = start.gx + dx, ny = start.gy + dy;
     nx = Math.max(0, Math.min(nx, imgW - btnW));
     ny = Math.max(0, Math.min(ny, imgH - btnH));
+
     group.setAttribute('transform', `translate(${nx}, ${ny})`);
   });
-  window.addEventListener('mouseup', () => {
-    if (dragging) { dragging=false; updateSummary(); }
+
+  window.addEventListener('mouseup', ev => {
+    if (!dragging) return;
+    dragging = false;
+
+    // jeśli NIE było ruchu → traktuj jako CLICK
+    if (!moved) {
+      selectButton(group);
+      updateSummary();
+    } else {
+      // był drag
+      updateSummary();
+    }
   });
 }
+
 
 /* parsowanie translate(x,y) */
 function parseTranslate(t) {
