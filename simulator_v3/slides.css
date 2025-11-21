@@ -650,13 +650,13 @@ resize: vertical;
   display: block;
   width: 80vw;    /* kontrola rozmiaru całego bloku */
   max-width: 100%;
+  margin: 0 auto;
 }
 
 .presentation .base-image {
   display: block;
   width: 100%;    /* dopasowanie do kontenera */
   height: auto;   /* zachowanie proporcji */
-  margin: 0 auto;
   border: none;
 }
 
