@@ -655,7 +655,7 @@ resize: vertical;
 .presentation img .base-image {
   all: unset;
   display: block;
-  width: 100%;       /* dopasowuje się do kontenera */
+  width: 80vw;       /* dopasowuje się do kontenera */
   height: auto;      /* zachowuje proporcje */
   margin: 0 auto;
   border: none;
@@ -667,8 +667,8 @@ resize: vertical;
 }
 
 .presentation .button-overlay svg {
-  width: 100%;
-  height: 100%;
+  width: 80vw;
+  height: auto;
   pointer-events: none; /* overlay sam nie blokuje */
 }
 
