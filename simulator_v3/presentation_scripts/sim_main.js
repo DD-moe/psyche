@@ -290,7 +290,7 @@ document.addEventListener("click", function (e) {
   const name = g.getAttribute("data-name") || "";
   const info = g.getAttribute("data-info") || "";
 
-  onSvgButtonClick(name, info);
+  onSvgButtonClick(name, info, g);
 });
 
 function onSvgButtonClick(name, info, g) {
