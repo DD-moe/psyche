@@ -51,8 +51,8 @@ document.addEventListener("click", async (e) => {
 
       const json = await res.json();
       Object.assign(sim, json); // ← to samo
-
-      alert("Scenariusz załadowany.");
+      // wykonaj funkcje "po załadowaniu"
+      renderChatFromHistory(root);
     } catch (err) {
       alert("Błąd ładowania scenariusza: " + err.message);
     }
@@ -74,7 +74,8 @@ document.addEventListener("click", async (e) => {
         const text = await file.text();
         const json = JSON.parse(text);
         Object.assign(sim, json);
-        alert("Scenariusz zaimportowany.");
+        // wykonaj funkcje "po załadowaniu"
+        renderChatFromHistory(root);
       } catch {
         alert("Plik nie jest poprawnym JSON.");
       }
@@ -106,7 +107,8 @@ document.addEventListener("click", async (e) => {
       const text = await navigator.clipboard.readText();
       const json = JSON.parse(text);
       Object.assign(sim, json);
-      alert("Wklejono scenariusz.");
+      // wykonaj funkcje "po załadowaniu"
+      renderChatFromHistory(root);
     } catch {
       alert("Schowek nie zawiera poprawnego JSON.");
     }
@@ -118,7 +120,7 @@ document.addEventListener("click", async (e) => {
   if (action === "copy") {
     try {
       await navigator.clipboard.writeText(JSON.stringify(sim, null, 2));
-      alert("Skopiowano scenariusz do schowka.");
+
     } catch {
       alert("Nie udało się skopiować do schowka.");
     }
@@ -139,7 +141,7 @@ document.addEventListener("click", async (e) => {
   }
 
   // -------------------------------------------------
-  // 7) PRZYGOTUJ POPRZEDNI KROK (pusta async funkcja)
+  // 8) WCZYTAJ POPRZEDNI KROK (pusta async funkcja)
   // -------------------------------------------------
   if (action === "prev") {
     await preparePrevStep(sim);
@@ -231,6 +233,48 @@ async function sendMessage(btn) {
         console.error();        
     }    
 }
+
+function renderChatFromHistory(container) { //root
+    // container = element zawierający dane-tab="wywiad"
+    const historyDiv = container.querySelector(".chat-history");
+    if (!historyDiv) return;
+
+    // 1. Wyczyść obecny chat
+    historyDiv.innerHTML = "";
+
+    // 2. Iteruj po historii
+    sim.wywiad.historia.forEach(msg => {
+
+        const isUser = msg.startsWith((window.token2.name.value==="" ? "Student" : window.token2.name.value) + ":");
+        const isBot = msg.startsWith("Pacjent:");
+
+        const msgRow = document.createElement("div");
+        msgRow.className = "msg-row " + (isUser ? "sent" : "received");
+
+        const bubble = document.createElement("div");
+        bubble.className = "bubble " + (isUser ? "sent" : "received");
+
+        // treść wiadomości bez prefiksu
+        let text = msg;
+        if (isUser) {
+            text = msg.replace((window.token2.name.value==="" ? "Student" : window.token2.name.value) + ":", "").trim();
+            bubble.textContent = `${window.token2.name.value==="" ? "Student" : window.token2.name.value}: ${text}`;
+        } else if (isBot) {
+            text = msg.replace("Pacjent:", "").trim();
+            bubble.textContent = `Pacjent: ${text}`;
+        } else {
+            // fallback (gdyby jakieś stare wiadomości miały niestandardowy format)
+            bubble.textContent = msg;
+        }
+
+        msgRow.appendChild(bubble);
+        historyDiv.appendChild(msgRow);
+    });
+
+    // 3. Auto scroll
+    historyDiv.scrollTop = historyDiv.scrollHeight;
+}
+
 
 // fizykalne
 document.addEventListener("click", function (e) {
