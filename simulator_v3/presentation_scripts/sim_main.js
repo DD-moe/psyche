@@ -301,15 +301,14 @@ function onSvgButtonClick(name, info, g) {
 
     const wynik = sim.badanie_przedmiotowe.konfiguracja[info];
     const historia = sim.badanie_przedmiotowe.historia;
-
+    
     // Jest wynik do wyświetlenia?
     if (wynik !== undefined && wynik !== null) {
+        console.log(wynik);
+        // Dodaj wpis
+        historia[info] = `${name}: ${wynik}`;
+        updatePhysicalData(root);
 
-        // Dodaj tylko, jeśli jeszcze nie ma wpisu
-        if (!historia[info]) {
-            historia[info] = `${name}: ${wynik}`;
-            updatePhysicalData(root);
-        }
     }
 }
 
@@ -351,7 +350,7 @@ function updateObservationData(root) {
         if (!obs) return;
 
         const entry = document.createElement("div");
-        entry.className = "observation-entry";
+        entry.className = "physical-entry";
         entry.textContent = obs;
 
         box.appendChild(entry);
