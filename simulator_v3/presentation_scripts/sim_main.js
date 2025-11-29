@@ -53,6 +53,7 @@ document.addEventListener("click", async (e) => {
       Object.assign(sim, json); // ← to samo
       // wykonaj funkcje "po załadowaniu"
       renderChatFromHistory(root);
+      updatePhysicalData(root);
     } catch (err) {
       alert("Błąd ładowania scenariusza: " + err.message);
     }
@@ -76,6 +77,7 @@ document.addEventListener("click", async (e) => {
         Object.assign(sim, json);
         // wykonaj funkcje "po załadowaniu"
         renderChatFromHistory(root);
+        updatePhysicalData(root);
       } catch {
         alert("Plik nie jest poprawnym JSON.");
       }
@@ -109,6 +111,7 @@ document.addEventListener("click", async (e) => {
       Object.assign(sim, json);
       // wykonaj funkcje "po załadowaniu"
       renderChatFromHistory(root);
+      updatePhysicalData(root);
     } catch {
       alert("Schowek nie zawiera poprawnego JSON.");
     }

@@ -676,8 +676,9 @@ resize: vertical;
   cursor: pointer;
 }
 
-.presentation .physical-results {
-    background: #0f1720;
+.presentation .physical-results,
+.presentation .obserwation-results,
+.presentation .additional-results {
     border: 0.0625rem solid rgba(255,255,255,0.08);
     border-radius: 0.5rem;
     padding: 1rem;
@@ -688,6 +689,10 @@ resize: vertical;
     max-height: 35vmin;
     overflow-y: auto;
 }
+
+.presentation .physical-results {background: #1d365e;}
+.presentation .obserwation-results {background: #3e2b5f;}
+.presentation .additional-results {background: #234e3c;}
 
 .presentation .physical-entry {
     padding: 0.5rem 0;
