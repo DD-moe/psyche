@@ -54,6 +54,7 @@ document.addEventListener("click", async (e) => {
       // wykonaj funkcje "po załadowaniu"
       renderChatFromHistory(root);
       updatePhysicalData(root);
+      updateObservationData(root);
     } catch (err) {
       alert("Błąd ładowania scenariusza: " + err.message);
     }
@@ -78,6 +79,7 @@ document.addEventListener("click", async (e) => {
         // wykonaj funkcje "po załadowaniu"
         renderChatFromHistory(root);
         updatePhysicalData(root);
+        updateObservationData(root);
       } catch {
         alert("Plik nie jest poprawnym JSON.");
       }
@@ -112,6 +114,7 @@ document.addEventListener("click", async (e) => {
       // wykonaj funkcje "po załadowaniu"
       renderChatFromHistory(root);
       updatePhysicalData(root);
+      updateObservationData(root);
     } catch {
       alert("Schowek nie zawiera poprawnego JSON.");
     }
@@ -332,6 +335,29 @@ function updatePhysicalData(root) {
     });
 
     // auto scroll – jeśli jest overflow
+    box.scrollTop = box.scrollHeight;
+}
+
+// obserwacja
+function updateObservationData(root) {
+    const box = root.querySelector(".observation-results");
+    if (!box) return;
+
+    // wyczyść
+    box.innerHTML = "";
+
+    // każdy wpis obserwacji
+    sim.obserwacje.forEach(obs => {
+        if (!obs) return;
+
+        const entry = document.createElement("div");
+        entry.className = "observation-entry";
+        entry.textContent = obs;
+
+        box.appendChild(entry);
+    });
+
+    // auto scroll
     box.scrollTop = box.scrollHeight;
 }
 

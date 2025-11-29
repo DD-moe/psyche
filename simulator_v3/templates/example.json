@@ -9,6 +9,10 @@
     "konfiguracja":{},
     "historia": {}
   },
+  "obserwacje":[
+    "Pacjent Pobudzony",
+    "Pacjent Majaczy"
+  ],
   "diagnostyka": "",
   "ocena": ""
 }
