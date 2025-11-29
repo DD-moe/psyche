@@ -301,10 +301,10 @@ function onSvgButtonClick(name, info, g) {
 
     const wynik = sim.badanie_przedmiotowe.konfiguracja[info];
     const historia = sim.badanie_przedmiotowe.historia;
-    console.log(name, info, g);
+
     // Jest wynik do wyświetlenia?
     if (wynik !== undefined && wynik !== null) {
-        console.log(wynik);
+
         // Dodaj wpis
         historia[info] = `${name}: ${wynik}`;
         updatePhysicalData(root);

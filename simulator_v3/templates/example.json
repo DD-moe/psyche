@@ -18,6 +18,16 @@
     "Pacjent Pobudzony",
     "Pacjent Majaczy"
   ],
-  "diagnostyka": "",
+  "diagnostyka": {
+    "konfiguracja":{
+        "konsultacja chirurgiczna":{"czas_min":"0:1:0:0", "czas_max":"0:12:0:0", "cena":180.50, "wynik":"brak nieprawidłowości."},
+        "konsultacja neurologiczna":{"czas_min":"0:1:30:0", "czas_max":"0:32:0:0", "cena":120.80, "wynik":"brak nieprawidłowości."}
+    },
+    "historia":{
+        "konsultacja chirurgiczna":{"data":"0:3:27:37", "cena":180.50, "wynik":"brak nieprawidłowości."}
+    },    
+    "cena": 0,
+    "czas":0
+  },
   "ocena": ""
 }
