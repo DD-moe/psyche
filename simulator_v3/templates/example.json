@@ -6,8 +6,8 @@
     "historia": []
   },
   "badanie_przedmiotowe": {
-    "konfiguracja":[],
-    "historia": []
+    "konfiguracja":{},
+    "historia": {}
   },
   "diagnostyka": "",
   "ocena": ""

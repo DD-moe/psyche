@@ -287,15 +287,49 @@ document.addEventListener("click", function (e) {
   onSvgButtonClick(name, info);
 });
 
-function onSvgButtonClick(name, info) {
-  // TU ROBISZ CO CHCESZ
-  console.log("Kliknięto przycisk:");
-  console.log("name:", name);
-  console.log("info:", info);
+function onSvgButtonClick(name, info, g) {
+    if (!g) return;
 
-  // przykład użycia:
-  // if (name === "Serce") pokazPanelSerce(info);
-  // if (info === "X123") wykonajInnąAkcję();
+    const root = g.closest("[data-sim-src]");
+    if (!root) return;
+
+    const wynik = sim.badanie_przedmiotowe.konfiguracja[info];
+    const historia = sim.badanie_przedmiotowe.historia;
+
+    // Jest wynik do wyświetlenia?
+    if (wynik !== undefined && wynik !== null) {
+
+        // Dodaj tylko, jeśli jeszcze nie ma wpisu
+        if (!historia[info]) {
+            historia[info] = `${name}: ${wynik}`;
+            updatePhysicalData(root);
+        }
+    }
+}
+
+function updatePhysicalData(root) {
+    const box = root.querySelector(".physical-results");
+    if (!box) return;
+
+    const historia = sim.badanie_przedmiotowe.historia;
+
+    // wyczyść
+    box.innerHTML = "";
+
+    // każdy wpis
+    Object.keys(historia).forEach(key => {
+        const value = historia[key];
+        if (!value) return;
+
+        const entry = document.createElement("div");
+        entry.className = "physical-entry";
+        entry.textContent = value;
+
+        box.appendChild(entry);
+    });
+
+    // auto scroll – jeśli jest overflow
+    box.scrollTop = box.scrollHeight;
 }
 
 
