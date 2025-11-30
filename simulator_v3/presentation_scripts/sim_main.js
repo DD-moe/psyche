@@ -55,6 +55,7 @@ document.addEventListener("click", async (e) => {
       renderChatFromHistory(root);
       updatePhysicalData(root);
       updateObservationData(root);
+      renderDiagnosticsList(root);
     } catch (err) {
       alert("Błąd ładowania scenariusza: " + err.message);
     }
@@ -80,6 +81,7 @@ document.addEventListener("click", async (e) => {
         renderChatFromHistory(root);
         updatePhysicalData(root);
         updateObservationData(root);
+        renderDiagnosticsList(root);
       } catch {
         alert("Plik nie jest poprawnym JSON.");
       }
@@ -115,6 +117,7 @@ document.addEventListener("click", async (e) => {
       renderChatFromHistory(root);
       updatePhysicalData(root);
       updateObservationData(root);
+      renderDiagnosticsList(root);
     } catch {
       alert("Schowek nie zawiera poprawnego JSON.");
     }
