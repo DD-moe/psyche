@@ -414,18 +414,19 @@ function orderDiagnostic(name, item, root) {
     if (history[name]) return;
 
     const losowyCzas = randomTimeBetween(item.czas_min, item.czas_max);
-
+    console.log(losowyCzas); //$%$%
     history[name] = {
         data: losowyCzas,
         cena: item.cena,
         wynik: item.wynik
     };
-
+    console.log(history[name]); //$%$%
     // przelicz sumę i czas
     recalcDiagnosticsSummary();
-
+    console.log('recalcDiagnosticsSummary'); //$%$%
     // odśwież box z wynikami
     renderDiagnosticsHistory(root);
+    console.log('renderDiagnosticsHistory'); //$%$%
 }
 
 function randomTimeBetween(minStr, maxStr) {
@@ -470,7 +471,6 @@ function recalcDiagnosticsSummary() {
 
     sim.diagnostyka.cena = totalCena;
     sim.diagnostyka.czas = maxCzas;
-    console.log('recalcDiagnosticsSummary'); //$%$%
 }
 
 function renderDiagnosticsHistory(root) {
@@ -495,7 +495,6 @@ function renderDiagnosticsHistory(root) {
     });
 
     box.scrollTop = box.scrollHeight;
-    console.log('renderDiagnosticsHistory'); //$%$%
 }
 
 
