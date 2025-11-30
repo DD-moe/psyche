@@ -370,10 +370,6 @@ function updateObservationData(root) {
 function renderDiagnosticsList(root) {
     const config = sim.diagnostyka.konfiguracja;
 
-    // Najpierw czyścimy wszystkie zakładki
-    const tabs = root.querySelectorAll(".tab-view");
-    tabs.forEach(tab => tab.innerHTML = "");
-
     // Dodajemy badania
     Object.keys(config).forEach(key => {
         const item = config[key];
