@@ -56,6 +56,7 @@ document.addEventListener("click", async (e) => {
       updatePhysicalData(root);
       updateObservationData(root);
       renderDiagnosticsList(root);
+      renderDiagnosticsHistory(root);
     } catch (err) {
       alert("Błąd ładowania scenariusza: " + err.message);
     }
@@ -82,6 +83,7 @@ document.addEventListener("click", async (e) => {
         updatePhysicalData(root);
         updateObservationData(root);
         renderDiagnosticsList(root);
+        renderDiagnosticsHistory(root);
       } catch {
         alert("Plik nie jest poprawnym JSON.");
       }
@@ -118,6 +120,7 @@ document.addEventListener("click", async (e) => {
       updatePhysicalData(root);
       updateObservationData(root);
       renderDiagnosticsList(root);
+      renderDiagnosticsHistory(root);
     } catch {
       alert("Schowek nie zawiera poprawnego JSON.");
     }
@@ -406,7 +409,7 @@ function renderDiagnosticsList(root) {
 
 function orderDiagnostic(name, item, root) {
     const history = sim.diagnostyka.historia;
-
+    console.log('orderDiagnostic'); //$%$%
     // nie duplikujemy
     if (history[name]) return;
 
@@ -467,6 +470,7 @@ function recalcDiagnosticsSummary() {
 
     sim.diagnostyka.cena = totalCena;
     sim.diagnostyka.czas = maxCzas;
+    console.log('recalcDiagnosticsSummary'); //$%$%
 }
 
 function renderDiagnosticsHistory(root) {
@@ -491,6 +495,7 @@ function renderDiagnosticsHistory(root) {
     });
 
     box.scrollTop = box.scrollHeight;
+    console.log('renderDiagnosticsHistory'); //$%$%
 }
 
 
