@@ -368,16 +368,24 @@ function updateObservationData(root) {
 
 // diagnostyka
 function renderDiagnosticsList(root) {
-    const box = root.querySelector(".diagnostics-list");
-    if (!box) return;
-
-    box.innerHTML = "";
-
     const config = sim.diagnostyka.konfiguracja;
 
+    // Najpierw czyścimy wszystkie zakładki
+    const tabs = root.querySelectorAll(".tab-view");
+    tabs.forEach(tab => tab.innerHTML = "");
+
+    // Dodajemy badania
     Object.keys(config).forEach(key => {
         const item = config[key];
+        const category = item.kategoria;
 
+        if (!category) return;
+
+        // Znajdź odpowiednią zakładkę
+        const tab = root.querySelector(`.tab-view[data-tab="${category}"]`);
+        if (!tab) return;
+
+        // Stwórz element
         const entry = document.createElement("div");
         entry.className = "diagnostic-entry";
 
@@ -403,30 +411,31 @@ function renderDiagnosticsList(root) {
         entry.appendChild(nameEl);
         entry.appendChild(infoEl);
         entry.appendChild(button);
-        box.appendChild(entry);
+
+        tab.appendChild(entry);
     });
 }
 
+
 function orderDiagnostic(name, item, root) {
     const history = sim.diagnostyka.historia;
-    console.log('orderDiagnostic'); //$%$%
+
     // nie duplikujemy
     if (history[name]) return;
 
     const losowyCzas = randomTimeBetween(item.czas_min, item.czas_max);
-    console.log(losowyCzas); //$%$%
+
     history[name] = {
         data: losowyCzas,
         cena: item.cena,
         wynik: item.wynik
     };
-    console.log(history[name]); //$%$%
+
     // przelicz sumę i czas
     recalcDiagnosticsSummary();
-    console.log('recalcDiagnosticsSummary'); //$%$%
+
     // odśwież box z wynikami
     renderDiagnosticsHistory(root);
-    console.log('renderDiagnosticsHistory'); //$%$%
 }
 
 function randomTimeBetween(minStr, maxStr) {

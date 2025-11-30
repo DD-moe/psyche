@@ -20,8 +20,9 @@
   ],
   "diagnostyka": {
     "konfiguracja":{
-        "konsultacja chirurgiczna":{"czas_min":"0:1:0:0", "czas_max":"0:12:0:0", "cena":180.50, "wynik":"brak nieprawidłowości."},
-        "konsultacja neurologiczna":{"czas_min":"0:1:30:0", "czas_max":"0:32:0:0", "cena":120.80, "wynik":"brak nieprawidłowości."}
+        "konsultacja chirurgiczna":{"czas_min":"0:1:0:0", "czas_max":"0:12:0:0", "cena":180.50, "wynik":"brak nieprawidłowości.", "kategoria": "zlecenia"},
+        "konsultacja neurologiczna":{"czas_min":"0:1:30:0", "czas_max":"0:32:0:0", "cena":120.80, "wynik":"brak nieprawidłowości.", "kategoria": "zlecenia"},
+        "morfologia krwii":{"czas_min":"0:1:30:0", "czas_max":"0:2:0:0", "cena":17.30, "wynik":"brak nieprawidłowości.", "kategoria": "laboratoryjne"}
     },
     "historia":{
         "konsultacja chirurgiczna":{"data":"0:3:27:37", "cena":180.50, "wynik":"brak nieprawidłowości."}
