@@ -369,6 +369,7 @@ function updateObservationData(root) {
 // diagnostyka
 function renderDiagnosticsList(root) {
     const config = sim.diagnostyka.konfiguracja;
+    const superTab = root.querySelector(`.tab-view[data-tab="diagonstyka"]`);
 
     // Dodajemy badania
     Object.keys(config).forEach(key => {
@@ -378,7 +379,7 @@ function renderDiagnosticsList(root) {
         if (!category) return;
 
         // Znajdź odpowiednią zakładkę
-        const tab = root.querySelector(`.tab-view[data-tab="${category}"]`);
+        const tab = superTab.querySelector(`.tab-view[data-tab="${category}"]`);
         if (!tab) return;
 
         // Stwórz element
