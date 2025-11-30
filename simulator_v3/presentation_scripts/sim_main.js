@@ -360,5 +360,136 @@ function updateObservationData(root) {
     box.scrollTop = box.scrollHeight;
 }
 
+// diagnostyka
+function renderDiagnosticsList(root) {
+    const box = root.querySelector(".diagnostics-list");
+    if (!box) return;
+
+    box.innerHTML = "";
+
+    const config = sim.diagnostyka.konfiguracja;
+
+    Object.keys(config).forEach(key => {
+        const item = config[key];
+
+        const entry = document.createElement("div");
+        entry.className = "diagnostic-entry";
+
+        const nameEl = document.createElement("div");
+        nameEl.className = "diagnostic-name";
+        nameEl.textContent = key;
+
+        const infoEl = document.createElement("div");
+        infoEl.className = "diagnostic-info";
+        infoEl.innerHTML =
+            `Czas min: ${item.czas_min}<br>
+             Czas max: ${item.czas_max}<br>
+             Cena: ${item.cena.toFixed(2)} zł`;
+
+        const button = document.createElement("button");
+        button.className = "diagnostic-order-btn";
+        button.textContent = "Zleć";
+
+        button.addEventListener("click", () => {
+            orderDiagnostic(key, item, root);
+        });
+
+        entry.appendChild(nameEl);
+        entry.appendChild(infoEl);
+        entry.appendChild(button);
+        box.appendChild(entry);
+    });
+}
+
+function orderDiagnostic(name, item, root) {
+    const history = sim.diagnostyka.historia;
+
+    // nie duplikujemy
+    if (history[name]) return;
+
+    const losowyCzas = randomTimeBetween(item.czas_min, item.czas_max);
+
+    history[name] = {
+        data: losowyCzas,
+        cena: item.cena,
+        wynik: item.wynik
+    };
+
+    // przelicz sumę i czas
+    recalcDiagnosticsSummary();
+
+    // odśwież box z wynikami
+    renderDiagnosticsHistory(root);
+}
+
+function randomTimeBetween(minStr, maxStr) {
+    const t1 = parseTime(minStr);
+    const t2 = parseTime(maxStr);
+
+    const min = t1.total;
+    const max = t2.total;
+
+    const rand = Math.floor(Math.random() * (max - min + 1)) + min;
+    return formatTime(rand);
+}
+
+function parseTime(str) {
+    const [d, h, m, s] = str.split(":").map(Number);
+    const total = (((d * 24 + h) * 60 + m) * 60 + s);
+    return { d, h, m, s, total };
+}
+
+function formatTime(totalSeconds) {
+    let s = totalSeconds;
+    const d = Math.floor(s / 86400); s %= 86400;
+    const h = Math.floor(s / 3600); s %= 3600;
+    const m = Math.floor(s / 60); s %= 60;
+
+    return `${d}:${h}:${m}:${s}`;
+}
+
+function recalcDiagnosticsSummary() {
+    const history = sim.diagnostyka.historia;
+
+    let totalCena = 0;
+    let maxCzas = 0;
+
+    Object.keys(history).forEach(key => {
+        const item = history[key];
+        totalCena += item.cena;
+
+        const t = parseTime(item.data).total;
+        if (t > maxCzas) maxCzas = t;
+    });
+
+    sim.diagnostyka.cena = totalCena;
+    sim.diagnostyka.czas = maxCzas;
+}
+
+function renderDiagnosticsHistory(root) {
+    const box = root.querySelector(".additional-results");
+    if (!box) return;
+
+    box.innerHTML = "";
+
+    const history = sim.diagnostyka.historia;
+
+    Object.keys(history).forEach(key => {
+        const item = history[key];
+
+        const entry = document.createElement("div");
+        entry.className = "diagnostic-result-entry";
+
+        entry.innerHTML =
+            `<strong>${key}</strong><br>
+             Wynik: ${item.wynik}`;
+
+        box.appendChild(entry);
+    });
+
+    box.scrollTop = box.scrollHeight;
+}
+
+
 
 window.sendMessage = sendMessage;
