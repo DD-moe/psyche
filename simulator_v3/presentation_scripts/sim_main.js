@@ -145,21 +145,21 @@ document.addEventListener("click", async (e) => {
   // 6) OCEŃ SCENARIUSZ (pusta async funkcja)
   // -------------------------------------------------
   if (action === "evaluate") {
-    await evaluateScenario(sim);
+    evaluateScenario(sim, root);
   }
 
   // -------------------------------------------------
   // 7) PRZYGOTUJ NASTĘPNY KROK (pusta async funkcja)
   // -------------------------------------------------
   if (action === "next") {
-    await prepareNextStep(sim);
+    prepareNextStep(sim);
   }
 
   // -------------------------------------------------
   // 8) WCZYTAJ POPRZEDNI KROK (pusta async funkcja)
   // -------------------------------------------------
   if (action === "prev") {
-    await preparePrevStep(sim);
+    preparePrevStep(sim);
   }  
 
 });
@@ -167,14 +167,119 @@ document.addEventListener("click", async (e) => {
 // ------------------------------------
 // Puste funkcje do uzupełnienia przez Ciebie
 // ------------------------------------
-async function evaluateScenario(sim) {
-  console.log("evaluateScenario()", sim);
+async function evaluateScenario(sim, root) {
+  const Otextarea = root.querySelector("textarea[data-action='ocena']"); // tu wkleisz wynik oceny
+  const Htextarea = root.querySelector("textarea[data-action='history']"); // tu wkleisz wynik oceny
+  const wywiad = sim.wywiad.historia.join("\n");
+  const obserwacje = sim.obserwacje.join("\n");
+  const badanie_przedmiotowe = Object.values(sim.badanie_przedmiotowe.historia).join("\n");
+  const diagnostyka = Object.values(sim.diagnostyka.historia)
+    .map(o => JSON.stringify(o, null, 2))
+    .join("\n\n");
+  const prompt = `Poniżej masz konfigurację pacjenta który został symulowany przez AI
+  ${sim.wywiad.konfiguracja}
+
+  Poniżej tzw. "Modyfikator" do konfiguracji pacjenta
+  ${sim.wywiad.modyfikator}
+
+  Tu z kolei masz stan pacjenta:
+  ${sim.wywiad.stan}
+  
+  A tutaj - historię wywiadu z pacjentem:
+  ${wywiad}
+
+  Poniżej - wyniki obserwacji: 
+  ${obserwacje}
+
+  A tu wyniki z badania fizykalnego:
+  ${badanie_przedmiotowe}
+
+  Wreszcie wyniki badań dodatkowych i konsultacji (data oznacza dd:h:m:s względem rozpoczęcia symulacji):
+  ${diagnostyka}
+
+  Suma kosztów wszystkich badań to: ${sim.diagnostyka.cena}, a najdłuższy czas oczekiwaia to: ${sim.diagnostyka.czas}
+
+  Oceń użytkownika biorąc pod uwagę następujące kryteria: 
+  ${sim.ocena}
+
+  Użytkownik zaproponował rozpoznanie, i postępowamnie itd.:
+  ${Otextarea.value}`
+
+    try {  
+        const reply = await AskGemini(prompt);
+        if (reply === undefined || reply===null) {
+            return;
+        }
+        Htextarea.value = reply.text();
+    }
+    catch (error) {
+        console.error();        
+    }   
 }
 
-async function prepareNextStep(sim) {
-  console.log("prepareNextStep()", sim);
+async function prepareNextStep(sim, root) {
+  const Htextarea = root.querySelector("textarea[data-action='history']"); // tu wkleisz wynik oceny
+  const wywiad = sim.wywiad.historia.join("\n");
+  const obserwacje = sim.obserwacje.join("\n");
+  const badanie_przedmiotowe = Object.values(sim.badanie_przedmiotowe.historia).join("\n");
+  const diagnostyka = Object.values(sim.diagnostyka.historia)
+    .map(o => JSON.stringify(o, null, 2))
+    .join("\n\n");
+  const prompt = `Poniżej masz konfigurację pacjenta który został symulowany przez AI
+  ${sim.wywiad.konfiguracja}
+
+  Poniżej tzw. "Modyfikator" do konfiguracji pacjenta
+  ${sim.wywiad.modyfikator}
+
+  Tu z kolei masz stan pacjenta:
+  ${sim.wywiad.stan}
+  
+  A tutaj - historię wywiadu z pacjentem:
+  ${wywiad}
+
+  Poniżej - wyniki obserwacji: 
+  ${obserwacje}
+
+  A tu wyniki z badania fizykalnego:
+  ${badanie_przedmiotowe}
+
+  Wreszcie wyniki badań dodatkowych i konsultacji (data oznacza dd:h:m:s względem rozpoczęcia symulacji):
+  ${diagnostyka}
+
+  Suma kosztów wszystkich badań to: ${sim.diagnostyka.cena}, a najdłuższy czas oczekiwaia to: ${sim.diagnostyka.czas}
+
+  Użytkownik zaproponował rozpoznanie, i postępowamnie itd.:
+  ${Htextarea.value}
+  
+  Twoim zadaniem jest zwrócić czysty tekst który jest nowym modyfikatorem
+  modyfikator zawiera dodatkowe informacje które symulowany pacjent ma w następnym kroku pamiętać z tego badania
+  Czyli napisz krótko co się zadziało podczas tej symulacji wczuwając się w prespektywę pacjenta symulowanego
+  `
+
+    try {  
+        const reply = await AskGemini(prompt);
+        if (reply === undefined || reply===null) {
+            return;
+        }
+        try {
+          await navigator.clipboard.writeText(reply);
+        } catch {
+          alert("Nie udało się skopiować do schowka.");
+        }
+    }
+    catch (error) {
+        console.error();        
+    }   
 }
 
+async function preparePrevStep(sim){
+    try {
+      const text = await navigator.clipboard.readText();
+      sim.wywiad.modyfikator = text;
+    } catch {
+      alert("Schowek nie zawiera poprawnego JSON.");
+    }    
+}
 
 // chat
 async function sendMessage(btn) {
