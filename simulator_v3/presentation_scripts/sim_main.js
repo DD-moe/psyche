@@ -503,6 +503,41 @@ function renderDiagnosticsHistory(root) {
     box.scrollTop = box.scrollHeight;
 }
 
+// postępowanie
+function setupClipboardControls(root) {
+    if (!root) return;
+
+    // textarea z historią
+    const textarea = root.querySelector("textarea.chat-history[data-action]");
+    if (!textarea) return;
+
+    // przyciski w nagłówku zakładek
+    const buttons = root.querySelectorAll(".tabs-header .tab-btn[data-action]");
+    if (!buttons.length) return;
+
+    buttons.forEach(btn => {
+        const action = btn.getAttribute("data-action");
+
+        if (action === "copy") {
+            btn.addEventListener("click", () => {
+                navigator.clipboard.writeText(textarea.value)
+                    .then(() => console.log("Skopiowano do schowka"))
+                    .catch(err => console.error("Błąd kopiowania:", err));
+            });
+        }
+
+        if (action === "paste") {
+            btn.addEventListener("click", () => {
+                navigator.clipboard.readText()
+                    .then(text => {
+                        textarea.value = text;
+                        console.log("Wklejono ze schowka");
+                    })
+                    .catch(err => console.error("Błąd wklejania:", err));
+            });
+        }
+    });
+}
 
 
 window.sendMessage = sendMessage;

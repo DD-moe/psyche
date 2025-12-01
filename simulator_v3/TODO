@@ -1,9 +1,7 @@
 Kroki do Zrobienia
-2) przetestować konfigurację wywiadu,  badania przedmiotowego  i obserwacji
-4) zaprojektować koncepcję diagnostyki (koszyk zakupowy plus czas), wykonać i przetestować
-5) zaprojektować koncepcję leczenia (koszyk zakupowy plus czas), wykonać i przetestować
-6) zaprojektować koncepcję podsumowania, wykonać i przetestować
-7) wykonać i przetestować ocenę
+1) przetestować konfigurację wywiadu,  badania przedmiotowego,  obserwacji i diagnostyki
+2) zaprojektować koncepcję podsumowania, wykonać i przetestować
+3) wykonać i przetestować ocenę
 
 czym są pliki i foldery:
     icons - zawiera ikony

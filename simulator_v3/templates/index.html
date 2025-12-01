@@ -403,6 +403,8 @@
                     <button class="tab-btn" data-tab="fizykalne" onclick="openTab(this)">Badanie fizykalne</button>
                     <button class="tab-btn" data-tab="wyniki" onclick="openTab(this)">Wyniki</button>
                     <button class="tab-btn" data-tab="diagonstyka" onclick="openTab(this)">Diagonstyka</button>
+                    <button class="tab-btn" data-tab="postępowanie" onclick="openTab(this)">Postępowanie</button>
+                    <button class="tab-btn" data-tab="ocena" onclick="openTab(this)">Ocena</button>                    
                   </div>
 
                   <div class="tabs-views">
@@ -473,6 +475,20 @@
                         </div>
                       <!-- zakładki -->                         
                     </div>                        
+
+                    <div class="tab-view" data-tab="postępowanie">
+                      <p>Opisz wsniski z badań i proponowane postępowanie:</p>
+                      <textarea class="chat-history" data-action="history"></textarea>
+                        <div class="tabs-header">
+                            <button class="tab-btn" data-action="copy">Kopiuj</button>
+                            <button class="tab-btn" data-action="paste">Wklej</button>
+                        </div>                              
+                    </div>  
+
+                    <div class="tab-view" data-tab="ocena">
+                      <p>Ocena twojego postępowania</p>
+                      <textarea class="chat-history" data-action="ocena" disabled></textarea>                           
+                    </div>                      
 
                   </div>
                 </div>
