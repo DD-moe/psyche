@@ -57,6 +57,7 @@ document.addEventListener("click", async (e) => {
       updateObservationData(root);
       renderDiagnosticsList(root);
       renderDiagnosticsHistory(root);
+      setupClipboardControls(root);
     } catch (err) {
       alert("Błąd ładowania scenariusza: " + err.message);
     }
@@ -84,6 +85,7 @@ document.addEventListener("click", async (e) => {
         updateObservationData(root);
         renderDiagnosticsList(root);
         renderDiagnosticsHistory(root);
+        setupClipboardControls(root);
       } catch {
         alert("Plik nie jest poprawnym JSON.");
       }
@@ -121,6 +123,7 @@ document.addEventListener("click", async (e) => {
       updateObservationData(root);
       renderDiagnosticsList(root);
       renderDiagnosticsHistory(root);
+      setupClipboardControls(root);
     } catch {
       alert("Schowek nie zawiera poprawnego JSON.");
     }
