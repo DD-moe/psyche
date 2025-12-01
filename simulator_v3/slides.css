@@ -336,6 +336,10 @@
   resize: vertical;
 }
 
+.presentation .h{
+  min-height: 40vmin;
+}
+
 /* przyciski */
 .presentation button {
   

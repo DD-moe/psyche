@@ -511,7 +511,8 @@ function setupClipboardControls(root) {
     if (!root) return;
 
     // textarea z historią
-    const textarea = root.querySelector("textarea.chat-history[data-action]");
+    const textarea = root.querySelector("textarea[data-action='history']");
+
     if (!textarea) return;
 
     // przyciski w nagłówku zakładek
