@@ -203,14 +203,14 @@ async function evaluateScenario(sim, root) {
   ${sim.ocena}
 
   Użytkownik zaproponował rozpoznanie, i postępowamnie itd.:
-  ${Otextarea.value}`
+  ${Htextarea.value}`
 
     try {  
         const reply = await AskGemini(prompt);
         if (reply === undefined || reply===null) {
             return;
         }
-        Htextarea.value = reply.text;
+        Otextarea.value = reply.text;
     }
     catch (error) {
         console.error();        

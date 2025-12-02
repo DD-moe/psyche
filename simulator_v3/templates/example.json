@@ -1,35 +1,61 @@
 {
   "wywiad": {
     "konfiguracja": "",
-    "modyfikator": "",
+    "modyfikator": "Odczuwam niepokój i dezorientację. Czuję się pobudzony i majaczę. Zostałem zbadany, ale nie rozumiem, co się dzieje.",
     "stan": "",
     "historia": []
   },
   "badanie_przedmiotowe": {
-    "konfiguracja":{
-        "kwiat 1":"kwiat 1",
-        "kwiat 2":"kwiat 2"
+    "konfiguracja": {
+      "kwiat 1": "kwiat 1",
+      "kwiat 2": "kwiat 2"
     },
     "historia": {
-        "kwiat 1":"kwiat 1"
+      "kwiat 1": "kwiat 1"
     }
   },
-  "obserwacje":[
+  "obserwacje": [
     "Pacjent Pobudzony",
     "Pacjent Majaczy"
   ],
   "diagnostyka": {
-    "konfiguracja":{
-        "konsultacja chirurgiczna":{"czas_min":"0:1:0:0", "czas_max":"0:12:0:0", "cena":180.50, "wynik":"brak nieprawidłowości.", "kategoria": "zlecenia"},
-        "konsultacja neurologiczna":{"czas_min":"0:1:30:0", "czas_max":"0:32:0:0", "cena":120.80, "wynik":"brak nieprawidłowości.", "kategoria": "zlecenia"},
-        "morfologia krwii":{"czas_min":"0:1:30:0", "czas_max":"0:2:0:0", "cena":17.30, "wynik":"brak nieprawidłowości.", "kategoria": "laboratoryjne"}
+    "konfiguracja": {
+      "konsultacja chirurgiczna": {
+        "czas_min": "0:1:0:0",
+        "czas_max": "0:12:0:0",
+        "cena": 180.5,
+        "wynik": "brak nieprawidłowości.",
+        "kategoria": "zlecenia"
+      },
+      "konsultacja neurologiczna": {
+        "czas_min": "0:1:30:0",
+        "czas_max": "0:32:0:0",
+        "cena": 120.8,
+        "wynik": "brak nieprawidłowości.",
+        "kategoria": "zlecenia"
+      },
+      "morfologia krwii": {
+        "czas_min": "0:1:30:0",
+        "czas_max": "0:2:0:0",
+        "cena": 17.3,
+        "wynik": "brak nieprawidłowości.",
+        "kategoria": "laboratoryjne"
+      }
     },
-    "historia":{
-        "konsultacja chirurgiczna":{"data":"0:3:27:37", "cena":180.50, "wynik":"brak nieprawidłowości."},
-        "konsultacja neurologiczna":{"data":"0:3:27:37", "cena":180.50, "wynik":"brak nieprawidłowości."}
-    },    
+    "historia": {
+      "konsultacja chirurgiczna": {
+        "data": "0:3:27:37",
+        "cena": 180.5,
+        "wynik": "brak nieprawidłowości."
+      },
+      "konsultacja neurologiczna": {
+        "data": "0:3:27:37",
+        "cena": 180.5,
+        "wynik": "brak nieprawidłowości."
+      }
+    },
     "cena": 0,
-    "czas":0
+    "czas": 0
   },
   "ocena": ""
 }
