@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Edytor JSON konfiguracji pacjenta</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../g_styles.css">
+<link rel="stylesheet" href="tools.css">
+<link rel="icon" type="image/png" sizes="192x192" href="..//icons/icon-192.jpg">
+<link rel="apple-touch-icon" href="../icons/icon-512.jpg">
+</head>
+
+<body class="app-root">
+<div class="container small">
+
+  <header class="header">
+    <h1 class="title">Edytor JSON – Symulator AI</h1>
+    <p class="lead">Wklej / kopiuj konfigurację symulatora w formacie JSON.</p>
+  </header>
+
+  <!-- GÓRNE PRZYCISKI -->
+  <div class="card small row" style="justify-content:center; gap:1rem;">
+    <button class="btn" id="copyBtn">📄 Kopiuj JSON do schowka</button>
+    <button class="btn" id="pasteBtn">📥 Wklej JSON ze schowka</button>
+  </div>
+
+  <hr>
+
+  <!-- SEKCJE EDYCYJNE -->
+  <div class="card small">
+    <h3>wywiad.konfiguracja</h3>
+    <textarea id="wywiad_konfiguracja"></textarea>
+  </div>
+
+  <div class="card small">
+    <h3>wywiad.modyfikator</h3>
+    <textarea id="wywiad_modyfikator"></textarea>
+  </div>
+
+  <div class="card small">
+    <h3>wywiad.stan</h3>
+    <textarea id="wywiad_stan"></textarea>
+  </div>
+
+  <div class="card small">
+    <h3>wywiad.historia (ARRAY)</h3>
+    <textarea id="wywiad_historia"></textarea>
+  </div>
+
+  <div class="card small">
+    <h3>badanie_przedmiotowe.konfiguracja (OBJECT)</h3>
+    <textarea id="bp_konf"></textarea>
+  </div>
+
+  <div class="card small">
+    <h3>badanie_przedmiotowe.historia (OBJECT)</h3>
+    <textarea id="bp_historia"></textarea>
+  </div>
+
+  <div class="card small">
+    <h3>obserwacje (ARRAY)</h3>
+    <textarea id="obserwacje"></textarea>
+  </div>
+
+  <div class="card small">
+    <h3>diagnostyka.konfiguracja (OBJECT)</h3>
+    <textarea id="diag_konf"></textarea>
+  </div>
+
+  <div class="card small">
+    <h3>diagnostyka.historia (OBJECT)</h3>
+    <textarea id="diag_historia"></textarea>
+  </div>
+
+  <div class="card small">
+    <h3>diagnostyka.cena (NUMBER)</h3>
+    <input type="number" id="diag_cena" step="0.01">
+  </div>
+
+  <div class="card small">
+    <h3>diagnostyka.czas (NUMBER)</h3>
+    <input type="number" id="diag_czas" step="1">
+  </div>
+
+  <div class="card small">
+    <h3>ocena</h3>
+    <textarea id="ocena"></textarea>
+  </div>
+
+</div>
+
+<script>
+/* === ELEMENTY === */
+const f = id => document.getElementById(id);
+
+const mapFields = {
+  "wywiad_konfiguracja": ["wywiad","konfiguracja"],
+  "wywiad_modyfikator": ["wywiad","modyfikator"],
+  "wywiad_stan": ["wywiad","stan"],
+  "wywiad_historia": ["wywiad","historia"],
+
+  "bp_konf": ["badanie_przedmiotowe","konfiguracja"],
+  "bp_historia": ["badanie_przedmiotowe","historia"],
+
+  "obserwacje": ["obserwacje"],
+
+  "diag_konf": ["diagnostyka","konfiguracja"],
+  "diag_historia": ["diagnostyka","historia"],
+  "diag_cena": ["diagnostyka","cena"],
+  "diag_czas": ["diagnostyka","czas"],
+
+  "ocena": ["ocena"]
+};
+
+/* === FUNKCJE POMOCNICZE === */
+function assignDeep(obj, path, value) {
+  let t = obj;
+  for (let i=0; i<path.length-1; i++) {
+    if (!t[path[i]]) t[path[i]] = {};
+    t = t[path[i]];
+  }
+  t[path[path.length-1]] = value;
+}
+
+function readDeep(obj, path) {
+  let t = obj;
+  for (let p of path) {
+    if (t[p] === undefined) return "";
+    t = t[p];
+  }
+  return t;
+}
+
+/* === KOPIOWANIE === */
+async function copyJSON() {
+  let result = {};
+
+  for (const [fieldId, path] of Object.entries(mapFields)) {
+    let val = f(fieldId).value;
+
+    if (path[path.length-1] === "cena" || path[path.length-1] === "czas") {
+      val = Number(val);
+    } else if (["historia","konfiguracja","obserwacje"].includes(path[path.length-1])) {
+      try { val = JSON.parse(val || "[]"); } catch { val = val; }
+    }
+
+    assignDeep(result, path, val);
+  }
+
+  const text = JSON.stringify(result, null, 2);
+  await navigator.clipboard.writeText(text);
+}
+
+/* === WKLEJANIE === */
+async function pasteJSON() {
+  try {
+    const text = await navigator.clipboard.readText();
+    const data = JSON.parse(text);
+
+    for (const [fieldId, path] of Object.entries(mapFields)) {
+      const val = readDeep(data, path);
+
+      if (typeof val === "object") {
+        f(fieldId).value = JSON.stringify(val, null, 2);
+      } else {
+        f(fieldId).value = val ?? "";
+      }
+    }
+
+  } catch(e) {
+    alert("❌ Nie udało się wczytać JSON ze schowka.");
+  }
+}
+
+/* === EVENTY === */
+f("copyBtn").onclick = copyJSON;
+f("pasteBtn").onclick = pasteJSON;
+</script>
+
+</body>
+</html>
