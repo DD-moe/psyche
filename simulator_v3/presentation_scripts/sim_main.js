@@ -152,14 +152,14 @@ document.addEventListener("click", async (e) => {
   // 7) PRZYGOTUJ NASTĘPNY KROK (pusta async funkcja)
   // -------------------------------------------------
   if (action === "next") {
-    prepareNextStep(sim);
+    prepareNextStep(sim, root);
   }
 
   // -------------------------------------------------
   // 8) WCZYTAJ POPRZEDNI KROK (pusta async funkcja)
   // -------------------------------------------------
   if (action === "prev") {
-    preparePrevStep(sim);
+    preparePrevStep(sim, root);
   }  
 
 });
@@ -204,7 +204,7 @@ async function evaluateScenario(sim, root) {
 
   Użytkownik zaproponował rozpoznanie, i postępowamnie itd.:
   ${Otextarea.value}`
-
+ console.log(prompt);
     try {  
         const reply = await AskGemini(prompt);
         if (reply === undefined || reply===null) {
