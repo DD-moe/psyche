@@ -128,3 +128,57 @@ textarea.output {
   color:#031018; 
   font-weight:700; 
 }
+
+.tabs { 
+    display:flex; 
+    gap:0.625rem;        /* 10px */
+    margin-bottom:1.25rem; /* 20px */
+}
+
+.tab-btn { 
+    padding:0.5rem 1rem;     /* 8px 16px */
+    cursor:pointer; 
+    border:1px solid #aaa; 
+    border-radius:0.375rem;  /* 6px */
+    background:#eee; 
+}
+
+.tab-btn.active { 
+    background:#fff; 
+    font-weight:bold; 
+    border-bottom:0.125rem solid dodgerblue; /* 2px → 0.125rem */
+}
+
+.editor-panel { 
+    display:none; 
+}
+
+.editor-panel.active { 
+    display:block; 
+}
+
+.section { 
+    margin-bottom:1.25rem;   /* 20px */
+}
+
+input { 
+    width:100%; 
+    padding:0.4rem; 
+}
+
+select { 
+    width:100%; 
+    padding:0.375rem;        /* 6px */
+    margin-top:0.625rem;     /* 10px */
+}
+
+.ctrl { 
+    margin-top:0.625rem;     /* 10px */
+    display:flex; 
+    gap:0.625rem;            /* 10px */
+}
+
+button { 
+    padding:0.375rem 0.75rem; /* 6px 12px */
+    cursor:pointer; 
+}
