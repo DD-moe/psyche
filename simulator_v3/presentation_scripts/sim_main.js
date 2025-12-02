@@ -204,7 +204,7 @@ async function evaluateScenario(sim, root) {
 
   Użytkownik zaproponował rozpoznanie, i postępowamnie itd.:
   ${Otextarea.value}`
- console.log(prompt);
+
     try {  
         const reply = await AskGemini(prompt);
         if (reply === undefined || reply===null) {
