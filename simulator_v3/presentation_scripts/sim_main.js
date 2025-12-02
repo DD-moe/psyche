@@ -210,7 +210,7 @@ async function evaluateScenario(sim, root) {
         if (reply === undefined || reply===null) {
             return;
         }
-        Htextarea.value = reply.text();
+        Htextarea.value = reply.text;
     }
     catch (error) {
         console.error();        
@@ -262,7 +262,7 @@ async function prepareNextStep(sim, root) {
             return;
         }
         try {
-          await navigator.clipboard.writeText(reply);
+          await navigator.clipboard.writeText(reply.text);
         } catch {
           alert("Nie udało się skopiować do schowka.");
         }
