@@ -1,8 +1,8 @@
 {
   "wywiad": {
-    "konfiguracja": "",
-    "modyfikator": "Odczuwam niepokój i dezorientację. Czuję się pobudzony i majaczę. Zostałem zbadany, ale nie rozumiem, co się dzieje.",
-    "stan": "",
+    "konfiguracja": "Pacjentka: Malwina Fikołek, 37 lat\nZgłoszenie do psychiatry: pogorszenie nastroju od 3 miesięcy\n\n1. Kontekst życiowy:\nZawód: nauczycielka akademicka biologii molekularnej, Uniwersytet Adama Marcinkiewicza w Poznaniu.\nStan cywilny: rozwiedziona (małżeństwo 3 lata – relacja konfliktowa, rozejście z obojętności) - obwinia partnera o rozpad małżeństwa.\nMieszka sama z kotem („mruczek coraz częściej od niej ucieka”) - każdego wieczoru wylewa do kota smutki.\nRodzina: wychowana przez samotną matkę, jedynaczka.\n\n2. Styl życia / osobowość\nWcześniej: neurotyczna, impulsywna, nadaktywna.\nObecnie: apatia, wycofanie, spadek energii.\nZwykle zimą/jesienią miewała „gorszy nastrój”.\nAlkohol: wieczorem do 3 porcji prosecco „żeby zasnąć”.\nZakupy kompulsywne jako metoda redukcji smutku (bez problemów finansowych) - zapytana o obsesje i kompulsje początkowo neguje.\nCzasem lękowa wobec protestów/marszów/imigrantów.\n\n3. Objawy aktualne (kluczowe)\nNastrój obniżony od 3 miesięcy.\nAnhedonia: brak radości z podróży, zainteresowań (horoskopy, feminizm, wróżbiarstwo), kontaktów, pracy.\nSpadek energii, szybka męczliwość.\nPodrażnienie: studenci ją irytują, szczególnie „chuderlawi mężczyźni”.\nAutoocena niska („spasła kobyła”, brak nadziei na związek).\nPesymistyczna ocena przyszłości.\nBrak poczucia winy – winą obarcza świat, polityków, lekarzy.\nKoncentracja osłabiona od 1 miesiąca.\nSen:\n- łatwo zasypia po alkoholu, trudniej bez alkoholu\n- wybudzenia w nocy + trudność ponownego zaśnięcia\nApetyt: niezmieniony.\nMyśli natrętne: o straconych okazjach (nieproduktywne, niefantazyjne).\nMyśli S / próby S: neguje.\nOmamy/urojenia: neguje.\nObjawy somatyczne: poranne uczucie duszności i „niemożności zerwania się z łóżka”, częsty ból gardła.\nPremenstruacyjne pogorszenie nastroju: neguje.\nChoroby i leczenie: nieleczona psychiatrycznie, brak chorób somatycznych; suplementy „profilaktyczne”, nie chce powiedzieć jakie.\n\n4. Czynniki ryzyka / okoliczności\n\nSezonowość obniżonego nastroju (jesień–zima).\nAlkohol wieczorny jako autoterapia.\nStres zawodowy + wypalenie.\nSamotność emocjonalna.\nNegatywne przekonania o mężczyznach, poczucie bezsensu relacji.\n\n5. Motywacja do leczenia\n\nZgłasza się bezpośrednio do psychiatry, bo uważa lekarza rodzinnego za „konowała”.\nChce poprawy samopoczucia i snu.\nNie widzi u siebie choroby psychicznej („świat jest winny, nie ja”).",
+    "modyfikator": "Mówi oszczędnie. Odpowiada na pytania, ale sama nie inicjuje tematów.\nPrzeważnie współpracująca, nie stawia oporu, dopóki pytania są konkretne i nie dotyczą życia prywatnego i suplementó diety. Gdy wyczuwa niewiedzę, niekompetencję lub zbyt ogólne pytania — bywa uszczypliwa, ironiczna — uszczypliwość ma formę zmęczonego komentarza, nie ostrej konfrontacji. Gdy rozmowa dotyczy alkoholu — minimalizuje problem, bagatelizuje (“no bez przesady, każdy coś pije”). Nie dramatyzuje objawów — raczej przedstawia je jako „męczące, ale normalne”.",
+    "stan": "zaufanie : 5/10\nprawdomówność: 8/10\notwartość: 6/10\npoziom irytacji: 4/10\npoczucie bezpieczeństwa: 5/10\nenergia: 3/10",
     "historia": []
   },
   "badanie_przedmiotowe": {
@@ -15,47 +15,184 @@
     }
   },
   "obserwacje": [
-    "Pacjent Pobudzony",
-    "Pacjent Majaczy"
+    "(0:0:4:12) 'Recepcjonistka': Pacjent zgłasza się punktualnie, wygląda na zmęczoną."
   ],
   "diagnostyka": {
     "konfiguracja": {
-      "konsultacja chirurgiczna": {
+      "TSH": {
         "czas_min": "0:1:0:0",
-        "czas_max": "0:12:0:0",
-        "cena": 180.5,
-        "wynik": "brak nieprawidłowości.",
-        "kategoria": "zlecenia"
+        "czas_max": "0:3:0:0",
+        "cena": 22,
+        "wynik": "w normie (2.1 µIU/ml).",
+        "kategoria": "laboratoryjne"
       },
-      "konsultacja neurologiczna": {
-        "czas_min": "0:1:30:0",
-        "czas_max": "0:32:0:0",
-        "cena": 120.8,
-        "wynik": "brak nieprawidłowości.",
-        "kategoria": "zlecenia"
+      "FT3": {
+        "czas_min": "0:1:0:0",
+        "czas_max": "0:3:0:0",
+        "cena": 24,
+        "wynik": "w normie.",
+        "kategoria": "laboratoryjne"
       },
-      "morfologia krwii": {
-        "czas_min": "0:1:30:0",
+      "FT4": {
+        "czas_min": "0:1:0:0",
+        "czas_max": "0:3:0:0",
+        "cena": 24,
+        "wynik": "w normie.",
+        "kategoria": "laboratoryjne"
+      },
+      "Morfologia krwi": {
+        "czas_min": "0:0:45:0",
         "czas_max": "0:2:0:0",
-        "cena": 17.3,
-        "wynik": "brak nieprawidłowości.",
+        "cena": 18,
+        "wynik": "bez odchyleń.",
+        "kategoria": "laboratoryjne"
+      },
+      "Witamina B12": {
+        "czas_min": "0:1:0:0",
+        "czas_max": "0:4:0:0",
+        "cena": 45,
+        "wynik": "wartość niska w normie prawidłowej (290 pg/ml).",
+        "kategoria": "laboratoryjne"
+      },
+      "Kwas foliowy": {
+        "czas_min": "0:1:0:0",
+        "czas_max": "0:4:0:0",
+        "cena": 40,
+        "wynik": "w normie.",
+        "kategoria": "laboratoryjne"
+      },
+      "Ferrytyna": {
+        "czas_min": "0:1:0:0",
+        "czas_max": "0:3:0:0",
+        "cena": 30,
+        "wynik": "w normie.",
+        "kategoria": "laboratoryjne"
+      },
+      "CRP": {
+        "czas_min": "0:0:45:0",
+        "czas_max": "0:2:0:0",
+        "cena": 15,
+        "wynik": "w normie.",
+        "kategoria": "laboratoryjne"
+      },
+      "Elektrolity (Na/K)": {
+        "czas_min": "0:0:45:0",
+        "czas_max": "0:2:0:0",
+        "cena": 20,
+        "wynik": "w normie.",
+        "kategoria": "laboratoryjne"
+      },
+      "Glukoza na czczo": {
+        "czas_min": "0:0:45:0",
+        "czas_max": "0:2:0:0",
+        "cena": 12,
+        "wynik": "w normie.",
+        "kategoria": "laboratoryjne"
+      },
+      "ALT/AST": {
+        "czas_min": "0:1:0:0",
+        "czas_max": "0:3:0:0",
+        "cena": 20,
+        "wynik": "prawidłowe; ALT na granicy górnej normy (prawdopodobnie alkohol).",
+        "kategoria": "laboratoryjne"
+      },
+      "Kreatynina": {
+        "czas_min": "0:1:0:0",
+        "czas_max": "0:3:0:0",
+        "cena": 15,
+        "wynik": "prawidłowa.",
+        "kategoria": "laboratoryjne"
+      },
+      "GFR": {
+        "czas_min": "0:1:0:0",
+        "czas_max": "0:3:0:0",
+        "cena": 0,
+        "wynik": "prawidłowy.",
+        "kategoria": "laboratoryjne"
+      },
+      "ciśnienie tętnicze": {
+        "czas_min": "0:0:1:30",
+        "czas_max": "0:0:5:0",
+        "cena": 0,
+        "wynik": "prawidłowe.",
+        "kategoria": "pomiar"
+      },
+      "pomiar masy ciała": {
+        "czas_min": "0:0:1:0",
+        "czas_max": "0:0:3:0",
+        "cena": 0,
+        "wynik": "BMI 28 (nadwaga).",
+        "kategoria": "pomiar"
+      },
+      "pomiar wzrostu": {
+        "czas_min": "0:0:1:0",
+        "czas_max": "0:0:3:0",
+        "cena": 0,
+        "wynik": "167 cm.",
+        "kategoria": "pomiar"
+      },
+      "EEG": {
+        "czas_min": "2:5:0:0",
+        "czas_max": "14:0:0:0",
+        "cena": 250,
+        "wynik": "prawidłowy zapis; brak cech padaczki.",
+        "kategoria": "zlecenia"
+      },
+      "Rezonans magnetyczny mózgu": {
+        "czas_min": "7:0:0:0",
+        "czas_max": "35:0:0:0",
+        "cena": 650,
+        "wynik": "bez zmian ogniskowych; mózg bez cech neurodegeneracji.",
+        "kategoria": "zlecenia"
+      },
+      "Test przesiewowy otępienia (MoCA)": {
+        "czas_min": "0:0:12:0",
+        "czas_max": "0:0:25:0",
+        "cena": 0,
+        "wynik": "28/30 – prawidłowo.",
+        "kategoria": "zlecenia"
+      },
+      "Test funkcji poznawczych (MMSE)": {
+        "czas_min": "0:0:10:0",
+        "czas_max": "0:0:20:0",
+        "cena": 0,
+        "wynik": "29/30 – prawidłowo.",
+        "kategoria": "zlecenia"
+      },
+      "EKG": {
+        "czas_min": "0:0:5:0",
+        "czas_max": "0:0:10:0",
+        "cena": 40,
+        "wynik": "w normie.",
+        "kategoria": "zlecenia"
+      },
+      "Panel metaboliczny (jonogram, glukoza, kreatynina, ALT/AST)": {
+        "czas_min": "0:1:0:0",
+        "czas_max": "0:2:0:0",
+        "cena": 65,
+        "wynik": "wyniki stabilne; ALT lekko podwyższone.",
         "kategoria": "laboratoryjne"
       }
     },
     "historia": {
-      "konsultacja chirurgiczna": {
-        "data": "0:3:27:37",
-        "cena": 180.5,
-        "wynik": "brak nieprawidłowości."
+      "ankieta stresu i funkcjonowania (PSS)": {
+        "data": "0:0:12:44",
+        "cena": 0,
+        "wynik": "podwyższony poziom stresu subiektywnego, bez cech kryzysu."
       },
-      "konsultacja neurologiczna": {
-        "data": "0:3:27:37",
-        "cena": 180.5,
-        "wynik": "brak nieprawidłowości."
+      "ankieta snu (krótki kwestionariusz bezsenności)": {
+        "data": "0:0:09:31",
+        "cena": 0,
+        "wynik": "sporadyczne trudności z zasypianiem, niejednoznaczne diagnostycznie."
+      },
+      "wywiad medyczny – formularz online": {
+        "data": "0:0:20:00",
+        "cena": 0,
+        "wynik": "brak poważnych chorób somatycznych w wywiadzie; zgłaszane przemęczenie."
       }
     },
     "cena": 0,
-    "czas": 0
+    "czas": 20
   },
-  "ocena": ""
+  "ocena": "Co oceniać:\n\n1) Kompleksowość wywiadu:\n\nCzy uwzględniono kluczowe elementy: historia choroby, czynniki ryzyka, używki (alkohol), sen, apetyt, funkcjonowanie społeczne, samopoczucie, myśli samobójcze itd.\nCzy wywiad prowadził się elastycznie, dostosowując pytania w zależności od odpowiedzi pacjentki.\n\n2) Poprawność i adekwatność propozycji badań / diagnostyki:\nCzy dobrano odpowiednie badania dla diagnostyki różnicowej\nCzy diagnostyka była proporcjonalna do zgłaszanych objawów (nie nadmiarowa, nie pominięta).\n\n3) Interpretacja wyników i wnioski diagnostyczne:\nCzy wnioski były logiczne i spójne z wynikami badań i wywiadem.\nCzy rozpoznanie/przewidywana diagnoza (np. epizod depresyjny) była uzasadniona.\nCzy rozważono alternatywy (np. depresja sezonowa, zaburzenia somatyczne, nadużywanie alkoholu, zmiany metaboliczne).\n\n4) Umiejętność komunikacji z pacjentką:\nStyl wypowiedzi: współpracujący, empatyczny, ale zarazem profesjonalny.\nUnikanie zbędnego osądu;\n\n5) Plan leczenia / dalsze kroki:\nCzy zaproponowano realistyczny plan postępowania\n\n6)Bezpieczeństwo i ocena ryzyka\n\nCzy sprawdzono myśli samobójcze, ryzyko nadużywania alkoholu, korzystanie z mechanizmów obronnych.\n(pod kątem skierownia do leczenia na oddziale zamkniętym)"
 }
