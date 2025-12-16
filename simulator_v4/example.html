@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <base href="https://git.1ioe.top/psyche/simulator_v4/" />
+    <title>Blueprint Presentation</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wdth,wght@0,75..100,100..900;1,75..100,100..900&display=swap" rel="stylesheet">  
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_
+    names=search,home" />
+
+    <link rel="stylesheet" href="elements/styles.css">
+    <link rel="manifest" href="elements/manifest.webmanifest">
+    <meta name="theme-color" content="black">
+    <link rel="icon" href="elements/icon192.jpg">
+    <link rel="apple-touch-icon" href="elements/icon512.jpg">
+
+    <style title="kategorie"></style>
+    <style>
+        /* lokalne reguły*/
+    </style>
+</head>
+
+<body>
+
+    <!-- sekcje (slajdy) -->
+
+    <section class="cat1">
+        <h1>Slide 1</h1>
+        <div class="box"></div>
+        <p>Skalowanie przez jednostki kontenerowe</p>
+    </section>
+    <br>
+    <section>
+        <h1>Slide 2</h1>
+        <div class="box"></div>
+        <p>Zawsze 4:3, maksymalny rozmiar</p>
+    </section>
+    <br>
+    <section>
+        <h1>Slide 3 - Widoczność <span class="material-symbols-outlined">search</span><span class="material-symbols-outlined">home</span></h1>
+        <br>
+        <label><input type="checkbox" id="cat1" checked> cat1</label>
+        <label><input type="checkbox" id="cat2" checked> cat2</label>
+        <label><input type="checkbox" id="cat3" checked> cat3</label>
+        <label><input type="checkbox" id="cat4" checked> cat4</label>
+        <br>
+        <button id="applyVisibility" onclick="setupVisibility()">Zastosuj widoczność</button>
+    </section>
+    <br>
+    <section>
+        <h1>Slide 4</h1>
+        <button onclick="openDialog('myDialog1', 'https://git.1ioe.top/')">Otwórz dialog 1</button>
+        <button onclick="openDialog('myDialog2', 'https://git.1ioe.top/')">Otwórz dialog 2</button>
+    </section>    
+
+    <!-- dialogi (wyskakujące okienka) -->
+
+    <dialog id="myDialog1">
+        <button onclick="closeDialog(this)">Zamknij</button>
+        <section class="cat1">
+            <h1>Slide 1</h1>
+            <div class="box"></div>
+            <p>Skalowanie przez jednostki kontenerowe</p>
+        </section>
+        <br>
+        <section>
+            <h1>Slide 2</h1>
+            <div class="box"></div>
+            <p>Zawsze 4:3, maksymalny rozmiar</p>
+        </section>
+        <br>
+        <section>
+            <h1>Slide 2</h1>
+            <div class="box"></div>
+            <p>Zawsze 4:3, maksymalny rozmiar</p>
+        </section>  
+        <br>
+        <iframe src=""></iframe>
+        <button onclick="closeDialog(this)">Zamknij</button>
+    </dialog>
+
+    <dialog id="myDialog2">
+        <button onclick="closeDialog(this)">Zamknij</button>
+        <p>
+            Słowo <span class="dotted-underline">neuron</span>
+            <span class="tooltip-icon" data-contentid="target1" data-templateid="template1" onclick="expandDefinition('this')">❓</span>
+        </p>
+        <div id="target1">
+            <span>
+                Neuron to komórka nerwowa odpowiedzialna za przesyłanie impulsów. 
+                <span class="tooltip-icon" data-contentid="target1" data-templateid="template2"  onclick="expandDefinition('this')">❓</span>
+            </span>    
+        </div>
+        <section><iframe src=""></iframe></section>
+        <button onclick="closeDialog(this)">Zamknij</button>
+    </dialog>
+
+    <!-- templaty (ukryte szablony) -->
+    <template id="template1">
+        <span>
+            Neuron to komórka nerwowa odpowiedzialna za przesyłanie impulsów. 
+            <span class="tooltip-icon" data-contentid="target1" data-templateid="template2"  onclick="expandDefinition('this')">❓</span>
+        </span>
+    </template>
+
+    <template id="template2">
+        <span>
+            Dokładniejsza definicja neuronu: posiada dendryty, ciało komórkowe i akson.
+            <span class="tooltip-icon" data-contentid="target1" data-templateid="template1"  onclick="expandDefinition('this')">❓</span>
+        </span>
+    </template>
+
+</body>
+
+<script type="module" src="elements/main.js"></script>
+<script>
+ // lokalny skrypt
+</script>
+
+</html>

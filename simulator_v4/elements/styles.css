@@ -1,0 +1,108 @@
+    /* --- GLOBAL / SECTION --- */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      font-family: "Roboto", sans-serif;
+      font-optical-sizing: auto;
+      font-weight: 400;
+      font-style: normal;
+      font-variation-settings: "wdth" 100;
+    }
+
+    /* Dla Chrome, Edge, Safari */
+    *::-webkit-scrollbar {
+      display: none;
+    }
+
+    .material-symbols-outlined {
+      font-variation-settings:
+      'FILL' 0,
+      'wght' 400,
+      'GRAD' 0,
+      'opsz' 24
+    }
+
+    body {
+      min-height: 100svh;
+      overflow: auto;
+      background: black;
+    }
+
+    /* --- SLIDE / SECTION --- */
+    section {
+      aspect-ratio: 4 / 3;
+
+      /* maksymalny rozmiar mieszczący się w obu osiach */
+      width: min(100%, calc(100svh * 4 / 3));
+      height: auto;
+      max-height: 100svh;
+      max-width: 100%;
+
+      /* kontener */
+      container-type: size;
+
+      /* niezależne renderowanie (optymalizacja) */
+      contain: layout paint size style;
+
+      background: #111111;
+      color: white;
+      border-radius: 1cqw;
+    }
+
+    /* --- CONTENT SCALED BY CONTAINER (SECTION) --- */
+    h1 {
+      font-size: 8cqw;
+      line-height: 1.1;
+    }
+
+    p {
+      font-size: 3.5cqw;
+      opacity: 0.85;
+    }
+
+    .box {
+      width: 30cqw;
+      height: 15cqh;
+      margin-inline: auto;
+      border-radius: 1cqw;
+    }
+
+    /* --- DIALOG --- */
+    dialog {
+    width: 100svw;          /* pełna szerokość viewportu */
+    max-width: 100%;        /* zabezpieczenie */
+    padding: 0rem;
+    border-radius: 0.05rem solid #333333;
+    background-color: #111111;
+    }
+
+    dialog::backdrop {
+    background: rgba(0,0,0,0.5); /* ciemne tło za dialogiem */
+    }
+
+    /* --- CONTENT SCALED BY DIALOG --- */
+
+    /* --- IFRAME --- */
+    dialog iframe {
+      display: block;
+      width: 100%;
+      height: 90svh;
+    }
+
+    section iframe {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }    
+
+    /* --- EXPANDERS CONTENT --- */
+    .dotted-underline {
+      border-bottom: 1px dotted gray;
+      cursor: help; /* pokazuje że można kliknąć */
+    }
+
+    .tooltip-icon {
+      cursor: pointer;
+      margin-left: 0.2em;
+      color: #0077cc;
+    }
