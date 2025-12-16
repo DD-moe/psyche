@@ -7,6 +7,8 @@
       font-weight: 400;
       font-style: normal;
       font-variation-settings: "wdth" 100;
+      color: white;
+      background-color: black;
     }
 
     /* Dla Chrome, Edge, Safari */
@@ -25,7 +27,6 @@
     body {
       min-height: 100svh;
       overflow: auto;
-      background: black;
     }
 
     /* --- SLIDE / SECTION --- */
@@ -40,13 +41,19 @@
 
       /* kontener */
       container-type: size;
+      border-radius: 1cqw;
 
       /* niezależne renderowanie (optymalizacja) */
-      contain: layout paint size style;
-
-      background: #111111;
+      contain: strict;
+      box-sizing: border-box;
+      margin: 0;
+      font-family: "Roboto", sans-serif;
+      font-optical-sizing: auto;
+      font-weight: 400;
+      font-style: normal;
+      font-variation-settings: "wdth" 100;
       color: white;
-      border-radius: 1cqw;
+      background-color: black;      
     }
 
     /* --- CONTENT SCALED BY CONTAINER (SECTION) --- */
@@ -69,11 +76,21 @@
 
     /* --- DIALOG --- */
     dialog {
-    width: 100svw;          /* pełna szerokość viewportu */
-    max-width: 100%;        /* zabezpieczenie */
-    padding: 0rem;
-    border-radius: 0.05rem solid #333333;
-    background-color: #111111;
+      width: 100svw;          /* pełna szerokość viewportu */
+      max-width: 100%;        /* zabezpieczenie */
+      border-radius: 0.05rem solid #111111;
+
+      /* niezależne renderowanie (optymalizacja) */
+      contain: strict;
+      box-sizing: border-box;
+      margin: 0;
+      font-family: "Roboto", sans-serif;
+      font-optical-sizing: auto;
+      font-weight: 400;
+      font-style: normal;
+      font-variation-settings: "wdth" 100;
+      color: white;
+      background-color: black;      
     }
 
     dialog::backdrop {
@@ -97,12 +114,12 @@
 
     /* --- EXPANDERS CONTENT --- */
     .dotted-underline {
-      border-bottom: 1px dotted gray;
+      border-bottom: 0.1rem dotted gray;
       cursor: help; /* pokazuje że można kliknąć */
     }
 
     .tooltip-icon {
       cursor: pointer;
       margin-left: 0.2em;
-      color: #0077cc;
+      color: royalblue;
     }
