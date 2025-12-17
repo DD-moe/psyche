@@ -59,7 +59,12 @@ function openDialog(id, iframeSrc) {
   });
 
   // ustawienie SRC uruchamia ładowanie
-  iframe.src = iframeSrc;
+  if (iframe.src === iframeSrc) {
+    dialog.showModal();
+  }
+  else{
+    iframe.src = iframeSrc;
+  }
 }
 
 function closeDialog(button){
