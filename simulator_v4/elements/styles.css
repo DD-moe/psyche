@@ -63,6 +63,7 @@
       line-height: 2;
       margin: 0 auto;
       display: block;
+      text-align: center;
     }
 
     section h2 {
@@ -70,6 +71,7 @@
       line-height: 1.5;
       margin: 0 auto;
       display: block;
+      text-align: center;
     }    
 
     section p {
@@ -77,15 +79,37 @@
       line-height: 1;
       margin: 0 auto;
       display: block;
+      text-align: center;
     }
 
     section .box {
-      width: 15cqw;
-      height: 15cqh;
-      margin-inline: auto;
       border-radius: 1cqw;
       margin: 0 auto;
       display: block;
+      text-align: center;
+    }
+
+
+      /* 1cqw = 4    1cqh = 3   common = 12 - 3cqw, 4cqh*/
+    section .box.s11{width: 3cqw; height: 4cqh;}/* 12 */
+    section .box.s22{width: 6cqw; height: 8cqh;}/* 24 */
+    section .box.s44{width: 12cqw; height: 16cqh;}/* 48 */    
+
+    section .box.s12{width: 3cqw; height: 8cqh;}/* 12/24 */
+    section .box.s14{width: 3cqw; height: 16cqh;}/* 12/48 */
+    section .box.s24{width: 6cqw; height: 16cqh;}/* 24/48 */      
+      
+    section .box.s21{width: 6cqw; height: 4cqh;}/* 24/12 */
+    section .box.s41{width: 12cqw; height: 4cqh;}/* 48/12 */
+    section .box.s42{width: 12cqw; height: 8cqh;}/* 48/24 */        
+
+    section button{
+      font-size: 2cqw;
+      border-radius: 1cqw;        
+      margin: 0 auto;
+      display: block;    
+      background-color: black;
+      text-align: center;    
     }
 
     /* --- DIALOG --- */
