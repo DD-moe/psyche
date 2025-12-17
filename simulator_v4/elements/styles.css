@@ -27,6 +27,7 @@
     body {
       min-height: 100svh;
       overflow: auto;
+      color: #111111;
     }
 
     /* --- SLIDE / SECTION --- */
