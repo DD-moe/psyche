@@ -79,6 +79,7 @@
     dialog {
       width: 100svw;          /* pełna szerokość viewportu */
       max-width: 100%;        /* zabezpieczenie */
+      height: 100svh;
       border: 0.05rem solid #111111;
       border-radius: 0.05rem;
       overflow: auto;

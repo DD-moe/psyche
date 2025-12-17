@@ -3,7 +3,7 @@
   "short_name": "MP&S",
   "description": "Minimalistyczna prezentacja z elementami Symulacji",
   "start_url": "./index.html",
-  "display": "fullscreen",
+  "display": "standalone",
   "background_color": "black",
   "theme_color": "black",
   "orientation": "any",
