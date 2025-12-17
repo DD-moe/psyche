@@ -104,6 +104,7 @@
 
     <!-- dialogi (wyskakujące okienka) -->
 
+    <!-- służy do wyświetlania unikalnej treści, nie powinien zawierać powtarzalnych elementów (może zawierać slajdy lub nie)-->
     <dialog id="myDialog1">
         <button onclick="closeDialog(this)" class="m0">Zamknij</button>
         <section class="cat1">
@@ -125,22 +126,28 @@
         </section>  
         <br>
         <section><iframe src=""></iframe></section>
+        <br>
+        <section>
+            <div id="target1">
+                <span>
+                    Słowo <span class="dotted-underline">neuron</span> Neuron to komórka nerwowa odpowiedzialna za przesyłanie impulsów. 
+                    <span class="tooltip-icon" data-contentid="target1" data-templateid="template2"  onclick="expandDefinition(this)"><span class="material-symbols-outlined tooltip-icon">search</span></span>
+                </span>
+            </div>            
+        </section>
         <button onclick="closeDialog(this)" class="m0">Zamknij</button>
     </dialog>
 
+    <!-- służy do ładowania treści tylko do jednego iframe z powtzrzalną między prezentacjami treścią celem oszczędzania ram (może zawierać slajdy)-->
     <dialog id="myDialog2">
         <button onclick="closeDialog(this)" class="m0">Zamknij</button>
-        <div id="target1">
-            <span>
-                Słowo <span class="dotted-underline">neuron</span> Neuron to komórka nerwowa odpowiedzialna za przesyłanie impulsów. 
-                <span class="tooltip-icon" data-contentid="target1" data-templateid="template2"  onclick="expandDefinition(this)"><span class="material-symbols-outlined tooltip-icon">search</span></span>
-            </span>
-        </div>
         <iframe src=""></iframe>
         <button onclick="closeDialog(this)" class="m0">Zamknij</button>
     </dialog>
 
     <!-- templaty (ukryte szablony) -->
+
+    <!-- bazowa treść html -->
     <template id="template1">
         <span>
             Słowo <span class="dotted-underline">neuron</span> Neuron to komórka nerwowa odpowiedzialna za przesyłanie impulsów. 
@@ -148,6 +155,7 @@
         </span>
     </template>
 
+    <!-- rozwinięta treść html -->
     <template id="template2">
         <span>
             Słowo <span class="dotted-underline">neuron</span> Dokładniejsza definicja neuronu: posiada dendryty, ciało komórkowe i akson.
