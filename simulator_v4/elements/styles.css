@@ -27,7 +27,7 @@
     body {
       min-height: 100svh;
       overflow: auto;
-      background-color: #222222;
+      background-color: #111111;
     }
 
     /* --- SLIDE / SECTION --- */
@@ -47,7 +47,7 @@
       /* niezależne renderowanie (optymalizacja) */
       contain: strict;
       box-sizing: border-box;
-      margin: 0;
+      margin: 0 auto;
       font-family: "Roboto", sans-serif;
       font-optical-sizing: auto;
       font-weight: 400;
@@ -86,7 +86,7 @@
       /* niezależne renderowanie (optymalizacja) */
       contain: strict;
       box-sizing: border-box;
-      margin: 0;
+      margin: 0 auto;
       font-family: "Roboto", sans-serif;
       font-optical-sizing: auto;
       font-weight: 400;
