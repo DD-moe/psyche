@@ -88,12 +88,12 @@
         <button onclick="closeDialog(this)">Zamknij</button>
         <p>
             Słowo <span class="dotted-underline">neuron</span>
-            <span class="tooltip-icon" data-contentid="target1" data-templateid="template1" onclick="expandDefinition('this')">❓</span>
+            <span class="tooltip-icon" data-contentid="target1" data-templateid="template1" onclick="expandDefinition(this)">❓</span>
         </p>
         <div id="target1">
             <span>
                 Neuron to komórka nerwowa odpowiedzialna za przesyłanie impulsów. 
-                <span class="tooltip-icon" data-contentid="target1" data-templateid="template2"  onclick="expandDefinition('this')">❓</span>
+                <span class="tooltip-icon" data-contentid="target1" data-templateid="template2"  onclick="expandDefinition(this)">❓</span>
             </span>    
         </div>
         <section><iframe src=""></iframe></section>
@@ -104,14 +104,14 @@
     <template id="template1">
         <span>
             Neuron to komórka nerwowa odpowiedzialna za przesyłanie impulsów. 
-            <span class="tooltip-icon" data-contentid="target1" data-templateid="template2"  onclick="expandDefinition('this')">❓</span>
+            <span class="tooltip-icon" data-contentid="target1" data-templateid="template2"  onclick="expandDefinition(this)">❓</span>
         </span>
     </template>
 
     <template id="template2">
         <span>
             Dokładniejsza definicja neuronu: posiada dendryty, ciało komórkowe i akson.
-            <span class="tooltip-icon" data-contentid="target1" data-templateid="template1"  onclick="expandDefinition('this')">❓</span>
+            <span class="tooltip-icon" data-contentid="target1" data-templateid="template1"  onclick="expandDefinition(this)">❓</span>
         </span>
     </template>
 
