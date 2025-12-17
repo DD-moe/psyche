@@ -62,11 +62,13 @@
     h1 {
       font-size: 8cqw;
       line-height: 1.1;
+      margin: 0 auto;
     }
 
     p {
       font-size: 3.5cqw;
       opacity: 0.85;
+      margin: 0 auto;
     }
 
     .box {
@@ -74,6 +76,8 @@
       height: 15cqh;
       margin-inline: auto;
       border-radius: 1cqw;
+      margin: 0 auto;
+      display: block;
     }
 
     /* --- DIALOG --- */
