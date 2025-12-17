@@ -54,7 +54,8 @@
       font-style: normal;
       font-variation-settings: "wdth" 100;
       color: white;
-      background-color: black;      
+      background-color: black;
+      display: block;      
     }
 
     /* --- CONTENT SCALED BY CONTAINER (SECTION) --- */
@@ -94,7 +95,8 @@
       font-style: normal;
       font-variation-settings: "wdth" 100;
       color: white;
-      background-color: #111111;      
+      background-color: #111111;
+      display: block;      
     }
 
     dialog::backdrop {
@@ -145,4 +147,6 @@
     .fcg-C{background-color: rgb(0, 164, 164);}
     .fcg-B{background-color: rgb(0, 0, 204);}
     .fcg-P{background-color: rgb(164, 0, 164);}
-    .fcg-A{background-color: rgb(164, 164, 164);}      
+    .fcg-A{background-color: rgb(164, 164, 164);}
+    /* --- Positions --- */
+    .m0{margin: 0 auto; display: block;}      
