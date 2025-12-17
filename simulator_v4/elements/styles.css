@@ -95,8 +95,7 @@
       font-style: normal;
       font-variation-settings: "wdth" 100;
       color: white;
-      background-color: #111111;
-      display: block;      
+      background-color: #111111;     
     }
 
     dialog::backdrop {
