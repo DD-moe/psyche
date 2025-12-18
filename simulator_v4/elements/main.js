@@ -83,8 +83,70 @@ function expandDefinition(trigger) {
   }
 }
 
+function resolveFullscreenTarget(target) {
+  // brak argumentu → body
+  if (!target) return document.body;
+
+  // element DOM
+  if (target instanceof Element) return target;
+
+  // string
+  if (typeof target === 'string') {
+    // #id
+    if (target.startsWith('#')) {
+      return document.getElementById(target.slice(1));
+    }
+
+    // selector CSS
+    try {
+      const el = document.querySelector(target);
+      if (el) return el;
+    } catch (e) {
+      // ignore – niepoprawny selektor
+    }
+
+    // fallback: traktuj jako id
+    return document.getElementById(target);
+  }
+
+  return null;
+}
+
+function openFullScreen(target) {
+  const el = resolveFullscreenTarget(target);
+  if (!el) return;
+
+  if (el.requestFullscreen) {
+    el.requestFullscreen();
+  } else if (el.webkitRequestFullscreen) {
+    el.webkitRequestFullscreen(); // Safari
+  } else if (el.msRequestFullscreen) {
+    el.msRequestFullscreen(); // IE/old Edge
+  }
+}
+/*
+openFullScreen();                  // body
+openFullScreen('mySection');       // id="mySection"
+openFullScreen('#mySection');      // id
+openFullScreen('.box.r50');        // selector CSS
+openFullScreen(document.querySelector('section'));
+*/
+
+function closeFullScreen() {
+  if (document.exitFullscreen) {
+    document.exitFullscreen();
+  } else if (document.webkitExitFullscreen) {
+    document.webkitExitFullscreen(); // Safari
+  } else if (document.msExitFullscreen) {
+    document.msExitFullscreen(); // IE/old Edge
+  }
+}
+// closeFullScreen();
+
 window.getStyleSheet = getStyleSheet;
 window.setupVisibility = setupVisibility;
 window.openDialog = openDialog;
 window.closeDialog = closeDialog;
 window.expandDefinition = expandDefinition;
+window.openFullScreen = openFullScreen;
+window.closeFullScreen = closeFullScreen;

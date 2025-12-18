@@ -1,0 +1,17 @@
+ZADANIA:
+1) przygotuj index.html - odpowiednie symbole google icons i nawigacja i ustawienia - tylko niezbędne
+2) wystyluj dialogi - tylko niezbędne elementy
+3) przygotuj prezentację i umieść ją w presentations (ciało) i content (dodatki) - copypaste z wnl i przetestuj całość statyczną
+4) przerób symulacje ze starego projektu i umieść je w tools(ciało i kod) oraz simulaions - (treść)
+5) przetestuj symulacje
+6) przetestuj całokształt merytorycznie
+
+ARCHITEKTURA:
+blueprints - minimalistyczne szablony zasobów w tym promptów
+content - powtarzalne dane umieszczane w iframes
+elements - zasoby aplikacji (js, css, obrazy itd.)
+presentations - niepowtarzalne elementy prezentacji - niezawarte w iframe'simulaions
+simulations - zasoby statyczne syumulacji
+tools - narzędzia do tworzenia projektu i symulatory
+index.html - strona startowa - landing page
+TODO - zadania do tworzenia w projekcie i jego architektura
