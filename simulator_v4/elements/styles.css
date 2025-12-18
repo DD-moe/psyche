@@ -168,22 +168,24 @@
     }
 
     /* --- Background Colors --- */
-    .bcg-R{background-color: rgb(48, 0, 1);}
-    .bcg-O{background-color: rgb(32, 16, 0);}
-    .bcg-Y{background-color: rgb(24, 24, 0);}
-    .bcg-G{background-color: rgb(0, 48, 0);}
-    .bcg-C{background-color: rgb(0, 24, 24);}
-    .bcg-B{background-color: rgb(0, 0, 48);}
-    .bcg-P{background-color: rgb(24, 0, 24);}
-    .bcg-A{background-color: rgb(16, 16, 16);}
+    .bcg-R{background-color: rgb(40, 12, 14);}
+    .bcg-O{background-color: rgb(42, 28, 14);}
+    .bcg-Y{background-color: rgb(40, 38, 16);}
+    .bcg-G{background-color: rgb(18, 40, 22);}
+    .bcg-C{background-color: rgb(16, 36, 36);}
+    .bcg-B{background-color: rgb(14, 20, 42);}
+    .bcg-P{background-color: rgb(32, 18, 40);}
+    .bcg-A{background-color: rgb(20, 20, 22);}
+
     /* --- Foreground Colors --- */
-    .fcg-R{color: rgb(178, 0, 1);}
-    .fcg-O{color: rgb(184, 121, 0);}
-    .fcg-Y{color: rgb(164, 164, 0);}
-    .fcg-G{color: rgb(0, 168, 0);}
-    .fcg-C{color: rgb(0, 164, 164);}
-    .fcg-B{color: rgb(0, 0, 204);}
-    .fcg-P{color: rgb(164, 0, 164);}
-    .fcg-A{color: rgb(164, 164, 164);}
+    .fcg-R{color: rgb(255, 96, 96);}
+    .fcg-O{color: rgb(255, 178, 92);}
+    .fcg-Y{color: rgb(255, 234, 120);}
+    .fcg-G{color: rgb(120, 255, 140);}
+    .fcg-C{color: rgb(112, 232, 232);}
+    .fcg-B{color: rgb(140, 168, 255);}
+    .fcg-P{color: rgb(216, 140, 255);}
+    .fcg-A{color: rgb(220, 220, 224);}
+
     /* --- Positions --- */
     .m0{margin: 0 auto; display: block;}      
