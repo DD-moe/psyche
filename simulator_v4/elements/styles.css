@@ -1,3 +1,34 @@
+    /* --- ROOT variables --- */
+    :root {
+    /* --- Neutral --- */
+    --clr-bg-main: rgb(16, 16, 16);
+    --clr-bg-black: rgb(0, 0, 0);
+    --clr-text-main: rgb(220, 220, 224);
+    --clr-text-white: rgb(255, 255, 255);
+    --curtain: rgba(0,0,0,0.5);
+
+    /* --- Background palette --- */
+    --bcg-R: rgb(40, 12, 14);
+    --bcg-O: rgb(42, 28, 14);
+    --bcg-Y: rgb(40, 38, 16);
+    --bcg-G: rgb(18, 40, 22);
+    --bcg-C: rgb(16, 36, 36);
+    --bcg-B: rgb(14, 20, 42);
+    --bcg-P: rgb(32, 18, 40);
+    --bcg-A: rgb(20, 20, 22);
+
+    /* --- Foreground palette --- */
+    --fcg-R: rgb(255, 96, 96);
+    --fcg-O: rgb(255, 178, 92);
+    --fcg-Y: rgb(255, 234, 120);
+    --fcg-G: rgb(120, 255, 140);
+    --fcg-C: rgb(112, 232, 232);
+    --fcg-B: rgb(140, 168, 255);
+    --fcg-P: rgb(216, 140, 255);
+    --fcg-A: rgb(220, 220, 224);
+    }
+
+    
     /* --- GLOBAL / SECTION --- */
     * {
       box-sizing: border-box;
@@ -7,7 +38,7 @@
       font-weight: 400;
       font-style: normal;
       font-variation-settings: "wdth" 100;
-      color: white;
+      color: var(--clr-text-white);
     }
 
     /* Dla Chrome, Edge, Safari */
@@ -26,7 +57,7 @@
     body {
       min-height: 100svh;
       overflow: auto;
-      background-color: black;
+      background-color: var(--clr-bg-black);
     }
 
     /* --- SLIDE / SECTION --- */
@@ -52,8 +83,8 @@
       font-weight: 400;
       font-style: normal;
       font-variation-settings: "wdth" 100;
-      color: white;
-      background-color: rgb(16, 16, 16);
+      color: var(--clr-text-main);
+      background-color: var(--clr-bg-main);
       display: block;      
     }
 
@@ -90,25 +121,24 @@
     }
 
 
-      /* 1cqw = 4    1cqh = 3   common = 12 - 3cqw, 4cqh*/
-    section .box.s11{width: 3cqw; height: 4cqh;}/* 12 */
-    section .box.s22{width: 6cqw; height: 8cqh;}/* 24 */
-    section .box.s44{width: 12cqw; height: 16cqh;}/* 48 */    
+      /* 16 / 9  = 5cqh - min*/
+    section .box.s05{width: 5cqh; height: 5cqh;}
+    section .box.s10{width: 10cqh; height: 10cqh;}
+    section .box.s20{width: 20cqh; height: 20cqh;}
+    section .box.s50{width: 50cqh; height: 50cqh;}    
 
-    section .box.s12{width: 3cqw; height: 8cqh;}/* 12/24 */
-    section .box.s14{width: 3cqw; height: 16cqh;}/* 12/48 */
-    section .box.s24{width: 6cqw; height: 16cqh;}/* 24/48 */      
-      
-    section .box.s21{width: 6cqw; height: 4cqh;}/* 24/12 */
-    section .box.s41{width: 12cqw; height: 4cqh;}/* 48/12 */
-    section .box.s42{width: 12cqw; height: 8cqh;}/* 48/24 */        
+    section .box.r05{width: 5cqw; height: 5cqh;}
+    section .box.r10{width: 10cqw; height: 10cqh;}
+    section .box.r20{width: 20cqw; height: 20cqh;}
+    section .box.r50{width: 50cqw; height: 50cqh;}     
 
     section button{
       font-size: 2cqw;
       border-radius: 1cqw;        
       margin: 0 auto;
       display: block;    
-      background-color: black;
+      background-color: var(--clr-bg-black);
+      color: var(--clr-text-white);
       text-align: center;    
     }
 
@@ -118,7 +148,7 @@
       width: 100svw;          /* pełna szerokość viewportu */
       max-width: 100%;        /* zabezpieczenie */
       height: 100svh;
-      border: 0.05rem solid #111111;
+      border: 0.05rem solid var(--clr-bg-black);
       border-radius: 0.05rem;
       overflow: auto;
 
@@ -131,12 +161,12 @@
       font-weight: 400;
       font-style: normal;
       font-variation-settings: "wdth" 100;
-      color: white;
-      background-color: black;     
+      color: var(--clr-text-main);
+      background-color: var(--clr-bg-black);     
     }
 
     dialog::backdrop {
-    background: rgba(0,0,0,0.5); /* ciemne tło za dialogiem */
+    background: var(--curtain); /* ciemne tło za dialogiem */
     }
 
     /* --- CONTENT SCALED BY DIALOG --- */
