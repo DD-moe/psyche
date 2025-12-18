@@ -22,8 +22,24 @@
     --fcg-A: rgb(220, 220, 224);
     --fcg-Z: rgb(255, 255, 255);
 
-    /* --- Other --- */
-    --curtain: rgba(0,0,0,0.5);       
+    /* --- Other palette--- */
+    --curtain: rgba(0,0,0,0.5);
+    
+    /* --- Font Sizes slides--- */
+    --fs8: 8cqh;
+    --fs6: 5cqh;
+    --fs4: 4cqh;
+    --fs3: 3cqh;
+    /* --- Font Sizes page--- */
+    --fp8: 2.5rem;
+    --fp6: 2rem;
+    --fp4: 1.5rem;
+    --fp3: 1rem;
+
+    /* --- Border slides--- */
+    --bs: 1cqh;
+    /* --- Border page--- */
+    --bp: 2rem;
     } 
 
     /* --- GLOBAL / SECTION --- */
@@ -70,7 +86,7 @@
 
       /* kontener */
       container-type: size;
-      border-radius: 1cqw;
+      border-radius: var(--bs);
 
       /* niezależne renderowanie (optymalizacja) */
       contain: strict;
@@ -88,7 +104,7 @@
 
     /* --- CONTENT SCALED BY CONTAINER (SECTION) --- */
     section h1 {
-      font-size: 6cqw;
+      font-size: var(--fs8);
       line-height: 2;
       margin: 0 auto;
       display: block;
@@ -96,7 +112,7 @@
     }
 
     section h2 {
-      font-size: 4cqw;
+      font-size: var(--fs6);
       line-height: 1.5;
       margin: 0 auto;
       display: block;
@@ -104,7 +120,7 @@
     }    
 
     section p {
-      font-size: 2.5cqw;
+      font-size: var(--fs4);
       line-height: 1;
       margin: 0 auto;
       display: block;
@@ -112,14 +128,13 @@
     }
 
     section .box {
-      border-radius: 1cqw;
+      border-radius: var(--bs);
       margin: 0 auto;
       display: block;
       text-align: center;
     }
 
-
-      /* 16 / 9  = 5cqh - min*/
+    /* 16 / 9  = 5cqh - min*/
     section .box.s05{width: 5cqh; height: 5cqh;}
     section .box.s10{width: 10cqh; height: 10cqh;}
     section .box.s20{width: 20cqh; height: 20cqh;}
@@ -131,8 +146,8 @@
     section .box.r50{width: 50cqw; height: 50cqh;}     
 
     section button{
-      font-size: 2cqw;
-      border-radius: 1cqw;        
+      font-size: var(--fs3);
+      border-radius: var(--bs);        
       margin: 0 auto;
       display: block;    
       background-color: var(--bcg-Z);
@@ -147,7 +162,7 @@
       max-width: 100%;        /* zabezpieczenie */
       height: 100svh;
       border: 0.05rem solid var(--bcg-Z);
-      border-radius: 0.05rem;
+      border-radius: var(--bp);
       overflow: auto;
 
       /* niezależne renderowanie (optymalizacja) */
@@ -185,7 +200,7 @@
 
     /* --- EXPANDERS CONTENT --- */
     .dotted-underline {
-      border-bottom: 0.1rem dotted gray;
+      border-bottom: 0.1em dotted gray;
       cursor: help; /* pokazuje że można kliknąć */
     }
 
