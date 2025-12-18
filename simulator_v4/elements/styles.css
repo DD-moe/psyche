@@ -166,18 +166,34 @@
     section .box.r50{width: 50cqw; height: 50cqh;}     
 
     section button,
-    section input,
+    section input:not([type="checkbox"]):not([type="radio"]),
     section select,
     section textarea{
-      font-size: var(--fs3);
-      border-radius: var(--bs);        
       margin: 0 auto;
-      display: block;    
+      display: block;  
+
+      font-size: var(--fs3);
+      border-radius: var(--bs);          
       background-color: var(--bcg-Z);
       color: var(--fcg-Z);
       text-align: center;
       background: transparent;    
     }
+
+    /* controls inline */
+    section input[type="checkbox"],
+    section input[type="radio"] {
+    display: inline-block;
+    margin: 0;
+
+    font-size: var(--fs3);
+    border-radius: var(--bs);          
+    background-color: var(--bcg-Z);
+    color: var(--fcg-Z);
+    text-align: center;
+    background: transparent;        
+    }
+
 
     /* --- DIALOG --- */
     dialog,
@@ -257,4 +273,4 @@
 
 
     /* --- Positions --- */
-    .m0{margin: 0 auto; display: block;}      
+    .m0{margin: 0 auto; display: block;}
