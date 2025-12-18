@@ -1,12 +1,5 @@
     /* --- ROOT variables --- */
     :root {
-    /* --- Neutral --- */
-    --clr-bg-main: rgb(16, 16, 16);
-    --clr-bg-black: rgb(0, 0, 0);
-    --clr-text-main: rgb(220, 220, 224);
-    --clr-text-white: rgb(255, 255, 255);
-    --curtain: rgba(0,0,0,0.5);
-
     /* --- Background palette --- */
     --bcg-R: rgb(40, 12, 14);
     --bcg-O: rgb(42, 28, 14);
@@ -16,6 +9,7 @@
     --bcg-B: rgb(14, 20, 42);
     --bcg-P: rgb(32, 18, 40);
     --bcg-A: rgb(20, 20, 22);
+    --bcg-Z: rgb(0, 0, 0);
 
     /* --- Foreground palette --- */
     --fcg-R: rgb(255, 96, 96);
@@ -26,9 +20,12 @@
     --fcg-B: rgb(140, 168, 255);
     --fcg-P: rgb(216, 140, 255);
     --fcg-A: rgb(220, 220, 224);
-    }
+    --fcg-Z: rgb(255, 255, 255);
 
-    
+    /* --- Other --- */
+    --curtain: rgba(0,0,0,0.5);       
+    } 
+
     /* --- GLOBAL / SECTION --- */
     * {
       box-sizing: border-box;
@@ -38,7 +35,7 @@
       font-weight: 400;
       font-style: normal;
       font-variation-settings: "wdth" 100;
-      color: var(--clr-text-white);
+      color: var(--fcg-Z);
       text-size-adjust: none;
     }
 
@@ -58,7 +55,7 @@
     body {
       min-height: 100svh;
       overflow: auto;
-      background-color: var(--clr-bg-black);
+      background-color: var(--bcg-Z);
     }
 
     /* --- SLIDE / SECTION --- */
@@ -84,8 +81,8 @@
       font-weight: 400;
       font-style: normal;
       font-variation-settings: "wdth" 100;
-      color: var(--clr-text-main);
-      background-color: var(--clr-bg-main);
+      color: var(--fcg-A);
+      background-color: var(--bcg-A);
       display: block;      
     }
 
@@ -138,8 +135,8 @@
       border-radius: 1cqw;        
       margin: 0 auto;
       display: block;    
-      background-color: var(--clr-bg-black);
-      color: var(--clr-text-white);
+      background-color: var(--bcg-Z);
+      color: var(--fcg-Z);
       text-align: center;    
     }
 
@@ -149,7 +146,7 @@
       width: 100svw;          /* pełna szerokość viewportu */
       max-width: 100%;        /* zabezpieczenie */
       height: 100svh;
-      border: 0.05rem solid var(--clr-bg-black);
+      border: 0.05rem solid var(--bcg-Z);
       border-radius: 0.05rem;
       overflow: auto;
 
@@ -162,8 +159,8 @@
       font-weight: 400;
       font-style: normal;
       font-variation-settings: "wdth" 100;
-      color: var(--clr-text-main);
-      background-color: var(--clr-bg-black);     
+      color: var(--fcg-A);
+      background-color: var(--bcg-Z);     
     }
 
     dialog::backdrop {
@@ -199,24 +196,26 @@
     }
 
     /* --- Background Colors --- */
-    .bcg-R{background-color: rgb(40, 12, 14);}
-    .bcg-O{background-color: rgb(42, 28, 14);}
-    .bcg-Y{background-color: rgb(40, 38, 16);}
-    .bcg-G{background-color: rgb(18, 40, 22);}
-    .bcg-C{background-color: rgb(16, 36, 36);}
-    .bcg-B{background-color: rgb(14, 20, 42);}
-    .bcg-P{background-color: rgb(32, 18, 40);}
-    .bcg-A{background-color: rgb(20, 20, 22);}
+    .bcg-R{background-color: var(--bcg-R);}
+    .bcg-O{background-color: var(--bcg-O);}
+    .bcg-Y{background-color: var(--bcg-Y);}
+    .bcg-G{background-color: var(--bcg-G);}
+    .bcg-C{background-color: var(--bcg-C);}
+    .bcg-B{background-color: var(--bcg-B);}
+    .bcg-P{background-color: var(--bcg-P);}
+    .bcg-A{background-color: var(--bcg-A);}
+    .bcg-A{background-color: var(--bcg-Z);}
 
     /* --- Foreground Colors --- */
-    .fcg-R{color: rgb(255, 96, 96);}
-    .fcg-O{color: rgb(255, 178, 92);}
-    .fcg-Y{color: rgb(255, 234, 120);}
-    .fcg-G{color: rgb(120, 255, 140);}
-    .fcg-C{color: rgb(112, 232, 232);}
-    .fcg-B{color: rgb(140, 168, 255);}
-    .fcg-P{color: rgb(216, 140, 255);}
-    .fcg-A{color: rgb(220, 220, 224);}
+    .fcg-R{color: var(--fcg-R);}
+    .fcg-O{color: var(--fcg-O);}
+    .fcg-Y{color: var(--fcg-Y);}
+    .fcg-G{color: var(--fcg-G);}
+    .fcg-C{color: var(--fcg-C);}
+    .fcg-B{color: var(--fcg-B);}
+    .fcg-P{color: var(--fcg-P);}
+    .fcg-A{color: var(--fcg-A);}
+
 
     /* --- Positions --- */
     .m0{margin: 0 auto; display: block;}      
