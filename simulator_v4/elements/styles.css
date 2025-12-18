@@ -34,7 +34,7 @@
       aspect-ratio: 4 / 3;
 
       /* maksymalny rozmiar mieszczący się w obu osiach */
-      width: min(100%, calc(100svh * 4 / 3));
+      width: min(100%, calc(100svh * 16 / 9));
       height: auto;
       max-height: 100svh;
       max-width: 100%;
@@ -113,7 +113,8 @@
     }
 
     /* --- DIALOG --- */
-    dialog {
+    dialog,
+    .dialog {
       width: 100svw;          /* pełna szerokość viewportu */
       max-width: 100%;        /* zabezpieczenie */
       height: 100svh;
@@ -141,7 +142,8 @@
     /* --- CONTENT SCALED BY DIALOG --- */
 
     /* --- IFRAME --- */
-    dialog iframe {
+    dialog iframe,
+    .dialog iframe {
       display: block;
       width: 100%;
       height: 100%;
