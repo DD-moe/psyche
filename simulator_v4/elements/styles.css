@@ -261,7 +261,7 @@
     .bcg-B{background-color: var(--bcg-B);}
     .bcg-P{background-color: var(--bcg-P);}
     .bcg-A{background-color: var(--bcg-A);}
-    .bcg-A{background-color: var(--bcg-Z);}
+    .bcg-Z{background-color: var(--bcg-Z);}
 
     /* --- Foreground Colors --- */
     .fcg-R{color: var(--fcg-R);}
@@ -272,7 +272,7 @@
     .fcg-B{color: var(--fcg-B);}
     .fcg-P{color: var(--fcg-P);}
     .fcg-A{color: var(--fcg-A);}
-
+    .fcg-Z{color: var(--fcg-Z);}
 
     /* --- Positions --- */
     .m0{margin: 0 auto; display: block;}
