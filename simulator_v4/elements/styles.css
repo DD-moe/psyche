@@ -128,6 +128,25 @@
       text-align: center;
     }
 
+    section hr {
+    border: none;
+    height: 0.1cqw;
+    background-color: currentColor;
+    opacity: 0.3;
+    margin: 2cqw auto;
+    width: 60%;
+    }
+    
+    section img,
+    section svg,
+    section video,
+    section audio {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+    }
+
     section .box {
       border-radius: var(--bs);
       margin: 0 auto;
@@ -146,14 +165,18 @@
     section .box.r20{width: 20cqw; height: 20cqh;}
     section .box.r50{width: 50cqw; height: 50cqh;}     
 
-    section button{
+    section button,
+    section input,
+    section select,
+    section textarea{
       font-size: var(--fs3);
       border-radius: var(--bs);        
       margin: 0 auto;
       display: block;    
       background-color: var(--bcg-Z);
       color: var(--fcg-Z);
-      text-align: center;    
+      text-align: center;
+      background: transparent;    
     }
 
     /* --- DIALOG --- */
