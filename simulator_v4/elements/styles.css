@@ -168,7 +168,8 @@
     section button,
     section input:not([type="checkbox"]):not([type="radio"]),
     section select,
-    section textarea{
+    section textarea,
+    label{
       margin: 0 auto;
       display: block;  
 
