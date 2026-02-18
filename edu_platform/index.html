@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mikroskopowe Zapalenie Jelita Grubego</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="styles.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="scripts.js"></script>
+</head>
+<body>
+
+<!-- Przycisk ustawień -->
+<button class="btn btn-primary rounded-circle shadow-lg floating-settings-btn" 
+        type="button" 
+        data-bs-toggle="offcanvas" 
+        data-bs-target="#settingsPanel" 
+        aria-controls="settingsPanel">
+    <i class="bi bi-gear-fill"></i> ⚙
+</button>
+
+<!-- Panel ustawień -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="settingsPanel" aria-labelledby="settingsPanelLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="settingsPanelLabel">Ustawienia</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <!-- tryb ciemny lub jasny -->
+        <b>Styl prezentacji</b>
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="darkModeSwitch">
+            <label class="form-check-label" for="darkModeSwitch">Tryb ciemny</label>
+        </div>
+        <hr>
+
+        <!-- jakie jakie treści wyświetlać (tu żytkownik wybiera czy interesują go podstawy, 
+          materiał zaawansowany, mnemoniki, lub też porady praktyczne) -->
+        <div class="offcanvas-body">
+            <h6>Wybierz zakres materiału:</h6>
+            <div class="form-check form-switch mb-2">
+                <input class="form-check-input filter-switch" type="checkbox" id="basic" checked>
+                <label class="form-check-label" for="basic">Wiedza podstawowa</label>
+            </div>
+            <div class="form-check form-switch mb-2">
+                <input class="form-check-input filter-switch" type="checkbox" id="advanced" checked>
+                <label class="form-check-label" for="advanced">Materiał zaawansowany</label>
+            </div>
+            <div class="form-check form-switch mb-2">
+                <input class="form-check-input filter-switch" type="checkbox" id="mnemonic" checked>
+                <label class="form-check-label" for="mnemonic">Mnemoniki</label>
+            </div>
+            <div class="form-check form-switch mb-2">
+                <input class="form-check-input filter-switch" type="checkbox" id="practical" checked>
+                <label class="form-check-label" for="practical">Porady praktyczne</label>
+            </div>
+        </div>
+        <hr>
+
+        <!-- resetuj do ustawień domyslnych -->
+        <button class="btn btn-danger btn-sm" id="resetSettings">Resetuj wszystko</button>
+    </div>
+</div>
+
+<!-- właściwa treść coursebooku -->
+<div class="container">
+    <div class="course-container">
+        
+        <section class="mb-5 content-item basic">
+            <h1>Mikroskopowe zapalenie jelita grubego</h1>
+            <h2 class="section-title">Definicja</h2>
+            <p>
+                <span class="highlight-teal">Mikroskopowe zapalenie jelita grubego</span> jest chorobą o nieznanej etiologii.<button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#ContentModal-objawy">🔍</button>
+            </p>
+            <p>
+                Cechuje się obecnością charakterystycznych zmian mikroskopowych zazwyczaj bez zmian makroskopowych (endoskopowych).
+            </p>
+            <p>Obraz histopatologiczny pozwala na wyróżnienie 2 głównych podtypów choroby:</p>
+            <ol>
+                <li>zapalenie <span class="highlight-orange">kolagenowe</span>,</li>
+                <li>zapalenie <span class="highlight-purple">limfocytowe</span>.</li>
+            </ol>
+
+        <hr class="my-5">    
+        </section>
+
+        <section class="mb-5 content-item mnemonic">
+            <img src="definicja.png" alt="Czynniki rzyka" class="img-fluid rounded border shadow-sm mb-2">
+            <div class="card-body">
+                <b class="card-text">
+                    Obraz gabinetu lekarskiego symbolizuje diagnostykę, gdzie elementy graficzne odpowiadają kluczowym cechom klinicznym:
+                </b>
+                
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <strong>💧 Dziurawy stół i wyciekająca woda:</strong> 
+                        Symbolizują przewlekłą <strong>biegunkę</strong> oraz dysfunkcję <strong>akwaporyn</strong> (kanałów wodnych). Woda ucieka "przez strukturę", co podkreśla podłoże mikroskopowe.
+                    </li>
+                    <li class="list-group-item">
+                        <strong>🪑 Czysty blat (mimo dziur):</strong> 
+                        Odpowiada <strong>prawidłowemu wyglądowi makroskopowemu</strong>. W badaniu endoskopowym błona śluzowa wydaje się niezmieniona.
+                    </li>
+                    <li class="list-group-item">
+                        <strong>💊 5 Opakowań Leków (Etiologia polekowa):</strong>
+                        <ul>
+                            <li><strong>NLPZ:</strong> Leki przeciwzapalne (np. Ibuprofen).</li>
+                            <li><strong>IPP:</strong> Inhibitory pompy protonowej ("osłonka").</li>
+                            <li><strong>Statyny:</strong> Leki hipolipemizujące (serce).</li>
+                            <li><strong>SSRI:</strong> Leki przeciwdepresyjne (uśmiechnięta buźka).</li>
+                            <li><strong>Akarboza:</strong> Lek przeciwcukrzycowy.</li>
+                        </ul>
+                    </li>
+                    <li class="list-group-item">
+                        <strong>🚬 Paczka papierosów (Ryzyko x5):</strong> 
+                        Najsilniejszy czynnik środowiskowy zwiększający ryzyko zachorowania.
+                    </li>
+                </ul>
+            </div>            
+
+            <hr class="my-5"> 
+        </section>
+
+        <section class="mb-5 content-item basic">
+            <h2 class="section-title">Objawy</h2>
+            <p>
+                Pomimo że wygląd jelita grubego w badaniu endoskopowym jest na ogół prawidłowy, pacjent odczuwa <strong>objawy:</strong>
+            </p>
+            <ul class="list-unstyled ps-3">
+                <li>1) <span class="highlight-teal">wodnista biegunka</span> – obfita, bez domieszki krwi;</li>
+                <li>2) naglące parcia na stolec, nietrzymanie stolca;</li>
+                <li>3) kurczowy ból brzucha;</li>
+                <li>4) niewielka utrata masy ciała.</li>
+            </ul>
+            <p class="content-item advanced"><span>Podobne objawy dają też inne jednostki chorobowe</span><button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#ContentModal-choroby">🔍</button></p>
+        <hr class="my-5">
+        </section>
+
+        <section class="mb-5 content-item mnemonic">
+            <img src="objawy.png" alt="Czynniki rzyka" class="img-fluid rounded border shadow-sm mb-2">
+            <div class="card-body">
+                <b class="card-text">
+                    Postać chudego mężczyzny w pośpiechu ilustruje dynamiczny i uciążliwy charakter objawów:
+                </b>
+                
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <strong>💩 Brązowe kałuże (bez czerwieni):</strong> 
+                        Symbolizują <strong>wodnistą biegunkę</strong>, która jest obfita, ale co ważne – <strong>bez domieszki krwi</strong>.
+                    </li>
+                    <li class="list-group-item">
+                        <strong>🧍 Bardzo szczupła sylwetka i waga:</strong> 
+                        Wskazują na <strong>niewielką utratę masy ciała</strong>, która często towarzyszy przewlekłemu procesowi zapalnemu.
+                    </li>
+                    <li class="list-group-item">
+                        <strong>😰 Przerażona twarz i kierunek "WC":</strong> 
+                        Obrazują <strong>naglące parcia</strong> na stolec oraz lęk przed <strong>nietrzymaniem stolca</strong> (częsty powód wycofania społecznego pacjentów).
+                    </li>
+                    <li class="list-group-item">
+                        <strong>🖐️ Ręka na brzuchu:</strong> 
+                        Symbolizuje <strong>kurczowy ból brzucha</strong> oraz subiektywne odczucie <strong>wzdęcia</strong>.
+                    </li>
+                    <li class="list-group-item">
+                        <strong>👔 Formalny strój w nieładzie:</strong> 
+                        Podkreśla, że choroba ta często dotyka osoby aktywne zawodowo, drastycznie obniżając ich jakość życia i zmuszając do ciągłego szukania toalety w miejscach publicznych.
+                    </li>
+                </ul>
+            </div>            
+
+            <hr class="my-5"> 
+        </section>
+
+        <section class="mb-5 content-item basic">
+            <h2 class="section-title mt-5">Diagnostyka</h2>
+
+            <p>
+                Wyniki rutynowych badań laboratoryjnych i radiologicznych jelit są prawidłowe.
+            </p>
+            <p>
+                Rozpoznanie stawia się na podstawie badania histopatologicznego wycinków z jelita grubego pobranych podczas kolonoskopii:
+            </p>
+            <ul class="list-unstyled ps-3">
+                <li>
+                    1) zapalenie <span class="highlight-orange">kolagenowe</span> – pogrubienie warstwy kolagenu u podstawy komórek nabłonka (≥10 µm),
+                </li>
+                <li>
+                    2) zapalenie <span class="highlight-purple">limfocytowe</span> – zwiększona liczba limfocytów śródnabłonkowych (≥20 na 100 komórek nabłonkowych).
+                </li>
+            </ul>
+            <p class="content-item advanced"><span>Różnicowanie</span><button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#ContentModal-rozpoznanie">🔍</button></p>
+                    
+        <hr class="my-5">
+        </section>
+
+        <section class="mb-5 content-item basic">
+            <h2 class="section-title">Leczenie</h2>
+            
+            <div class="content-item practical">
+                <b>1) Odstaw leki mogące potencjalnie wywołać biegunkę</b>
+                <br><br>
+                <b>2) zastosuj leczenie farmakologiczne:</b>
+                <br>
+            </div>
+
+            <p>
+                <span class="highlight-purple">Budezonid</span> 9 mg/d. <i>p.o.</i> przez 6–8 tyg.
+            </p>
+            <p>
+                Gdy objawy się nie zmniejszają lub nawracają, można stosować przez kolejne tygodnie a nawet miesiące.
+            </p>
+            <p>Inne GKS nie są zalecane.</p>
+            
+            <p>
+                U chorych z łagodną postacią choroby skuteczne mogą być: cholestyramina, loperamid. 
+                W przypadku braku odpowiedzi na takie leczenie można włączyć <strong>leki biologiczne i immunosupresyjne:</strong>
+            </p>
+            
+            <ul class="list-unstyled ps-3">
+                <li>1) infliksymab,</li>
+                <li>2) adalimumab,</li>
+                <li>3) wedolizumab,</li>
+                <li>4) azatiopryna,</li>
+                <li>5) 6-merkaptopuryna.</li>
+            </ul>
+
+            <p class="mt-4 content-item practical">
+                <span class="not-recommended">Nie zaleca się:</span> pochodnych 5-ASA, bizmutu, metotreksatu, przeszczepiania flory jelitowej, probiotyków.
+            </p>
+
+            <div class="content-item practical">
+                <b>3) w MZJG opornym na farmakoterapię można rozważyć:</b>
+                <ul class="list-unstyled ps-3">
+                    <li>1) wyłonienie jelita krętego,</li>
+                    <li>2) proktokolektomię,</li>
+                    <li>3) kolektomię z wytworzeniem zbiornika "j-pouch"<button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#ContentModal-pouch">🔍</button></li>
+                </ul>
+            </div>
+
+        </section>
+            
+        <section class="mb-5 content-item mnemonic">
+            <img src="leczenie.png" alt="Czynniki rzyka" class="img-fluid rounded border shadow-sm mb-2">
+            <div class="card-body">
+            <b class="card-text">
+                Grafika przedstawia centralny znak "STOP", od którego odchodzą kluczowe filary nowoczesnego leczenia mikroskopowego zapalenia jelit:
+            </b>
+            
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <strong>🚫 S – Stop lekom (Góra):</strong> 
+                    Przekreślone ikony leków (np. IPP, żołądek) przypominają o konieczności odstawienia czynników wyzwalających, takich jak <strong>NLPZ</strong> czy <strong>IPP</strong>.
+                </li>
+                <li class="list-group-item">
+                    <strong>🔼 T – Terapia Budezonidem (Prawa góra):</strong> 
+                    Piramida obrazuje złoty standard leczenia. Dawka <strong>9 mg</strong> (szczyt) jest stopniowo redukowana do <strong>6 mg</strong> i niżej, co symbolizuje proces odstawiania leku po uzyskaniu remisji.
+                </li>
+                <li class="list-group-item">
+                    <strong>💉 O – Opór? (Prawa dół):</strong> 
+                    Ikony fiolek i strzykawki (Infliksymab, Adalimumab, Wedolizumab) wskazują na ścieżkę <strong>leczenia biologicznego</strong>, gdy standardowa terapia (budezonid) okazuje się niewystarczająca.
+                </li>
+                <li class="list-group-item">
+                    <strong>💧 P – Pomocnicze (Lewa strona):</strong> 
+                    Kropla i saszetka symbolizują leczenie objawowe: <strong>Loperamid</strong> na biegunkę oraz leki wiążące kwasy żółciowe (np. Cholestyramina).
+                </li>
+                <li class="list-group-item">
+                    <strong>🗑️ B – Błąd! (Dół):</strong> 
+                    Czerwony kosz z przekreśleniem to najważniejsza przestroga. Wrzucamy tam leki <u>nieskuteczne</u> w MZJG: <strong>mesalazynę (5-ASA)</strong>, probiotyki oraz ogólnoustrojowe sterydy.
+                </li>
+            </ul>
+        </div>           
+
+            <hr class="my-5"> 
+        </section>
+
+    </div>
+</div>
+
+
+<!-- modal dla dodatkowej treści "objawy" -->
+<div class="modal fade" id="ContentModal-objawy" tabindex="-1" aria-labelledby="extraContentLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl"> <div class="modal-content shadow-lg">
+            <div class="modal-header">
+                <h5 class="modal-title" id="extraContentLabel">Szczegółowe informacje</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <p>
+                    <span class="highlight-teal">Mikroskopowe zapalenie jelita grubego (MZJG)</span> to choroba o nieznanej etiologii. Charakteryzuje się występowaniem przewlekłej biegunki, przy zazwyczaj prawidłowym obrazie endoskopowym błony śluzowej. Rozpoznanie opiera się na typowych zmianach w badaniu histologicznym wycinków pobranych z jelita grubego.
+                </p>
+
+                <h2 class="section-title mt-4">Etiopatogeneza</h2>
+                <p>Choć dokładna przyczyna MZJG pozostaje nieznana, badania wskazują na złożone podłoże choroby:</p>
+                
+                <ul class="list-unstyled ps-3">
+                    <li>• <span class="fw-bold">Czynniki immunologiczne i genetyczne:</span> dysfunkcja układu odpornościowego oraz predyspozycje genetyczne.</li>
+                    <li>• <span class="fw-bold">Zaburzenia transportu:</span> zmiany ekspresji <span class="highlight-orange">akwaporyn</span> (białek tworzących kanały wodne) oraz zaburzenia wchłaniania kwasów żółciowych.</li>
+                    <li>• <span class="fw-bold">Mikrobiota:</span> istotna rola flory bakteryjnej jelit w generowaniu stanu zapalnego.</li>
+                    <li>• <span class="fw-bold">Leki:</span> udowodniony związek z przyjmowaniem <span class="highlight-purple">NLPZ</span>, inhibitorów pompy protonowej (IPP), statyn, SSRI oraz akarbozy.</li>
+                    <li>• <span class="fw-bold">Palenie papierosów:</span> zwiększa ryzyko zachorowania aż <span class="text-danger fw-bold">3–5-krotnie</span>.</li>
+                </ul>
+
+                <div class="mt-5 pt-3 border-top">
+                    <p class="small text-muted mb-1">Źródła:</p>
+                    <a href="https://www.mp.pl/interna/chapter/B16.II.4.20." target="_blank" class="text-decoration-none" style="color: #00767d; font-size: 0.9rem;">
+                        <i class="bi bi-box-arrow-up-right me-1"></i> Medycyna Praktyczna - Mikroskopowe zapalenie jelita grubego
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- modale dla dodatkowej treści "choroby" -->
+<div class="modal fade" id="ContentModal-choroby" tabindex="-1" aria-labelledby="extraContentLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl"> <div class="modal-content shadow-lg">
+            <div class="modal-header">
+                <h5 class="modal-title" id="extraContentLabel">Szczegółowe informacje</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <p>
+                    <span class="highlight-teal">Mikroskopowe zapalenie jelita grubego (MZJG)</span> to choroba o nieznanej etiologii. Charakteryzuje się występowaniem przewlekłej biegunki, przy zazwyczaj prawidłowym obrazie endoskopowym błony śluzowej. Rozpoznanie opiera się na typowych zmianach w badaniu histologicznym wycinków pobranych z jelita grubego.
+                </p>
+                <br>
+                <div class="row g-3">
+                        <div class="col-md-6">
+                            <ul class="list-unstyled ps-2">
+                                <li class="mb-2"><i class="bi bi-dot"></i> zapalenie stawów</li>
+                                <li class="mb-2"><i class="bi bi-dot"></i> <span class="highlight-orange">celiakia</span></li>
+                                <li class="mb-2"><i class="bi bi-dot"></i> reumatoidalne zapalenie stawów</li>
+                                <li class="mb-2"><i class="bi bi-dot"></i> toczeń rumieniowaty układowy</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="list-unstyled ps-2">
+                                <li class="mb-2"><i class="bi bi-dot"></i> twardzina układowa</li>
+                                <li class="mb-2"><i class="bi bi-dot"></i> zespół Sjögrena</li>
+                                <li class="mb-2"><i class="bi bi-dot"></i> łuszczyca</li>
+                                <li class="mb-2"><i class="bi bi-dot"></i> <span class="highlight-purple">cukrzyca</span></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 p-3 bg-light border-start border-4 border-info">
+                        <p class="small mb-0 text-muted">
+                            <strong>Warto wiedzieć:</strong> Współwystępowanie tych chorób sugeruje wspólne mechanizmy immunologiczne i genetyczne leżące u podstaw MZJG.
+                        </p>
+                    </div>
+
+                <div class="mt-5 pt-3 border-top">
+                    <p class="small text-muted mb-1">Źródła:</p>
+                    <a href="https://www.mp.pl/interna/chapter/B16.II.4.20." target="_blank" class="text-decoration-none" style="color: #00767d; font-size: 0.9rem;">
+                        <i class="bi bi-box-arrow-up-right me-1"></i> Medycyna Praktyczna - Mikroskopowe zapalenie jelita grubego
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modale dla dodatkowej treści "rozpoznanie" -->
+<div class="modal fade" id="ContentModal-rozpoznanie" tabindex="-1" aria-labelledby="extraContentLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl"> <div class="modal-content shadow-lg">
+            <div class="modal-header">
+                <h5 class="modal-title" id="extraContentLabel">Szczegółowe informacje</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <h2 class="section-title">Rozpoznanie różnicowe</h2>
+                <p class="mb-4">
+                    W diagnostyce różnicowej mikroskopowego zapalenia jelita grubego należy w pierwszej kolejności wykluczyć inne przyczyny przewlekłej biegunki:
+                </p>
+
+                <div class="list-group list-group-flush">
+                    <div class="list-group-item px-0 py-3 border-0">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1 fw-bold text-dark">Zespół jelita drażliwego (IBS)</h5>
+                        </div>
+                        <p class="mb-1 text-muted">
+                            Cechą odróżniającą jest m.in. <span class="highlight-teal">zmienny rytm wypróżnień</span> (zaparcia występujące naprzemiennie z biegunką), podczas gdy w MZJG dominuje stała, wodnista biegunka.
+                        </p>
+                    </div>
+
+                    <div class="list-group-item px-0 py-3 border-0">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1 fw-bold text-dark">Nieswoiste choroby zapalne jelit (NZJ)</h5>
+                        </div>
+                        <p class="mb-1 text-muted">
+                            W szczególności <span class="highlight-orange">choroba Leśniowskiego-Crohna</span> oraz wrzodziejące zapalenie jelita grubego.
+                        </p>
+                    </div>
+
+                    <div class="list-group-item px-0 py-3 border-0">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1 fw-bold text-dark">Inne jednostki chorobowe</h5>
+                        </div>
+                        <ul class="list-unstyled mb-0 text-muted ps-2">
+                            <li>• <span class="highlight-purple">Celiakia</span></li>
+                            <li>• Inne przyczyny przewlekłej biegunki (np. nadczynność tarczycy, nietolerancje pokarmowe)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="mt-5 pt-3 border-top">
+                    <p class="small text-muted mb-1">Źródła:</p>
+                    <a href="https://www.mp.pl/interna/chapter/B16.II.4.20." target="_blank" class="text-decoration-none" style="color: #00767d; font-size: 0.9rem;">
+                        <i class="bi bi-box-arrow-up-right me-1"></i> Medycyna Praktyczna - Mikroskopowe zapalenie jelita grubego
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modale dla dodatkowej treści "rozpoznanie" -->
+<div class="modal fade" id="ContentModal-pouch" tabindex="-1" aria-labelledby="extraContentLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl"> <div class="modal-content shadow-lg">
+            <div class="modal-header">
+                <h5 class="modal-title" id="extraContentLabel">Szczegółowe informacje</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <h2 class="section-title">Pouch'e w kolektomii</h2>
+                <p class="mb-4">
+                    W operacji kolektomii stosuje się różnego rodzaju zbiorniki będące "przejściówką" między jelitem cienkim a odbtem:
+                </p>
+
+
+                <!-- "fiszki" -->
+                <div class="card shadow-sm mb-4" style="max-width: 400px; margin: auto;">
+                    <div class="card-body text-center">
+                        
+                        <div id="card-front-1" class="card-side">
+                            <h5 class="card-title text-primary">J Pouch</h5>
+                        </div>
+
+                        <div id="card-back-1" class="card-side d-none">
+                            <img src="jPouch.png" alt="J Pouch" class="img-fluid rounded border shadow-sm mb-2">
+                        </div>
+
+                        <hr>
+
+                        <button class="btn btn-outline-primary flip-btn" data-target-front="#card-front-1" data-target-back="#card-back-1">
+                            Obróć Fiszkę
+                        </button>
+                        
+                    </div>
+                </div>                
+
+                <!-- "fiszki" -->
+                <div class="card shadow-sm mb-4" style="max-width: 400px; margin: auto;">
+                    <div class="card-body text-center">
+                        
+                        <div id="card-front-2" class="card-side">
+                            <h5 class="card-title text-primary">S Pouch</h5>
+                        </div>
+
+                        <div id="card-back-2" class="card-side d-none">
+                            <img src="sPouch.png" alt="S Pouch" class="img-fluid rounded border shadow-sm mb-2">
+                        </div>
+
+                        <hr>
+
+                        <button class="btn btn-outline-primary flip-btn" data-target-front="#card-front-2" data-target-back="#card-back-2">
+                            Obróć Fiszkę
+                        </button>
+                        
+                    </div>
+                </div>  
+
+                <!-- "fiszki" -->
+                <div class="card shadow-sm mb-4" style="max-width: 400px; margin: auto;">
+                    <div class="card-body text-center">
+                        
+                        <div id="card-front-3" class="card-side">
+                            <h5 class="card-title text-primary">W Pouch</h5>
+                        </div>
+
+                        <div id="card-back-3" class="card-side d-none">
+                            <img src="wPouch.png" alt="W Pouch" class="img-fluid rounded border shadow-sm mb-2">
+                        </div>
+
+                        <hr>
+
+                        <button class="btn btn-outline-primary flip-btn" data-target-front="#card-front-3" data-target-back="#card-back-3">
+                            Obróć Fiszkę
+                        </button>
+                        
+                    </div>
+                </div>                  
+                
+                <div class="mt-5 pt-3 border-top">
+                    <p class="small text-muted mb-1">Źródła:</p>
+                    <a href="https://www.ibdrelief.com/learn/treatment/surgery/restorative-proctocolectomy-with-ileal-pouch-anal-anastomosis-ipaa/things-i-wish-i-knew-before-having-j-pouch-surgery" target="_blank" class="text-decoration-none" style="color: #00767d; font-size: 0.9rem;">
+                        <i class="bi bi-box-arrow-up-right me-1"></i> Things I wish I knew before having J-pouch surgery
+                    </a>                
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

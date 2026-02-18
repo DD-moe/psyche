@@ -1,0 +1,97 @@
+/* Pozycjonowanie pływającego przycisku dla panelu ustawień*/
+.floating-settings-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    z-index: 1050; /* Wyżej niż standardowe elementy */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    transition: transform 0.3s ease;
+}
+
+.floating-settings-btn:hover {
+    transform: scale(1.1) rotate(45deg);
+}
+
+/* Opcjonalne: dopasowanie szerokości panelu ustawień na desktopie */
+@media (min-width: 768px) {
+    .offcanvas {
+        width: 350px !important;
+    }
+}
+
+/* Opcjonalne: Modal zajmujący 90% wysokości ekranu z przewijaniem wewnątrz */
+#extraContentModal .modal-body {
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+/* Stylizacja przycisku wyzwalającego (modal) */
+.info-icon-btn {
+    cursor: pointer;
+    color: #0d6efd;
+    transition: color 0.2s;
+}
+.info-icon-btn:hover {
+    color: #0a58ca;
+}
+
+/* stylowanie fiszek */
+.card-side {
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: opacity 0.3s ease;
+}
+
+/*  efekt najechania, by sugerować klikalność */
+.card:hover {
+    border-color: #0d6efd;
+}
+
+
+/* stylowanie upodabniające do WNL*/
+.course-container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 40px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border-radius: 4px;
+        }
+        h1 {
+            font-weight: 700;
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+        }
+        h2 {
+            font-weight: 600;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+        .highlight-teal {
+            color: #00767d; /* Kolor nagłówków/definicji WNL */
+            font-weight: 600;
+        }
+        .highlight-purple {
+            color: #7d2a7d; /* Kolor leków / Budesonidu */
+            font-weight: 600;
+        }
+        .highlight-orange {
+            color: #b07a1a;
+        }
+        .section-title {
+            font-weight: 700;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        .not-recommended {
+            font-weight: 700;
+        }
+        .list-unstyled li {
+            margin-bottom: 0.5rem;
+        }
