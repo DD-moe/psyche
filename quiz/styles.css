@@ -1,0 +1,95 @@
+body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        #quiz-container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            width: 100%;
+        }
+        .question-block {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        h3 { color: #333; }
+        .options {
+            display: grid;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        button {
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 16px;
+            text-align: left;
+        }
+        button:hover:not(:disabled) {
+            background-color: #f0f0f0;
+            border-color: #bbb;
+        }
+        /* Style po kliknięciu */
+        button.correct {
+            background-color: #d4edda !important;
+            border-color: #28a745 !important;
+            color: #155724;
+            font-weight: bold;
+        }
+        button.wrong {
+            background-color: #f8d7da !important;
+            border-color: #dc3545 !important;
+            color: #721c24;
+        }
+        button:disabled {
+            cursor: default;
+        }
+        .quiz-footer {
+            margin-top: 40px;
+            padding: 20px 0;
+            text-align: center;
+            color: #666;
+            width: 100%;
+        }
+
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .footer-line {
+            border: 0;
+            height: 1px;
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0));
+            margin-bottom: 20px;
+        }
+
+        .quiz-footer p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+
+        .footer-subtext {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        /* Opcjonalny efekt hover na autora */
+        .quiz-footer strong {
+            color: #444;
+            transition: color 0.3s ease;
+        }
+
+        .quiz-footer:hover strong {
+            color: #007bff; /* Subtelny kolor medyczny */
+        }
