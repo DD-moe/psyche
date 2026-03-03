@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interaktywny Test</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+        #quiz-container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            max-width: 600px;
+            width: 100%;
+        }
+        .question-block {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        h3 { color: #333; }
+        .options {
+            display: grid;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        button {
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 16px;
+            text-align: left;
+        }
+        button:hover:not(:disabled) {
+            background-color: #f0f0f0;
+            border-color: #bbb;
+        }
+        /* Style po kliknięciu */
+        button.correct {
+            background-color: #d4edda !important;
+            border-color: #28a745 !important;
+            color: #155724;
+            font-weight: bold;
+        }
+        button.wrong {
+            background-color: #f8d7da !important;
+            border-color: #dc3545 !important;
+            color: #721c24;
+        }
+        button:disabled {
+            cursor: default;
+        }
+    </style>
+</head>
+<body>
+
+<div id="quiz-container">
+    <h2>Test Wiedzy</h2>
+    <div id="questions-wrapper"></div>
+</div>
+
+<script>
+    // 1. Dane pytań w formie tablicy obiektów
+    const quizData = [
+{
+        question: "W których zespołach nie wystąpi zajęcie nadnerczy?",
+        options: [
+            "A) Men1 i APS3",
+            "B) APS3",
+            "C) APS1",
+            "D) APS2",
+            "E) MEN2"
+        ],
+        correct: 0 // Odpowiedź AAA sugeruje opcję A
+    },
+    {
+        question: "Które z poniższych stwierdzeń najlepiej opisuje przynależność chorób do zespołów wielonarządowych?",
+        options: [
+            "a) Niedoczynność kory nadnerczy jest typowa dla APS-1 i APS-2, natomiast guz chromochłonny występuje w MEN 2.",
+            "b) Choroba Addisona występuje wyłącznie w zespole MEN 2.",
+            "c) Guz chromochłonny jest charakterystyczną manifestacją zespołu Schmidta.",
+            "d) Zarówno niedoczynność kory nadnerczy, jak i guz chromochłonny są elementami składowymi APS-3.",
+            "e) Niedoczynność kory nadnerczy jest typowa dla MEN2, natomiast guz chromochłonny występuje w APS1 i APS2."
+        ],
+        correct: 0 // Odpowiedź AAA sugeruje opcję A
+    },
+    {
+        question: "Oceń prawdziwość poniższych zdań na podstawie obrazu klinicznego chorób kory nadnerczy (I-V):",
+        options: [
+            "A) I, II, III, V",
+            "B) I, III, IV",
+            "C) II, III, IV, V",
+            "D) I, II, IV",
+            "E) Wszystkie zdania są prawdziwe"
+        ],
+        correct: 0 // Odpowiedź AAA sugeruje opcję A
+    },
+    {
+        question: "Lekarz analizuje wynik tomografii komputerowej nadnerczy bez kontrastu u pacjenta z przypadkowym guzem. Wybierz prawidłowe stwierdzenie:",
+        options: [
+            "a) Wynik 30 j.H. wskazuje na wysoką zawartość lipidów, co jest charakterystyczne dla łagodnego gruczolaka.",
+            "b) Wynik -5 j.H. świadczy o dużej zawartości lipidów i wskazuje na gruczolaka, co zazwyczaj kończy diagnostykę obrazową.",
+            "c) Na tym etapie możemy bez wątpliwości rozpoznać myelolipoma, gruczolaka, pheochromocytoma, raka lub przerzut.",
+            "d) TK należy stosować również u kobiety w ciąży w celu dalszej diagnostyki incydentaloma nadnerczy.",
+            "e) W TK bez kontrastu guzy o niskiej densyjności są z reguły złośliwe, a te o wysokiej - łagodne."
+        ],
+        correct: 1 // Odpowiedź BBB sugeruje opcję B
+    },
+    {
+        question: "Wskaż zdanie fałszywe dotyczące guzów wydzielających katecholaminy (PPGL):",
+        options: [
+            "A) Termin PPGL obejmuje zarówno guzy chromochłonne (pheochromocytoma), jak i przyzwojaki (paraganglioma).",
+            "B) Większość guzów z grupy PPGL (około 85%) to guzy chromochłonne zlokalizowane w rdzeniu nadnerczy.",
+            "C) Przyzwojaki rozwijają się w ciałkach przyzwojowych wzdłuż włókien układu autonomicznego.",
+            "D) Przyzwojaki stanowią zdecydowaną większość (około 75%) wszystkich zdiagnozowanych przypadków PPGL.",
+            "E) Zarówno guzy chromochłonne, jak i przyzwojaki wywodzą się z komórek chromochłonnych."
+        ],
+        correct: 3 // Odpowiedź DDD sugeruje opcję D
+    },
+    {
+        question: "Pacjent z guzem chromochłonnym zgłasza napadowe bóle głowy, kołatania serca i poty. Który czynnik mógł wywołać napad - wybierz najpełniejszą kombinację?",
+        options: [
+            "a) Spożycie dużej ilości wody mineralnej",
+            "b) Podanie glikokortykosteroidów (GKS)",
+            "c) Zastosowanie beta-blokerów w monoterapii",
+            "d) Odpoczynek w pozycji leżącej",
+            "e) Pośpiech na pociąg po wczorajszej zakrapianej imprezie"
+        ],
+        correct: 4 // EEE
+    },
+    {
+        question: "Oceń prawdziwość zdań o hiperaldosteronizmie wtórnym (I-V):",
+        options: [
+            "A) I, II, III",
+            "B) I, II, V",
+            "C) II, IV, V",
+            "D) I, III, IV",
+            "E) Wszystkie zdania są prawdziwe"
+        ],
+        correct: 1 // BBB
+    },
+    {
+        question: "U którego pacjenta diagnostyka w kierunku pierwotnego hiperaldosteronizmu jest najmniej uzasadniona w pierwszej kolejności?",
+        options: [
+            "A) 35-latek z NT, którego ojciec miał udar w wieku 38 lat",
+            "B) 50-latka z NT i obturacyjnym bezdechem sennym (OBS)",
+            "C) 45-latek z łagodnym NT, dobrze kontrolowanym jednym lekiem",
+            "D) 28-latka z NT oraz stwierdzonym guzem nadnercza",
+            "E) 60-latek z opornym NT i niewyjaśnionym migotaniem przedsionków"
+        ],
+        correct: 2 // CCC
+    },
+    {
+        question: "Oceń prawdziwość stwierdzeń dotyczących diagnostyki różnicowej Zespołu Cushinga (I-V):",
+        options: [
+            "A) I, II, III, V",
+            "B) I, II, IV, V",
+            "C) II, III, IV",
+            "D) I, IV, V",
+            "E) Wszystkie zdania są prawdziwe"
+        ],
+        correct: 1 // BBB
+    },
+    {
+        question: "Wskaż zdanie fałszywe dotyczące różnicowania pierwotnej i wtórnej niedoczynności kory nadnerczy (NKN):",
+        options: [
+            "A) Hiperpigmentacja skóry jest typowa dla pierwotnej NKN",
+            "B) Hipoglikemia występuje częściej i ma cięższy przebieg we wtórnej NKN",
+            "C) Hiperkaliemia i odwodnienie są typowymi objawami we wtórnej NKN",
+            "D) Hipotensja występuje w obu, ale silniej w postaci pierwotnej",
+            "E) Wywiad o sterydoterapii sugeruje wtórną NKN"
+        ],
+        correct: 2 // CCC
+    },
+    {
+        question: "Oceń prawdziwość stwierdzeń dotyczących leczenia przełomu nadnerczowego (I-V):",
+        options: [
+            "A) I, II, III, IV",
+            "B) I, III, IV, V",
+            "C) II, IV, V",
+            "D) I, II, V",
+            "E) Wszystkie zdania są prawdziwe"
+        ],
+        correct: 1 // BBB
+    },
+    {
+        question: "Oceń prawdziwość zdań dotyczących kortyzolu i diagnostyki zespołu Cushinga (I-V):",
+        options: [
+            "A) I, II, III",
+            "B) I, IV, V",
+            "C) II, IV, V",
+            "D) I, III, IV",
+            "E) Wszystkie zdania są prawdziwe"
+        ],
+        correct: 1 // BBB
+    }
+    ];
+
+    const wrapper = document.getElementById('questions-wrapper');
+
+    // 2. Funkcja renderująca pytania
+    function initQuiz() {
+        quizData.forEach((data, qIndex) => {
+            const qBlock = document.createElement('div');
+            qBlock.className = 'question-block';
+            
+            qBlock.innerHTML = `<h3>${qIndex + 1}. ${data.question}</h3>`;
+            
+            const optionsDiv = document.createElement('div');
+            optionsDiv.className = 'options';
+
+            data.options.forEach((opt, oIndex) => {
+                const btn = document.createElement('button');
+                btn.innerText = opt;
+                btn.onclick = () => checkAnswer(qIndex, oIndex, optionsDiv);
+                optionsDiv.appendChild(btn);
+            });
+
+            qBlock.appendChild(optionsDiv);
+            wrapper.appendChild(qBlock);
+        });
+    }
+
+    // 3. Logika sprawdzania odpowiedzi
+    function checkAnswer(questionIdx, selectedIdx, container) {
+        const buttons = container.querySelectorAll('button');
+        const correctIdx = quizData[questionIdx].correct;
+
+        buttons.forEach((btn, i) => {
+            // Wyłączamy wszystkie przyciski w tym pytaniu po kliknięciu
+            btn.disabled = true;
+
+            // Zaznaczamy poprawną na zielono
+            if (i === correctIdx) {
+                btn.classList.add('correct');
+            }
+
+            // Jeśli użytkownik wybrał źle, zaznaczamy to na czerwono
+            if (i === selectedIdx && selectedIdx !== correctIdx) {
+                btn.classList.add('wrong');
+            }
+        });
+    }
+
+    // Uruchomienie testu
+    initQuiz();
+</script>
+
+</body>
+</html>
