@@ -72,30 +72,18 @@
 <script>
     // 1. Dane pytań w formie tablicy obiektów
     const quizData = [
-{
-        question: "W których zespołach nie wystąpi zajęcie nadnerczy?",
-        options: [
-            "A) Men1 i APS3",
-            "B) APS3",
-            "C) APS1",
-            "D) APS2",
-            "E) MEN2"
-        ],
-        correct: 0 // Odpowiedź AAA sugeruje opcję A
-    },
     {
-        question: "Które z poniższych stwierdzeń najlepiej opisuje przynależność chorób do zespołów wielonarządowych?",
-        options: [
-            "a) Niedoczynność kory nadnerczy jest typowa dla APS-1 i APS-2, natomiast guz chromochłonny występuje w MEN 2.",
-            "b) Choroba Addisona występuje wyłącznie w zespole MEN 2.",
-            "c) Guz chromochłonny jest charakterystyczną manifestacją zespołu Schmidta.",
-            "d) Zarówno niedoczynność kory nadnerczy, jak i guz chromochłonny są elementami składowymi APS-3.",
-            "e) Niedoczynność kory nadnerczy jest typowa dla MEN2, natomiast guz chromochłonny występuje w APS1 i APS2."
-        ],
-        correct: 0 // Odpowiedź AAA sugeruje opcję A
-    },
-    {
-        question: "Oceń prawdziwość poniższych zdań na podstawie obrazu klinicznego chorób kory nadnerczy (I-V):",
+        question: `Oceń prawdziwość poniższych zdań na podstawie obrazu klinicznego chorób kory nadnerczy:
+<br><br>
+I. Nadmierne wydzielanie androgenów nadnerczowych (DHEA, androstendion, testosteron) u kobiet może objawiać się niepłodnością, trądzikiem oraz łysieniem typu męskiego.
+<br><br>
+II. Feminizacja u mężczyzn, objawiająca się m.in. ginekomastią i spadkiem libido, jest wynikiem nadmiernego wydzielania estradiolu przez nadnercza.
+<br><br>
+III. W pierwotnej niedoczynności kory nadnerczy (NKN) obserwuje się hiperpigmentację skóry, podczas gdy we wtórnej NKN dochodzi do jej odbarwienia.
+<br><br>
+IV. Hipoglikemia jest objawem występującym rzadziej i o mniejszym nasileniu we wtórnej NKN w porównaniu do postaci pierwotnej.
+<br><br>
+V. Hiperkaliemia oraz wyraźne odwodnienie są cechami charakterystycznymi dla pierwotnej NKN i zazwyczaj nie występują w postaci wtórnej.`,
         options: [
             "A) I, II, III, V",
             "B) I, III, IV",
@@ -128,7 +116,7 @@
         correct: 3 // Odpowiedź DDD sugeruje opcję D
     },
     {
-        question: "Pacjent z guzem chromochłonnym zgłasza napadowe bóle głowy, kołatania serca i poty. Który czynnik mógł wywołać napad - wybierz najpełniejszą kombinację?",
+        question: "Pacjent z guzem chromochłonnym zgłasza napadowe bóle głowy, kołatania serca i poty. Który czynnik mógł wywołać napad - wybierz najpełniejszą kombinację:",
         options: [
             "a) Spożycie dużej ilości wody mineralnej",
             "b) Podanie glikokortykosteroidów (GKS)",
@@ -139,7 +127,17 @@
         correct: 4 // EEE
     },
     {
-        question: "Oceń prawdziwość zdań o hiperaldosteronizmie wtórnym (I-V):",
+        question: `Która z poniższych kombinacji zawiera wyłącznie zdania prawdziwe?
+<br><br>
+I. W przebiegu tej jednostki chorobowej nadmierne wydzielanie aldosteronu wynika z długotrwałego pobudzenia osi RAA.
+<br><br>
+II. Charakterystycznym profilem biochemicznym w badaniach jest wysoka aktywność reninowa osocza (ARO) przy jednocześnie wysokim stężeniu aldosteronu.
+<br><br>
+III. Każdy przypadek hiperaldosteronizmu wtórnego objawia się nadciśnieniem tętniczym (NT).
+<br><br>
+IV. Mechanizm powstawania tego zaburzenia jest analogiczny do hiperaldosteronizmu pierwotnego, gdzie problem leży bezpośrednio w samej strukturze nadnerczy.
+<br><br>
+V. Wyróżnia się postacie hiperaldosteronizmu wtórnego przebiegające zarówno z nadciśnieniem tętniczym, jak i bez niego.`,
         options: [
             "A) I, II, III",
             "B) I, II, V",
@@ -152,16 +150,26 @@
     {
         question: "U którego pacjenta diagnostyka w kierunku pierwotnego hiperaldosteronizmu jest najmniej uzasadniona w pierwszej kolejności?",
         options: [
-            "A) 35-latek z NT, którego ojciec miał udar w wieku 38 lat",
+            "A) 35-latka z NT, którego ojciec miał udar w wieku 38 lat",
             "B) 50-latka z NT i obturacyjnym bezdechem sennym (OBS)",
-            "C) 45-latek z łagodnym NT, dobrze kontrolowanym jednym lekiem",
+            "C) 45-latka z łagodnym NT, dobrze kontrolowanym jednym lekiem",
             "D) 28-latka z NT oraz stwierdzonym guzem nadnercza",
-            "E) 60-latek z opornym NT i niewyjaśnionym migotaniem przedsionków"
+            "E) 60-latka z opornym NT i niewyjaśnionym migotaniem przedsionków"
         ],
         correct: 2 // CCC
     },
     {
-        question: "Oceń prawdziwość stwierdzeń dotyczących diagnostyki różnicowej Zespołu Cushinga (I-V):",
+        question: `Która z poniższych kombinacji zawiera wyłącznie zdania prawdziwe?
+<br><br>         
+I. Stężenie ACTH rano wynoszące 5 ng/l wskazuje na ACTH-niezależny zespół Cushinga (np. guz nadnercza).
+<br><br>
+II. W chorobie Cushinga (gruczolak przysadki) po podaniu syntetycznego CRH obserwuje się znaczny wzrost stężenia ACTH i kortyzolu.
+<br><br>
+III. Wynik stężenia ACTH w przedziale $10–20$ ng/l jest diagnostyczny dla zespołu ektopowego wydzielania ACTH i nie wymaga dalszych badań.
+<br><br>
+IV. Brak hamowania wydzielania kortyzolu w teście z dużą dawką deksametazonu (8 mg) sugeruje zespół ektopowego wydzielania ACTH.
+<br><br>
+V. Test hamowania 8 mg DXM pozwala na zahamowanie wydzielania kortyzolu u pacjentów z chorobą Cushinga.`,
         options: [
             "A) I, II, III, V",
             "B) I, II, IV, V",
@@ -183,7 +191,17 @@
         correct: 2 // CCC
     },
     {
-        question: "Oceń prawdziwość stwierdzeń dotyczących leczenia przełomu nadnerczowego (I-V):",
+        question: `Która z poniższych kombinacji zawiera wyłącznie zdania prawdziwe
+<br><br>        
+I. Podstawą leczenia substytucyjnego jest podanie hydrokortyzonu, najpierw w bolusie i.v. (50–100 mg), a następnie w ciągłym wlewie dożylnym.
+<br><br>
+II. W intensywnej płynoterapii stosuje się wyłącznie 10% roztwór glukozy w celu wyrównania niedoborów energetycznych.
+<br><br>
+III. Niezbędnym elementem postępowania jest leczenie choroby podstawowej, która wyzwoliła przełom (np. zakażenia).
+<br><br>
+IV. Wyrównywanie zaburzeń elektrolitowych w przełomie nadnerczowym skupia się przede wszystkim na leczeniu hiponatremii i hiperkaliemii.
+<br><br>
+V. Standardowe dawkowanie hydrokortyzonu we wlewie dożylnym po podaniu bolusa wynosi zazwyczaj 100–200 mg na dobę.`,
         options: [
             "A) I, II, III, IV",
             "B) I, III, IV, V",
@@ -194,7 +212,17 @@
         correct: 1 // BBB
     },
     {
-        question: "Oceń prawdziwość zdań dotyczących kortyzolu i diagnostyki zespołu Cushinga (I-V):",
+        question: `Która z poniższych kombinacji zawiera wyłącznie zdania prawdziwe?
+<br><br>        
+I. Pierwszym zaburzeniem w zespole Cushinga jest zazwyczaj brak fizjologicznego spadku wydzielania kortyzolu w godzinach późnowieczornych.
+<br><br> 
+II. Kortyzol w ślinie występuje głównie w połączeniu z transkortyną (CBG), co pozwala na precyzyjny pomiar frakcji związanej.
+<br><br> 
+III. Około 75% kortyzolu we krwi krąży w połączeniu z albuminami, stanowiąc główny rezerwuar hormonu.
+<br><br> 
+IV. Prawidłowe stężenie kortyzolu w godzinach porannych nie wyklucza rozpoznania zespołu Cushinga.
+<br><br> 
+V. Glikokortykosteroidy (GKS) wywierają wpływ na organizm, wiążąc się głównie z receptorem GR, a w mniejszym stopniu z receptorem MR.`,
         options: [
             "A) I, II, III",
             "B) I, IV, V",
