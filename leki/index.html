@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mój Spis Leków - Dla Lekarza</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --accent: #27ae60;
+            --danger: #e74c3c;
+            --bg: #f4f7f6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--bg);
+            color: var(--primary);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        h1, h2 { text-align: center; color: var(--primary); }
+
+        /* Instrukcja */
+        .instruction-box {
+            background: #e8f4fd;
+            padding: 15px;
+            border-left: 5px solid #3498db;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        .checklist {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5px;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        /* Formularz Nagłówka */
+        .patient-info {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        input, select, textarea {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* Tabela */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #eee;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th { background-color: #f8f9fa; }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .btn-add { background: var(--accent); color: white; width: 100%; font-size: 1.1rem; margin-bottom: 20px; }
+        .btn-del { background: var(--danger); color: white; padding: 5px 10px; }
+        .btn-share { background: #3498db; color: white; flex: 1; }
+        .btn-print { background: #7f8c8d; color: white; flex: 1; }
+
+        /* Asystent Dawkowania (Modal) */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            align-items: center; justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 500px;
+        }
+
+        .dosage-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin: 15px 0;
+            text-align: center;
+        }
+
+        /* Mobilność */
+        @media (max-width: 600px) {
+            .checklist { grid-template-columns: 1fr; }
+            table, thead, tbody, th, td, tr { display: block; }
+            thead { display: none; }
+            tr { margin-bottom: 15px; border: 2px solid #eee; border-radius: 8px; padding: 10px; }
+            td { border: none; padding: 5px; position: relative; padding-left: 50%; }
+            td::before {
+                content: attr(data-label);
+                position: absolute; left: 10px; font-weight: bold; color: #7f8c8d;
+            }
+            .patient-info { flex-direction: column; }
+        }
+
+        /* Sekcja Output */
+        #outputSection {
+            display: none;
+            margin-top: 20px;
+            border-top: 2px solid #eee;
+            padding-top: 20px;
+        }
+
+        #rawText {
+            height: 150px;
+            font-family: monospace;
+            background: #f9f9f9;
+        }
+
+        .action-group { display: flex; gap: 10px; margin-top: 10px; }
+
+        @media print {
+            .no-print { display: none !important; }
+            .container { box-shadow: none; border: none; width: 100%; max-width: 100%; }
+            body { background: white; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1 class="no-print">Mój Spis Leków</h1>
+
+    <div class="patient-info no-print">
+        <input type="text" id="patientName" placeholder="Imię i Nazwisko pacjenta" oninput="updateOutput()">
+    </div>
+
+    <div class="instruction-box no-print">
+        <strong>Pamiętaj, aby wpisać:</strong>
+        <div class="checklist">
+            <span>✅ Leki od WSZYSTKICH lekarzy</span>
+            <span>✅ Suplementy i witaminy</span>
+            <span>✅ Krople, wziewy i maści</span>
+            <span>✅ Leki z lodówki (insuliny)</span>
+        </div>
+        <p style="font-size: 0.85rem; margin-top: 10px; color: #555;">
+            * Jeśli nie znasz substancji czynnej lub dawki, zostaw pole puste. Lekarz sam uzupełni te dane.
+        </p>
+    </div>
+
+    <button class="btn btn-add no-print" onclick="openModal()">+ DODAJ LEK DO LISTY</button>
+
+    <table id="medTable">
+        <thead>
+            <tr>
+                <th style="width: 30px;">Nr</th>
+                <th>Nazwa leku</th>
+                <th>Substancja / Dawka</th>
+                <th>Dawkowanie</th>
+                <th>Uwagi</th>
+                <th class="no-print">Akcja</th>
+            </tr>
+        </thead>
+        <tbody id="medList">
+            </tbody>
+    </table>
+
+    <div class="action-group no-print">
+        <button class="btn btn-share" onclick="showOutput()">GENERUJ I UDOSTĘPNIJ</button>
+        <button class="btn btn-print" onclick="window.print()">DRUKUJ SPIS</button>
+    </div>
+
+    <div id="outputSection">
+        <h3>Format dla lekarza (tekstowy):</h3>
+        <textarea id="rawText" readonly></textarea>
+        <div class="action-group">
+            <button class="btn btn-share" onclick="shareData()">WYŚLIJ LEKI (SMS/WhatsApp)</button>
+        </div>
+    </div>
+</div>
+
+<div id="medModal" class="modal">
+    <div class="modal-content">
+        <h3>Dodaj nowy lek</h3>
+        <label>Nazwa handlowa (z pudełka):</label>
+        <input type="text" id="mName" placeholder="np. Amlopin">
+        
+        <label style="margin-top:10px; display:block;">Substancja czynna / Moc:</label>
+        <div style="display:flex; gap:5px;">
+            <input type="text" id="mActive" placeholder="np. Amlodipinum">
+            <input type="text" id="mDose" placeholder="np. 5mg" style="width: 100px;">
+        </div>
+
+        <label style="margin-top:10px; display:block;">Dawkowanie:</label>
+        <select id="mType" onchange="toggleDosageView()">
+            <option value="std">Stałe pory (Rano-Poł-Wiecz-Noc)</option>
+            <option value="prn">Doraźnie (w razie potrzeby)</option>
+            <option value="custom">Inny opis (np. raz w tygodniu)</option>
+        </select>
+
+        <div id="viewStd" class="dosage-grid">
+            <div>R<br><input type="text" id="dR" value="0" onclick="this.select()"></div>
+            <div>P<br><input type="text" id="dP" value="0" onclick="this.select()"></div>
+            <div>W<br><input type="text" id="dW" value="0" onclick="this.select()"></div>
+            <div>N<br><input type="text" id="dN" value="0" onclick="this.select()"></div>
+        </div>
+        <div id="viewCustom" style="display:none; margin-top:10px;">
+            <input type="text" id="mCustomDosage" placeholder="np. 1 tabletka co drugą środę">
+        </div>
+
+        <label style="margin-top:10px; display:block;">Dodatkowe uwagi:</label>
+        <input type="text" id="mNotes" placeholder="np. na czczo, po jedzeniu">
+
+        <div class="action-group" style="margin-top:20px;">
+            <button class="btn btn-add" onclick="saveMedication()">ZAPISZ LEK</button>
+            <button class="btn btn-print" onclick="closeModal()">ANULUJ</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    let meds = [];
+
+    function openModal() {
+        document.getElementById('medModal').style.display = 'flex';
+        resetForm();
+    }
+
+    function closeModal() {
+        document.getElementById('medModal').style.display = 'none';
+    }
+
+    function resetForm() {
+        document.getElementById('mName').value = '';
+        document.getElementById('mActive').value = '';
+        document.getElementById('mDose').value = '';
+        document.getElementById('mNotes').value = '';
+        document.getElementById('mCustomDosage').value = '';
+        document.getElementById('mType').value = 'std';
+        document.getElementById('dR').value = '0';
+        document.getElementById('dP').value = '0';
+        document.getElementById('dW').value = '0';
+        document.getElementById('dN').value = '0';
+        toggleDosageView();
+    }
+
+    function toggleDosageView() {
+        const type = document.getElementById('mType').value;
+        document.getElementById('viewStd').style.display = type === 'std' ? 'grid' : 'none';
+        document.getElementById('viewCustom').style.display = (type === 'custom' || type === 'prn') ? 'block' : 'none';
+        
+        if(type === 'prn') {
+            document.getElementById('mCustomDosage').value = 'Doraźnie (w razie potrzeby)';
+        }
+    }
+
+    function saveMedication() {
+        const name = document.getElementById('mName').value;
+        if(!name) { alert("Podaj chociaż nazwę leku!"); return; }
+
+        let dosage = "";
+        const type = document.getElementById('mType').value;
+        if(type === 'std') {
+            dosage = `${document.getElementById('dR').value}-${document.getElementById('dP').value}-${document.getElementById('dW').value}-${document.getElementById('dN').value}`;
+        } else {
+            dosage = document.getElementById('mCustomDosage').value;
+        }
+
+        const med = {
+            name: name,
+            active: document.getElementById('mActive').value,
+            dose: document.getElementById('mDose').value,
+            dosage: dosage,
+            notes: document.getElementById('mNotes').value
+        };
+
+        meds.push(med);
+        renderTable();
+        closeModal();
+        updateOutput();
+    }
+
+    function deleteMed(index) {
+        meds.splice(index, 1);
+        renderTable();
+        updateOutput();
+    }
+
+    function renderTable() {
+        const tbody = document.getElementById('medList');
+        tbody.innerHTML = '';
+        meds.forEach((m, index) => {
+            const row = tbody.insertRow();
+            row.innerHTML = `
+                <td data-label="Nr">${index + 1}</td>
+                <td data-label="Nazwa leku"><strong>${m.name}</strong></td>
+                <td data-label="Substancja/Moc">${m.active} ${m.dose}</td>
+                <td data-label="Dawkowanie">${m.dosage}</td>
+                <td data-label="Uwagi">${m.notes}</td>
+                <td class="no-print"><button class="btn btn-del" onclick="deleteMed(${index})">Usuń</button></td>
+            `;
+        });
+    }
+
+    function updateOutput() {
+        const name = document.getElementById('patientName').value || "Pacjent Nienazwany";
+        const date = new Date().toLocaleDateString();
+        let text = `LISTA LEKÓW: ${name}\nData: ${date}\n-----------------------------------\n`;
+        
+        meds.forEach((m, index) => {
+            text += `${index + 1}. ${m.name}\t${m.active}\t(${m.dose})\t${m.dosage}\t${m.notes}\n`;
+        });
+
+        document.getElementById('rawText').value = text;
+    }
+
+    function showOutput() {
+        document.getElementById('outputSection').style.display = 'block';
+        updateOutput();
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    async function shareData() {
+        const text = document.getElementById('rawText').value;
+        if (navigator.share) {
+            try {
+                await navigator.share({ title: 'Moje Leki', text: text });
+            } catch (err) { console.log("Błąd udostępniania"); }
+        } else {
+            navigator.clipboard.writeText(text);
+            alert("Skopiowano do schowka! Możesz teraz wkleić listę do SMS lub WhatsApp.");
+        }
+    }
+</script>
+
+</body>
+</html>
